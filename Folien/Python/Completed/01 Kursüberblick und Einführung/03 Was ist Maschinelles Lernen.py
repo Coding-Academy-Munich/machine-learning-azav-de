@@ -10,7 +10,7 @@
 # %% [markdown]
 #
 # <img src="img/robots-playing-checkers.png"
-#      style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
+#      style="width: 90%; margin-left: auto; margin-right: auto; display: block;">
 
 # %% [markdown]
 #
@@ -103,21 +103,21 @@
 # ### Installation der benötigten Bibliotheken
 
 # %%
-# !pip install matplotlib seaborn scikit-learn pandas numpy transformers huggingface_hub[hf_xet]
+# #!pip install matplotlib seaborn scikit-learn pandas numpy transformers huggingface_hub[hf_xet]
 
 # %% [markdown]
 #
 # Installation von PyTorch mit CUDA-Unterstützung (falls GPU vorhanden)
 
 # %%
-# !pip install torch torchvision --index-url https://download.pytorch.org/whl/cu129
+# #!pip install torch torchvision --index-url https://download.pytorch.org/whl/cu129
 
 # %% [markdown]
 #
 # Installation von PyTorch ohne CUDA-Unterstützung (CPU only)
 
 # %%
-# !pip install torch torchvision
+# #!pip install torch torchvision
 
 # %% [markdown]
 #
