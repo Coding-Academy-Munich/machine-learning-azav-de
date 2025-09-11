@@ -135,19 +135,19 @@ add(2, 3)
 # ## Ausführen eines Modells
 
 # %%
-# from transformers import pipeline
+from transformers import pipeline
 
 # %%
-# sentiment_analysis_model = pipeline("sentiment-analysis", model="microsoft/deberta-xlarge-mnli")
+sentiment_analysis_model = pipeline("text-classification", model="distilbert/distilbert-base-uncased-finetuned-sst-2-english")
 
 # %%
-# sentiment_analysis_model("I love machine learning!")
+sentiment_analysis_model("I love machine learning!")
 
 # %%
-# sentiment_analysis_model("I hate bad weather!")
+sentiment_analysis_model("I hate bad weather!")
 
 # %%
-# sentiment_analysis_model("It's all right, I guess.")
+sentiment_analysis_model("It's all right, I guess.")
 
 # %% [markdown]
 #
