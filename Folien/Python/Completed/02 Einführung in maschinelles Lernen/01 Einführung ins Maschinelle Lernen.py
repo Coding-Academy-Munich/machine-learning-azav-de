@@ -176,30 +176,14 @@ from ipywidgets import interact, FloatSlider
 
 # %%
 def plot_catering_model(base_price=100.0, price_per_person=30.0):
-    """Plot the catering price model with given parameters."""
-    # Create x values from 0 to 40
     x_values = list(range(0, 41))
 
-    # Create model and calculate prices
     model = CateringPriceModel(base_price, price_per_person)
     y_values = [model.predict_price(x) for x in x_values]
 
-    # Create the plot
     plt.figure(figsize=(10, 6))
-
-    # Plot the model line
     plt.plot(x_values, y_values, "r-", linewidth=2, label="Model Prediction")
-
-    # Plot the original data points from Provider A
-    plt.scatter(
-        num_people,
-        offered_prices,
-        color="blue",
-        s=100,
-        zorder=5,
-        label="Provider A Data",
-    )
-
+    plt.scatter(num_people, offered_prices, s=100, zorder=5, label="Provider A Data")
     plt.title(
         f"Catering Price Model (Base: €{base_price:.2f}, Per Person: €{price_per_person:.2f})"
     )
