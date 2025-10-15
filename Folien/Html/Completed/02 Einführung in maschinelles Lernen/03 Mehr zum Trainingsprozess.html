@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=df3d7c02b915e14e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=67d8240567ecfdc6"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Einführung ins Maschinelle Lernen</b>
+<b>Mehr zum Trainingsprozess</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,250 +13145,62 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8b347b60735d71c1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b412380343646d78"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img alt="No description has been provided for this image" src="img/robots-playing-checkers.png" style="width: 90%; margin-left: auto; margin-right: auto; display: block;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=35a8d6de6d15631c"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Was-ist-Maschinelles-Lernen-(ML)?">Was ist Maschinelles Lernen (ML)?<a class="anchor-link" href="#Was-ist-Maschinelles-Lernen-(ML)?">¶</a></h3><p>Entwicklung von Systemen, die aus Daten lernen können</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=eb69af3dc7b1b6a3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Warum?">Warum?<a class="anchor-link" href="#Warum?">¶</a></h3><ul>
-<li>Viele reale Probleme sind zu komplex, um sie mit traditionellen
-Programmiertechniken zu lösen.</li>
-<li>Die Funktionsweise eines Programms kann verbessert/angepasst werden,
-indem wir ihm mehr Daten geben.</li>
+<h2 id="Daten">Daten<a class="anchor-link" href="#Daten">¶</a></h2><ul>
+<li>10 Datensätze mit 1 Merkmal</li>
+<li>Jedes Merkmal ist eine Zahl zwischen 0.5 und 9.0</li>
+<li>Zu jedem Datensatz gehört ein Label (2.1 bis 19.2)</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4060fae56840b494"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Wie-funktioniert-das?">Wie funktioniert das?<a class="anchor-link" href="#Wie-funktioniert-das?">¶</a></h3><ul>
-<li>Wir erstellen ein <strong>Modell</strong><ul>
-<li>Programm, das mehrere ähnliche Probleme lösen kann</li>
-</ul>
-</li>
-<li>Wir <strong>trainieren</strong> das Modell<ul>
-<li>Indem wir ihm Daten zeigen, lernt es unser konkretes Problem zu lösen</li>
-</ul>
-</li>
-<li>Wir <strong>evaluieren</strong> das Modell<ul>
-<li>Wir testen, wie gut es unser konkretes Problem löst</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ce333dcf3c839db0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Beispiel:-Preis-eines-Pizzas">Beispiel: Preis eines Pizzas<a class="anchor-link" href="#Beispiel:-Preis-eines-Pizzas">¶</a></h3><ul>
-<li>Preis einer Pizza bestimmt durch<ul>
-<li>Grundpreis</li>
-<li>Anzahl der Beläge (jeder Belag kostet gleich viel)</li>
-</ul>
-</li>
-<li>Ist das ein Problem, für das sich ML anbietet?</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=cc6ad3657f683893"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Programm-zur-Berechnung-des-Pizza-Preises">Programm zur Berechnung des Pizza-Preises<a class="anchor-link" href="#Programm-zur-Berechnung-des-Pizza-Preises">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=3186f3da3457cdcb">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7f5efb07287e5a09">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">,</span> <span class="mf">6.3</span><span class="p">,</span> <span class="mf">7.6</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">]</span>
+<span class="n">data_y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">,</span> <span class="mf">7.1</span><span class="p">,</span> <span class="mf">9.3</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span> <span class="mf">13.2</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">,</span> <span class="mf">17.1</span><span class="p">,</span> <span class="mf">19.2</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=100bcee7b70c1916">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b1b9b8e56025f987">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_x</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"We have </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">data_x</span><span class="p">)</span><span class="si">}</span><span class="s2"> labeled data points."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>We have 10 labeled data points.
+</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e1507e07a8b8ead7"><div class="prompt input_prompt">
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=0e0f281b4fbccdff"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Was ist, wenn wir das Programm für verschiedene Pizzerien verwenden wollen?<ul>
-<li>Unterschiedliche Grundpreise</li>
-<li>Unterschiedliche Preise pro Belag</li>
-</ul>
-</li>
-<li>Wir können ein Programm schreiben, das für beliebige Preise funktioniert</li>
-</ul>
+<h2 id="Visualisierung-der-Daten">Visualisierung der Daten<a class="anchor-link" href="#Visualisierung-der-Daten">¶</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=27bc966ac38bf01b">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b2169c37a252a357">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4d8f50daa7e94f2f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d1b176e836748a1b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=31df0bbfd4b28238">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a3b0a2fe86b2568a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=14a395f92605b4ff"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Unser <code>PizzaCalculator</code> kann "verschiedene Probleme" lösen</li>
-<li>Aber er kann nicht "lernen"</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c559d070e03fb2c5"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Beispiel:-Catering-Service">Beispiel: Catering-Service<a class="anchor-link" href="#Beispiel:-Catering-Service">¶</a></h3><ul>
-<li>Wir wollen einen Catering-Service starten</li>
-<li>Wie viel sollen wir für ein Event verlangen?</li>
-<li>Vermutung: Konkurrenzpreise bestehen aus<ul>
-<li>Grundpreis</li>
-<li>Preis pro Person</li>
-</ul>
-</li>
-<li>Aber wir bekommen von der Konkurrenz nur Angebote für komplette Events,
-nicht die Komponenten dahinter</li>
-<li>Wie können wir vorgehen?<ul>
-<li>Ist das ein Problem, für das sich ML anbietet?</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6c5b3c240148d62f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Vorgehensweise">Vorgehensweise<a class="anchor-link" href="#Vorgehensweise">¶</a></h3><ul>
-<li>Wir holen uns von Konkurrenten Angebote für Events mit verschiedenen
-Personenzahlen</li>
-<li>Daraus versuchen wir, den Grundpreis und den Preis pro Person zu
-schätzen<ul>
-<li>Werte ausprobieren</li>
-<li>Mathematisch: Lineare Regression</li>
-<li>Graphisch: Gerade durch Punktewolke legen</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=35126048a3c8a1c9"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Daten-von-Anbieter-A">Daten von Anbieter A<a class="anchor-link" href="#Daten-von-Anbieter-A">¶</a></h3><table>
-<thead>
-<tr>
-<th>Anzahl Personen</th>
-<th>Angebotspreis</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>10</td>
-<td>400 €</td>
-</tr>
-<tr>
-<td>20</td>
-<td>700 €</td>
-</tr>
-<tr>
-<td>30</td>
-<td>1000 €</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6cb45c65e05ef9c8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Visualisierung-der-Preise">Visualisierung der Preise<a class="anchor-link" href="#Visualisierung-der-Preise">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b2169c37a252a357">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [3]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
@@ -13397,469 +13209,1083 @@ schätzen<ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d41b380d7c0fe1ec">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7d884af1ede27f51">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">data_x</span><span class="p">,</span> <span class="n">data_y</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=688dc5015761962d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_png output_subarea">
+<img alt="No description has been provided for this image" src="data:image/png;base64,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rVpaO+oBAICZCCwJpqrufLsrK9eyJfkDzaqqO99/RQEAcIMILAmmsanzsNKbfgAAmIDAkmDSXM6Y9gMAwAQElgSTk5Uqr9upzh5etnT1aaGcrNT+LAsAgBtCYEkwyUmWCvJ8ktQutLTtF+T5WI8FADCgEFgSUG62V8WLJ8njjrzt43E7Vbx4EuuwAAAGHBaOS1C52V7N8XlY6RYAkBAILAksOcnStNHD4l0GAAA3jFtCAADAeAQWAABgPAILAAAwHoEFAAAYj8ACAACMR2ABAADGI7AAAADjEVgAAIDxCCwAAMB4MQ8sRUVFmjx5slwul9LS0rRgwQKdPn26yzGHDx+WZVnttl//+texLg8AAAxAMQ8sR44c0cqVK/XOO+/o4MGDunLliubOnatLly51O/b06dPy+/3hbcyYMbEuDwAADEAxf5dQRUVFxP727duVlpam9957TzNmzOhybFpamm699dZYlwQAAAa4Pp/DEggEJEmpqand9p04caK8Xq9mz56tt956q8u+oVBIwWAwYgMAAImpTwOLbdvKz8/Xfffdp+zs7E77eb1ebdu2TaWlpXr99df1pS99SbNnz1ZlZWWnY4qKiuR2u8NbZmZmX3wFAABgAMu2bbuvTr5y5Urt379fR48e1YgRI6Iam5eXJ8uytG/fvg6Ph0IhhUKh8H4wGFRmZqYCgYBSUlJuqG4AANA/gsGg3G53t7/fMZ/D0mbVqlXat2+fKisrow4rkjR16lSVlJR0etzhcMjhcNxIid1qabVVVXdejU3NSnM5lZOVquQkq08/EwAAtBfzwGLbtlatWqWysjIdPnxYWVlZvTrPyZMn5fV6Y1xdz1XU+FVYXit/oDnc5nU7VZDnU252/OoCAGAwinlgWblypV577TXt3btXLpdLDQ0NkiS3262hQ4dKktatW6dz587p1VdflSRt3rxZd9xxh8aNG6fLly+rpKREpaWlKi0tjXV5PVJR49eKkmpdf6+sIdCsFSXVKl48idACAEA/inlgKS4uliTNnDkzon379u1avny5JMnv96u+vj587PLly3rmmWd07tw5DR06VOPGjdP+/fv1wAMPxLq8brW02iosr20XViTJlmRJKiyv1Ryfh9tDAAD0kz6ddNufejpppzvHPv5Mj770Trf9dj4xVdNGD+v15wAAgJ7/fvMuoes0NjV33ymKfgAA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"/>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=bcb324543bdf89b4">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1465786f11a0cf52"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4b0ed0d95b1b5d3e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Interaktive-Visualisierung-des-Catering-Preismodells">Interaktive Visualisierung des Catering-Preismodells<a class="anchor-link" href="#Interaktive-Visualisierung-des-Catering-Preismodells">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=47d2c15fb921d6ff">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=23457d101fee13d5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_catering_model</span><span class="p">(</span><span class="n">base_price</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">price_per_person</span><span class="o">=</span><span class="mf">30.0</span><span class="p">):</span>
-    <span class="n">x_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">))</span>
-
-    <span class="n">model</span> <span class="o">=</span> <span class="n">CateringPriceModel</span><span class="p">(</span><span class="n">base_price</span><span class="p">,</span> <span class="n">price_per_person</span><span class="p">)</span>
-    <span class="n">y_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">predict_price</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_values</span><span class="p">]</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y_values</span><span class="p">,</span> <span class="s2">"r-"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Model Prediction"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">num_people</span><span class="p">,</span> <span class="n">offered_prices</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Provider A Data"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">"Catering Price Model (Base: €</span><span class="si">{</span><span class="n">base_price</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Per Person: €</span><span class="si">{</span><span class="n">price_per_person</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)"</span>
-    <span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Number of People"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Price (€)"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">y_values</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">offered_prices</span><span class="p">))</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=5fd393b57179bbf0">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">interact</span><span class="p">(</span>
-    <span class="n">plot_catering_model</span><span class="p">,</span>
-    <span class="n">base_price</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span>
-        <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Base Price (€)"</span>
-    <span class="p">),</span>
-    <span class="n">price_per_person</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span>
-        <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Price/Person (€)"</span>
-    <span class="p">),</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b285462124d8214d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Können wir das Berechnen von <code>base_price</code> und <code>price_per_person</code>
-automatisieren?</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=88f05fc9ba68831c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=144fdd700173d0b3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Trainieren-des-Modells">Trainieren des Modells<a class="anchor-link" href="#Trainieren-des-Modells">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=56c2c029e124131f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e7342bc13031884d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d3d65141c6dfc07c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8b1a6f54fbf9934b"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verwenden-des-trainierten-Modells">Verwenden des trainierten Modells<a class="anchor-link" href="#Verwenden-des-trainierten-Modells">¶</a></h3><p>Für Werte, die das Modell bereits gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=085d6c61e1672fb8">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=0b12cd0679d2f08e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Für Werte, die das Modell noch nie gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4d250f6a4a8db630">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=aef8c96bab09e66f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verwenden-von-Scikit-Learn-Modellen">Verwenden von Scikit-Learn Modellen<a class="anchor-link" href="#Verwenden-von-Scikit-Learn-Modellen">¶</a></h3><ul>
-<li>Unser Modell hat nicht wirklich etwas mit "Catering" zu tun<ul>
-<li>Es lässt sich auf jedes Problem anwenden, bei dem eine lineare Beziehung
-zwischen Eingabe und Ausgabe besteht</li>
-</ul>
-</li>
-<li>Die Implementierung ist sehr einfach und nicht sehr robust<ul>
-<li>Es ignoriert beim Training alle Punkte außer den ersten und letzten</li>
-<li>Es kann nicht mit Daten umgehen, die "Rauschen" enthalten</li>
-</ul>
-</li>
-<li>Die Bibliothek <a href="https://scikit-learn.org/">Scikit-Learn</a> bietet
-viele vorgefertigte Modelle, die wir verwenden können</li>
-<li>Unser Modell nennt man eine <strong>lineare Regression</strong></li>
+<h2 id="Aufteilen-der-Daten-in-Trainings--und-Testdaten">Aufteilen der Daten in Trainings- und Testdaten<a class="anchor-link" href="#Aufteilen-der-Daten-in-Trainings--und-Testdaten">¶</a></h2><ul>
+<li>Nach dem Training muss das Modell bewertet werden</li>
+<li>Die Bewertung muss auf anderen Daten basieren als das Training</li>
+<li>Andernfalls könnte der Lernende nur die Beispiele speichern, die er gesehen hat</li>
+<li>Uns interessiert aber wie gut das Modell auf neuen Daten funktioniert (generalisiert)</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=d92764017119a249">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4f5009a01e0a0e6d">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Splitting the data: 6 for training, 4 for testing</span>
+<span class="n">train_x</span> <span class="o">=</span> <span class="p">[[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data_x</span><span class="p">[:</span><span class="mi">6</span><span class="p">]]</span>
+<span class="n">train_y</span> <span class="o">=</span> <span class="n">data_y</span><span class="p">[:</span><span class="mi">6</span><span class="p">]</span>
+<span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span>
 </pre></div>
 </div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[5]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>([[0.5], [1.4], [2.1], [3.5], [4.2], [5.1]], [2.1, 3.5, 5.8, 7.1, 9.3, 11.5])</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=288c1335778b24ae">
+<div class="input">
+<div class="prompt input_prompt">In [6]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">test_x</span> <span class="o">=</span> <span class="p">[[</span><span class="n">x</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">data_x</span><span class="p">[</span><span class="mi">6</span><span class="p">:]]</span>
+<span class="n">test_y</span> <span class="o">=</span> <span class="n">data_y</span><span class="p">[</span><span class="mi">6</span><span class="p">:]</span>
+<span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[6]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>([[6.3], [7.6], [8.2], [9.0]], [13.2, 16.0, 17.1, 19.2])</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d2c99fe918f24e67">
+<div class="input">
+<div class="prompt input_prompt">In [7]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Training samples: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">train_x</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Test samples: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">test_x</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Training samples: 6
+Test samples: 4
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1fe4c9fffe7203ff"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Trainieren-des-Modells">Trainieren des Modells<a class="anchor-link" href="#Trainieren-des-Modells">¶</a></h2>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=7d20a6d42e11ce7a">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearRegression</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c94b461a5ac1d850">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0c5528491b2b62cb">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">LinearRegression</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ced68870bba257d5">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ec201c73147841a8">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [10]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Model is not fitted yet."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Model is not fitted yet.
+</pre>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=77e60b06d7b2b6f1">
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=34c3bcc962d1c455">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [11]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=929d032280ac4526">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4b2cdea09c0e0cd3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=39ff05de89c0654a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verwenden-des-Scikit-Learn-Modells">Verwenden des Scikit-Learn Modells<a class="anchor-link" href="#Verwenden-des-Scikit-Learn-Modells">¶</a></h3><p>Für Werte, die das Modell bereits gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6a17df094bcfc108">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=cb1bd4cb36e0537a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Für Werte, die das Modell noch nie gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d015d7dc1c8c55f5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=73c3f8a2fe04cd87"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Für mehrere Werte</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a282a915da7fdf55">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a370dc6eaf571bb6"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-trainiertes-Modell">Programm vs. trainiertes Modell<a class="anchor-link" href="#Programm-vs.-trainiertes-Modell">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-01.png" style="width: 80%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d27a6e2c66f73370"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-trainiertes-Modell">Programm vs. trainiertes Modell<a class="anchor-link" href="#Programm-vs.-trainiertes-Modell">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-02.png" style="width: 80%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=f2c80a3b1b3ce0f0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-Modell-(Erstellung)">Programm vs. Modell (Erstellung)<a class="anchor-link" href="#Programm-vs.-Modell-(Erstellung)">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-03.png" style="width: 50%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4601a92ad1c10135"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-Modell-(Erstellung)">Programm vs. Modell (Erstellung)<a class="anchor-link" href="#Programm-vs.-Modell-(Erstellung)">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-04.png" style="width: 60%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=3a4ace27f12ab594"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop:-Fremdenf%C3%BChrer">Workshop: Fremdenführer<a class="anchor-link" href="#Workshop:-Fremdenf%C3%BChrer">¶</a></h2><p>Sie wollen einen Service starten, der Touristen durch Ihre Stadt führt. Um die
-Preise für Ihre Führungen festzulegen, haben Sie die Preise von Wettbewerbern
-in der Nähe recherchiert und die folgenden Daten gesammelt:</p>
-<table>
-<thead>
-<tr>
-<th>Anzahl Personen</th>
-<th>Angebotspreis</th>
-</tr>
-</thead>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[11]:</div>
+<div class="output_html rendered_html output_subarea output_execute_result"><style>#sk-container-id-1 {
+  /* Definition of color scheme common for light and dark mode */
+  --sklearn-color-text: #000;
+  --sklearn-color-text-muted: #666;
+  --sklearn-color-line: gray;
+  /* Definition of color scheme for unfitted estimators */
+  --sklearn-color-unfitted-level-0: #fff5e6;
+  --sklearn-color-unfitted-level-1: #f6e4d2;
+  --sklearn-color-unfitted-level-2: #ffe0b3;
+  --sklearn-color-unfitted-level-3: chocolate;
+  /* Definition of color scheme for fitted estimators */
+  --sklearn-color-fitted-level-0: #f0f8ff;
+  --sklearn-color-fitted-level-1: #d4ebff;
+  --sklearn-color-fitted-level-2: #b3dbfd;
+  --sklearn-color-fitted-level-3: cornflowerblue;
+
+  /* Specific color for light theme */
+  --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, white)));
+  --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, black)));
+  --sklearn-color-icon: #696969;
+
+  @media (prefers-color-scheme: dark) {
+    /* Redefinition of color scheme for dark theme */
+    --sklearn-color-text-on-default-background: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-background: var(--sg-background-color, var(--theme-background, var(--jp-layout-color0, #111)));
+    --sklearn-color-border-box: var(--sg-text-color, var(--theme-code-foreground, var(--jp-content-font-color1, white)));
+    --sklearn-color-icon: #878787;
+  }
+}
+
+#sk-container-id-1 {
+  color: var(--sklearn-color-text);
+}
+
+#sk-container-id-1 pre {
+  padding: 0;
+}
+
+#sk-container-id-1 input.sk-hidden--visually {
+  border: 0;
+  clip: rect(1px 1px 1px 1px);
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+#sk-container-id-1 div.sk-dashed-wrapped {
+  border: 1px dashed var(--sklearn-color-line);
+  margin: 0 0.4em 0.5em 0.4em;
+  box-sizing: border-box;
+  padding-bottom: 0.4em;
+  background-color: var(--sklearn-color-background);
+}
+
+#sk-container-id-1 div.sk-container {
+  /* jupyter's `normalize.less` sets `[hidden] { display: none; }`
+     but bootstrap.min.css set `[hidden] { display: none !important; }`
+     so we also need the `!important` here to be able to override the
+     default hidden behavior on the sphinx rendered scikit-learn.org.
+     See: https://github.com/scikit-learn/scikit-learn/issues/21755 */
+  display: inline-block !important;
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-text-repr-fallback {
+  display: none;
+}
+
+div.sk-parallel-item,
+div.sk-serial,
+div.sk-item {
+  /* draw centered vertical line to link estimators */
+  background-image: linear-gradient(var(--sklearn-color-text-on-default-background), var(--sklearn-color-text-on-default-background));
+  background-size: 2px 100%;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+/* Parallel-specific style estimator block */
+
+#sk-container-id-1 div.sk-parallel-item::after {
+  content: "";
+  width: 100%;
+  border-bottom: 2px solid var(--sklearn-color-text-on-default-background);
+  flex-grow: 1;
+}
+
+#sk-container-id-1 div.sk-parallel {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  background-color: var(--sklearn-color-background);
+  position: relative;
+}
+
+#sk-container-id-1 div.sk-parallel-item {
+  display: flex;
+  flex-direction: column;
+}
+
+#sk-container-id-1 div.sk-parallel-item:first-child::after {
+  align-self: flex-end;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:last-child::after {
+  align-self: flex-start;
+  width: 50%;
+}
+
+#sk-container-id-1 div.sk-parallel-item:only-child::after {
+  width: 0;
+}
+
+/* Serial-specific style estimator block */
+
+#sk-container-id-1 div.sk-serial {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--sklearn-color-background);
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+
+/* Toggleable style: style used for estimator/Pipeline/ColumnTransformer box that is
+clickable and can be expanded/collapsed.
+- Pipeline and ColumnTransformer use this feature and define the default style
+- Estimators will overwrite some part of the style using the `sk-estimator` class
+*/
+
+/* Pipeline and ColumnTransformer style (default) */
+
+#sk-container-id-1 div.sk-toggleable {
+  /* Default theme specific background. It is overwritten whether we have a
+  specific estimator or a Pipeline/ColumnTransformer */
+  background-color: var(--sklearn-color-background);
+}
+
+/* Toggleable label */
+#sk-container-id-1 label.sk-toggleable__label {
+  cursor: pointer;
+  display: flex;
+  width: 100%;
+  margin-bottom: 0;
+  padding: 0.5em;
+  box-sizing: border-box;
+  text-align: center;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.5em;
+}
+
+#sk-container-id-1 label.sk-toggleable__label .caption {
+  font-size: 0.6rem;
+  font-weight: lighter;
+  color: var(--sklearn-color-text-muted);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:before {
+  /* Arrow on the left of the label */
+  content: "▸";
+  float: left;
+  margin-right: 0.25em;
+  color: var(--sklearn-color-icon);
+}
+
+#sk-container-id-1 label.sk-toggleable__label-arrow:hover:before {
+  color: var(--sklearn-color-text);
+}
+
+/* Toggleable content - dropdown */
+
+#sk-container-id-1 div.sk-toggleable__content {
+  display: none;
+  text-align: left;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content pre {
+  margin: 0.2em;
+  border-radius: 0.25em;
+  color: var(--sklearn-color-text);
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-toggleable__content.fitted pre {
+  /* unfitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~div.sk-toggleable__content {
+  /* Expand drop-down */
+  display: block;
+  width: 100%;
+  overflow: visible;
+}
+
+#sk-container-id-1 input.sk-toggleable__control:checked~label.sk-toggleable__label-arrow:before {
+  content: "▾";
+}
+
+/* Pipeline/ColumnTransformer-specific style */
+
+#sk-container-id-1 div.sk-label input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator-specific style */
+
+/* Colorize estimator box */
+#sk-container-id-1 div.sk-estimator input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted input.sk-toggleable__control:checked~label.sk-toggleable__label {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+#sk-container-id-1 div.sk-label label.sk-toggleable__label,
+#sk-container-id-1 div.sk-label label {
+  /* The background is the default theme color */
+  color: var(--sklearn-color-text-on-default-background);
+}
+
+/* On hover, darken the color of the background */
+#sk-container-id-1 div.sk-label:hover label.sk-toggleable__label {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+/* Label box, darken color on hover, fitted */
+#sk-container-id-1 div.sk-label.fitted:hover label.sk-toggleable__label.fitted {
+  color: var(--sklearn-color-text);
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Estimator label */
+
+#sk-container-id-1 div.sk-label label {
+  font-family: monospace;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 1.2em;
+}
+
+#sk-container-id-1 div.sk-label-container {
+  text-align: center;
+}
+
+/* Estimator-specific */
+#sk-container-id-1 div.sk-estimator {
+  font-family: monospace;
+  border: 1px dotted var(--sklearn-color-border-box);
+  border-radius: 0.25em;
+  box-sizing: border-box;
+  margin-bottom: 0.5em;
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-0);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-0);
+}
+
+/* on hover */
+#sk-container-id-1 div.sk-estimator:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-2);
+}
+
+#sk-container-id-1 div.sk-estimator.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-2);
+}
+
+/* Specification for estimator info (e.g. "i" and "?") */
+
+/* Common style for "i" and "?" */
+
+.sk-estimator-doc-link,
+a:link.sk-estimator-doc-link,
+a:visited.sk-estimator-doc-link {
+  float: right;
+  font-size: smaller;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1em;
+  height: 1em;
+  width: 1em;
+  text-decoration: none !important;
+  margin-left: 0.5em;
+  text-align: center;
+  /* unfitted */
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+  color: var(--sklearn-color-unfitted-level-1);
+}
+
+.sk-estimator-doc-link.fitted,
+a:link.sk-estimator-doc-link.fitted,
+a:visited.sk-estimator-doc-link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+div.sk-estimator:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover,
+div.sk-label-container:hover .sk-estimator-doc-link:hover,
+.sk-estimator-doc-link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+div.sk-estimator.fitted:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover,
+div.sk-label-container:hover .sk-estimator-doc-link.fitted:hover,
+.sk-estimator-doc-link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+/* Span, style for the box shown on hovering the info icon */
+.sk-estimator-doc-link span {
+  display: none;
+  z-index: 9999;
+  position: relative;
+  font-weight: normal;
+  right: .2ex;
+  padding: .5ex;
+  margin: .5ex;
+  width: min-content;
+  min-width: 20ex;
+  max-width: 50ex;
+  color: var(--sklearn-color-text);
+  box-shadow: 2pt 2pt 4pt #999;
+  /* unfitted */
+  background: var(--sklearn-color-unfitted-level-0);
+  border: .5pt solid var(--sklearn-color-unfitted-level-3);
+}
+
+.sk-estimator-doc-link.fitted span {
+  /* fitted */
+  background: var(--sklearn-color-fitted-level-0);
+  border: var(--sklearn-color-fitted-level-3);
+}
+
+.sk-estimator-doc-link:hover span {
+  display: block;
+}
+
+/* "?"-specific style due to the `<a>` HTML tag */
+
+#sk-container-id-1 a.estimator_doc_link {
+  float: right;
+  font-size: 1rem;
+  line-height: 1em;
+  font-family: monospace;
+  background-color: var(--sklearn-color-background);
+  border-radius: 1rem;
+  height: 1rem;
+  width: 1rem;
+  text-decoration: none;
+  /* unfitted */
+  color: var(--sklearn-color-unfitted-level-1);
+  border: var(--sklearn-color-unfitted-level-1) 1pt solid;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted {
+  /* fitted */
+  border: var(--sklearn-color-fitted-level-1) 1pt solid;
+  color: var(--sklearn-color-fitted-level-1);
+}
+
+/* On hover */
+#sk-container-id-1 a.estimator_doc_link:hover {
+  /* unfitted */
+  background-color: var(--sklearn-color-unfitted-level-3);
+  color: var(--sklearn-color-background);
+  text-decoration: none;
+}
+
+#sk-container-id-1 a.estimator_doc_link.fitted:hover {
+  /* fitted */
+  background-color: var(--sklearn-color-fitted-level-3);
+}
+
+.estimator-table summary {
+    padding: .5rem;
+    font-family: monospace;
+    cursor: pointer;
+}
+
+.estimator-table details[open] {
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    padding-bottom: 0.3rem;
+}
+
+.estimator-table .parameters-table {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.estimator-table .parameters-table tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+.estimator-table .parameters-table tr:nth-child(even) {
+    background-color: #f6f6f6;
+}
+
+.estimator-table .parameters-table tr:hover {
+    background-color: #e0e0e0;
+}
+
+.estimator-table table td {
+    border: 1px solid rgba(106, 105, 104, 0.232);
+}
+
+.user-set td {
+    color:rgb(255, 94, 0);
+    text-align: left;
+}
+
+.user-set td.value pre {
+    color:rgb(255, 94, 0) !important;
+    background-color: transparent !important;
+}
+
+.default td {
+    color: black;
+    text-align: left;
+}
+
+.user-set td i,
+.default td i {
+    color: black;
+}
+
+.copy-paste-icon {
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA0NDggNTEyIj48IS0tIUZvbnQgQXdlc29tZSBGcmVlIDYuNy4yIGJ5IEBmb250YXdlc29tZSAtIGh0dHBzOi8vZm9udGF3ZXNvbWUuY29tIExpY2Vuc2UgLSBodHRwczovL2ZvbnRhd2Vzb21lLmNvbS9saWNlbnNlL2ZyZWUgQ29weXJpZ2h0IDIwMjUgRm9udGljb25zLCBJbmMuLS0+PHBhdGggZD0iTTIwOCAwTDMzMi4xIDBjMTIuNyAwIDI0LjkgNS4xIDMzLjkgMTQuMWw2Ny45IDY3LjljOSA5IDE0LjEgMjEuMiAxNC4xIDMzLjlMNDQ4IDMzNmMwIDI2LjUtMjEuNSA0OC00OCA0OGwtMTkyIDBjLTI2LjUgMC00OC0yMS41LTQ4LTQ4bDAtMjg4YzAtMjYuNSAyMS41LTQ4IDQ4LTQ4ek00OCAxMjhsODAgMCAwIDY0LTY0IDAgMCAyNTYgMTkyIDAgMC0zMiA2NCAwIDAgNDhjMCAyNi41LTIxLjUgNDgtNDggNDhMNDggNTEyYy0yNi41IDAtNDgtMjEuNS00OC00OEwwIDE3NmMwLTI2LjUgMjEuNS00OCA0OC00OHoiLz48L3N2Zz4=);
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    background-position: 0;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+}
+</style><body><div class="sk-top-container" id="sk-container-id-1"><div class="sk-text-repr-fallback"><pre>LinearRegression()</pre><b>In a Jupyter environment, please rerun this cell to show the HTML representation or trust the notebook. <br/>On GitHub, the HTML representation is unable to render, please try loading this page with nbviewer.org.</b></div><div class="sk-container" hidden=""><div class="sk-item"><div class="sk-estimator fitted sk-toggleable"><input checked="" class="sk-toggleable__control sk-hidden--visually" id="sk-estimator-id-1" type="checkbox"/><label class="sk-toggleable__label fitted sk-toggleable__label-arrow" for="sk-estimator-id-1"><div><div>LinearRegression</div></div><div><a class="sk-estimator-doc-link fitted" href="https://scikit-learn.org/1.7/modules/generated/sklearn.linear_model.LinearRegression.html" rel="noreferrer" target="_blank">?<span>Documentation for LinearRegression</span></a><span class="sk-estimator-doc-link fitted">i<span>Fitted</span></span></div></label><div class="sk-toggleable__content fitted" data-param-prefix="">
+<div class="estimator-table">
+<details>
+<summary>Parameters</summary>
+<table class="parameters-table">
 <tbody>
-<tr>
-<td>5</td>
-<td>150 €</td>
+<tr class="default">
+<td><i class="copy-paste-icon" onclick="copyToClipboard('fit_intercept',
+                          this.parentElement.nextElementSibling)"></i></td>
+<td class="param">fit_intercept </td>
+<td class="value">True</td>
 </tr>
-<tr>
-<td>10</td>
-<td>250 €</td>
+<tr class="default">
+<td><i class="copy-paste-icon" onclick="copyToClipboard('copy_X',
+                          this.parentElement.nextElementSibling)"></i></td>
+<td class="param">copy_X </td>
+<td class="value">True</td>
 </tr>
-<tr>
-<td>30</td>
-<td>650 €</td>
+<tr class="default">
+<td><i class="copy-paste-icon" onclick="copyToClipboard('tol',
+                          this.parentElement.nextElementSibling)"></i></td>
+<td class="param">tol </td>
+<td class="value">1e-06</td>
+</tr>
+<tr class="default">
+<td><i class="copy-paste-icon" onclick="copyToClipboard('n_jobs',
+                          this.parentElement.nextElementSibling)"></i></td>
+<td class="param">n_jobs </td>
+<td class="value">None</td>
+</tr>
+<tr class="default">
+<td><i class="copy-paste-icon" onclick="copyToClipboard('positive',
+                          this.parentElement.nextElementSibling)"></i></td>
+<td class="param">positive </td>
+<td class="value">False</td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li>Erstellen Sie ein Modell, das den Angebotspreis Ihres Wettbewerbers in
-Abhängigkeit von der Anzahl der Personen vorhersagt.</li>
-<li>Sagt dieses Modell die bekannten Datenpunkte korrekt voraus?</li>
-<li>Was sind die geschätzten Werte für Grundpreis und Preis pro Person?</li>
-</ul>
+</details>
+</div>
+</div></div></div></div></div><script>function copyToClipboard(text, element) {
+    // Get the parameter prefix from the closest toggleable content
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const fullParamName = paramPrefix ? `${paramPrefix}${text}` : text;
+
+    const originalStyle = element.style;
+    const computedStyle = window.getComputedStyle(element);
+    const originalWidth = computedStyle.width;
+    const originalHTML = element.innerHTML.replace('Copied!', '');
+
+    navigator.clipboard.writeText(fullParamName)
+        .then(() => {
+            element.style.width = originalWidth;
+            element.style.color = 'green';
+            element.innerHTML = "Copied!";
+
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        })
+        .catch(err => {
+            console.error('Failed to copy:', err);
+            element.style.color = 'red';
+            element.innerHTML = "Failed!";
+            setTimeout(() => {
+                element.innerHTML = originalHTML;
+                element.style = originalStyle;
+            }, 2000);
+        });
+    return false;
+}
+
+document.querySelectorAll('.fa-regular.fa-copy').forEach(function(element) {
+    const toggleableContent = element.closest('.sk-toggleable__content');
+    const paramPrefix = toggleableContent ? toggleableContent.dataset.paramPrefix : '';
+    const paramName = element.parentElement.nextElementSibling.textContent.trim();
+    const fullParamName = paramPrefix ? `${paramPrefix}${paramName}` : paramName;
+
+    element.setAttribute('title', fullParamName);
+});
+</script></body></div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=9d0d67c7c716bf91">
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=07ad374df4f34f45">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [12]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">,</span> <span class="n">model</span><span class="o">.</span><span class="n">intercept_</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[12]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>(array([1.97997416]), np.float64(1.0060723514211878))</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=97ee1925edd38dc6"><div class="prompt input_prompt">
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=202fdef7c84f5abc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Angenommen, Ihr Wettbewerber hätte Ihnen stattdessen die folgenden Preise
-genannt:</p>
-<table>
-<thead>
-<tr>
-<th>Anzahl Personen</th>
-<th>Angebotspreis</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>5</td>
-<td>150 €</td>
-</tr>
-<tr>
-<td>10</td>
-<td>250 €</td>
-</tr>
-<tr>
-<td>30</td>
-<td>500 €</td>
-</tr>
-</tbody>
-</table>
-<p>Könnten Sie die Preise mit dem gleichen Modell vorhersagen, oder gibt es dabei
-Probleme?</p>
-<p>Versuchen Sie, die Preise mit dem gleichen Modell vorherzusagen. Was fällt
-Ihnen auf? Können Sie das Problem erklären?</p>
+<h2 id="Bewerten-des-Modells">Bewerten des Modells<a class="anchor-link" href="#Bewerten-des-Modells">¶</a></h2><p>Reproduktion der Trainingsdaten:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=22ee1a5f85e96226">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b702e167208602a7">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [13]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">train_predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">train_x</span><span class="p">)</span>
+<span class="n">train_predictions</span>
 </pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[13]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([ 1.99605943,  3.77803618,  5.16401809,  7.93598191,  9.32196382,
+       11.10394057])</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=88197096bc94aa31"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Wie groß sind die Abweichungen?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8efcdb09a374382c">
+<div class="input">
+<div class="prompt input_prompt">In [14]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">actual</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">train_predictions</span><span class="p">,</span> <span class="n">train_y</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Predicted: </span><span class="si">{</span><span class="n">pred</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Actual: </span><span class="si">{</span><span class="n">actual</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Predicted: 2.00, Actual: 2.10
+Predicted: 3.78, Actual: 3.50
+Predicted: 5.16, Actual: 5.80
+Predicted: 7.94, Actual: 7.10
+Predicted: 9.32, Actual: 9.30
+Predicted: 11.10, Actual: 11.50
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=ad5eda4be3577c5c">
+<div class="input">
+<div class="prompt input_prompt">In [15]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">total_abs_error</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="nb">abs</span><span class="p">(</span><span class="n">pred</span> <span class="o">-</span> <span class="n">actual</span><span class="p">)</span> <span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">actual</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">train_predictions</span><span class="p">,</span> <span class="n">train_y</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Absolute Error: </span><span class="si">{</span><span class="n">total_abs_error</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Total Absolute Error: 2.27
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=3fd45ec7a7242acd">
+<div class="input">
+<div class="prompt input_prompt">In [16]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">total_squared_error</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">((</span><span class="n">pred</span> <span class="o">-</span> <span class="n">actual</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">actual</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">train_predictions</span><span class="p">,</span> <span class="n">train_y</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total Squared Error: </span><span class="si">{</span><span class="n">total_squared_error</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Total Squared Error: 1.35
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5b46a8c719b5b3db">
+<div class="input">
+<div class="prompt input_prompt">In [17]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mae_manual</span> <span class="o">=</span> <span class="n">total_abs_error</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Error: </span><span class="si">{</span><span class="n">mae_manual</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Mean Absolute Error: 0.38
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=509b73cd43487a20">
+<div class="input">
+<div class="prompt input_prompt">In [18]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mse_manual</span> <span class="o">=</span> <span class="n">total_squared_error</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">train_y</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Squared Error (manual): </span><span class="si">{</span><span class="n">mse_manual</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Mean Squared Error (manual): 0.22
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b4b0d5e6bb7ddcfc"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Scikit-Learn bietet viele Metriken zur Bewertung von Modellen an:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5eb8412b4bce6126">
+<div class="input">
+<div class="prompt input_prompt">In [19]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f0ccbb8362ae3552">
+<div class="input">
+<div class="prompt input_prompt">In [20]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">train_y</span><span class="p">,</span> <span class="n">train_predictions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Error: </span><span class="si">{</span><span class="n">mae</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Mean Absolute Error: 0.38
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b00173b8c8c7740c">
+<div class="input">
+<div class="prompt input_prompt">In [21]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">train_y</span><span class="p">,</span> <span class="n">train_predictions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Squared Error: </span><span class="si">{</span><span class="n">mse</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Mean Squared Error: 0.22
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=66ff81751470bf38"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bewerten-des-Modells">Bewerten des Modells<a class="anchor-link" href="#Bewerten-des-Modells">¶</a></h2><p>Wir sehen uns an, wie gut das Modell die Testdaten vorhersagen kann, die
+es noch nicht gesehen hat:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=aa18900c8c5ba94d">
+<div class="input">
+<div class="prompt input_prompt">In [22]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_x</span><span class="p">)</span>
+<span class="n">predictions</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[22]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>array([13.47990956, 16.05387597, 17.24186047, 18.82583979])</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=62f8e8c5fe44e7d3">
+<div class="input">
+<div class="prompt input_prompt">In [23]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">pred</span><span class="p">,</span> <span class="n">actual</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">test_y</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Predicted: </span><span class="si">{</span><span class="n">pred</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Actual: </span><span class="si">{</span><span class="n">actual</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Predicted: 13.48, Actual: 13.20
+Predicted: 16.05, Actual: 16.00
+Predicted: 17.24, Actual: 17.10
+Predicted: 18.83, Actual: 19.20
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=bea3cd7581de318f">
+<div class="input">
+<div class="prompt input_prompt">In [24]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mae</span> <span class="o">=</span> <span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">test_y</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Absolute Error: </span><span class="si">{</span><span class="n">mae</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Mean Absolute Error: 0.21
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9d59a7ffad07f670">
+<div class="input">
+<div class="prompt input_prompt">In [25]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mse</span> <span class="o">=</span> <span class="n">mean_squared_error</span><span class="p">(</span><span class="n">test_y</span><span class="p">,</span> <span class="n">predictions</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Mean Squared Error: </span><span class="si">{</span><span class="n">mse</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Mean Squared Error: 0.06
+</pre>
+</div>
 </div>
 </div>
 </div>

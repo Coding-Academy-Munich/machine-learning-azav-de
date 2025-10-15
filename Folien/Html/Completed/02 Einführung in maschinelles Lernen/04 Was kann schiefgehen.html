@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=df3d7c02b915e14e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c4daa6f6601a87ab"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Einführung ins Maschinelle Lernen</b>
+<b>Was kann schiefgehen?</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,715 +13145,265 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8b347b60735d71c1"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img alt="No description has been provided for this image" src="img/robots-playing-checkers.png" style="width: 90%; margin-left: auto; margin-right: auto; display: block;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=35a8d6de6d15631c"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Was-ist-Maschinelles-Lernen-(ML)?">Was ist Maschinelles Lernen (ML)?<a class="anchor-link" href="#Was-ist-Maschinelles-Lernen-(ML)?">¶</a></h3><p>Entwicklung von Systemen, die aus Daten lernen können</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=eb69af3dc7b1b6a3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Warum?">Warum?<a class="anchor-link" href="#Warum?">¶</a></h3><ul>
-<li>Viele reale Probleme sind zu komplex, um sie mit traditionellen
-Programmiertechniken zu lösen.</li>
-<li>Die Funktionsweise eines Programms kann verbessert/angepasst werden,
-indem wir ihm mehr Daten geben.</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4060fae56840b494"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Wie-funktioniert-das?">Wie funktioniert das?<a class="anchor-link" href="#Wie-funktioniert-das?">¶</a></h3><ul>
-<li>Wir erstellen ein <strong>Modell</strong><ul>
-<li>Programm, das mehrere ähnliche Probleme lösen kann</li>
-</ul>
-</li>
-<li>Wir <strong>trainieren</strong> das Modell<ul>
-<li>Indem wir ihm Daten zeigen, lernt es unser konkretes Problem zu lösen</li>
-</ul>
-</li>
-<li>Wir <strong>evaluieren</strong> das Modell<ul>
-<li>Wir testen, wie gut es unser konkretes Problem löst</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ce333dcf3c839db0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Beispiel:-Preis-eines-Pizzas">Beispiel: Preis eines Pizzas<a class="anchor-link" href="#Beispiel:-Preis-eines-Pizzas">¶</a></h3><ul>
-<li>Preis einer Pizza bestimmt durch<ul>
-<li>Grundpreis</li>
-<li>Anzahl der Beläge (jeder Belag kostet gleich viel)</li>
-</ul>
-</li>
-<li>Ist das ein Problem, für das sich ML anbietet?</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=cc6ad3657f683893"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Programm-zur-Berechnung-des-Pizza-Preises">Programm zur Berechnung des Pizza-Preises<a class="anchor-link" href="#Programm-zur-Berechnung-des-Pizza-Preises">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=3186f3da3457cdcb">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=3523dc02e2b715c3">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">example_data</span><span class="w"> </span><span class="kn">import</span> <span class="n">data_x_reshaped</span><span class="p">,</span> <span class="n">data_y</span><span class="p">,</span> <span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">,</span> <span class="n">test_x</span><span class="p">,</span> <span class="n">test_y</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">mean_absolute_error</span><span class="p">,</span> <span class="n">mean_squared_error</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=100bcee7b70c1916">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=a3258d1dceba46ca">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [2]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_x_reshaped</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[2]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>[[0.5], [1.4], [2.1], [3.5], [4.2], [5.1], [6.3], [7.6], [8.2], [9.0]]</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e1507e07a8b8ead7"><div class="prompt input_prompt">
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d6f00841150d3437">
+<div class="input">
+<div class="prompt input_prompt">In [3]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_y</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[3]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>[2.1, 3.5, 5.8, 7.1, 9.3, 11.5, 13.2, 16.0, 17.1, 19.2]</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a32c9da980907bcd"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Was ist, wenn wir das Programm für verschiedene Pizzerien verwenden wollen?<ul>
-<li>Unterschiedliche Grundpreise</li>
-<li>Unterschiedliche Preise pro Belag</li>
-</ul>
-</li>
-<li>Wir können ein Programm schreiben, das für beliebige Preise funktioniert</li>
+<h2 id="Warum-Test/Train-Split?">Warum Test/Train-Split?<a class="anchor-link" href="#Warum-Test/Train-Split?">¶</a></h2><ul>
+<li>Das folgende Modell merkt sich einfach die Trainingsdaten und gibt sie bei
+der Vorhersage wieder aus.</li>
+<li>Es generalisiert nicht.</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=27bc966ac38bf01b">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=ffca1eaa606db174">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [4]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4d8f50daa7e94f2f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d1b176e836748a1b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=31df0bbfd4b28238">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a3b0a2fe86b2568a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=14a395f92605b4ff"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Unser <code>PizzaCalculator</code> kann "verschiedene Probleme" lösen</li>
-<li>Aber er kann nicht "lernen"</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c559d070e03fb2c5"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Beispiel:-Catering-Service">Beispiel: Catering-Service<a class="anchor-link" href="#Beispiel:-Catering-Service">¶</a></h3><ul>
-<li>Wir wollen einen Catering-Service starten</li>
-<li>Wie viel sollen wir für ein Event verlangen?</li>
-<li>Vermutung: Konkurrenzpreise bestehen aus<ul>
-<li>Grundpreis</li>
-<li>Preis pro Person</li>
-</ul>
-</li>
-<li>Aber wir bekommen von der Konkurrenz nur Angebote für komplette Events,
-nicht die Komponenten dahinter</li>
-<li>Wie können wir vorgehen?<ul>
-<li>Ist das ein Problem, für das sich ML anbietet?</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6c5b3c240148d62f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Vorgehensweise">Vorgehensweise<a class="anchor-link" href="#Vorgehensweise">¶</a></h3><ul>
-<li>Wir holen uns von Konkurrenten Angebote für Events mit verschiedenen
-Personenzahlen</li>
-<li>Daraus versuchen wir, den Grundpreis und den Preis pro Person zu
-schätzen<ul>
-<li>Werte ausprobieren</li>
-<li>Mathematisch: Lineare Regression</li>
-<li>Graphisch: Gerade durch Punktewolke legen</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=35126048a3c8a1c9"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Daten-von-Anbieter-A">Daten von Anbieter A<a class="anchor-link" href="#Daten-von-Anbieter-A">¶</a></h3><table>
-<thead>
-<tr>
-<th>Anzahl Personen</th>
-<th>Angebotspreis</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>10</td>
-<td>400 €</td>
-</tr>
-<tr>
-<td>20</td>
-<td>700 €</td>
-</tr>
-<tr>
-<td>30</td>
-<td>1000 €</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6cb45c65e05ef9c8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Visualisierung-der-Preise">Visualisierung der Preise<a class="anchor-link" href="#Visualisierung-der-Preise">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b2169c37a252a357">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d41b380d7c0fe1ec">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=688dc5015761962d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=bcb324543bdf89b4">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1465786f11a0cf52"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Interaktive-Visualisierung-des-Catering-Preismodells">Interaktive Visualisierung des Catering-Preismodells<a class="anchor-link" href="#Interaktive-Visualisierung-des-Catering-Preismodells">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=47d2c15fb921d6ff">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=23457d101fee13d5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_catering_model</span><span class="p">(</span><span class="n">base_price</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">price_per_person</span><span class="o">=</span><span class="mf">30.0</span><span class="p">):</span>
-    <span class="n">x_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">))</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MemorizeModel</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A model that simply memorizes the training data."""</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="n">model</span> <span class="o">=</span> <span class="n">CateringPriceModel</span><span class="p">(</span><span class="n">base_price</span><span class="p">,</span> <span class="n">price_per_person</span><span class="p">)</span>
-    <span class="n">y_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">predict_price</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_values</span><span class="p">]</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y_values</span><span class="p">,</span> <span class="s2">"r-"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Model Prediction"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">num_people</span><span class="p">,</span> <span class="n">offered_prices</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Provider A Data"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">"Catering Price Model (Base: €</span><span class="si">{</span><span class="n">base_price</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Per Person: €</span><span class="si">{</span><span class="n">price_per_person</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)"</span>
-    <span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Number of People"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Price (€)"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">y_values</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">offered_prices</span><span class="p">))</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">sample</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span> <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">X</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=5fd393b57179bbf0">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=7c0860bac360d45a">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [5]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">interact</span><span class="p">(</span>
-    <span class="n">plot_catering_model</span><span class="p">,</span>
-    <span class="n">base_price</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span>
-        <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Base Price (€)"</span>
-    <span class="p">),</span>
-    <span class="n">price_per_person</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span>
-        <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Price/Person (€)"</span>
-    <span class="p">),</span>
-<span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">memorize_model</span> <span class="o">=</span> <span class="n">MemorizeModel</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b285462124d8214d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Können wir das Berechnen von <code>base_price</code> und <code>price_per_person</code>
-automatisieren?</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=88f05fc9ba68831c">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=cc04735b73d39ef4">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [6]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">memorize_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data_x_reshaped</span><span class="p">,</span> <span class="n">data_y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[6]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;__main__.MemorizeModel at 0x72de54f1c910&gt;</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=144fdd700173d0b3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Trainieren-des-Modells">Trainieren des Modells<a class="anchor-link" href="#Trainieren-des-Modells">¶</a></h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=56c2c029e124131f">
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a1dfde2f7d1884a2">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [7]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">memorize_predictions</span> <span class="o">=</span> <span class="n">memorize_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">data_x_reshaped</span><span class="p">)</span>
+<span class="n">memorize_predictions</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[7]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>[2.1, 3.5, 5.8, 7.1, 9.3, 11.5, 13.2, 16.0, 17.1, 19.2]</pre>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e7342bc13031884d">
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=dbeffd41e8ead989">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [8]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">data_y</span><span class="p">,</span> <span class="n">memorize_predictions</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[8]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.0</pre>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d3d65141c6dfc07c">
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=e2310d9457e2e785">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [9]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">memorize_model</span> <span class="o">=</span> <span class="n">MemorizeModel</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8b1a6f54fbf9934b"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verwenden-des-trainierten-Modells">Verwenden des trainierten Modells<a class="anchor-link" href="#Verwenden-des-trainierten-Modells">¶</a></h3><p>Für Werte, die das Modell bereits gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=085d6c61e1672fb8">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f1da1ac74de76441">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [10]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">memorize_model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_x</span><span class="p">,</span> <span class="n">train_y</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[10]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;__main__.MemorizeModel at 0x72de54f1dc50&gt;</pre>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=0b12cd0679d2f08e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Für Werte, die das Modell noch nie gesehen hat:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4d250f6a4a8db630">
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=42eedec12429a8e7">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [11]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">memorize_predictions</span> <span class="o">=</span> <span class="n">memorize_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_x</span><span class="p">)</span>
+<span class="n">memorize_predictions</span>
 </pre></div>
 </div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=aef8c96bab09e66f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verwenden-von-Scikit-Learn-Modellen">Verwenden von Scikit-Learn Modellen<a class="anchor-link" href="#Verwenden-von-Scikit-Learn-Modellen">¶</a></h3><ul>
-<li>Unser Modell hat nicht wirklich etwas mit "Catering" zu tun<ul>
-<li>Es lässt sich auf jedes Problem anwenden, bei dem eine lineare Beziehung
-zwischen Eingabe und Ausgabe besteht</li>
-</ul>
-</li>
-<li>Die Implementierung ist sehr einfach und nicht sehr robust<ul>
-<li>Es ignoriert beim Training alle Punkte außer den ersten und letzten</li>
-<li>Es kann nicht mit Daten umgehen, die "Rauschen" enthalten</li>
-</ul>
-</li>
-<li>Die Bibliothek <a href="https://scikit-learn.org/">Scikit-Learn</a> bietet
-viele vorgefertigte Modelle, die wir verwenden können</li>
-<li>Unser Modell nennt man eine <strong>lineare Regression</strong></li>
-</ul>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[11]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>[0, 0, 0, 0]</pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=d92764017119a249">
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=3e4af4310d3233ba">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [12]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">train_y</span><span class="p">,</span> <span class="n">memorize_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">train_x</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[12]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>0.0</pre>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7d20a6d42e11ce7a">
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7072b4a2de7ae96d">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [13]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">test_y</span><span class="p">,</span> <span class="n">memorize_model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_x</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt output_prompt">Out[13]:</div>
+<div class="output_text output_subarea output_execute_result">
+<pre>16.375</pre>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c94b461a5ac1d850">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ced68870bba257d5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=77e60b06d7b2b6f1">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=929d032280ac4526">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4b2cdea09c0e0cd3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=39ff05de89c0654a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verwenden-des-Scikit-Learn-Modells">Verwenden des Scikit-Learn Modells<a class="anchor-link" href="#Verwenden-des-Scikit-Learn-Modells">¶</a></h3><p>Für Werte, die das Modell bereits gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6a17df094bcfc108">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=cb1bd4cb36e0537a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Für Werte, die das Modell noch nie gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d015d7dc1c8c55f5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=73c3f8a2fe04cd87"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Für mehrere Werte</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a282a915da7fdf55">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a370dc6eaf571bb6"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-trainiertes-Modell">Programm vs. trainiertes Modell<a class="anchor-link" href="#Programm-vs.-trainiertes-Modell">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-01.png" style="width: 80%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d27a6e2c66f73370"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-trainiertes-Modell">Programm vs. trainiertes Modell<a class="anchor-link" href="#Programm-vs.-trainiertes-Modell">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-02.png" style="width: 80%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=f2c80a3b1b3ce0f0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-Modell-(Erstellung)">Programm vs. Modell (Erstellung)<a class="anchor-link" href="#Programm-vs.-Modell-(Erstellung)">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-03.png" style="width: 50%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4601a92ad1c10135"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-Modell-(Erstellung)">Programm vs. Modell (Erstellung)<a class="anchor-link" href="#Programm-vs.-Modell-(Erstellung)">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-04.png" style="width: 60%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=3a4ace27f12ab594"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop:-Fremdenf%C3%BChrer">Workshop: Fremdenführer<a class="anchor-link" href="#Workshop:-Fremdenf%C3%BChrer">¶</a></h2><p>Sie wollen einen Service starten, der Touristen durch Ihre Stadt führt. Um die
-Preise für Ihre Führungen festzulegen, haben Sie die Preise von Wettbewerbern
-in der Nähe recherchiert und die folgenden Daten gesammelt:</p>
-<table>
-<thead>
-<tr>
-<th>Anzahl Personen</th>
-<th>Angebotspreis</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>5</td>
-<td>150 €</td>
-</tr>
-<tr>
-<td>10</td>
-<td>250 €</td>
-</tr>
-<tr>
-<td>30</td>
-<td>650 €</td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>Erstellen Sie ein Modell, das den Angebotspreis Ihres Wettbewerbers in
-Abhängigkeit von der Anzahl der Personen vorhersagt.</li>
-<li>Sagt dieses Modell die bekannten Datenpunkte korrekt voraus?</li>
-<li>Was sind die geschätzten Werte für Grundpreis und Preis pro Person?</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=9d0d67c7c716bf91">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=97ee1925edd38dc6"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Angenommen, Ihr Wettbewerber hätte Ihnen stattdessen die folgenden Preise
-genannt:</p>
-<table>
-<thead>
-<tr>
-<th>Anzahl Personen</th>
-<th>Angebotspreis</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>5</td>
-<td>150 €</td>
-</tr>
-<tr>
-<td>10</td>
-<td>250 €</td>
-</tr>
-<tr>
-<td>30</td>
-<td>500 €</td>
-</tr>
-</tbody>
-</table>
-<p>Könnten Sie die Preise mit dem gleichen Modell vorhersagen, oder gibt es dabei
-Probleme?</p>
-<p>Versuchen Sie, die Preise mit dem gleichen Modell vorherzusagen. Was fällt
-Ihnen auf? Können Sie das Problem erklären?</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=22ee1a5f85e96226">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">

@@ -5,6 +5,15 @@ import pandas as pd
 import sqlite3
 import requests
 
+# Create a univariate linear dataset
+
+# %%
+np.random.seed(2025)
+univariate_data_size = 50
+data_x = np.random.uniform(low=0.5, high=9.0, size=univariate_data_size)
+data_y = 2 * data_x + np.random.normal(loc=0, scale=1, size=univariate_data_size)
+
+
 # Create the student dataset
 
 # %%

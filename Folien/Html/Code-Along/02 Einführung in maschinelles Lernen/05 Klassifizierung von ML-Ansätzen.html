@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=df3d7c02b915e14e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=bb7504efd853c06f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Einführung ins Maschinelle Lernen</b>
+<b>Klassifizierung von ML-Ansätzen</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,722 +13145,384 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8b347b60735d71c1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a57e68647879407b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img alt="No description has been provided for this image" src="img/robots-playing-checkers.png" style="width: 90%; margin-left: auto; margin-right: auto; display: block;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=35a8d6de6d15631c"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Was-ist-Maschinelles-Lernen-(ML)?">Was ist Maschinelles Lernen (ML)?<a class="anchor-link" href="#Was-ist-Maschinelles-Lernen-(ML)?">¶</a></h3><p>Entwicklung von Systemen, die aus Daten lernen können</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=eb69af3dc7b1b6a3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Warum?">Warum?<a class="anchor-link" href="#Warum?">¶</a></h3><ul>
-<li>Viele reale Probleme sind zu komplex, um sie mit traditionellen
-Programmiertechniken zu lösen.</li>
-<li>Die Funktionsweise eines Programms kann verbessert/angepasst werden,
-indem wir ihm mehr Daten geben.</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4060fae56840b494"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Wie-funktioniert-das?">Wie funktioniert das?<a class="anchor-link" href="#Wie-funktioniert-das?">¶</a></h3><ul>
-<li>Wir erstellen ein <strong>Modell</strong><ul>
-<li>Programm, das mehrere ähnliche Probleme lösen kann</li>
-</ul>
-</li>
-<li>Wir <strong>trainieren</strong> das Modell<ul>
-<li>Indem wir ihm Daten zeigen, lernt es unser konkretes Problem zu lösen</li>
-</ul>
-</li>
-<li>Wir <strong>evaluieren</strong> das Modell<ul>
-<li>Wir testen, wie gut es unser konkretes Problem löst</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ce333dcf3c839db0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Beispiel:-Preis-eines-Pizzas">Beispiel: Preis eines Pizzas<a class="anchor-link" href="#Beispiel:-Preis-eines-Pizzas">¶</a></h3><ul>
-<li>Preis einer Pizza bestimmt durch<ul>
-<li>Grundpreis</li>
-<li>Anzahl der Beläge (jeder Belag kostet gleich viel)</li>
-</ul>
-</li>
-<li>Ist das ein Problem, für das sich ML anbietet?</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=cc6ad3657f683893"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Programm-zur-Berechnung-des-Pizza-Preises">Programm zur Berechnung des Pizza-Preises<a class="anchor-link" href="#Programm-zur-Berechnung-des-Pizza-Preises">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=3186f3da3457cdcb">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=100bcee7b70c1916">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e1507e07a8b8ead7"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Klassifizierung-von-ML-Ans%C3%A4tzen">Klassifizierung von ML-Ansätzen<a class="anchor-link" href="#Klassifizierung-von-ML-Ans%C3%A4tzen">¶</a></h2><p>Es gibt verschiedene Möglichkeiten, ML-Ansätze zu klassifizieren:</p>
 <ul>
-<li>Was ist, wenn wir das Programm für verschiedene Pizzerien verwenden wollen?<ul>
-<li>Unterschiedliche Grundpreise</li>
-<li>Unterschiedliche Preise pro Belag</li>
-</ul>
-</li>
-<li>Wir können ein Programm schreiben, das für beliebige Preise funktioniert</li>
+<li>Nach der verwendeten Technik</li>
+<li>Nach der Art des Problems</li>
+<li>Nach der Art des Lernens</li>
+<li>Nach der Ebene der Arbeit am ML-Stack</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=27bc966ac38bf01b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4d8f50daa7e94f2f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d1b176e836748a1b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=31df0bbfd4b28238">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a3b0a2fe86b2568a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=14a395f92605b4ff"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f16ac251abfdb144"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="ML-Techniken">ML-Techniken<a class="anchor-link" href="#ML-Techniken">¶</a></h2><ul>
+<li><strong>Klassisches ML</strong><ul>
+<li>Traditionelle Algorithmen (z.B. Lineare Regression, Decision Trees, SVM)</li>
+<li>Meist für strukturierte Daten</li>
+<li>Interpretierbar und gut verstanden</li>
+</ul>
+</li>
+<li><strong>Deep Learning / Neuronale Netze</strong><ul>
+<li>Mehrschichtige neuronale Netze</li>
+<li>Besonders gut für unstrukturierte Daten (Bilder, Text, Audio)</li>
+<li>Benötigt oft große Datenmengen</li>
+</ul>
+</li>
+<li><strong>Ensemble-Methoden</strong><ul>
+<li>Kombination mehrerer Modelle (z.B. Random Forests, Gradient Boosting)</li>
+<li>Oft sehr gute Performance</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=eb1dd7d5e8d9ffdc"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Probleme,-die-ML-l%C3%B6sen-kann">Probleme, die ML lösen kann<a class="anchor-link" href="#Probleme,-die-ML-l%C3%B6sen-kann">¶</a></h2><ul>
+<li><strong>Klassifikation</strong><ul>
+<li>Zuordnung von Eingaben zu Kategorien</li>
+<li>Beispiel: Spam-Erkennung, Bilderkennung</li>
+</ul>
+</li>
+<li><strong>Regression</strong><ul>
+<li>Vorhersage von kontinuierlichen Werten</li>
+<li>Beispiel: Preisvorhersage, Wettervorhersage</li>
+</ul>
+</li>
+<li><strong>Clustering</strong><ul>
+<li>Gruppierung ähnlicher Datenpunkte</li>
+<li>Beispiel: Kundensegmentierung</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=7e5ef4293de87799"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Weitere-ML-Probleme">Weitere ML-Probleme<a class="anchor-link" href="#Weitere-ML-Probleme">¶</a></h2><ul>
+<li><strong>Generierung</strong><ul>
+<li>Erzeugung neuer Daten ähnlich den Trainingsdaten</li>
+<li>Beispiel: Textgenerierung, Bildsynthese, Musikkomposition</li>
+</ul>
+</li>
+<li><strong>Dimensionsreduktion</strong><ul>
+<li>Reduzierung der Anzahl der Merkmale</li>
+<li>Beispiel: Visualisierung hochdimensionaler Daten</li>
+</ul>
+</li>
+<li><strong>Anomalieerkennung</strong><ul>
+<li>Identifikation ungewöhnlicher Datenpunkte</li>
+<li>Beispiel: Betrugserkennung, Fehlerdiagnose</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f9298922879dae9d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ans%C3%A4tze-zum-Lernen">Ansätze zum Lernen<a class="anchor-link" href="#Ans%C3%A4tze-zum-Lernen">¶</a></h2><ul>
+<li><strong>Überwachtes Lernen (Supervised Learning)</strong><ul>
+<li>Modell lernt aus gelabelten Daten</li>
+<li>Eingabe-Ausgabe-Paare sind bekannt</li>
+<li>Beispiel: Bilderkennung mit gelabelten Bildern</li>
+</ul>
+</li>
+<li><strong>Unüberwachtes Lernen (Unsupervised Learning)</strong><ul>
+<li>Modell lernt Muster ohne Labels</li>
+<li>Nur Eingabedaten sind verfügbar</li>
+<li>Beispiel: Clustering, Dimensionsreduktion</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=bd81b5b4226bc92f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Weitere-Lernans%C3%A4tze">Weitere Lernansätze<a class="anchor-link" href="#Weitere-Lernans%C3%A4tze">¶</a></h2><ul>
+<li><strong>Semi-Supervised Learning</strong><ul>
+<li>Kombination aus gelabelten und ungelabelten Daten</li>
+<li>Wenige Labels, viele unlabelte Daten</li>
+<li>Beispiel: Webseiten-Klassifikation</li>
+</ul>
+</li>
+<li><strong>Reinforcement Learning (Verstärkendes Lernen)</strong><ul>
+<li>Modell lernt durch Interaktion mit einer Umgebung</li>
+<li>Belohnungen für gute Aktionen, Bestrafungen für schlechte</li>
+<li>Beispiel: Spielende KI, Robotersteuerung</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1a4e98ef5d458806"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ebenen-der-ML-Arbeit">Ebenen der ML-Arbeit<a class="anchor-link" href="#Ebenen-der-ML-Arbeit">¶</a></h2><p>Je nach Anwendungsfall und Expertise können wir auf verschiedenen Ebenen mit
+ML arbeiten:</p>
 <ul>
-<li>Unser <code>PizzaCalculator</code> kann "verschiedene Probleme" lösen</li>
-<li>Aber er kann nicht "lernen"</li>
+<li>Entwicklung neuer Modellarchitekturen</li>
+<li>Training von Modellen</li>
+<li>Arbeit mit vortrainierten Modellen</li>
+<li>Finetuning vortrainierter Modelle</li>
+<li>Aufbau von Systemen, die Modelle enthalten</li>
+<li>Verwendung von LLMs für Programmierung/andere Aufgaben</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c559d070e03fb2c5"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=7b801299a7c4407e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Beispiel:-Catering-Service">Beispiel: Catering-Service<a class="anchor-link" href="#Beispiel:-Catering-Service">¶</a></h3><ul>
-<li>Wir wollen einen Catering-Service starten</li>
-<li>Wie viel sollen wir für ein Event verlangen?</li>
-<li>Vermutung: Konkurrenzpreise bestehen aus<ul>
-<li>Grundpreis</li>
-<li>Preis pro Person</li>
+<h2 id="Entwicklung-von-Modellarchitekturen">Entwicklung von Modellarchitekturen<a class="anchor-link" href="#Entwicklung-von-Modellarchitekturen">¶</a></h2><ul>
+<li><strong>Höchste Komplexität</strong></li>
+<li>Erfordert tiefes Verständnis von:<ul>
+<li>Mathematik (lineare Algebra, Statistik, Optimierung)</li>
+<li>ML-Theorie</li>
+<li>Programmierung</li>
 </ul>
 </li>
-<li>Aber wir bekommen von der Konkurrenz nur Angebote für komplette Events,
-nicht die Komponenten dahinter</li>
-<li>Wie können wir vorgehen?<ul>
-<li>Ist das ein Problem, für das sich ML anbietet?</li>
+<li>Beispiele:<ul>
+<li>Entwicklung neuer Netzwerkarchitekturen</li>
+<li>Forschung an neuen Lernalgorithmen</li>
 </ul>
 </li>
+<li>Typischerweise in der Forschung oder bei großen Tech-Unternehmen</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6c5b3c240148d62f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d728335e13f9c2de"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Vorgehensweise">Vorgehensweise<a class="anchor-link" href="#Vorgehensweise">¶</a></h3><ul>
-<li>Wir holen uns von Konkurrenten Angebote für Events mit verschiedenen
-Personenzahlen</li>
-<li>Daraus versuchen wir, den Grundpreis und den Preis pro Person zu
-schätzen<ul>
-<li>Werte ausprobieren</li>
-<li>Mathematisch: Lineare Regression</li>
-<li>Graphisch: Gerade durch Punktewolke legen</li>
+<h2 id="Training-von-Modellen">Training von Modellen<a class="anchor-link" href="#Training-von-Modellen">¶</a></h2><ul>
+<li>Training eines Modells von Grund auf</li>
+<li>Erfordert:<ul>
+<li>Große Datenmengen</li>
+<li>Rechenressourcen</li>
+<li>Verständnis von Hyperparameter-Tuning</li>
 </ul>
 </li>
+<li>Beispiele:<ul>
+<li>Training eines Bildklassifikators auf eigenen Daten</li>
+<li>Training eines Sprachmodells</li>
+</ul>
+</li>
+<li>Oft zeitaufwendig und kostspielig</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=35126048a3c8a1c9"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6043873fd09b0950"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Daten-von-Anbieter-A">Daten von Anbieter A<a class="anchor-link" href="#Daten-von-Anbieter-A">¶</a></h3><table>
+<h2 id="Arbeit-mit-vortrainierten-Modellen">Arbeit mit vortrainierten Modellen<a class="anchor-link" href="#Arbeit-mit-vortrainierten-Modellen">¶</a></h2><ul>
+<li>Verwendung eines bereits trainierten Modells</li>
+<li>Keine oder minimale Anpassung erforderlich</li>
+<li>Beispiele:<ul>
+<li>Verwendung von GPT-5 über API</li>
+<li>Verwendung von YOLO für Objekterkennung</li>
+<li>Verwendung von BERT für Textklassifikation</li>
+</ul>
+</li>
+<li><strong>Vorteil</strong>: Schneller Einstieg, geringe Kosten</li>
+<li><strong>Nachteil</strong>: Weniger Flexibilität</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=760d9fefdf77270e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Finetuning-vortrainierter-Modelle">Finetuning vortrainierter Modelle<a class="anchor-link" href="#Finetuning-vortrainierter-Modelle">¶</a></h2><ul>
+<li>Anpassung eines vortrainierten Modells an eine spezifische Aufgabe</li>
+<li>Erfordert:<ul>
+<li>Weniger Daten als Training von Grund auf</li>
+<li>Verständnis von Transfer Learning</li>
+<li>Moderate Rechenressourcen</li>
+</ul>
+</li>
+<li>Beispiele:<ul>
+<li>Anpassung eines Sprachmodells an eine bestimmte Domäne</li>
+<li>Anpassung eines Bildklassifikators an eigene Kategorien</li>
+</ul>
+</li>
+<li><strong>Balance</strong>: Gute Performance mit moderatem Aufwand</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d859d04b1d8c31a6"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aufbau-von-Systemen-mit-ML-Modellen">Aufbau von Systemen mit ML-Modellen<a class="anchor-link" href="#Aufbau-von-Systemen-mit-ML-Modellen">¶</a></h2><ul>
+<li>Integration von ML-Modellen in größere Systeme</li>
+<li>Erfordert:<ul>
+<li>Software-Engineering-Kenntnisse</li>
+<li>Verständnis von ML-Operations (MLOps)</li>
+<li>Systemarchitektur-Kenntnisse</li>
+</ul>
+</li>
+<li>Beispiele:<ul>
+<li>Empfehlungssystem für E-Commerce</li>
+<li>Chatbot mit Sprachverständnis</li>
+<li>Automatisierte Qualitätskontrolle</li>
+</ul>
+</li>
+<li><strong>Fokus</strong>: Produktivierung und Wartung</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a2527e931cafa877"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Verwendung-von-LLMs-als-Werkzeug">Verwendung von LLMs als Werkzeug<a class="anchor-link" href="#Verwendung-von-LLMs-als-Werkzeug">¶</a></h2><ul>
+<li>Nutzung von Large Language Models für alltägliche Aufgaben</li>
+<li>Keine ML-Kenntnisse erforderlich</li>
+<li>Beispiele:<ul>
+<li>Code-Generierung mit GitHub Copilot</li>
+<li>Texterstellung mit ChatGPT</li>
+<li>Datenanalyse mit LLM-Unterstützung</li>
+</ul>
+</li>
+<li><strong>Einstiegshürde</strong>: Sehr niedrig</li>
+<li><strong>Wichtig</strong>: Verständnis der Limitationen und ethischen Aspekte</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d73c104c0fa0e9e8"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="%C3%9Cbersicht:-Ebenen-der-ML-Arbeit">Übersicht: Ebenen der ML-Arbeit<a class="anchor-link" href="#%C3%9Cbersicht:-Ebenen-der-ML-Arbeit">¶</a></h2><table>
 <thead>
 <tr>
-<th>Anzahl Personen</th>
-<th>Angebotspreis</th>
+<th>Ebene</th>
+<th>Komplexität</th>
+<th>Ressourcen</th>
+<th>Flexibilität</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>10</td>
-<td>400 €</td>
+<td>Modellarchitekturen</td>
+<td>Sehr hoch</td>
+<td>Sehr hoch</td>
+<td>Sehr hoch</td>
 </tr>
 <tr>
-<td>20</td>
-<td>700 €</td>
+<td>Training</td>
+<td>Hoch</td>
+<td>Hoch</td>
+<td>Hoch</td>
 </tr>
 <tr>
-<td>30</td>
-<td>1000 €</td>
+<td>Finetuning</td>
+<td>Mittel</td>
+<td>Mittel</td>
+<td>Mittel</td>
+</tr>
+<tr>
+<td>Vortrainierte Modelle</td>
+<td>Niedrig</td>
+<td>Niedrig</td>
+<td>Niedrig</td>
+</tr>
+<tr>
+<td>Systembau</td>
+<td>Mittel</td>
+<td>Mittel</td>
+<td>Hoch</td>
+</tr>
+<tr>
+<td>LLM-Nutzung</td>
+<td>Sehr niedrig</td>
+<td>Sehr niedrig</td>
+<td>Niedrig</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6cb45c65e05ef9c8"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5dadee04f1cfc11c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Visualisierung-der-Preise">Visualisierung der Preise<a class="anchor-link" href="#Visualisierung-der-Preise">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b2169c37a252a357">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d41b380d7c0fe1ec">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=688dc5015761962d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=bcb324543bdf89b4">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1465786f11a0cf52"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Interaktive-Visualisierung-des-Catering-Preismodells">Interaktive Visualisierung des Catering-Preismodells<a class="anchor-link" href="#Interaktive-Visualisierung-des-Catering-Preismodells">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=47d2c15fb921d6ff">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">ipywidgets</span><span class="w"> </span><span class="kn">import</span> <span class="n">interact</span><span class="p">,</span> <span class="n">FloatSlider</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=23457d101fee13d5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_catering_model</span><span class="p">(</span><span class="n">base_price</span><span class="o">=</span><span class="mf">100.0</span><span class="p">,</span> <span class="n">price_per_person</span><span class="o">=</span><span class="mf">30.0</span><span class="p">):</span>
-    <span class="n">x_values</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">41</span><span class="p">))</span>
-
-    <span class="n">model</span> <span class="o">=</span> <span class="n">CateringPriceModel</span><span class="p">(</span><span class="n">base_price</span><span class="p">,</span> <span class="n">price_per_person</span><span class="p">)</span>
-    <span class="n">y_values</span> <span class="o">=</span> <span class="p">[</span><span class="n">model</span><span class="o">.</span><span class="n">predict_price</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">x_values</span><span class="p">]</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_values</span><span class="p">,</span> <span class="n">y_values</span><span class="p">,</span> <span class="s2">"r-"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Model Prediction"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">num_people</span><span class="p">,</span> <span class="n">offered_prices</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">zorder</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Provider A Data"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span>
-        <span class="sa">f</span><span class="s2">"Catering Price Model (Base: €</span><span class="si">{</span><span class="n">base_price</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">, Per Person: €</span><span class="si">{</span><span class="n">price_per_person</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">)"</span>
-    <span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Number of People"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Price (€)"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="p">(</span><span class="nb">max</span><span class="p">(</span><span class="n">y_values</span><span class="p">),</span> <span class="nb">max</span><span class="p">(</span><span class="n">offered_prices</span><span class="p">))</span> <span class="o">*</span> <span class="mf">1.1</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=5fd393b57179bbf0">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">interact</span><span class="p">(</span>
-    <span class="n">plot_catering_model</span><span class="p">,</span>
-    <span class="n">base_price</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span>
-        <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Base Price (€)"</span>
-    <span class="p">),</span>
-    <span class="n">price_per_person</span><span class="o">=</span><span class="n">FloatSlider</span><span class="p">(</span>
-        <span class="nb">min</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">max</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s2">"Price/Person (€)"</span>
-    <span class="p">),</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b285462124d8214d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Können wir das Berechnen von <code>base_price</code> und <code>price_per_person</code>
-automatisieren?</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=88f05fc9ba68831c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=144fdd700173d0b3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Trainieren-des-Modells">Trainieren des Modells<a class="anchor-link" href="#Trainieren-des-Modells">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=56c2c029e124131f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e7342bc13031884d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d3d65141c6dfc07c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8b1a6f54fbf9934b"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verwenden-des-trainierten-Modells">Verwenden des trainierten Modells<a class="anchor-link" href="#Verwenden-des-trainierten-Modells">¶</a></h3><p>Für Werte, die das Modell bereits gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=085d6c61e1672fb8">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=0b12cd0679d2f08e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Für Werte, die das Modell noch nie gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4d250f6a4a8db630">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=aef8c96bab09e66f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verwenden-von-Scikit-Learn-Modellen">Verwenden von Scikit-Learn Modellen<a class="anchor-link" href="#Verwenden-von-Scikit-Learn-Modellen">¶</a></h3><ul>
-<li>Unser Modell hat nicht wirklich etwas mit "Catering" zu tun<ul>
-<li>Es lässt sich auf jedes Problem anwenden, bei dem eine lineare Beziehung
-zwischen Eingabe und Ausgabe besteht</li>
-</ul>
-</li>
-<li>Die Implementierung ist sehr einfach und nicht sehr robust<ul>
-<li>Es ignoriert beim Training alle Punkte außer den ersten und letzten</li>
-<li>Es kann nicht mit Daten umgehen, die "Rauschen" enthalten</li>
-</ul>
-</li>
-<li>Die Bibliothek <a href="https://scikit-learn.org/">Scikit-Learn</a> bietet
-viele vorgefertigte Modelle, die wir verwenden können</li>
-<li>Unser Modell nennt man eine <strong>lineare Regression</strong></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=d92764017119a249">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7d20a6d42e11ce7a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c94b461a5ac1d850">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ced68870bba257d5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=77e60b06d7b2b6f1">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=929d032280ac4526">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4b2cdea09c0e0cd3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=39ff05de89c0654a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verwenden-des-Scikit-Learn-Modells">Verwenden des Scikit-Learn Modells<a class="anchor-link" href="#Verwenden-des-Scikit-Learn-Modells">¶</a></h3><p>Für Werte, die das Modell bereits gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6a17df094bcfc108">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=cb1bd4cb36e0537a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Für Werte, die das Modell noch nie gesehen hat:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d015d7dc1c8c55f5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=73c3f8a2fe04cd87"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Für mehrere Werte</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a282a915da7fdf55">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a370dc6eaf571bb6"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-trainiertes-Modell">Programm vs. trainiertes Modell<a class="anchor-link" href="#Programm-vs.-trainiertes-Modell">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-01.png" style="width: 80%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d27a6e2c66f73370"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-trainiertes-Modell">Programm vs. trainiertes Modell<a class="anchor-link" href="#Programm-vs.-trainiertes-Modell">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-02.png" style="width: 80%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=f2c80a3b1b3ce0f0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-Modell-(Erstellung)">Programm vs. Modell (Erstellung)<a class="anchor-link" href="#Programm-vs.-Modell-(Erstellung)">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-03.png" style="width: 50%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4601a92ad1c10135"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Programm-vs.-Modell-(Erstellung)">Programm vs. Modell (Erstellung)<a class="anchor-link" href="#Programm-vs.-Modell-(Erstellung)">¶</a></h2><p><img alt="No description has been provided for this image" src="img/program-vs-model-04.png" style="width: 60%; margin-left: auto; margin-right: auto;"/></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=3a4ace27f12ab594"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop:-Fremdenf%C3%BChrer">Workshop: Fremdenführer<a class="anchor-link" href="#Workshop:-Fremdenf%C3%BChrer">¶</a></h2><p>Sie wollen einen Service starten, der Touristen durch Ihre Stadt führt. Um die
-Preise für Ihre Führungen festzulegen, haben Sie die Preise von Wettbewerbern
-in der Nähe recherchiert und die folgenden Daten gesammelt:</p>
-<table>
-<thead>
-<tr>
-<th>Anzahl Personen</th>
-<th>Angebotspreis</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>5</td>
-<td>150 €</td>
-</tr>
-<tr>
-<td>10</td>
-<td>250 €</td>
-</tr>
-<tr>
-<td>30</td>
-<td>650 €</td>
-</tr>
-</tbody>
-</table>
+<h2 id="Welche-Ebene-ist-die-richtige?">Welche Ebene ist die richtige?<a class="anchor-link" href="#Welche-Ebene-ist-die-richtige?">¶</a></h2><p>Die Wahl der Ebene hängt ab von:</p>
 <ul>
-<li>Erstellen Sie ein Modell, das den Angebotspreis Ihres Wettbewerbers in
-Abhängigkeit von der Anzahl der Personen vorhersagt.</li>
-<li>Sagt dieses Modell die bekannten Datenpunkte korrekt voraus?</li>
-<li>Was sind die geschätzten Werte für Grundpreis und Preis pro Person?</li>
+<li><strong>Verfügbaren Ressourcen</strong><ul>
+<li>Zeit, Budget, Rechenleistung</li>
+</ul>
+</li>
+<li><strong>Expertise</strong><ul>
+<li>ML-Kenntnisse, Programmierkenntnisse</li>
+</ul>
+</li>
+<li><strong>Anforderungen</strong><ul>
+<li>Genauigkeit, Anpassbarkeit, Geschwindigkeit</li>
+</ul>
+</li>
+<li><strong>Daten</strong><ul>
+<li>Menge und Qualität der verfügbaren Daten</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=9d0d67c7c716bf91">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=97ee1925edd38dc6"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=3f450835ee2e06f7"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Angenommen, Ihr Wettbewerber hätte Ihnen stattdessen die folgenden Preise
-genannt:</p>
-<table>
-<thead>
-<tr>
-<th>Anzahl Personen</th>
-<th>Angebotspreis</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>5</td>
-<td>150 €</td>
-</tr>
-<tr>
-<td>10</td>
-<td>250 €</td>
-</tr>
-<tr>
-<td>30</td>
-<td>500 €</td>
-</tr>
-</tbody>
-</table>
-<p>Könnten Sie die Preise mit dem gleichen Modell vorhersagen, oder gibt es dabei
-Probleme?</p>
-<p>Versuchen Sie, die Preise mit dem gleichen Modell vorherzusagen. Was fällt
-Ihnen auf? Können Sie das Problem erklären?</p>
+<h2 id="Empfehlungen-f%C3%BCr-Einsteiger">Empfehlungen für Einsteiger<a class="anchor-link" href="#Empfehlungen-f%C3%BCr-Einsteiger">¶</a></h2><ul>
+<li><strong>Beginnen Sie mit LLM-Nutzung</strong><ul>
+<li>Verstehen Sie die Möglichkeiten und Grenzen</li>
+</ul>
+</li>
+<li><strong>Arbeiten Sie mit vortrainierten Modellen</strong><ul>
+<li>Lernen Sie, wie man sie effektiv einsetzt</li>
+</ul>
+</li>
+<li><strong>Experimentieren Sie mit Finetuning</strong><ul>
+<li>Wenn Sie spezifische Anforderungen haben</li>
+</ul>
+</li>
+<li><strong>Lernen Sie die Grundlagen</strong><ul>
+<li>Verstehen Sie, wie ML funktioniert</li>
+</ul>
+</li>
+<li><strong>Bauen Sie schrittweise Expertise auf</strong><ul>
+<li>Von einfachen zu komplexeren Aufgaben</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=22ee1a5f85e96226">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6eaab4f9bb6f3cf7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
+<li>ML kann nach verschiedenen Kriterien klassifiziert werden</li>
+<li>Verschiedene Techniken für verschiedene Probleme</li>
+<li>Unterschiedliche Lernansätze je nach verfügbaren Daten</li>
+<li>Verschiedene Ebenen der ML-Arbeit je nach Expertise und Anforderungen</li>
+<li>Wählen Sie die Ebene, die zu Ihren Ressourcen und Zielen passt</li>
+</ul>
 </div>
 </div>
 </div>

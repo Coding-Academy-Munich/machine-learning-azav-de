@@ -490,4 +490,3 @@ coef_competitor_non_linear = float(sklearn_model_competitor_non_linear.coef_[0])
 
 # %%
 intercept_competitor_non_linear, coef_competitor_non_linear
-# %%
