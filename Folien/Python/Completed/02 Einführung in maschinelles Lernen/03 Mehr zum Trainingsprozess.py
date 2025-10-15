@@ -98,21 +98,99 @@ train_predictions
 for pred, actual in zip(train_predictions, train_y):
     print(f"Predicted: {pred:.2f}, Actual: {actual:.2f}")
 
+# %% [markdown]
+#
+# Totaler absoluter Fehler:
+
 # %%
-total_abs_error = sum(abs(pred - actual) for pred, actual in zip(train_predictions, train_y))
-print(f"Total Absolute Error: {total_abs_error:.2f}")
+total_absolute_error = sum(abs(pred - actual) for pred, actual in zip(train_predictions, train_y))
+
+# %%
+total_absolute_error
+
+# %% [markdown]
+#
+# Totaler quadratischer Fehler:
 
 # %%
 total_squared_error = sum((pred - actual) ** 2 for pred, actual in zip(train_predictions, train_y))
-print(f"Total Squared Error: {total_squared_error:.2f}")
 
 # %%
-mae_manual = total_abs_error / len(train_y)
-print(f"Mean Absolute Error: {mae_manual:.2f}")
+total_squared_error
+
+# %% [markdown]
+#
+# Problem: Größe des Fehlers hängt von der Anzahl der Werte ab!
 
 # %%
-mse_manual = total_squared_error / len(train_y)
-print(f"Mean Squared Error (manual): {mse_manual:.2f}")
+few_values = [(n, n + 1) for n in range(1, 11)]
+many_values = [(n, n + 1) for n in range(1, 1001)]
+
+# %% [markdown]
+#
+# Absoluter Fehler:
+
+# %%
+total_absolute_error_few = sum(abs(pred - actual) for pred, actual in few_values)
+
+# %%
+total_absolute_error_few
+
+# %%
+total_absolute_error_many = sum(abs(pred - actual) for pred, actual in many_values)
+
+# %%
+total_absolute_error_many
+
+# %% [markdown]
+#
+# Besser: Fehler pro Wert
+#
+# Durchschnittlicher absoluter Fehler (MAE - Mean Absolute Error):
+
+# %%
+total_absolute_error / len(train_y)
+
+# %% [markdown]
+#
+# Durchschnittlicher quadratischer Fehler (MSE - Mean Squared Error)
+
+# %%
+total_squared_error / len(train_y)
+
+# %% [markdown]
+#
+# Die durchschnittliche absolute Fehler sagt, wie weit jeder vorhergesagte Wert
+# im Durchschnitt vom echten Wert abweicht:
+
+# %%
+total_absolute_error_few / len(few_values)
+
+# %%
+total_absolute_error_many / len(many_values)
+
+# %% [markdown]
+#
+# - Der durchschnittliche quadratische Fehler gibt die durchschnittliche
+#   quadratische Abweichung an.
+# - Dadurch werden größere Abweichungen stärker gewichtet, kleine Abweichungen
+#   weniger stark.
+
+# %%
+total_absolute_error_few / len(few_values)
+
+# %%
+total_absolute_error_many / len(many_values)
+
+# %%
+small_errors = [(n, n + 0.1) for n in range(1, 11)]
+large_errors = [(n, n + 10) for n in range(1, 11)]
+
+# %%
+sum((pred - actual) ** 2 for pred, actual in small_errors) / len(small_errors)
+
+# %%
+sum((pred - actual) ** 2 for pred, actual in large_errors) / len(large_errors)
 
 # %% [markdown]
 #

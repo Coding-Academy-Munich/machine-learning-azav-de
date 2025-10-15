@@ -1,7 +1,7 @@
 # %% [markdown]
 #
 # <div style="text-align:center; font-size:200%;">
-#  <b>Was kann schiefgehen?</b>
+#  <b>Warum Test/Train-Split?</b>
 # </div>
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -18,8 +18,6 @@ data_x_reshaped
 data_y
 
 # %% [markdown]
-#
-# ## Warum Test/Train-Split?
 #
 # - Das folgende Modell merkt sich einfach die Trainingsdaten und gibt sie bei
 #   der Vorhersage wieder aus.
@@ -53,6 +51,9 @@ memorize_predictions
 mean_absolute_error(data_y, memorize_predictions)
 
 # %%
+mean_squared_error(data_y, memorize_predictions)
+
+# %%
 memorize_model = MemorizeModel()
 
 # %%
@@ -69,3 +70,4 @@ mean_absolute_error(train_y, memorize_model.predict(train_x))
 mean_absolute_error(test_y, memorize_model.predict(test_x))
 
 # %%
+mean_squared_error(train_y, memorize_model.predict(train_x))

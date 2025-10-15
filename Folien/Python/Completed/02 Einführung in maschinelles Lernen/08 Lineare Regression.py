@@ -120,6 +120,9 @@ plt.show()
 #
 # Trainieren Sie nun ein lineares Regressionsmodell mit den Daten in `student_x`
 # und `student_y`.
+#
+# (Ein solches Modell mit mehreren Features wird auch als multivariates lineares
+# Modell bezeichnet.)
 
 # %%
 from sklearn.model_selection import train_test_split
