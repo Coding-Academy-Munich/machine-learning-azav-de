@@ -242,7 +242,12 @@ print("Actual training values:", y_train[:5])
 # ## Evaluation auf Trainingsdaten
 
 # %%
-from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score, root_mean_squared_error
+from sklearn.metrics import (
+    mean_absolute_error,
+    mean_squared_error,
+    r2_score,
+    root_mean_squared_error,
+)
 
 # %%
 train_mae = mean_absolute_error(y_train, train_predictions)
@@ -287,9 +292,15 @@ print(f"  R²:   {test_r2:.4f}")
 print("Comparison:")
 print(f"{'Metric':<10} {'Training':<12} {'Test':<12} {'Difference':<12}")
 print("-" * 50)
-print(f"{'MAE':<10} {train_mae:<12.4f} {test_mae:<12.4f} {abs(train_mae - test_mae):<12.4f}")
-print(f"{'MSE':<10} {train_mse:<12.4f} {test_mse:<12.4f} {abs(train_mse - test_mse):<12.4f}")
-print(f"{'RMSE':<10} {train_rmse:<12.4f} {test_rmse:<12.4f} {abs(train_rmse - test_rmse):<12.4f}")
+print(
+    f"{'MAE':<10} {train_mae:<12.4f} {test_mae:<12.4f} {abs(train_mae - test_mae):<12.4f}"
+)
+print(
+    f"{'MSE':<10} {train_mse:<12.4f} {test_mse:<12.4f} {abs(train_mse - test_mse):<12.4f}"
+)
+print(
+    f"{'RMSE':<10} {train_rmse:<12.4f} {test_rmse:<12.4f} {abs(train_rmse - test_rmse):<12.4f}"
+)
 print(f"{'R²':<10} {train_r2:<12.4f} {test_r2:<12.4f} {abs(train_r2 - test_r2):<12.4f}")
 
 # %% [markdown]
@@ -312,17 +323,19 @@ y_pred = model.predict(X_train + X_test)
 # %%
 from matplotlib import pyplot as plt
 
+
 # %%
 def plot_data_and_model():
     plt.figure(figsize=(10, 6))
-    plt.scatter(X_train, y_train, alpha=0.6, label='Training data')
-    plt.scatter(X_test, y_test, alpha=0.6, label='Test data')
-    plt.plot(X_pred, y_pred, 'r-', label='Model predictions', linewidth=2)
-    plt.xlabel('X')
-    plt.ylabel('Y')
+    plt.scatter(X_train, y_train, alpha=0.6, label="Training data")
+    plt.scatter(X_test, y_test, alpha=0.6, label="Test data")
+    plt.plot(X_pred, y_pred, "r-", label="Model predictions", linewidth=2)
+    plt.xlabel("X")
+    plt.ylabel("Y")
     plt.legend()
-    plt.title('Linear Regression: Model Fit')
+    plt.title("Linear Regression: Model Fit")
     plt.show()
+
 
 # %%
 plot_data_and_model()
@@ -339,17 +352,19 @@ plot_data_and_model()
 train_residuals = [y - pred for y, pred in zip(y_train, train_predictions)]
 test_residuals = [y - pred for y, pred in zip(y_test, test_predictions)]
 
+
 # %%
 def plot_residuals():
     plt.figure(figsize=(10, 6))
-    plt.scatter(train_predictions, train_residuals, alpha=0.6, label='Training')
-    plt.scatter(test_predictions, test_residuals, alpha=0.6, label='Test')
-    plt.axhline(y=0, color='r', linestyle='--', linewidth=2)
-    plt.xlabel('Predicted values')
-    plt.ylabel('Residuals')
+    plt.scatter(train_predictions, train_residuals, alpha=0.6, label="Training")
+    plt.scatter(test_predictions, test_residuals, alpha=0.6, label="Test")
+    plt.axhline(y=0, color="r", linestyle="--", linewidth=2)
+    plt.xlabel("Predicted values")
+    plt.ylabel("Residuals")
     plt.legend()
-    plt.title('Residual Plot')
+    plt.title("Residual Plot")
     plt.show()
+
 
 # %%
 plot_residuals()
@@ -410,3 +425,347 @@ plot_residuals()
 #   - MAE, MSE, RMSE für absolute Fehler
 #   - R² für relative Modellgüte
 # - Scikit-Learn bietet viele weitere Tools (Cross-Validation, Grid Search, Pipelines)
+
+# %% [markdown]
+#
+# ## Workshop: Pizza-Lieferzeit mit Scikit-Learn
+#
+# In diesem Workshop werden wir nochmal ein Machine Learning Modell trainieren,
+# um die Lieferzeit einer Pizza basierend auf der Entfernung vom Restaurant
+# vorherzusagen. Dabei werden wir die Funktionalität von Scikit-Learn nutzen.
+#
+# **Ziel**: Anwendung aller gelernten Konzepte:
+# - Train-Test Split mit `train_test_split()`
+# - Training mit `LinearRegression`
+# - Evaluation mit MAE, MSE, RMSE und R²
+# - Visualisierung der Ergebnisse
+
+# %% [markdown]
+#
+# Die Daten sind bereits vorbereitet:
+#
+# - `pizza_distance`: Entfernung vom Restaurant in km
+# - `pizza_time`: Lieferzeit in Minuten
+
+# %%
+pizza_distance = [
+    1.0,
+    1.5,
+    2.0,
+    2.5,
+    3.0,
+    3.5,
+    4.0,
+    4.5,
+    5.0,
+    5.5,
+    6.0,
+    6.5,
+    7.0,
+    7.5,
+    8.0,
+]
+
+# %%
+pizza_time = [15, 18, 20, 23, 25, 28, 30, 33, 35, 38, 40, 43, 45, 48, 50]
+
+# %%
+print(f"Total data points: {len(pizza_distance)}")
+
+# %% [markdown]
+#
+# ### Aufgabe 1: Daten vorbereiten
+#
+# Bereiten Sie die Daten für Scikit-Learn vor:
+#
+# - Konvertieren Sie `pizza_distance` in eine 2D-Liste (Liste von Listen)
+# - Speichern Sie das Ergebnis in `X`
+# - Speichern Sie `pizza_time` in `y`
+
+# %%
+X = [[d] for d in pizza_distance]
+y = pizza_time
+
+# %%
+print("First 3 samples:")
+print(f"X: {X[:3]}")
+print(f"y: {y[:3]}")
+
+# %% [markdown]
+#
+# ### Aufgabe 2: Train-Test Split
+#
+# Teilen Sie die Daten mit `train_test_split()` auf:
+#
+# - Verwenden Sie ca. 60% der Daten für das Training (40% für Test)
+# - Setzen Sie `random_state=42` für Reproduzierbarkeit
+# - Speichern Sie die Ergebnisse in `X_train`, `X_test`, `y_train`, `y_test`
+
+# %%
+from sklearn.model_selection import train_test_split
+
+# Your code here...
+
+# %%
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.4, random_state=42
+)
+
+# %%
+print(f"Training samples: {len(X_train)}")
+print(f"Test samples: {len(X_test)}")
+print(f"Training percentage: {len(X_train) / len(X) * 100:.1f}%")
+
+# %% [markdown]
+#
+# ### Aufgabe 3: Modell trainieren
+#
+# Trainieren Sie ein lineares Regressionsmodell:
+#
+# - Erstellen Sie ein `LinearRegression` Modell
+# - Trainieren Sie es mit den Trainingsdaten
+# - Geben Sie die gelernten Parameter (Koeffizient und Intercept) aus
+
+# %%
+from sklearn.linear_model import LinearRegression
+
+# %%
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# %%
+print(f"Coefficient (slope): {model.coef_[0]:.4f} min/km")
+print(f"Intercept: {model.intercept_:.4f} min")
+print(f"\nModel equation: y = {model.coef_[0]:.4f}x + {model.intercept_:.4f}")
+
+# %% [markdown]
+#
+# ### Aufgabe 4: Vorhersagen machen
+#
+# Erstellen Sie Vorhersagen für Trainings- und Testdaten:
+#
+# - Verwenden Sie `model.predict()` für beide Datensätze
+# - Speichern Sie die Ergebnisse in `train_predictions` und `test_predictions`
+
+# %%
+train_predictions = model.predict(X_train)
+test_predictions = model.predict(X_test)
+
+# %%
+print("Sample predictions vs actual values:")
+for i in range(min(3, len(X_test))):
+    print(
+        f"Distance: {X_test[i][0]:.1f} km → "
+        f"Predicted: {test_predictions[i]:.1f} min, "
+        f"Actual: {y_test[i]} min"
+    )
+
+# %% [markdown]
+#
+# ### Aufgabe 5: Modell evaluieren
+#
+# Berechnen Sie die folgenden Metriken für Trainings- und Testdaten:
+#
+# - MAE (Mean Absolute Error)
+# - MSE (Mean Squared Error)
+# - RMSE (Root Mean Squared Error)
+# - R² Score
+#
+# Verwenden Sie die entsprechenden Funktionen aus `sklearn.metrics`.
+
+# %%
+from sklearn.metrics import (
+    mean_absolute_error,
+    mean_squared_error,
+    root_mean_squared_error,
+    r2_score,
+)
+
+# Your code here...
+
+# %%
+# Training metrics
+train_mae = mean_absolute_error(y_train, train_predictions)
+train_mse = mean_squared_error(y_train, train_predictions)
+train_rmse = root_mean_squared_error(y_train, train_predictions)
+train_r2 = r2_score(y_train, train_predictions)
+
+# Test metrics
+test_mae = mean_absolute_error(y_test, test_predictions)
+test_mse = mean_squared_error(y_test, test_predictions)
+test_rmse = root_mean_squared_error(y_test, test_predictions)
+test_r2 = r2_score(y_test, test_predictions)
+
+# %%
+print("Training Metrics:")
+print(f"  MAE:  {train_mae:.4f} min")
+print(f"  MSE:  {train_mse:.4f} min²")
+print(f"  RMSE: {train_rmse:.4f} min")
+print(f"  R²:   {train_r2:.4f}")
+
+# %%
+print("\nTest Metrics:")
+print(f"  MAE:  {test_mae:.4f} min")
+print(f"  MSE:  {test_mse:.4f} min²")
+print(f"  RMSE: {test_rmse:.4f} min")
+print(f"  R²:   {test_r2:.4f}")
+
+# %% [markdown]
+#
+# ### Aufgabe 6: Metriken vergleichen
+#
+# Erstellen Sie eine übersichtliche Vergleichstabelle der Metriken für
+# Trainings- und Testdaten.
+#
+# **Analysieren Sie die Ergebnisse:**
+# - Sind die Metriken ähnlich für Training und Test?
+# - Was sagt der R² Score über die Modellqualität aus?
+# - Wie groß ist die durchschnittliche Abweichung (MAE)?
+
+# %%
+print("Comparison: Training vs. Test")
+print("=" * 60)
+print(f"{'Metric':<10} {'Training':<12} {'Test':<12} {'Difference':<12}")
+print("-" * 60)
+print(
+    f"{'MAE':<10} {train_mae:<12.4f} {test_mae:<12.4f} {abs(train_mae - test_mae):<12.4f}"
+)
+print(
+    f"{'MSE':<10} {train_mse:<12.4f} {test_mse:<12.4f} {abs(train_mse - test_mse):<12.4f}"
+)
+print(
+    f"{'RMSE':<10} {train_rmse:<12.4f} {test_rmse:<12.4f} {abs(train_rmse - test_rmse):<12.4f}"
+)
+print(f"{'R²':<10} {train_r2:<12.4f} {test_r2:<12.4f} {abs(train_r2 - test_r2):<12.4f}")
+
+# %%
+print("\nInterpretation:")
+print(f"- R² = {test_r2:.4f}: Das Modell erklärt {test_r2*100:.2f}% der Varianz")
+print(
+    f"- MAE = {test_mae:.4f}: Durchschnittliche Abweichung von {test_mae:.2f} Minuten"
+)
+print(f"- Training/Test sehr ähnlich → Gute Generalisierung, kein Overfitting")
+
+# %% [markdown]
+#
+# ### Aufgabe 7: Ergebnisse visualisieren
+#
+# Erstellen Sie einen Plot, der zeigt:
+#
+# - Die Trainingsdaten als Scatter-Plot (blau)
+# - Die Testdaten als Scatter-Plot (orange)
+# - Die Modellvorhersagen als rote Linie
+#
+# Beschriften Sie die Achsen und fügen Sie eine Legende hinzu.
+
+# %%
+import matplotlib.pyplot as plt
+
+# %%
+# Create a range of distances for the prediction line
+distance_range = [[x * 0.1] for x in range(0, 90)]
+time_predictions = model.predict(distance_range)
+
+# %%
+plt.figure(figsize=(10, 6))
+plt.scatter(X_train, y_train, alpha=0.6, label="Training data", s=100)
+plt.scatter(X_test, y_test, alpha=0.6, label="Test data", s=100)
+plt.plot(
+    [d[0] for d in distance_range],
+    time_predictions,
+    "r-",
+    label="Model prediction",
+    linewidth=2,
+)
+plt.xlabel("Distance (km)")
+plt.ylabel("Delivery Time (min)")
+plt.title("Pizza Delivery Time Model")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+
+# %% [markdown]
+#
+# ### Aufgabe 8: Residuen-Plot
+#
+# Erstellen Sie einen Residuen-Plot:
+#
+# - X-Achse: Vorhergesagte Werte
+# - Y-Achse: Residuen (Fehler = tatsächlicher Wert - vorhergesagter Wert)
+# - Plotten Sie Trainings- und Testdaten
+# - Fügen Sie eine horizontale Linie bei y=0 hinzu
+#
+# **Analysieren Sie:** Sind die Residuen zufällig um 0 verteilt?
+
+# %%
+# Your code here...
+
+# %%
+train_residuals = [y - pred for y, pred in zip(y_train, train_predictions)]
+test_residuals = [y - pred for y, pred in zip(y_test, test_predictions)]
+
+# %%
+plt.figure(figsize=(10, 6))
+plt.scatter(train_predictions, train_residuals, alpha=0.6, label="Training", s=100)
+plt.scatter(test_predictions, test_residuals, alpha=0.6, label="Test", s=100)
+plt.axhline(y=0, color="r", linestyle="--", linewidth=2)
+plt.xlabel("Predicted Delivery Time (min)")
+plt.ylabel("Residuals (min)")
+plt.title("Residual Plot")
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+
+# %% [markdown]
+#
+# ### Aufgabe 9: Neue Vorhersagen
+#
+# Verwenden Sie das trainierte Modell, um die Lieferzeit für folgende
+# Entfernungen vorherzusagen:
+#
+# - 2.8 km
+# - 5.2 km
+# - 9.0 km
+# - 10.5 km
+
+# %%
+# Your code here...
+
+# %%
+new_distances = [[2.8], [5.2], [9.0], [10.5]]
+new_predictions = model.predict(new_distances)
+
+# %%
+print("Predictions for new distances:")
+print("-" * 50)
+for distance, time in zip(new_distances, new_predictions):
+    print(
+        f"Distance: {distance[0]:5.1f} km → "
+        f"Predicted delivery time: {time:5.1f} min"
+    )
+
+# %% [markdown]
+#
+# ### Aufgabe 10: Modellqualität einschätzen
+#
+# **Diskussionsfragen:**
+#
+# 1. Ist das Modell gut für die Vorhersage geeignet? (Betrachten Sie R²)
+# 2. Wie groß ist der durchschnittliche Fehler in Minuten? (Betrachten Sie MAE)
+# 3. Sind die Residuen zufällig verteilt oder zeigen sie ein Muster?
+# 4. Würden Sie dem Modell für die 10.5 km Vorhersage vertrauen? Warum (nicht)?
+# 5. Was bedeutet es, dass Training und Test Metriken sehr ähnlich sind?
+
+# %% [markdown]
+#
+# **Mögliche Antworten:**
+#
+# 1. **Modellqualität**: R² nahe 1 (z.B. > 0.95) zeigt, dass das Modell die
+#    Daten sehr gut erklärt
+# 2. **Durchschnittlicher Fehler**: MAE gibt an, wie viele Minuten die
+#    Vorhersage im Durchschnitt abweicht (z.B. ±2 Minuten)
+# 3. **Residuen**: Idealerweise zufällig verteilt ohne erkennbares Muster. Hier
+#    haben wir aber einen deutlich erkennbaren systematischen Fehler
+# 4. **10.5 km Vorhersage**: Vorsicht bei Extrapolation! Das Modell wurde nur
+#    bis 8 km trainiert
+# 5. **Training ≈ Test**: Das Modell generalisiert gut, kein Overfitting
