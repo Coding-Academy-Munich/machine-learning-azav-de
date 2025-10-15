@@ -1,7 +1,7 @@
 # %% [markdown]
 #
 # <div style="text-align:center; font-size:200%;">
-#  <b>Warum Test/Train-Split?</b>
+#  <b>Warum Train/Test-Split?</b>
 # </div>
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -37,6 +37,10 @@ class MemorizeModel:
     def predict(self, X):
         return [self.data.get(sample[0], 0) for sample in X]
 
+# %% [markdown]
+#
+# ### Ohne Train/Test Split
+
 # %%
 memorize_model = MemorizeModel()
 
@@ -52,6 +56,14 @@ mean_absolute_error(data_y, memorize_predictions)
 
 # %%
 mean_squared_error(data_y, memorize_predictions)
+
+# %% [markdown]
+#
+# Ist das Modell wirklich so gut, wie unsere Evaluierung sagt?
+
+# %% [markdown]
+#
+# ### Mit Train/Test Split
 
 # %%
 memorize_model = MemorizeModel()
@@ -71,3 +83,10 @@ mean_absolute_error(test_y, memorize_model.predict(test_x))
 
 # %%
 mean_squared_error(train_y, memorize_model.predict(train_x))
+
+# %% [markdown]
+#
+# - Das Modell ist sehr schlecht!
+# - Es hat sich nur die Trainingsdaten gemerkt und kann auf den
+#   Testdaten nichts vorhersagen.
+# - Das nennt man Overfitting.

@@ -224,6 +224,16 @@ mean_squared_error_test = sum(
 ) / len(test_y)
 mean_squared_error_test
 
+# %%
+x_plot = list(range(11))
+x_pred = [[x] for x in x_plot]
+
+# %%
+plt.scatter(train_x, train_y, label="train")
+plt.scatter(test_x, test_y, label="test")
+plt.plot(x_plot, model.predict(x_pred), color="red", label="pred")
+plt.legend()
+
 # %% [markdown]
 #
 # ## Workshop: Pizza-Lieferzeit
@@ -287,7 +297,6 @@ plt.show()
 # Teilen Sie die Daten in Trainings- und Testdaten auf.
 #
 # - Verwenden Sie ca. 60% der Daten für das Training und ca. 40% für den Test
-# - Setzen Sie `random_state=42` für Reproduzierbarkeit
 # - Denken Sie daran, dass das Modell erwartet, dass die Features in einer
 #   2D-Liste sind (Liste von Listen)
 
