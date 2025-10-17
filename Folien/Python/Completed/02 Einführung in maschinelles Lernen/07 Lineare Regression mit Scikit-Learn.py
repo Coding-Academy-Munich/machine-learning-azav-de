@@ -342,6 +342,26 @@ plot_data_and_model()
 
 # %% [markdown]
 #
+# ## Evaluierung mit `.score()`
+#
+# - Die Methode `.score()` bietet eine schnelle Möglichkeit, die Leistung des
+#   Modells zu bewerten.
+# - Hier gibt sie das Bestimmtheitsmaß R² der Vorhersage zurück.
+
+# %%
+r2_train = model.score(X_train, y_train)
+
+# %%
+r2_train
+
+# %%
+r2_test = model.score(X_test, y_test)
+
+# %%
+r2_test
+
+# %% [markdown]
+#
 # ## Residuen-Plot
 #
 # - Zeigt die Fehler (Residuen) für jede Vorhersage

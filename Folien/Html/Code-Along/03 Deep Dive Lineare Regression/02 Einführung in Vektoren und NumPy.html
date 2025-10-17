@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8706e168a72bf934"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=919bf5c216512629"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Lineare Regression mit Scikit-Learn</b>
+<b>Einführung in Vektoren und NumPy</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,87 +13145,672 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8c2c14fa22ff4a55"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ca656f23b9e4bb24"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiel:-Lineare-Regression-mit-Scikit-Learn">Beispiel: Lineare Regression mit Scikit-Learn<a class="anchor-link" href="#Beispiel:-Lineare-Regression-mit-Scikit-Learn">¶</a></h2><p>Wir verwenden das gleiche Beispiel wie vorher:</p>
+<h2 id="Warum-NumPy?">Warum NumPy?<a class="anchor-link" href="#Warum-NumPy?">¶</a></h2><p>Erinnern Sie sich an unsere Berechnungen:</p>
+<ul>
+<li>Viele Multiplikationen und Additionen</li>
+<li>Schleifen über Listen</li>
+<li>Fehleranfällig und langsam bei vielen Daten</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7f5efb07287e5a09">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=c448b79e2212e66d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Unser bisheriger Ansatz</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=03fdf5416f136916">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">data_x</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">2.1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">4.2</span><span class="p">,</span> <span class="mf">5.1</span><span class="p">,</span> <span class="mf">6.3</span><span class="p">,</span> <span class="mf">7.6</span><span class="p">,</span> <span class="mf">8.2</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">]</span>
-<span class="n">data_y</span> <span class="o">=</span> <span class="p">[</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">3.5</span><span class="p">,</span> <span class="mf">5.8</span><span class="p">,</span> <span class="mf">7.1</span><span class="p">,</span> <span class="mf">9.3</span><span class="p">,</span> <span class="mf">11.5</span><span class="p">,</span> <span class="mf">13.2</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">,</span> <span class="mf">17.1</span><span class="p">,</span> <span class="mf">19.2</span><span class="p">]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">features</span> <span class="o">=</span> <span class="p">[</span><span class="mi">120</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="n">coefficients</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">20.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">25.0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=dc20a7fa03230350"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=031de62364c8e117"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Train-Test-Split">Train-Test Split<a class="anchor-link" href="#Train-Test-Split">¶</a></h2><h3 id="Warum-brauchen-wir-einen-Train-Test-Split?">Warum brauchen wir einen Train-Test Split?<a class="anchor-link" href="#Warum-brauchen-wir-einen-Train-Test-Split?">¶</a></h3><ul>
-<li>Nach dem Training muss das Modell bewertet werden</li>
-<li><strong>Die Bewertung muss auf anderen Daten basieren als das Training</strong></li>
-<li>Andernfalls könnte das Modell die Trainingsdaten "auswendig lernen" (Overfitting)</li>
-<li>Uns interessiert, wie gut das Modell auf <strong>neuen, ungesehenen</strong> Daten funktioniert</li>
+<p>Manuelle Berechnung</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=228cee91aa0cd7ec">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">):</span>
+    <span class="n">result</span> <span class="o">+=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">c</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6a81d250fa33f690">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">result</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=cb5175cdc86ed98c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="NumPy:-Numerical-Python">NumPy: Numerical Python<a class="anchor-link" href="#NumPy:-Numerical-Python">¶</a></h2><ul>
+<li>Bibliothek für numerische Berechnungen</li>
+<li>Macht Mathematik mit vielen Zahlen einfach</li>
+<li>Viel schneller als normale Python-Listen</li>
+<li>Standard in Data Science und Machine Learning</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=988c1ec2597cfd4a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=528e9b9f06d8d086"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-die-Daten-randomisieren?">Warum die Daten randomisieren?<a class="anchor-link" href="#Warum-die-Daten-randomisieren?">¶</a></h2><ul>
-<li>Daten sind oft in einer bestimmten Reihenfolge gesammelt<ul>
-<li>Zeitliche Reihenfolge</li>
-<li>Sortiert nach bestimmten Eigenschaften</li>
-<li>Gruppiert nach Kategorien</li>
+<h2 id="NumPy-installieren-und-importieren">NumPy installieren und importieren<a class="anchor-link" href="#NumPy-installieren-und-importieren">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=001272da41c119e4"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>NumPy ist normalerweise in Data Science Umgebungen vorinstalliert. Falls nicht:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6f8de9de13d836b0">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>numpy<span class="w"> </span>--root-user-action<span class="o">=</span>ignore
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=17acfab643e00a1c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>  <span class="c1"># 'np' is the standard abbreviation</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=c59e0a16e6d15372"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>NumPy Version:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=634359673aab8bd4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">__version__</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f1a5f3edba59120f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ihr-erstes-NumPy-Array">Ihr erstes NumPy Array<a class="anchor-link" href="#Ihr-erstes-NumPy-Array">¶</a></h2><ul>
+<li>Ein Array ist wie eine Liste, aber optimiert für Mathematik</li>
+<li>Kann aus Listen erstellt werden</li>
+<li>Unterstützt viele mathematische Operationen direkt</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b434d9edfa0cb2c4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">my_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c01b79b5ed54e81a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c0da1cb932d0e9df">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=fbef725735a22f8d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">my_list</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2eecd131e2b17c9f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4dec61a0e67bfa06">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">type</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=83198fec0743e7aa">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a488fdc1ccf9f529"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Arrays-inspizieren">Arrays inspizieren<a class="anchor-link" href="#Arrays-inspizieren">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=32963a5c72bf507b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=990d489294efc86d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=38338d3cdffee630">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7fc56e727143629c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7ca2f40d43b2f0e4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8bfae9fc2b144e10">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=fa7fc998785144e7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Auf-Elemente-zugreifen">Auf Elemente zugreifen<a class="anchor-link" href="#Auf-Elemente-zugreifen">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5668a8bbd1a36cb2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=bfaa599e4b236dac"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Genau wie Listen!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a7a522147ffd1319">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=433e652700eaf306">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f2676c6b379e2631">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a760fa8ca0cc16b3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Aber Vorsicht - Arrays haben einen festen Typ</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7471b0520b7911a5">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8b44e7cf024088bb">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a1bb82bd09f6e9b7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=116a86631fff548d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Vektoren:-Listen-mit-Superkr%C3%A4ften">Vektoren: Listen mit Superkräften<a class="anchor-link" href="#Vektoren:-Listen-mit-Superkr%C3%A4ften">¶</a></h2><p>In der Mathematik ist ein Vektor eine geordnete Liste von Zahlen:</p>
+<ul>
+<li>Kann Koordinaten im Raum darstellen</li>
+<li>Kann Features eines Datenpunkts darstellen</li>
+<li>Kann mit anderen Vektoren verrechnet werden</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=92fb62ba53cd977b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Vektoren-visualisieren-(2D)">Vektoren visualisieren (2D)<a class="anchor-link" href="#Vektoren-visualisieren-(2D)">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=56219557ee946270">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_2d_vector</span><span class="p">,</span> <span class="n">plot_vector_addition</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=40459f29f70efa4e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Ein 2D-Vektor als Koordinaten</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=405ca25803a4e075">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">vector_2d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1025bc8d305f5ad5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Visualisiere als Pfeil vom Ursprung</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=3e8b6017ec331b92">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=398ded50593b7575"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Vektoren-als-Feature-Sammlungen">Vektoren als Feature-Sammlungen<a class="anchor-link" href="#Vektoren-als-Feature-Sammlungen">¶</a></h2><p>In ML repräsentieren Vektoren oft Features:</p>
+<ul>
+<li>Haus-Features als Vektor</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=93da2a8dee6be514">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">house_vector</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">120</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>  <span class="c1"># size, bedrooms, bathrooms, age, garage</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ee8705d86a2e0d1b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8ec443fbc6469c4a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c5bfa2e41e6ca59f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Jede Position hat eine Bedeutung</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=40b885029bbe37f9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">feature_names</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"size_sqm"</span><span class="p">,</span> <span class="s2">"bedrooms"</span><span class="p">,</span> <span class="s2">"bathrooms"</span><span class="p">,</span> <span class="s2">"age_years"</span><span class="p">,</span> <span class="s2">"garage"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e1f3803c48f7afed">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">feature_names</span><span class="p">,</span> <span class="n">house_vector</span><span class="p">)):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Position </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2"> = </span><span class="si">{</span><span class="n">value</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3ad4161559a3e193"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Einfache-Array-Operationen">Einfache Array-Operationen<a class="anchor-link" href="#Einfache-Array-Operationen">¶</a></h2><p>NumPy macht Mathematik mit Arrays einfach:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e13c8bbbb8326c83"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Skalare-Operationen">Skalare Operationen<a class="anchor-link" href="#Skalare-Operationen">¶</a></h2><p>Operationen mit einzelnen Zahlen:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=28030fbb075e2180">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4493d62c29b496e2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=e9aff408c7c16130"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>50 zu allen Preisen addieren</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d4e21f437056a3a2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0317205ec9b15f43">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=28267126da3a7680"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>10% Rabatt auf alle Preise</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c75fdc3bce1fb75e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=51a4be6fceeb9cc0">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c09237a2680566a6"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Vergleich:-Listen-vs.-Arrays">Vergleich: Listen vs. Arrays<a class="anchor-link" href="#Vergleich:-Listen-vs.-Arrays">¶</a></h2><ul>
+<li>Listen unterstützen keine direkten mathematischen Operationen<ul>
+<li>Benötigen Schleifen oder List Comprehensions</li>
 </ul>
 </li>
-<li>Wenn wir die Daten nicht randomisieren, könnten Train- und Testdaten
-systematisch unterschiedlich sein</li>
-<li>Beispiel: Erste 80% = Sommer, letzte 20% = Winter</li>
-<li>Randomisierung stellt sicher, dass beide Datensätze repräsentativ sind</li>
+<li>NumPy Arrays unterstützen elementweise Operationen direkt</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d130b0bb54a24dea"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=ad88cc01471a7912">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">list_prices</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">250</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=e6debcd411510dad">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">array_prices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">250</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=12c6cb55b7a4bdeb"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Wie-viel-Prozent-f%C3%BCr-Training-und-Test?">Wie viel Prozent für Training und Test?<a class="anchor-link" href="#Wie-viel-Prozent-f%C3%BCr-Training-und-Test?">¶</a></h2><p><strong>Typische Aufteilungen:</strong></p>
-<ul>
-<li>80/20 (80% Training, 20% Test): Standard für mittelgroße Datensätze</li>
-<li>70/30: Wenn mehr Testdaten gewünscht sind</li>
-<li>90/10: Wenn wenig Daten vorhanden sind</li>
-</ul>
-<p><strong>Faktoren bei der Entscheidung:</strong></p>
-<ul>
-<li>Größe des Datensatzes: Je weniger Daten, desto mehr für Training</li>
-<li>Komplexität des Modells: Komplexe Modelle brauchen mehr Trainingsdaten</li>
-<li>Variabilität der Daten: Hohe Variabilität erfordert mehr Testdaten</li>
-</ul>
+<p>Mit Listen - Comprehension ist nötig</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=5ee4c452fc532838"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Train-Test-Split-mit-train_test_split()">Train-Test Split mit <code>train_test_split()</code><a class="anchor-link" href="#Train-Test-Split-mit-train_test_split()">¶</a></h2><p>Scikit-Learn bietet die Funktion <code>train_test_split()</code> an:</p>
-<ul>
-<li>Teilt die Daten automatisch auf</li>
-<li>Randomisiert die Daten standardmäßig</li>
-<li>Kann mit <code>random_state</code> für reproduzierbare Ergebnisse fixiert werden</li>
-<li>Parameter <code>test_size</code>: Anteil der Testdaten (0.0 bis 1.0)</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e0f144a11723a107">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=078d072da35ec7b9">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13236,17 +13821,57 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=9e43a69ff9ccd260"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=637372704e8eb72d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=6d254536c9f675d5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Vorbereitung-der-Daten">Vorbereitung der Daten<a class="anchor-link" href="#Vorbereitung-der-Daten">¶</a></h2><ul>
-<li><code>train_test_split()</code> erwartet X als 2D-Array (Liste von Listen)</li>
-<li>Jede Zeile ist ein Datenpunkt, jede Spalte ein Feature</li>
+<p>Mit Arrays - einfach multiplizieren!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e700c188779b6810">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=81901aa4feb23500">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ceaf93abf65cb776"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Vorsicht:-Listen-und-Multiplikation">Vorsicht: Listen und Multiplikation<a class="anchor-link" href="#Vorsicht:-Listen-und-Multiplikation">¶</a></h3><ul>
+<li>Man kann auch Listen mit ganzen Zahlen multiplizieren</li>
+<li>Das bedeutet etwas ganz anderes als in der Mathematik!</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=23ecbadb65460a37">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4065a0e1f2b6a66b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13257,7 +13882,7 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=78c3ffe2eff047a9">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2c2d77a14034d7ed">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13268,14 +13893,40 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=7c975a9cf56d1f27"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d7b879e83f4478df"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Durchf%C3%BChrung-des-Train-Test-Split">Durchführung des Train-Test Split<a class="anchor-link" href="#Durchf%C3%BChrung-des-Train-Test-Split">¶</a></h2>
+<h2 id="Vektoraddition">Vektoraddition<a class="anchor-link" href="#Vektoraddition">¶</a></h2><ul>
+<li>Wir können Vektoren addieren</li>
+<li>Addition erfolgt <strong>elementweise</strong></li>
+<li>Die Vektoren müssen die gleiche Länge haben</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=13cdded6d688f990">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a1e589eab44d1e00"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Beispiel">Beispiel<a class="anchor-link" href="#Beispiel">¶</a></h3><ul>
+<li>Monatliche Verkäufe für zwei Produkte</li>
+<li>Die Summe ist der Gesamtverkauf pro Monat</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c738e1d4aef4da60">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">product_a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">100</span><span class="p">,</span> <span class="mi">120</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">110</span><span class="p">,</span> <span class="mi">105</span><span class="p">])</span>
+<span class="n">product_b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">80</span><span class="p">,</span> <span class="mi">85</span><span class="p">,</span> <span class="mi">95</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">88</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b91e2abfe418363f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13286,71 +13937,280 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6f2333b88dfd9f3a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f5dc4cd53ba2591f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=0e078d0a9a3f8ff9"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-bedeutet-random_state=42?">Was bedeutet <code>random_state=42</code>?<a class="anchor-link" href="#Was-bedeutet-random_state=42?">¶</a></h2><ul>
-<li>Die Randomisierung ist eigentlich pseudozufällig</li>
-<li><code>random_state</code> setzt den "Seed" für den Zufallsgenerator</li>
-<li>Mit dem gleichen <code>random_state</code> bekommen wir immer die gleiche Aufteilung</li>
-<li>Wichtig für:<ul>
-<li>Reproduzierbarkeit von Ergebnissen</li>
-<li>Debugging</li>
-<li>Vergleich verschiedener Modelle</li>
+<p>Gesamtverkäufe pro Monat</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7f792f4c4419d36a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=447b19a4db2adc24">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=5f51f09357492de2"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Visualisierung-der-Vektoraddition-(2D)">Visualisierung der Vektoraddition (2D)<a class="anchor-link" href="#Visualisierung-der-Vektoraddition-(2D)">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=3bf7fc592be266df">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">v1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">v2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ab11641d51ddcc4a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">v_sum</span> <span class="o">=</span> <span class="n">v1</span> <span class="o">+</span> <span class="n">v2</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4f3c098a638942e7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Zeichne Vektoren</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=46c06eb6e73d8205">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3c693a2afa09bc51"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Methoden-auf-Vektoren">Methoden auf Vektoren<a class="anchor-link" href="#Methoden-auf-Vektoren">¶</a></h2><ul>
+<li>NumPy bietet eine Vielzahl von Methoden für Vektoren</li>
+<li>Häufig verwendete Methoden sind:<ul>
+<li><code>np.sum()</code> für die Summe aller Elemente</li>
+<li><code>np.mean()</code> für den Durchschnitt</li>
+<li><code>np.max()</code> und <code>np.min()</code> für Maximum und Minimum</li>
+<li><code>np.argmax()</code> und <code>np.argmin()</code> für die Indizes von Max/Min</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=b3a59884c59a0516">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=f0e4ec0c08ca6685"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Summe aller Elemente</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=17feb687464aeffc">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=4484ae0f907bcb06"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Durchschnitt der Elemente</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=46ca346f17304561">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1905fd96f3b7985a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a71dadfcb06a7780">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6b36a07c998843f1"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Maximum und Minimum der Elemente</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8a2db37d60fbacd8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=3184bce540a41511">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=3a55081714603a94"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Index des Maximums</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=909afacdd865899e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=0a291a391b65ed76"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Index des Minimums</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=97b573abbcf96ec1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ee8c44da4c5f81a5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Logische-Operationen-auf-Vektoren">Logische Operationen auf Vektoren<a class="anchor-link" href="#Logische-Operationen-auf-Vektoren">¶</a></h2><ul>
+<li>Logische Operationen können <strong>elementweise</strong> auf NumPy Arrays angewendet werden.</li>
+<li>Gängige Operationen sind:<ul>
+<li>Größer als (<code>&gt;</code>)</li>
+<li>Kleiner als (<code>&lt;</code>)</li>
+<li>Gleich (<code>==</code>)</li>
+<li>Logisches UND (<code>&amp;</code>)</li>
+<li>Logisches ODER (<code>|</code>)</li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=15d8e1c8dbe8b0c9">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=e71e57c2b64b59eb">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Total samples: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Training samples: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Test samples: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Training percentage: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">%"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=f8e85df7e4a45557">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Training data:"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"X_train:"</span><span class="p">,</span> <span class="n">X_train</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"y_train:"</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c27d010a5beef233">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Test data:"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"X_test:"</span><span class="p">,</span> <span class="n">X_test</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"y_test:"</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=39ee09fb76a8ebec"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=8b3d451ef076a8be"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Training-des-Modells-mit-Scikit-Learn">Training des Modells mit Scikit-Learn<a class="anchor-link" href="#Training-des-Modells-mit-Scikit-Learn">¶</a></h2>
+<p>Ist der jeweilige Wert größer als 30?</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7d20a6d42e11ce7a">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1419d912e992b587">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13361,7 +14221,7 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=0c5528491b2b62cb">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=3a03c2ca5bd66a73">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13372,14 +14232,7 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=91790beb9a40926d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Vor-dem-Training">Vor dem Training<a class="anchor-link" href="#Vor-dem-Training">¶</a></h2><p>Das Modell ist noch nicht trainiert:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=b951002579a73317">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=efe2d9431a253b67">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13390,14 +14243,14 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=379a585c233c77a7"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=c1f48cb6e96c353b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Training-mit-fit()">Training mit <code>fit()</code><a class="anchor-link" href="#Training-mit-fit()">¶</a></h2>
+<p>Ist der jeweilige Wert gleich 25?</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=79ee122b608bc3d3">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e0177c70918baad4">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13408,114 +14261,71 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=41adbef7194917f7"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Nach-dem-Training">Nach dem Training<a class="anchor-link" href="#Nach-dem-Training">¶</a></h2><p>Jetzt sind die Parameter gesetzt:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=dd12b2ed570e0417">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=408c593fd011b3ee">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Coefficient: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">coef_</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Intercept: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">intercept_</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ea1617949e0d44f8"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8bf5fb857e8edf23">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=570c4714b1a425dc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Interpretation">Interpretation<a class="anchor-link" href="#Interpretation">¶</a></h2><ul>
-<li>Das Modell hat die Gleichung: y = 2x + 0.9 (ungefähr)</li>
-<li>Für jede Erhöhung von x um 1 steigt y um etwa 2</li>
-<li>Der y-Achsenabschnitt ist etwa 0.9</li>
+<h2 id="Fancy-Indexing">Fancy Indexing<a class="anchor-link" href="#Fancy-Indexing">¶</a></h2><ul>
+<li>Boolesche Arrays können als Indizes verwendet werden, um Elemente auszuwählen</li>
+<li>Das Ergebnis enthält nur die Elemente, bei denen der Index <code>True</code> ist</li>
+<li>Nützlich für Filterung und bedingte Auswahl</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=48e6057f8c393b58"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=e103133cd901b01f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">50</span><span class="p">])</span>
+<span class="n">data</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=32a7e9bf6b9ed72a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mask</span> <span class="o">=</span> <span class="n">data</span> <span class="o">&gt;</span> <span class="mi">30</span>
+<span class="n">mask</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=5b47b6d142f7a34e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Evaluation-mit-Scikit-Learn">Evaluation mit Scikit-Learn<a class="anchor-link" href="#Evaluation-mit-Scikit-Learn">¶</a></h2><p>Scikit-Learn bietet viele Metriken zur Modellbewertung:</p>
-<h3 id="F%C3%BCr-Regression:">Für Regression:<a class="anchor-link" href="#F%C3%BCr-Regression:">¶</a></h3><ul>
-<li><strong>Mean Absolute Error (MAE)</strong>: Durchschnittlicher absoluter Fehler</li>
-<li><strong>Mean Squared Error (MSE)</strong>: Durchschnittlicher quadratischer Fehler</li>
-<li><strong>Root Mean Squared Error (RMSE)</strong>: Wurzel des MSE</li>
-<li><strong>R² Score</strong>: Bestimmtheitsmaß (0 bis 1, höher ist besser)</li>
-</ul>
+<p>Werte größer als 30</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=11980c6f46f29c89"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Mean-Absolute-Error-(MAE)">Mean Absolute Error (MAE)<a class="anchor-link" href="#Mean-Absolute-Error-(MAE)">¶</a></h2><ul>
-<li>Durchschnitt der absoluten Differenzen zwischen Vorhersage und tatsächlichem Wert</li>
-<li><strong>Einheit</strong>: Gleiche Einheit wie die Zielvariable</li>
-<li><strong>Interpretation</strong>: Durchschnittliche Abweichung der Vorhersagen</li>
-<li><strong>Vorteil</strong>: Einfach zu interpretieren, nicht anfällig für Ausreißer</li>
-<li><strong>Formel</strong>: $\text{MAE} = \frac{1}{n}\sum_{i=1}^{n}|y_i - \hat{y}_i|$</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=10de10e9402832a8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Mean-Squared-Error-(MSE)">Mean Squared Error (MSE)<a class="anchor-link" href="#Mean-Squared-Error-(MSE)">¶</a></h2><ul>
-<li>Durchschnitt der quadrierten Differenzen</li>
-<li><strong>Einheit</strong>: Quadrat der Einheit der Zielvariable</li>
-<li><strong>Interpretation</strong>: Bestraft große Fehler stärker</li>
-<li><strong>Vorteil</strong>: Mathematisch besser zu handhaben (differenzierbar)</li>
-<li><strong>Nachteil</strong>: Schwerer zu interpretieren durch Quadrierung</li>
-<li><strong>Formel</strong>: $\text{MSE} = \frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2$</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=9ca6f5d9855c969a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Root-Mean-Squared-Error-(RMSE)">Root Mean Squared Error (RMSE)<a class="anchor-link" href="#Root-Mean-Squared-Error-(RMSE)">¶</a></h2><ul>
-<li>Wurzel des MSE</li>
-<li><strong>Einheit</strong>: Gleiche Einheit wie die Zielvariable</li>
-<li><strong>Interpretation</strong>: Ähnlich wie MAE, aber bestraft große Fehler stärker</li>
-<li><strong>Vorteil</strong>: Kombiniert Vorteile von MAE (Einheit) und MSE (Gewichtung)</li>
-<li><strong>Formel</strong>: $\text{RMSE} = \sqrt{\text{MSE}} = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}$</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=04e7ea7b1709340a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="R%C2%B2-Score-(Bestimmtheitsma%C3%9F)">R² Score (Bestimmtheitsmaß)<a class="anchor-link" href="#R%C2%B2-Score-(Bestimmtheitsma%C3%9F)">¶</a></h2><ul>
-<li>Misst, wie gut das Modell die Varianz in den Daten erklärt</li>
-<li><strong>Bereich</strong>: -∞ bis 1 (normalerweise 0 bis 1)<ul>
-<li>1: Perfekte Vorhersage</li>
-<li>0: Modell ist nicht besser als der Durchschnitt</li>
-<li>&lt; 0: Modell ist schlechter als der Durchschnitt</li>
-</ul>
-</li>
-<li><strong>Vorteil</strong>: Unabhängig von der Einheit, leicht zu interpretieren</li>
-<li><strong>Formel</strong>: $R^2 = 1 - \frac{\sum_{i=1}^{n}(y_i - \hat{y}_i)^2}{\sum_{i=1}^{n}(y_i - \bar{y})^2}$</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=787113d65a8a8744"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Vorhersagen-machen">Vorhersagen machen<a class="anchor-link" href="#Vorhersagen-machen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d5ae3936c64478d1">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2bc599de736c08a0">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13526,7 +14336,7 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e02a900b917953a2">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=da55267069b5a1e9">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13537,14 +14347,7 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=7d37abd5c2d6a58b"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Evaluation-auf-Trainingsdaten">Evaluation auf Trainingsdaten<a class="anchor-link" href="#Evaluation-auf-Trainingsdaten">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=101dca44a94fecc6">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=4516c726a95c8d5d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13555,7 +14358,7 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a13047a7ae53da55">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ee1e968063a482d0">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13566,7 +14369,7 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7a936c0e9f8190a8">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=321f76fd9b0af8cb">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13577,15 +14380,7 @@ systematisch unterschiedlich sein</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=13a8102d885fe7a4"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Evaluation-auf-Testdaten">Evaluation auf Testdaten<a class="anchor-link" href="#Evaluation-auf-Testdaten">¶</a></h2><p><strong>Wichtig</strong>: Die Performance auf den Testdaten ist die aussagekräftigere
-Metrik!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=3be2b0357ee37cf3">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4f4085e02a64eeb3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13596,604 +14391,266 @@ Metrik!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e8708d9e34f00300">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=849953d818e25478"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Vergleich:-Training-vs.-Test">Vergleich: Training vs. Test<a class="anchor-link" href="#Vergleich:-Training-vs.-Test">¶</a></h2><p>Ein gutes Modell sollte ähnliche Performance auf beiden Datensätzen zeigen:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=58757b9ef65eba06">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d3c82de6a4e2b137"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Interpretation-der-Ergebnisse">Interpretation der Ergebnisse<a class="anchor-link" href="#Interpretation-der-Ergebnisse">¶</a></h2><ul>
-<li><strong>R² nahe 1</strong>: Das Modell erklärt die Daten sehr gut</li>
-<li><strong>Kleine MAE/RMSE</strong>: Die Vorhersagen sind im Durchschnitt nah an den wahren Werten</li>
-<li><strong>Training ≈ Test</strong>: Kein Overfitting, das Modell generalisiert gut</li>
-<li><strong>Training ≫ Test</strong>: Mögliches Overfitting, Modell ist zu komplex</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=fc4c0146cf1df533"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Visualisierung-der-Ergebnisse">Visualisierung der Ergebnisse<a class="anchor-link" href="#Visualisierung-der-Ergebnisse">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=258204a8ec41f8e2">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">X_pred</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">X_train</span> <span class="o">+</span> <span class="n">X_test</span><span class="p">]</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_train</span> <span class="o">+</span> <span class="n">X_test</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=3b32eefb6fca5260">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=0ce0d2c900e81978">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_data_and_model</span><span class="p">():</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Training data"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Test data"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">X_pred</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="s2">"r-"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Model predictions"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"X"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Y"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Linear Regression: Model Fit"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=9571fccb29b6670f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b744604dcca21ab0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Evaluierung-mit-.score()">Evaluierung mit <code>.score()</code><a class="anchor-link" href="#Evaluierung-mit-.score()">¶</a></h2><ul>
-<li>Die Methode <code>.score()</code> bietet eine schnelle Möglichkeit, die Leistung des
-Modells zu bewerten.</li>
-<li>Hier gibt sie das Bestimmtheitsmaß R² der Vorhersage zurück.</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4a47bca2e5739da0">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=f93ba309247fbdf2">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=bed2ebc59298d33d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=acf563a9c3c582e3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=acc833bc3ae4720a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Residuen-Plot">Residuen-Plot<a class="anchor-link" href="#Residuen-Plot">¶</a></h2><ul>
-<li>Zeigt die Fehler (Residuen) für jede Vorhersage</li>
-<li>Ideale Residuen sind zufällig um 0 verteilt</li>
-<li>Muster in den Residuen deuten auf Probleme hin</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=7cbc73eb5a2641a9">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=93be12ef8f252998">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">plot_residuals</span><span class="p">():</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">train_predictions</span><span class="p">,</span> <span class="n">train_residuals</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Training"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">test_predictions</span><span class="p">,</span> <span class="n">test_residuals</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.6</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Test"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"r"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">"Predicted values"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">"Residuals"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">"Residual Plot"</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=a265e32589aa90af">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6f73978cdb060dd8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Weitere-n%C3%BCtzliche-Scikit-Learn-Tools">Weitere nützliche Scikit-Learn Tools<a class="anchor-link" href="#Weitere-n%C3%BCtzliche-Scikit-Learn-Tools">¶</a></h2><h3 id="Cross-Validation">Cross-Validation<a class="anchor-link" href="#Cross-Validation">¶</a></h3><ul>
-<li>Teilt Daten in mehrere Folds auf</li>
-<li>Trainiert und testet Modell mehrfach</li>
-<li>Robustere Schätzung der Modell-Performance</li>
-</ul>
-<div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">cross_val_score</span>
-<span class="n">scores</span> <span class="o">=</span> <span class="n">cross_val_score</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ba5a2c1f1dc2ef81"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Grid-Search">Grid Search<a class="anchor-link" href="#Grid-Search">¶</a></h3><ul>
-<li>Systematische Suche nach besten Hyperparametern</li>
-<li>Testet verschiedene Kombinationen von Parametern</li>
-</ul>
-<div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSearchCV</span>
-<span class="n">param_grid</span> <span class="o">=</span> <span class="p">{</span><span class="s1">'fit_intercept'</span><span class="p">:</span> <span class="p">[</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">]}</span>
-<span class="n">grid_search</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">LinearRegression</span><span class="p">(),</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">grid_search</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=eb2dc89dd886e1ba"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Pipelines">Pipelines<a class="anchor-link" href="#Pipelines">¶</a></h3><ul>
-<li>Verketten mehrere Verarbeitungsschritte</li>
-<li>Preprocessing + Training in einem Schritt</li>
-</ul>
-<div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
-
-<span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
-    <span class="p">(</span><span class="s1">'scaler'</span><span class="p">,</span> <span class="n">StandardScaler</span><span class="p">()),</span>
-    <span class="p">(</span><span class="s1">'model'</span><span class="p">,</span> <span class="n">LinearRegression</span><span class="p">())</span>
-<span class="p">])</span>
-<span class="n">pipeline</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a978c13618d960c7"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f2cb92faa8e0314e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Scikit-Learn</strong> ist eine mächtige und einfach zu benutzende ML-Bibliothek</li>
-<li><strong>Train-Test Split</strong> ist essentiell zur Bewertung von Modellen<ul>
-<li>Randomisierung verhindert systematische Verzerrungen</li>
-<li>Typische Aufteilung: 80/20 oder 70/30</li>
-</ul>
-</li>
-<li><strong>Evaluation</strong> sollte immer auf den Testdaten erfolgen<ul>
-<li>MAE, MSE, RMSE für absolute Fehler</li>
-<li>R² für relative Modellgüte</li>
-</ul>
-</li>
-<li>Scikit-Learn bietet viele weitere Tools (Cross-Validation, Grid Search, Pipelines)</li>
+<li>NumPy Arrays sind optimierte Listen für numerische Berechnungen</li>
+<li>Vektoren sind geordnete Zahlensammlungen</li>
+<li>Arrays ermöglichen Operationen ohne Schleifen</li>
+<li>Elementweise Operationen sind einfach und schnell</li>
+<li>Perfekt für ML-Features und Koeffizienten!</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4762adce4e3005e6"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d84b18ad035bb4a1"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop:-Pizza-Lieferzeit-mit-Scikit-Learn">Workshop: Pizza-Lieferzeit mit Scikit-Learn<a class="anchor-link" href="#Workshop:-Pizza-Lieferzeit-mit-Scikit-Learn">¶</a></h2><p>In diesem Workshop werden wir nochmal ein Machine Learning Modell trainieren,
-um die Lieferzeit einer Pizza basierend auf der Entfernung vom Restaurant
-vorherzusagen. Dabei werden wir die Funktionalität von Scikit-Learn nutzen.</p>
-<p><strong>Ziel</strong>: Anwendung aller gelernten Konzepte:</p>
-<ul>
-<li>Train-Test Split mit <code>train_test_split()</code></li>
-<li>Training mit <code>LinearRegression</code></li>
-<li>Evaluation mit MAE, MSE, RMSE und R²</li>
-<li>Visualisierung der Ergebnisse</li>
+<h2 id="N%C3%A4chste-Schritte">Nächste Schritte<a class="anchor-link" href="#N%C3%A4chste-Schritte">¶</a></h2><ul>
+<li>Wir können Features und Koeffizienten als Vektoren darstellen</li>
+<li>Aber wie berechnen wir effizient Vorhersagen?</li>
+<li>Nächstes Thema: Das Skalarprodukt (Dot Product)</li>
+<li>Die wichtigste Operation in linearer Regression!</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=76f3efe383667d1b"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5daee04976519f3c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Die Daten sind bereits vorbereitet:</p>
-<ul>
-<li><code>pizza_distance</code>: Entfernung vom Restaurant in km</li>
-<li><code>pizza_time</code>: Lieferzeit in Minuten</li>
-</ul>
+<h2 id="Workshop:-NumPy-Grundlagen">Workshop: NumPy Grundlagen<a class="anchor-link" href="#Workshop:-NumPy-Grundlagen">¶</a></h2><p>Üben wir den Umgang mit NumPy Arrays!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=050193ce04ea1c41">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">pizza_distance</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="mf">1.0</span><span class="p">,</span>
-    <span class="mf">1.5</span><span class="p">,</span>
-    <span class="mf">2.0</span><span class="p">,</span>
-    <span class="mf">2.5</span><span class="p">,</span>
-    <span class="mf">3.0</span><span class="p">,</span>
-    <span class="mf">3.5</span><span class="p">,</span>
-    <span class="mf">4.0</span><span class="p">,</span>
-    <span class="mf">4.5</span><span class="p">,</span>
-    <span class="mf">5.0</span><span class="p">,</span>
-    <span class="mf">5.5</span><span class="p">,</span>
-    <span class="mf">6.0</span><span class="p">,</span>
-    <span class="mf">6.5</span><span class="p">,</span>
-    <span class="mf">7.0</span><span class="p">,</span>
-    <span class="mf">7.5</span><span class="p">,</span>
-    <span class="mf">8.0</span><span class="p">,</span>
-<span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5204c7d6cad5a14f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">pizza_time</span> <span class="o">=</span> <span class="p">[</span><span class="mi">15</span><span class="p">,</span> <span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">33</span><span class="p">,</span> <span class="mi">35</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">43</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">48</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ea8eadc39a185fe3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=954720842b3f9e20"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=edf2a695ee02e92c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-1:-Daten-vorbereiten">Aufgabe 1: Daten vorbereiten<a class="anchor-link" href="#Aufgabe-1:-Daten-vorbereiten">¶</a></h3><p>Bereiten Sie die Daten für Scikit-Learn vor:</p>
-<ul>
-<li>Konvertieren Sie <code>pizza_distance</code> in eine 2D-Liste (Liste von Listen)</li>
-<li>Speichern Sie das Ergebnis in <code>X</code></li>
-<li>Speichern Sie <code>pizza_time</code> in <code>y</code></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=b614a4f4693c7d31">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=afbbff829d806474"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-2:-Train-Test-Split">Aufgabe 2: Train-Test Split<a class="anchor-link" href="#Aufgabe-2:-Train-Test-Split">¶</a></h3><p>Teilen Sie die Daten mit <code>train_test_split()</code> auf:</p>
-<ul>
-<li>Verwenden Sie ca. 60% der Daten für das Training (40% für Test)</li>
-<li>Setzen Sie <code>random_state=42</code> für Reproduzierbarkeit</li>
-<li>Speichern Sie die Ergebnisse in <code>X_train</code>, <code>X_test</code>, <code>y_train</code>, <code>y_test</code></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=b4b947607c293140">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8832db8395427923"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-3:-Modell-trainieren">Aufgabe 3: Modell trainieren<a class="anchor-link" href="#Aufgabe-3:-Modell-trainieren">¶</a></h3><p>Trainieren Sie ein lineares Regressionsmodell:</p>
-<ul>
-<li>Erstellen Sie ein <code>LinearRegression</code> Modell</li>
-<li>Trainieren Sie es mit den Trainingsdaten</li>
-<li>Geben Sie die gelernten Parameter (Koeffizient und Intercept) aus</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=3113f6d307740151">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=71dc914ea20ef49d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-4:-Vorhersagen-machen">Aufgabe 4: Vorhersagen machen<a class="anchor-link" href="#Aufgabe-4:-Vorhersagen-machen">¶</a></h3><p>Erstellen Sie Vorhersagen für Trainings- und Testdaten:</p>
-<ul>
-<li>Verwenden Sie <code>model.predict()</code> für beide Datensätze</li>
-<li>Speichern Sie die Ergebnisse in <code>train_predictions</code> und <code>test_predictions</code></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=65de17d15c45a508">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=298d738a8ae1bc2d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-5:-Modell-evaluieren">Aufgabe 5: Modell evaluieren<a class="anchor-link" href="#Aufgabe-5:-Modell-evaluieren">¶</a></h3><p>Berechnen Sie die folgenden Metriken für Trainings- und Testdaten:</p>
-<ul>
-<li>MAE (Mean Absolute Error)</li>
-<li>MSE (Mean Squared Error)</li>
-<li>RMSE (Root Mean Squared Error)</li>
-<li>R² Score</li>
-</ul>
-<p>Verwenden Sie die entsprechenden Funktionen aus <code>sklearn.metrics</code>.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=66a5fc242b89c858">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=adea9e8edf7ac273"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-6:-Metriken-vergleichen">Aufgabe 6: Metriken vergleichen<a class="anchor-link" href="#Aufgabe-6:-Metriken-vergleichen">¶</a></h3><p>Erstellen Sie eine übersichtliche Vergleichstabelle der Metriken für
-Trainings- und Testdaten.</p>
-<p><strong>Analysieren Sie die Ergebnisse:</strong></p>
-<ul>
-<li>Sind die Metriken ähnlich für Training und Test?</li>
-<li>Was sagt der R² Score über die Modellqualität aus?</li>
-<li>Wie groß ist die durchschnittliche Abweichung (MAE)?</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=a83deac350e4ba0f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=9f8d5a3688d80538"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-7:-Ergebnisse-visualisieren">Aufgabe 7: Ergebnisse visualisieren<a class="anchor-link" href="#Aufgabe-7:-Ergebnisse-visualisieren">¶</a></h3><p>Erstellen Sie einen Plot, der zeigt:</p>
-<ul>
-<li>Die Trainingsdaten als Scatter-Plot (blau)</li>
-<li>Die Testdaten als Scatter-Plot (orange)</li>
-<li>Die Modellvorhersagen als rote Linie</li>
-</ul>
-<p>Beschriften Sie die Achsen und fügen Sie eine Legende hinzu.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=b2169c37a252a357">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=fb2b00b238649d21"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-8:-Residuen-Plot">Aufgabe 8: Residuen-Plot<a class="anchor-link" href="#Aufgabe-8:-Residuen-Plot">¶</a></h3><p>Erstellen Sie einen Residuen-Plot:</p>
-<ul>
-<li>X-Achse: Vorhergesagte Werte</li>
-<li>Y-Achse: Residuen (Fehler = tatsächlicher Wert - vorhergesagter Wert)</li>
-<li>Plotten Sie Trainings- und Testdaten</li>
-<li>Fügen Sie eine horizontale Linie bei y=0 hinzu</li>
-</ul>
-<p><strong>Analysieren Sie:</strong> Sind die Residuen zufällig um 0 verteilt?</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=8c782fb5a2f90251">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=2e0c8ca3065d72ae"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-9:-Neue-Vorhersagen">Aufgabe 9: Neue Vorhersagen<a class="anchor-link" href="#Aufgabe-9:-Neue-Vorhersagen">¶</a></h3><p>Verwenden Sie das trainierte Modell, um die Lieferzeit für folgende
-Entfernungen vorherzusagen:</p>
-<ul>
-<li>2.8 km</li>
-<li>5.2 km</li>
-<li>9.0 km</li>
-<li>10.5 km</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=d5cdde418a705172">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=85c8197766a65811"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-10:-Modellqualit%C3%A4t-einsch%C3%A4tzen">Aufgabe 10: Modellqualität einschätzen<a class="anchor-link" href="#Aufgabe-10:-Modellqualit%C3%A4t-einsch%C3%A4tzen">¶</a></h3><p><strong>Diskussionsfragen:</strong></p>
+<h3 id="Aufgabe-1:-Arrays-erstellen">Aufgabe 1: Arrays erstellen<a class="anchor-link" href="#Aufgabe-1:-Arrays-erstellen">¶</a></h3><p>Erstellen Sie NumPy Arrays für:</p>
 <ol>
-<li>Ist das Modell gut für die Vorhersage geeignet? (Betrachten Sie R²)</li>
-<li>Wie groß ist der durchschnittliche Fehler in Minuten? (Betrachten Sie MAE)</li>
-<li>Sind die Residuen zufällig verteilt oder zeigen sie ein Muster?</li>
-<li>Würden Sie dem Modell für die 10.5 km Vorhersage vertrauen? Warum (nicht)?</li>
-<li>Was bedeutet es, dass Training und Test Metriken sehr ähnlich sind?</li>
+<li>Die Temperaturen einer Woche: [18, 20, 22, 19, 21, 23, 20]</li>
+<li>Die Preise von 5 Produkten: [9.99, 14.50, 7.25, 22.00, 18.75]</li>
 </ol>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ac57bdc46a45d14b"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=71028c03b489f209">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4de2fac55fa03be1"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><strong>Mögliche Antworten:</strong></p>
+<h3 id="Aufgabe-2:-Array-Operationen">Aufgabe 2: Array-Operationen<a class="anchor-link" href="#Aufgabe-2:-Array-Operationen">¶</a></h3><p>Mit den Temperatur-Daten:</p>
 <ol>
-<li><strong>Modellqualität</strong>: R² nahe 1 (z.B. &gt; 0.95) zeigt, dass das Modell die
-Daten sehr gut erklärt</li>
-<li><strong>Durchschnittlicher Fehler</strong>: MAE gibt an, wie viele Minuten die
-Vorhersage im Durchschnitt abweicht (z.B. ±2 Minuten)</li>
-<li><strong>Residuen</strong>: Idealerweise zufällig verteilt ohne erkennbares Muster. Hier
-haben wir aber einen deutlich erkennbaren systematischen Fehler</li>
-<li><strong>10.5 km Vorhersage</strong>: Vorsicht bei Extrapolation! Das Modell wurde nur
-bis 8 km trainiert</li>
-<li><strong>Training ≈ Test</strong>: Das Modell generalisiert gut, kein Overfitting</li>
+<li>Konvertieren Sie alle Temperaturen von Celsius zu Fahrenheit (F = C × 1.8 + 32)</li>
+<li>Erzeugen Sie einen Vektor, der alle Celsius-Werte über 20°C enthält</li>
+<li>Erzeugen Sie einen Vektor, der alle Celsius-Werte für Tage mit über 70°F enthält</li>
 </ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=27e1910499d2295f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">temperatures</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">18</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">22</span><span class="p">,</span> <span class="mi">19</span><span class="p">,</span> <span class="mi">21</span><span class="p">,</span> <span class="mi">23</span><span class="p">,</span> <span class="mi">20</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0b9ca011bad09b8f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=bfd956d90fd6fab9"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-3:-Vektoroperationen">Aufgabe 3: Vektoroperationen<a class="anchor-link" href="#Aufgabe-3:-Vektoroperationen">¶</a></h3><p>Ein Geschäft verkauft 3 Produkte über 4 Wochen:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6a70f012cc7309a3">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Sales data (units sold per week)</span>
+<span class="n">week1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span> <span class="mi">15</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<span class="n">week2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+<span class="n">week3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
+<span class="n">week4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">15</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
+
+<span class="c1"># Prices per unit</span>
+<span class="n">prices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">25.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=ffcc820aad55a095"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Berechnen Sie:</p>
+<ol>
+<li>Gesamtverkäufe pro Produkt über alle Wochen</li>
+<li>Umsatz pro Woche</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=550e56258f286afa">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1b93418cc781859e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-4:-Feature-Vektoren">Aufgabe 4: Feature-Vektoren<a class="anchor-link" href="#Aufgabe-4:-Feature-Vektoren">¶</a></h3><p>Erstellen Sie Feature-Vektoren für 3 Wohnungen und berechnen Sie eine
+Bewertung mit gegebenen Gewichten.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Größe (qm)</th>
+<th>Schlafzimmer</th>
+<th>Etage</th>
+<th>Balkon</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wohnung 1</td>
+<td>65</td>
+<td>2</td>
+<td>3</td>
+<td>Ja (1)</td>
+</tr>
+<tr>
+<td>Wohnung 2</td>
+<td>85</td>
+<td>3</td>
+<td>1</td>
+<td>Nein (0)</td>
+</tr>
+<tr>
+<td>Wohnung 3</td>
+<td>55</td>
+<td>1</td>
+<td>5</td>
+<td>Ja (1)</td>
+</tr>
+</tbody>
+</table>
+<p>Die Gewichte sind:</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Gewicht</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Größe</td>
+<td>2.0</td>
+</tr>
+<tr>
+<td>Schlafzimmer</td>
+<td>20.0</td>
+</tr>
+<tr>
+<td>Etage</td>
+<td>5.0</td>
+</tr>
+<tr>
+<td>Balkon</td>
+<td>15.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=08f2ae7d2a7d7331">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=bdaa89cc560f69db"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Berechnen Sie die Bewertung für jede Wohnung (ohne Schleifen für die
+Berechnung der einzelnen Bewertungen!).</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1d6d2b618057f472">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b779d33613a2740b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Finden Sie die beste Wohnung (die mit der höchsten Bewertung).</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=cb4fd4f275245085">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>
