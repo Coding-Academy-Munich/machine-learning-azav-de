@@ -13157,7 +13157,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=c448b79e2212e66d"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c448b79e2212e66d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Unser bisheriger Ansatz</p>
@@ -13183,25 +13183,12 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=228cee91aa0cd7ec">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e384c1608f0df6e6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">):</span>
-    <span class="n">result</span> <span class="o">+=</span> <span class="n">f</span> <span class="o">*</span> <span class="n">c</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6a81d250fa33f690">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">result</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">sum</span><span class="p">(</span><span class="n">f</span> <span class="o">*</span> <span class="n">c</span> <span class="k">for</span> <span class="n">f</span><span class="p">,</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">features</span><span class="p">,</span> <span class="n">coefficients</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -13441,7 +13428,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5668a8bbd1a36cb2">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b590df8e29b1a0de">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13510,7 +13497,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8b44e7cf024088bb">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0a19bff59b68825d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -14457,7 +14444,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=27e1910499d2295f">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=3be3b96ae2ab28ce">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -14486,7 +14473,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6a70f012cc7309a3">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=67b1f776697e6c1b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -14496,22 +14483,15 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <span class="n">week2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">12</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
 <span class="n">week3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">8</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">12</span><span class="p">])</span>
 <span class="n">week4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">15</span><span class="p">,</span> <span class="mi">13</span><span class="p">,</span> <span class="mi">9</span><span class="p">])</span>
-
-<span class="c1"># Prices per unit</span>
-<span class="n">prices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">25.0</span><span class="p">,</span> <span class="mf">40.0</span><span class="p">,</span> <span class="mf">15.0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=ffcc820aad55a095"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=82503e3dda867a88"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Berechnen Sie:</p>
-<ol>
-<li>Gesamtverkäufe pro Produkt über alle Wochen</li>
-<li>Umsatz pro Woche</li>
-</ol>
+<p>Berechnen Sie den Gesamtverkauf pro Produkt.</p>
 </div>
 </div>
 </div>
@@ -14526,76 +14506,15 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1b93418cc781859e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e78cb51ad5a3683c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-4:-Feature-Vektoren">Aufgabe 4: Feature-Vektoren<a class="anchor-link" href="#Aufgabe-4:-Feature-Vektoren">¶</a></h3><p>Erstellen Sie Feature-Vektoren für 3 Wohnungen und berechnen Sie eine
-Bewertung mit gegebenen Gewichten.</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>Größe (qm)</th>
-<th>Schlafzimmer</th>
-<th>Etage</th>
-<th>Balkon</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Wohnung 1</td>
-<td>65</td>
-<td>2</td>
-<td>3</td>
-<td>Ja (1)</td>
-</tr>
-<tr>
-<td>Wohnung 2</td>
-<td>85</td>
-<td>3</td>
-<td>1</td>
-<td>Nein (0)</td>
-</tr>
-<tr>
-<td>Wohnung 3</td>
-<td>55</td>
-<td>1</td>
-<td>5</td>
-<td>Ja (1)</td>
-</tr>
-</tbody>
-</table>
-<p>Die Gewichte sind:</p>
-<table>
-<thead>
-<tr>
-<th>Feature</th>
-<th>Gewicht</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Größe</td>
-<td>2.0</td>
-</tr>
-<tr>
-<td>Schlafzimmer</td>
-<td>20.0</td>
-</tr>
-<tr>
-<td>Etage</td>
-<td>5.0</td>
-</tr>
-<tr>
-<td>Balkon</td>
-<td>15.0</td>
-</tr>
-</tbody>
-</table>
+<p>Wie viele Produkte hätte das Geschäft verkauft, wenn der Umsatz 20% höher
+gewesen wäre?</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=08f2ae7d2a7d7331">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5f255d8bd77d4310">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -14606,44 +14525,15 @@ Bewertung mit gegebenen Gewichten.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=bdaa89cc560f69db"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=53a48f8e8620dedb"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Berechnen Sie die Bewertung für jede Wohnung (ohne Schleifen für die
-Berechnung der einzelnen Bewertungen!).</p>
+<p>Erzeugen Sie einen Vektor mit den Verkaufszahlen aller Produkte aus, von denen
+insgesamt weniger als 50 verkauft wurden.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1d6d2b618057f472">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b779d33613a2740b"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Finden Sie die beste Wohnung (die mit der höchsten Bewertung).</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=cb4fd4f275245085">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=819a57c0439c8d7f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
