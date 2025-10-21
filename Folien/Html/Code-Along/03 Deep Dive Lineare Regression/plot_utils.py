@@ -309,3 +309,23 @@ def plot_gradient_descent_concept():
     ax.grid(True, alpha=0.3)
     ax.text(2, -0.5, "Minimum", ha="center", fontsize=12)
     plt.show()
+
+
+def plot_matrix(matrix, title="Matrix Visualization"):
+    fig, ax = plt.subplots(figsize=(8, 4))
+    im = ax.imshow(matrix, cmap="YlOrRd", aspect="auto", vmax=1000)
+    feature_names = ["Size", "Beds", "Baths", "Age", "Garage"]
+    ax.set_xticks(range(matrix.shape[1]))
+    ax.set_xticklabels(feature_names)
+    ax.set_yticks(range(matrix.shape[0]))
+    ax.set_yticklabels([f"House {i+1}" for i in range(matrix.shape[0])])
+
+    for i in range(matrix.shape[0]):
+        for j in range(matrix.shape[1]):
+            text = ax.text(
+                j, i, matrix[i, j], ha="center", va="center", color="black"
+            )
+
+    ax.set_title(title)
+    plt.tight_layout()
+    plt.show()
