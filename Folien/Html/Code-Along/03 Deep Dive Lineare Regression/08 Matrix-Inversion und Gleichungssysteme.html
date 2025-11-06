@@ -13163,21 +13163,26 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e773753def9b64e6"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=7eeedd546ba64965"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Beispiel eines Gleichungssystems:</p>
 <p>$$
 \begin{align*}
-3x_1 + x_2 &amp;= 9 \\
-x_1 + 2x_2 &amp;= 8
+3x_1 + 2x_2 &amp;= 7 \\
+4x_1 + x_2 &amp;= 6
 \end{align*}
 $$</p>
-<p>Als Matrix-Gleichung: $A × x = b$</p>
+<p>Als Matrix-Gleichung: $A × x = b$ mit</p>
+<p>$$
+A = \begin{bmatrix} 3 &amp; 2 \\ 4 &amp; 1 \end{bmatrix}, \quad
+x = \begin{bmatrix} x_1 \\ x_2 \end{bmatrix}, \quad
+b = \begin{bmatrix} 7 \\ 6 \end{bmatrix}
+$$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=8beb6c00ad63e14e">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=0f7ef7205f3683a7">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13185,38 +13190,35 @@ $$</p>
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_matrix_inverse_transformation</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">display_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">side_by_side</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=e61adf40ce78e818">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=47504d136862e714">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Coefficient matrix</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
-<span class="c1"># Right-hand side</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">9</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=97e2f98c0938943a">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=cebed600596d4dbc">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8ec94b5ae7bae885">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=04b3b65cb63fbd0e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13247,14 +13249,16 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=95f1fda5dd0d3c39"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6f4ecd607c157577"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Beispiele:</p>
+<p>2×2 Identitätsmatrix:</p>
+<p>$$I_2 = \begin{bmatrix} 1 &amp; 0 \\ 0 &amp; 1 \end{bmatrix}$$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4b7eb7a3fca759f4">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a43efb8f71ebd085">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13276,7 +13280,15 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=f14eb18fe183deb5">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=83aa46188d534deb"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>3x3 Identitätsmatrix</p>
+<p>$$I_3 = \begin{bmatrix}1 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; 1\end{bmatrix}$$</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=176632e34d41be14">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13298,7 +13310,15 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=deab5a645fe87978">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=2b3c0d619c967683"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>4x4 Identitätsmatrix</p>
+<p>$$I_4 = \begin{bmatrix}1 &amp; 0 &amp; 0 &amp; 0\\0 &amp; 1 &amp; 0 &amp; 0\\0 &amp; 0 &amp; 1 &amp; 0\\0 &amp; 0 &amp; 0 &amp; 1\end{bmatrix}$$</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=776d072b29b445bf">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13336,19 +13356,18 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=41b0a98ca81cdccf">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=84fdc92f3deff11f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]])</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e9b0173df16027c3">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=97e2f98c0938943a">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13377,14 +13396,12 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9e0cf5fb6d419e38">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5eac69ffdec53943">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">]])</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
@@ -13436,19 +13453,18 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=045d310c14036e07">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=371e180c3117fa83">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">7</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=10b8e95bff5ab909">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d717e08545d198e7">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13488,14 +13504,16 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ed3740b87ceefb80"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=24cd6fbeb224156e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Verifikation:-A-%C3%97-A%E2%81%BB%C2%B9-=-I">Verifikation: A × A⁻¹ = I<a class="anchor-link" href="#Verifikation:-A-%C3%97-A%E2%81%BB%C2%B9-=-I">¶</a></h3>
+<h3 id="Verifikation:-A-%C3%97-A%E2%81%BB%C2%B9-=-I">Verifikation: A × A⁻¹ = I<a class="anchor-link" href="#Verifikation:-A-%C3%97-A%E2%81%BB%C2%B9-=-I">¶</a></h3><ul>
+<li>Multipliziere A mit seiner Inversen</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7d4e464c5b6c9984">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8ec55cd420a7a93e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13582,20 +13600,18 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=db972211b032b102">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4606ea75948a9388">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=55e4705b7187bdd9">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a3fdeb01916dc259">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13677,7 +13693,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=42cf6215db1f07a8"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d94e38ecbcc47dbc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Beispiel:-Gleichung-l%C3%B6sen">Beispiel: Gleichung lösen<a class="anchor-link" href="#Beispiel:-Gleichung-l%C3%B6sen">¶</a></h3><p>Gegeben: $A × x = b$</p>
@@ -13685,43 +13701,52 @@ $$</p>
 <p>Lösung:</p>
 <ul>
 <li>Multipliziere beide Seiten mit $A^{-1}$</li>
-<li>$A^{-1} × A × x = A^{-1} × b$</li>
-<li>$I × x = A^{-1} × b$</li>
-<li>$x = A^{-1} × b$</li>
 </ul>
+<p>$$
+\begin{align*}
+A^{-1} × A × x &amp;= A^{-1} × b \\
+I × x &amp;= A^{-1} × b \\
+x &amp;= A^{-1} × b
+\end{align*}
+$$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a0a87876b4a099d4"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6fa5be39b272be9e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Konkretes Beispiel:</p>
+<p>$A \times x = b$ von oben mit</p>
+<p>$$
+A = \begin{bmatrix} 3 &amp; 2 \\ 4 &amp; 1 \end{bmatrix}, \quad
+b = \begin{bmatrix} 7 \\ 6 \end{bmatrix}
+$$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=eec5af0fc516878a">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e4d14a095481d2a1">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1a1e83d9cb104cb7">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c94655fdd543271b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=50031e0bad15a074">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=114ff18e87662b74">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13739,7 +13764,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=91ec8bff38be4487">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2e0084c77e986f68">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13790,18 +13815,7 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=56659992f7cba39d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2d74d2b506790e38">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ec4d0c2aad32050e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13823,46 +13837,51 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c6360be3a125b636"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=680bbb0425f49c73"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Visualisierung:-Was-macht-eine-Inverse?">Visualisierung: Was macht eine Inverse?<a class="anchor-link" href="#Visualisierung:-Was-macht-eine-Inverse?">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=90a61733bb47e98a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Eine Matrix $A$ transformiert Vektoren</p>
-<ul>
+<h2 id="Visualisierung:-Was-macht-eine-Inverse?">Visualisierung: Was macht eine Inverse?<a class="anchor-link" href="#Visualisierung:-Was-macht-eine-Inverse?">¶</a></h2><ul>
+<li>Eine Matrix $A$ transformiert Vektoren</li>
 <li>Die Inverse $A^{-1}$ macht diese Transformation rückgängig</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=34b7b976386c9c2c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=35220094c001435e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Original vector</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-
-<span class="c1"># Transformation matrix</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span>
-              <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=d3ea28073363d581">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=05cb833d18a62667">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Visualize the transformation and inverse</span>
-<span class="n">plot_matrix_inverse_transformation</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8471907ebddd963e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Visualisierung-der-Transformation-und-ihrer-Inverse">Visualisierung der Transformation und ihrer Inverse<a class="anchor-link" href="#Visualisierung-der-Transformation-und-ihrer-Inverse">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d7566e5b09ef303e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_matrix_inverse_transformation</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13903,30 +13922,32 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1f20c378bd2d866a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=bfe61de3f60be035"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Beispiele-f%C3%BCr-nicht-invertierbare-Matrizen">Beispiele für nicht-invertierbare Matrizen<a class="anchor-link" href="#Beispiele-f%C3%BCr-nicht-invertierbare-Matrizen">¶</a></h3>
+<h3 id="Beispiele-f%C3%BCr-nicht-invertierbare-Matrizen">Beispiele für nicht-invertierbare Matrizen<a class="anchor-link" href="#Beispiele-f%C3%BCr-nicht-invertierbare-Matrizen">¶</a></h3><ul>
+<li>Matrix mit Null-Zeile (singulär)</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=01790251d4e60d4f">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8d254d7410ce764b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">singular</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=69fe2554c23e5833">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=69fe2554c23e5833">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">singular</span>
 </pre></div>
 </div>
 </div>
@@ -13946,30 +13967,35 @@ $$</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=bff6120d89a2f248"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=745b2c0923063ef3"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Matrix mit linear abhängigen Zeilen:</p>
+<ul>
+<li>Matrix mit linear abhängigen Zeilen:<ul>
+<li>Zeile 2 ist das Doppelte von Zeile 1</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=07cd69da112a31b9">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2b74a8dee8ef9da0">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">dependent</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=57823068933b344b">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=57823068933b344b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">dependent</span>
 </pre></div>
 </div>
 </div>
@@ -13998,6 +14024,129 @@ $$</p>
 <li>Nutzt SVD statt Inversion</li>
 <li>Wird in ML für Training verwendet!</li>
 </ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=899e180963dffc16">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f167d96805e4c62c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f8a9ddc5dd36b691">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5b57d08d585c59e0">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ecbdc9d09d481063">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=6e000efe28a66a74">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d4f8730fc2575033">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=02df07d6eb2179d9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=94db2af2cb1bb2a7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">11</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0e24f12154ef5a9f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2e0c49ef170aa303">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -14065,21 +14214,6 @@ Vergleichen Sie das Ergebnis mit der Lösung durch Inversion.</p>
 <pre><code>2x + y = 5
 x + 3y = 7
 </code></pre>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=7bdf1ce81e4a6fac"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-5:-%C3%9Cberbestimmtes-System-mit-lstsq">Aufgabe 5: Überbestimmtes System mit <code>lstsq</code><a class="anchor-link" href="#Aufgabe-5:-%C3%9Cberbestimmtes-System-mit-lstsq">¶</a></h3><p>Finden Sie die beste Gerade durch diese Punkte mit <code>lstsq</code>:</p>
-<ul>
-<li>$(1, 1)$</li>
-<li>$(2, 3)$</li>
-<li>$(3, 4)$</li>
-<li>$(4, 4)$</li>
-</ul>
-<p>Hinweis: Erstellen Sie eine Matrix $X$ mit einer Spalte für den Intercept
-und einer für $x$, und einen Vektor $y$ mit den $y$-Werten.</p>
 </div>
 </div>
 </div>

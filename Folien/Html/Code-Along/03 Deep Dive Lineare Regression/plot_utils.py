@@ -280,8 +280,8 @@ def plot_coefficients_interactive(x_in, y_in):
 
 
 # Create a grid of coefficient and intercept values
-coef_range = np.linspace(0, 4, 51)
-intercept_range = np.linspace(-2, 4, 51)
+coef_range = np.linspace(1, 3, 101)
+intercept_range = np.linspace(-2, 4, 101)
 coef_grid, intercept_grid = np.meshgrid(coef_range, intercept_range)
 
 
@@ -294,8 +294,23 @@ def compute_mse_grid(X_simple, y_simple):
     return mse_grid
 
 
-def plot_error_surface_3d(X_simple, y_simple):
-    """Plot interactive 3D error surface (plotly) or static 3D plot (matplotlib)"""
+def plot_error_surface_3d(X_simple, y_simple, use_log_scale=False, clip_percentile=None, log_epsilon=0.1):
+    """Plot interactive 3D error surface (plotly) or static 3D plot (matplotlib)
+
+    Parameters:
+    -----------
+    X_simple : array-like
+        Input features
+    y_simple : array-like
+        Target values
+    use_log_scale : bool, default=True
+        If True, uses log scale for MSE to better show curvature
+    clip_percentile : float, default=95
+        Percentile at which to clip MSE values (helps with extreme values)
+    log_epsilon : float, default=0.1
+        Small value added before taking log to avoid log(0).
+        Use 0.1 for data with min error near 0, use 1e-10 for larger min errors.
+    """
     mse_grid = compute_mse_grid(X_simple, y_simple)
 
     # Find minimum
@@ -303,25 +318,57 @@ def plot_error_surface_3d(X_simple, y_simple):
     best_coef = coef_grid[min_idx]
     best_intercept = intercept_grid[min_idx]
 
+    # Apply transformations to improve visualization
+    mse_display = mse_grid.copy()
+    z_label = "MSE"
+
+    if clip_percentile is not None:
+        clip_value = np.percentile(mse_grid, clip_percentile)
+        mse_display = np.clip(mse_display, None, clip_value)
+        z_label += f" (clipped at {clip_percentile}th percentile)"
+
+    if use_log_scale:
+        # Add small epsilon to avoid log(0)
+        mse_display = np.log10(mse_display + log_epsilon)
+        z_label = f"log₁₀(MSE + {log_epsilon})"
+
     if PLOTLY_AVAILABLE:
         # Create 3D surface plot with plotly
+        # For hover, we need to show the actual MSE value
+        # Note: Create text array for hover (more reliable than customdata for Surface)
+        hover_text = np.array([[
+            f'<b>Coefficient</b>: {coef_grid[i, j]:.3f}<br>'
+            f'<b>Intercept</b>: {intercept_grid[i, j]:.3f}<br>'
+            f'<b>MSE</b>: {mse_grid[i, j]:.4f}'
+            for j in range(coef_grid.shape[1])
+        ] for i in range(coef_grid.shape[0])])
+
         fig = go.Figure(
             data=[
                 go.Surface(
                     x=coef_grid,
                     y=intercept_grid,
-                    z=mse_grid,
+                    z=mse_display,
                     colorscale="Viridis",
                     name="MSE",
+                    text=hover_text,  # Use text instead of customdata (more reliable)
+                    hovertemplate='%{text}<extra></extra>',
                 )
             ]
         )
 
-        # Update layout
+        # Update layout with balanced fixed aspect ratio
+        # Use simple 1:1:1 ratio for clean, balanced visualization
         fig.update_layout(
             title="Error Surface (3D)",
             scene=dict(
-                xaxis_title="Coefficient", yaxis_title="Intercept", zaxis_title="MSE"
+                xaxis_title="Coefficient",
+                yaxis_title="Intercept",
+                zaxis_title=z_label,
+                aspectmode='cube',  # Equal aspect ratio for all axes
+                camera=dict(
+                    eye=dict(x=1.5, y=-1.5, z=1.3)  # Better viewing angle
+                )
             ),
             width=700,
             height=600,
@@ -332,27 +379,96 @@ def plot_error_surface_3d(X_simple, y_simple):
         # Fall back to matplotlib 3D plot
         from mpl_toolkits.mplot3d import Axes3D
 
-        fig = plt.figure(figsize=(10, 8))
+        fig = plt.figure(figsize=(12, 9))
         ax = fig.add_subplot(111, projection='3d')
 
-        surf = ax.plot_surface(coef_grid, intercept_grid, mse_grid,
-                              cmap='viridis', alpha=0.8)
+        surf = ax.plot_surface(coef_grid, intercept_grid, mse_display,
+                              cmap='viridis', alpha=0.8, edgecolor='none')
 
-        # Mark minimum
-        ax.scatter([best_coef], [best_intercept], [mse_grid[min_idx]],
-                  color='red', s=100, marker='*', label=f'Min MSE: {mse_grid[min_idx]:.3f}')
+        # Mark minimum - use transformed value for plotting
+        min_display = mse_display[min_idx]
+        ax.scatter([best_coef], [best_intercept], [min_display],
+                  color='red', s=200, marker='*',
+                  edgecolors='black', linewidths=2,
+                  label=f'Min MSE: {mse_grid[min_idx]:.3f}', zorder=5)
 
-        ax.set_xlabel('Coefficient')
-        ax.set_ylabel('Intercept')
-        ax.set_zlabel('MSE')
-        ax.set_title('Error Surface (3D)')
-        plt.colorbar(surf, ax=ax, shrink=0.5)
-        ax.legend()
+        ax.set_xlabel('Coefficient', fontsize=11, labelpad=10)
+        ax.set_ylabel('Intercept', fontsize=11, labelpad=10)
+        ax.set_zlabel(z_label, fontsize=11, labelpad=10)
+        ax.set_title('Error Surface (3D)', fontsize=13, pad=20)
+
+        # Adjust viewing angle for better perspective
+        ax.view_init(elev=25, azim=45)
+
+        plt.colorbar(surf, ax=ax, shrink=0.5, pad=0.1)
+        ax.legend(loc='upper left', fontsize=10)
+        plt.tight_layout()
         plt.show()
 
     return best_coef, best_intercept, mse_grid[min_idx]
 
 
+def plot_error_surface_comparison(X_simple, y_simple, log_epsilon=0.1):
+    """Plot side-by-side comparison: original scale vs log scale
+
+    This helps visualize both the overall error landscape and the curvature details.
+
+    Parameters:
+    -----------
+    X_simple : array-like
+        Input features
+    y_simple : array-like
+        Target values
+    log_epsilon : float, default=0.1
+        Small value added before taking log to avoid log(0).
+        Use 0.1 for data with min error near 0, use 1e-10 for larger min errors.
+    """
+    from mpl_toolkits.mplot3d import Axes3D
+
+    mse_grid = compute_mse_grid(X_simple, y_simple)
+
+    # Find minimum
+    min_idx = np.unravel_index(mse_grid.argmin(), mse_grid.shape)
+    best_coef = coef_grid[min_idx]
+    best_intercept = intercept_grid[min_idx]
+
+    fig = plt.figure(figsize=(16, 6))
+
+    # Original scale
+    ax1 = fig.add_subplot(121, projection='3d')
+    surf1 = ax1.plot_surface(coef_grid, intercept_grid, mse_grid,
+                             cmap='viridis', alpha=0.8, edgecolor='none')
+    ax1.scatter([best_coef], [best_intercept], [mse_grid[min_idx]],
+               color='red', s=200, marker='*',
+               edgecolors='black', linewidths=2, zorder=5)
+    ax1.set_xlabel('Coefficient', fontsize=10)
+    ax1.set_ylabel('Intercept', fontsize=10)
+    ax1.set_zlabel('MSE', fontsize=10)
+    ax1.set_title('Original Scale\n(Shows overall landscape)', fontsize=11)
+    ax1.view_init(elev=25, azim=45)
+    plt.colorbar(surf1, ax=ax1, shrink=0.5, pad=0.1)
+
+    # Log scale
+    ax2 = fig.add_subplot(122, projection='3d')
+    mse_log = np.log10(mse_grid + log_epsilon)
+    surf2 = ax2.plot_surface(coef_grid, intercept_grid, mse_log,
+                             cmap='viridis', alpha=0.8, edgecolor='none')
+    ax2.scatter([best_coef], [best_intercept], [mse_log[min_idx]],
+               color='red', s=200, marker='*',
+               edgecolors='black', linewidths=2, zorder=5)
+    ax2.set_xlabel('Coefficient', fontsize=10)
+    ax2.set_ylabel('Intercept', fontsize=10)
+    ax2.set_zlabel(f'log₁₀(MSE + {log_epsilon})', fontsize=10)
+    ax2.set_title('Log Scale\n(Shows curvature detail)', fontsize=11)
+    ax2.view_init(elev=25, azim=45)
+    plt.colorbar(surf2, ax=ax2, shrink=0.5, pad=0.1)
+
+    plt.suptitle(f'Error Surface Comparison (Min MSE: {mse_grid[min_idx]:.3f})',
+                fontsize=13, y=0.98)
+    plt.tight_layout()
+    plt.show()
+
+    return best_coef, best_intercept, mse_grid[min_idx]
 def plot_error_contour(X_simple, y_simple):
     """Plot interactive contour plot of error surface (plotly) or static contour (matplotlib)"""
     mse_grid = compute_mse_grid(X_simple, y_simple)
