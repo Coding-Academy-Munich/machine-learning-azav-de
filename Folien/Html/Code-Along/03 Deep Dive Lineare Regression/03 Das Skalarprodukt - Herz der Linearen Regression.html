@@ -13701,7 +13701,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0e8620d9d17a4929">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=81943e97caa4927f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13709,6 +13709,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 <span class="n">result_numpy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">large_features</span><span class="p">,</span> <span class="n">large_coefficients</span><span class="p">)</span>
 <span class="n">time_numpy</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">-</span> <span class="n">start</span>
+<span class="n">time_numpy</span> <span class="o">=</span> <span class="mf">1e-8</span> <span class="k">if</span> <span class="n">time_numpy</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">time_numpy</span>  <span class="c1"># avoid division by zero on fast systems</span>
 </pre></div>
 </div>
 </div>
