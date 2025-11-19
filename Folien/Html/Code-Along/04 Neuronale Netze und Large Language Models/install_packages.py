@@ -12,14 +12,21 @@ def install_package(package_name):
     if in_conda:
         print(f"Conda environment detected. Installing {package_name} with conda...")
         try:
+            print(f"Trying conda install for {package_name}...", end="", flush=True)
             subprocess.check_call(
                 ["conda", "install", "-y", package_name, "-c", "conda-forge"]
             )
-        except subprocess.CalledProcessError:
-            print(f"Conda install failed, trying pip...")
-            subprocess.check_call(
-                [sys.executable, "-m", "pip", "install", package_name]
-            )
+        except (subprocess.CalledProcessError, FileNotFoundError):
+            try:
+                print(f"Conda install failed, trying micromamba...", end="", flush=True)
+                subprocess.check_call(
+                    ["micromamba", "install", "-y", package_name, "-c", "conda-forge"]
+                )
+            except (subprocess.CalledProcessError, FileNotFoundError):
+                print(f"Micromamba install failed, trying pip...", end="", flush=True)
+                subprocess.check_call(
+                    [sys.executable, "-m", "pip", "install", package_name]
+                )
     else:
         print(f"Installing {package_name} with pip...", end="", flush=True)
         subprocess.check_call([sys.executable, "-m", "pip", "install", package_name])

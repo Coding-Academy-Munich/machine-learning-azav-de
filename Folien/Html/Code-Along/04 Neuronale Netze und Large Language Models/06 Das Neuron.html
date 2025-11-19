@@ -13145,26 +13145,27 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ccab2aac79e3724f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=9926972ceb6f7d49"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Unser-lineares-Modell---noch-einmal-betrachtet">Unser lineares Modell - noch einmal betrachtet<a class="anchor-link" href="#Unser-lineares-Modell---noch-einmal-betrachtet">¶</a></h2><ul>
-<li>Lineare Regression: $y = m_1 x_1 + m_2 x_2 + ... + m_n x_n + b$</li>
+<li>Lineare Regression: $y = w_1 x_1 + w_2 x_2 + ... + w_n x_n + b$</li>
 <li>Nimmt Features ($x_1, x_2, ...$)</li>
-<li>Multipliziert sie mit Gewichten ($m_1, m_2, ...$)</li>
+<li>Multipliziert sie mit Gewichten ($w_1, w_2, ...$)</li>
 <li>Addiert einen Bias ($b$)</li>
 <li>Gibt eine Vorhersage aus</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=2fcf5713436a2858"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=7b49591c442c6c62"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Das-ist-ein-Neuron!">Das ist ein Neuron!<a class="anchor-link" href="#Das-ist-ein-Neuron!">¶</a></h2><ul>
+<h2 id="Das-ist-(fast-schon)-ein-Neuron!">Das ist (fast schon) ein Neuron!<a class="anchor-link" href="#Das-ist-(fast-schon)-ein-Neuron!">¶</a></h2><ul>
 <li>Ein künstliches Neuron funktioniert genauso</li>
 <li>Es ist wie eine "Entscheidungszelle"</li>
 <li>Nimmt Eingaben, verarbeitet sie, gibt eine Ausgabe</li>
+<li>Aber...</li>
 </ul>
 </div>
 </div>
@@ -13182,10 +13183,10 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f92bf181d2d47c32"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c1db74b19bf5e9fc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aber-es-gibt-einen-wichtigen-Unterschied!">Aber es gibt einen wichtigen Unterschied!<a class="anchor-link" href="#Aber-es-gibt-einen-wichtigen-Unterschied!">¶</a></h2><ul>
+<h2 id="Der-wichtige-Unterschied!">Der wichtige Unterschied!<a class="anchor-link" href="#Der-wichtige-Unterschied!">¶</a></h2><ul>
 <li>Bei linearer Regression: direkte Berechnung</li>
 <li>Bei Neuronen: eine zusätzliche <strong>Aktivierungsfunktion</strong></li>
 <li>Diese Funktion macht Neuronen viel mächtiger</li>
@@ -13235,7 +13236,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0b368282d8ec9797">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ad0f725cab0b2213">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13246,6 +13247,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
     <span class="n">plot_sigmoid_vs_relu</span><span class="p">,</span>
     <span class="n">plot_sigmoid</span><span class="p">,</span>
     <span class="n">relu</span><span class="p">,</span>
+    <span class="n">sigmoid</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -13379,55 +13381,12 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=90a43891212a55d4"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiel-Berechnungen">Beispiel-Berechnungen<a class="anchor-link" href="#Beispiel-Berechnungen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=19aea1711bb0d6e3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Testen des Neurons mit verschiedenen Eingaben</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=899e156437381ca7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e9b1c67e445981ab">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=7e8c257b2d87fedc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Visualisierung-der-Neuron-Ausgabe">Visualisierung der Neuron-Ausgabe<a class="anchor-link" href="#Visualisierung-der-Neuron-Ausgabe">¶</a></h2><ul>
 <li>Wie reagiert das Neuron auf verschiedene Eingaben?</li>
 </ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=482d981e46fbd4cd"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>2D-Visualisierung der Neuron-Antwort</p>
 </div>
 </div>
 </div>

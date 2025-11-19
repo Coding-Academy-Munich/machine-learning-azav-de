@@ -13216,13 +13216,13 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=0e5bf501d5334109"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=01470c3147eb0063"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Typische-Gr%C3%B6%C3%9Fen">Typische Größen<a class="anchor-link" href="#Typische-Gr%C3%B6%C3%9Fen">¶</a></h2><ul>
-<li>Kleine Probleme: 5-20 Neuronen</li>
-<li>Mittlere Probleme: 50-200 Neuronen</li>
-<li>Große Probleme: Hunderte oder Tausende</li>
+<li>Kleine Probleme: 5-500 Neuronen</li>
+<li>Mittlere Probleme: 500-20,000 Neuronen</li>
+<li>Große Probleme: Tausende bis Millionen</li>
 </ul>
 <p>Aber: Mehr ist nicht immer besser!</p>
 </div>
@@ -13297,10 +13297,11 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b2f53189908a1612"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=25c2fa8004cc7484"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Manuelles-MLP-f%C3%BCr-XOR">Manuelles MLP für XOR<a class="anchor-link" href="#Manuelles-MLP-f%C3%BCr-XOR">¶</a></h2><ul>
+<h2 id="Manuelles-MLP-f%C3%BCr-XOR">Manuelles MLP für XOR<a class="anchor-link" href="#Manuelles-MLP-f%C3%BCr-XOR">¶</a></h2><img alt="XOR MLP" src="img/xor-mlp.png" style="width:50%;float:right;margin-left:5px;"/>
+<ul>
 <li>Wir können ein MLP mit 2 Neuronen in der versteckten Schicht bauen</li>
 <li>Diese können das XOR-Problem lösen!</li>
 <li>Schauen wir uns an, wie</li>
@@ -13321,7 +13322,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=b8c6634732a98535">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4056911023a9b967">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13339,12 +13340,16 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d66fe1d2aca0b90c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=a1c6c6bdfb44bbe4">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"x₁  x₂  |  h₁   h₂      |  Output (should be XOR)"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">50</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span> <span class="ow">in</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]]:</span>
+    <span class="n">h1</span><span class="p">,</span> <span class="n">h2</span><span class="p">,</span> <span class="n">output</span> <span class="o">=</span> <span class="n">manual_xor_mlp</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">x1</span><span class="si">}</span><span class="s2">   </span><span class="si">{</span><span class="n">x2</span><span class="si">}</span><span class="s2">   |  </span><span class="si">{</span><span class="n">h1</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">  </span><span class="si">{</span><span class="n">h2</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">  |  </span><span class="si">{</span><span class="n">output</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
