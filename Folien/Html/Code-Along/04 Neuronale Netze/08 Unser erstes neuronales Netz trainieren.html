@@ -13197,19 +13197,55 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2484a16eabe735c3">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=3567931dcb1600ee"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Laden der Studentennoten</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4a9345b1ebb23456">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Load student grades data</span>
-<span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"student_grades.db"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">connection</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">"student_grades.db"</span><span class="p">)</span>
 <span class="n">cursor</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
-<span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=320a8ed7c49cca50">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
     <span class="s2">"SELECT midterm_grade, study_hours, missed_classes, final_grade FROM grades"</span>
 <span class="p">)</span>
-<span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
-<span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=66a6a4af5e40f8df">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=eb445cc837859827">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">connection</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -13294,7 +13330,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=eb06552c9d4c03bf">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=47e17c2642d28f80">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13305,12 +13341,27 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=c51bd6529cd7a67f">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e08163ba039704ca">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=c51bd6529cd7a67f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Linear Regression Performance:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Train MAE: </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">student_y_train</span><span class="p">,</span><span class="w"> </span><span class="n">linear_train_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Test MAE:  </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">student_y_test</span><span class="p">,</span><span class="w"> </span><span class="n">linear_test_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Train R²:  </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">student_y_train</span><span class="p">,</span><span class="w"> </span><span class="n">linear_train_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Test R²:   </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">student_y_test</span><span class="p">,</span><span class="w"> </span><span class="n">linear_test_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13327,7 +13378,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=5149f26928e68089"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=313e58f2f1692193"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Parameter-f%C3%BCr-MLPRegressor">Parameter für MLPRegressor<a class="anchor-link" href="#Parameter-f%C3%BCr-MLPRegressor">¶</a></h2><ul>
@@ -13337,6 +13388,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </ul>
 </li>
 <li><code>activation</code>: Aktivierungsfunktion (<code>'relu'</code> ist Standard)</li>
+<li><code>solver</code>: Optimierungsalgorithmus (z.B. <code>'lbfgs'</code>, <code>'adam'</code>, <code>'sgd'</code>)</li>
 <li><code>max_iter</code>: Maximale Anzahl von Trainingsiterationen (z.B. 500)</li>
 <li><code>random_state</code>: Für reproduzierbare Ergebnisse</li>
 </ul>
@@ -13390,7 +13442,18 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=983e45a5268ff320">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=08ba3b34cd9fd0f4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7cf72a6e4db97bf7">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13408,15 +13471,12 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=5f243c909d958b01">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4055f06a5d322d6d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"MODEL COMPARISON"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Linear Regression:"</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Linear Regression:"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Train MAE: </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">student_y_train</span><span class="p">,</span><span class="w"> </span><span class="n">linear_train_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Test MAE:  </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">student_y_test</span><span class="p">,</span><span class="w"> </span><span class="n">linear_test_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Test R²:   </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">student_y_test</span><span class="p">,</span><span class="w"> </span><span class="n">linear_test_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
@@ -13424,7 +13484,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Train MAE: </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">student_y_train</span><span class="p">,</span><span class="w"> </span><span class="n">mlp_train_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Test MAE:  </span><span class="si">{</span><span class="n">mean_absolute_error</span><span class="p">(</span><span class="n">student_y_test</span><span class="p">,</span><span class="w"> </span><span class="n">mlp_test_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  Test R²:   </span><span class="si">{</span><span class="n">r2_score</span><span class="p">(</span><span class="n">student_y_test</span><span class="p">,</span><span class="w"> </span><span class="n">mlp_test_pred</span><span class="p">)</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"="</span> <span class="o">*</span> <span class="mi">60</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13448,23 +13507,27 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c49c61570c4f0173">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=afacd5136df7eb94">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">plot_utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_predictions_comparison</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">building_nn_azav_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_predictions_comparison</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c045edf54cafdf39">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c045edf54cafdf39">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_predictions_comparison</span><span class="p">(</span>
+    <span class="n">student_y_train</span><span class="p">,</span> <span class="n">linear_train_pred</span><span class="p">,</span>
+    <span class="n">student_y_test</span><span class="p">,</span> <span class="n">linear_test_pred</span><span class="p">,</span>
+    <span class="n">mlp_train_pred</span><span class="p">,</span> <span class="n">mlp_test_pred</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13480,7 +13543,24 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=8aa9080fb41881f0">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=f0d1d2d8aa81854f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">mlp_large</span> <span class="o">=</span> <span class="n">MLPRegressor</span><span class="p">(</span>
+    <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">50</span><span class="p">,),</span>
+    <span class="n">activation</span><span class="o">=</span><span class="s1">'relu'</span><span class="p">,</span>
+    <span class="n">solver</span><span class="o">=</span><span class="s1">'lbfgs'</span><span class="p">,</span>
+    <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2efdcc15b153b56b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13513,23 +13593,36 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=fedc657008a4dce0"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=969871858a5a901e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Beobachtung">Beobachtung<a class="anchor-link" href="#Beobachtung">¶</a></h2><ul>
 <li>Mehr Neuronen ≠ immer besser</li>
-<li>Bei linearen Problemen kann es sogar schlechter werden</li>
+<li>Bei wenig Trainingsdaten kann es sogar schlechter werden</li>
 <li><strong>Overfitting</strong>: Das Modell lernt die Trainingsdaten auswendig</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b9d17ba7b7ce9c50"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b7806f997c0709a0"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
+<li>Wir haben unser erstes neuronales Netz trainiert!</li>
+<li>sklearn macht es einfach: <code>MLPRegressor</code></li>
+<li>Bei linearen Problemen: ähnlich wie lineare Regression</li>
+<li>Die wahre Stärke zeigt sich bei nichtlinearen Problemen</li>
+<li>Vorsicht vor zu großen Netzen (Overfitting)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=bc6a33176ce304cb"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Workshop:-Eiscreme-Verkauf-mit-neuronalen-Netzen">Workshop: Eiscreme-Verkauf mit neuronalen Netzen<a class="anchor-link" href="#Workshop:-Eiscreme-Verkauf-mit-neuronalen-Netzen">¶</a></h2><ul>
 <li>Jetzt sind Sie dran!</li>
-<li>Verwenden Sie den ice_cream Datensatz</li>
+<li>Verwenden Sie den <code>ice_cream</code> Datensatz</li>
 <li>Trainieren Sie ein neuronales Netz</li>
 <li>Vergleichen Sie mit linearer Regression</li>
 </ul>
@@ -13642,42 +13735,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Your code here: Experiment with different architectures</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b7806f997c0709a0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li>Wir haben unser erstes neuronales Netz trainiert!</li>
-<li>sklearn macht es einfach: <code>MLPRegressor</code></li>
-<li>Bei linearen Problemen: ähnlich wie lineare Regression</li>
-<li>Die wahre Stärke zeigt sich bei nichtlinearen Problemen</li>
-<li>Vorsicht vor zu großen Netzen (Overfitting)</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=de23eb3c6cd2b147"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="N%C3%A4chste-Schritte">Nächste Schritte<a class="anchor-link" href="#N%C3%A4chste-Schritte">¶</a></h2><ul>
-<li>Wie lernen neuronale Netze eigentlich?</li>
-<li>Was passiert während des Trainings?</li>
-<li>Wie finden sie die besten Gewichte?</li>
-<li>Das sehen wir im nächsten Thema!</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
