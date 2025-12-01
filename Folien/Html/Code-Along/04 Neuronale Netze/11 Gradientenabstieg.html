@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=70aef80ed820a0d2"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c8ecf2c6ad89b7f3"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Von Neuronalen Netzen zu Large Language Models</b>
+<b>Gradientenabstieg</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,101 +13145,76 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2c37a7dc58003099"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=42a8a5a980e3b44e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-wir-bisher-gelernt-haben">Was wir bisher gelernt haben<a class="anchor-link" href="#Was-wir-bisher-gelernt-haben">¶</a></h2><ul>
-<li>Neuronale Netze können komplexe Muster lernen</li>
-<li>Sie bestehen aus Neuronen, Gewichten und Aktivierungsfunktionen</li>
-<li>Durch Training lernen sie, Vorhersagen zu machen</li>
-<li>Wir haben sie für Zahlen und einfache Klassifikation genutzt</li>
+<h2 id="Die-gro%C3%9Fe-Frage">Die große Frage<a class="anchor-link" href="#Die-gro%C3%9Fe-Frage">¶</a></h2><ul>
+<li>Wir wissen: Das Netz minimiert den Fehler</li>
+<li>Aber <strong>wie genau</strong> findet es die besten Parameter?</li>
+<li>Die Antwort: <strong>Gradientenabstieg</strong> (Gradient Descent)</li>
 </ul>
-<p><strong>Aber</strong>: Neuronale Netze können noch viel mehr!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f0f89ea34ca94ef5">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=41a97332ae3ce9f9"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Eine-Analogie:-Abstieg-vom-Berg">Eine Analogie: Abstieg vom Berg<a class="anchor-link" href="#Eine-Analogie:-Abstieg-vom-Berg">¶</a></h2><ul>
+<li>Stellen Sie sich vor, Sie stehen auf einem Berg</li>
+<li>Es ist neblig, Sie können nur wenige Meter weit sehen</li>
+<li>Ihr Ziel: Ins Tal hinabsteigen</li>
+<li>Wie finden Sie den Weg?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=67e5513c4b6686eb"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Die-Strategie">Die Strategie<a class="anchor-link" href="#Die-Strategie">¶</a></h2><ol>
+<li>Schauen Sie sich um (im Nebel)</li>
+<li>Finden Sie die steilste Stelle nach unten</li>
+<li>Machen Sie einen Schritt in diese Richtung</li>
+<li>Wiederholen Sie, bis Sie im Tal sind</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=be5b46d32dd09680"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Gradientenabstieg-funktioniert-genauso!">Gradientenabstieg funktioniert genauso!<a class="anchor-link" href="#Gradientenabstieg-funktioniert-genauso!">¶</a></h2><ul>
+<li><strong>Berg</strong> = Loss-Funktion (Fehler)</li>
+<li><strong>Tal</strong> = Minimaler Fehler (bestes Modell)</li>
+<li><strong>Steilste Stelle</strong> = Gradient</li>
+<li><strong>Schritt</strong> = Parameter-Update</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ed5ad305fa0cc280"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Visualisierung:-Einfache-Fehler-Landschaft">Visualisierung: Einfache Fehler-Landschaft<a class="anchor-link" href="#Visualisierung:-Einfache-Fehler-Landschaft">¶</a></h2><ul>
+<li>Stellen wir uns vor, wir haben nur einen Parameter</li>
+<li>Die x-Achse zeigt den Parameterwert</li>
+<li>Die y-Achse zeigt den Fehler (Loss)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=284a7cb19d6c5df6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.decomposition</span><span class="w"> </span><span class="kn">import</span> <span class="n">PCA</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nn_training_essentials_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_simple_loss_landscape</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ffcd3d6249a7a8c3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"darkgrid"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e4683a1498a3c176"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Neuronale-Netze-auf-Text">Neuronale Netze auf Text<a class="anchor-link" href="#Neuronale-Netze-auf-Text">¶</a></h2><ul>
-<li><strong>Frage</strong>: Können neuronale Netze auch mit Text arbeiten?</li>
-<li><strong>Problem</strong>: Netze verarbeiten nur Zahlen, nicht Wörter</li>
-<li><strong>Lösung</strong>: Wörter in Zahlen umwandeln!</li>
-<li>Das nennt man <strong>Embeddings</strong> (Einbettungen)</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=9810322df2713541"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-sind-Embeddings?">Was sind Embeddings?<a class="anchor-link" href="#Was-sind-Embeddings?">¶</a></h2><ul>
-<li>Jedes Wort wird als Vektor (Liste von Zahlen) dargestellt</li>
-<li>Ähnliche Wörter haben ähnliche Vektoren</li>
-<li><strong>Beispiel</strong>:<ul>
-<li>"König" und "Königin" sind nahe beieinander</li>
-<li>"Hund" und "Katze" sind nahe beieinander</li>
-<li>"König" und "Tisch" sind weit auseinander</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=1f6bd2104765125d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Vereinfachte Wort-Embeddings (2D zur Visualisierung)
-In der Realität haben Embeddings typischerweise 300-1000 Dimensionen</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2aa261d46e924486">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">word_embeddings</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">'king'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]),</span>
-    <span class="s1">'queen'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.75</span><span class="p">,</span> <span class="mf">0.85</span><span class="p">]),</span>
-    <span class="s1">'man'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.7</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]),</span>
-    <span class="s1">'woman'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.65</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">]),</span>
-    <span class="s1">'dog'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.7</span><span class="p">]),</span>
-    <span class="s1">'cat'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.35</span><span class="p">,</span> <span class="mf">0.65</span><span class="p">]),</span>
-    <span class="s1">'table'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.6</span><span class="p">]),</span>
-    <span class="s1">'chair'</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.75</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.65</span><span class="p">])</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2923dc254e8d9c3d">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=fb566419b0fc195c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13250,49 +13225,29 @@ In der Realität haben Embeddings typischerweise 300-1000 Dimensionen</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c33a9aa7090d7367"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ef77af8b535bba24"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Attention:-Die-Geheimwaffe">Attention: Die Geheimwaffe<a class="anchor-link" href="#Attention:-Die-Geheimwaffe">¶</a></h2><ul>
-<li><strong>Problem</strong>: Nicht alle Wörter im Satz sind gleich wichtig</li>
-<li><strong>Lösung</strong>: <strong>Attention-Mechanismus</strong></li>
-<li>Das Netzwerk lernt, auf wichtige Teile zu "achten"</li>
-<li>Wie wenn Sie einen Text lesen und wichtige Wörter hervorheben</li>
+<h2 id="Schrittweiser-Abstieg">Schrittweiser Abstieg<a class="anchor-link" href="#Schrittweiser-Abstieg">¶</a></h2><ul>
+<li>Wir starten irgendwo auf dem "Berg"</li>
+<li>Bei jedem Schritt gehen wir bergab</li>
+<li>Der Gradient zeigt uns die Richtung</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=61cb49c20539f33d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiel:-Attention">Beispiel: Attention<a class="anchor-link" href="#Beispiel:-Attention">¶</a></h2><p><strong>Satz</strong>: "Der Hund jagte die Katze durch den Park"</p>
-<ul>
-<li>Wenn wir über "jagte" nachdenken:<ul>
-<li>Wichtig: "Hund" (wer jagt?)</li>
-<li>Wichtig: "Katze" (wen wird gejagt?)</li>
-<li>Weniger wichtig: "der", "die", "durch"</li>
-</ul>
-</li>
-</ul>
-<p>Attention gewichtet automatisch, welche Wörter wichtig sind!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8eafb03387b63a33">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=08927ffbde9fd3ef">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Simplified attention visualization</span>
-<span class="n">sentence</span> <span class="o">=</span> <span class="s2">"The dog chased the cat"</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-<span class="c1"># Attention weights (simplified - showing which words matter for "chased")</span>
-<span class="n">attention_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.35</span><span class="p">])</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nn_training_essentials_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_gradient_descent_steps</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=f9fd79eb527247b8">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=e457de12cffbaa29">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13303,58 +13258,41 @@ In der Realität haben Embeddings typischerweise 300-1000 Dimensionen</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0f55ee5c1e308dc2"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=48fb4caedf4d2dbc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Von-klein-zu-gro%C3%9F:-Die-Gr%C3%B6%C3%9Fenrevolution">Von klein zu groß: Die Größenrevolution<a class="anchor-link" href="#Von-klein-zu-gro%C3%9F:-Die-Gr%C3%B6%C3%9Fenrevolution">¶</a></h2><ul>
-<li>Unsere neuronalen Netze: ~1.000-10.000 Parameter</li>
-<li>Moderne neuronale Netze: Millionen von Parametern</li>
-<li><strong>Large Language Models</strong>: <strong>Milliarden</strong> von Parametern!</li>
+<h2 id="Was-ist-der-Gradient?">Was ist der Gradient?<a class="anchor-link" href="#Was-ist-der-Gradient?">¶</a></h2><ul>
+<li>Der <strong>Gradient</strong> ist die Steigung der Fehler-Funktion</li>
+<li>Er zeigt in die Richtung des steilsten <strong>Anstiegs</strong></li>
+<li>Wir gehen in die <strong>entgegengesetzte</strong> Richtung (bergab)</li>
+<li>Mathematisch: Eine Ableitung</li>
 </ul>
-<table>
-<thead>
-<tr>
-<th>Modell</th>
-<th>Parameter</th>
-<th>Jahr</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GPT-2</td>
-<td>1.5 Milliarden</td>
-<td>2019</td>
-</tr>
-<tr>
-<td>GPT-3</td>
-<td>175 Milliarden</td>
-<td>2020</td>
-</tr>
-<tr>
-<td>GPT-4</td>
-<td>~1 Billion (geschätzt)</td>
-<td>2023</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c5d1a17722af256b">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f169e9e5512663d5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="2D-Beispiel:-Zwei-Parameter">2D-Beispiel: Zwei Parameter<a class="anchor-link" href="#2D-Beispiel:-Zwei-Parameter">¶</a></h2><ul>
+<li>Neuronale Netze haben viele Parameter</li>
+<li>Schauen wir uns zwei Parameter an</li>
+<li>Die Fehler-Landschaft wird zu einem Gebirge</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8581bd1893dda15b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Visualization of parameter scales</span>
-<span class="n">models</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Unsere Netze</span><span class="se">\n</span><span class="s1">Our Networks'</span><span class="p">,</span> <span class="s1">'GPT-2'</span><span class="p">,</span> <span class="s1">'GPT-3'</span><span class="p">,</span> <span class="s1">'GPT-4</span><span class="se">\n</span><span class="s1">(geschätzt)'</span><span class="p">]</span>
-<span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10000</span><span class="p">,</span> <span class="mf">1.5e9</span><span class="p">,</span> <span class="mf">175e9</span><span class="p">,</span> <span class="mf">1e12</span><span class="p">]</span>  <span class="c1"># in actual numbers</span>
-<span class="n">params_display</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">175000</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">]</span>  <span class="c1"># in millions for display</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nn_training_essentials_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_2d_loss_landscape</span><span class="p">,</span> <span class="n">plot_2d_loss_landscape_3d</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=92df17b39464e1a9">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=795186652a5c580c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13365,80 +13303,170 @@ In der Realität haben Embeddings typischerweise 300-1000 Dimensionen</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=30bb49bc13c2927e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=c7d48e6eacf41a0d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5f8b37c2d9276fd6"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-so-gro%C3%9F?">Warum so groß?<a class="anchor-link" href="#Warum-so-gro%C3%9F?">¶</a></h2><ul>
-<li><strong>Mehr Parameter</strong> = mehr Kapazität zum Lernen</li>
-<li>LLMs werden auf <strong>riesigen Textmengen</strong> trainiert<ul>
-<li>Bücher, Wikipedia, Websites, Code, ...</li>
-<li>Milliarden von Wörtern!</li>
-</ul>
-</li>
-<li>Sie lernen:<ul>
-<li>Grammatik und Syntax</li>
-<li>Fakten und Wissen</li>
-<li>Schreibstile und Muster</li>
-<li>Logik und Schlussfolgerungen</li>
-</ul>
-</li>
+<h2 id="Das-Problem:-Lokale-Minima">Das Problem: Lokale Minima<a class="anchor-link" href="#Das-Problem:-Lokale-Minima">¶</a></h2><ul>
+<li>Unsere Analogie hat einen Haken!</li>
+<li>Was passiert, wenn es mehrere Täler gibt?</li>
+<li>Sie könnten in einem kleinen Tal landen, nicht im tiefsten</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e31e78cdf32a7392"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=923b80295cb4db1b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-k%C3%B6nnen-LLMs?">Was können LLMs?<a class="anchor-link" href="#Was-k%C3%B6nnen-LLMs?">¶</a></h2><ul>
-<li><strong>Text generieren</strong>: Geschichten, Artikel, Code schreiben</li>
-<li><strong>Fragen beantworten</strong>: Wissen abrufen und erklären</li>
-<li><strong>Übersetzen</strong>: Zwischen Sprachen übersetzen</li>
-<li><strong>Zusammenfassen</strong>: Lange Texte kurz zusammenfassen</li>
-<li><strong>Code schreiben</strong>: Programme in verschiedenen Sprachen</li>
-<li><strong>Konversation</strong>: Natürliche Unterhaltungen führen</li>
+<p><img alt="No description has been provided for this image" src="../../../../img/Funtensee-1.jpg" style="width:40%;float:right;margin-left:10px;"/></p>
+<h2 id="Beispiel:-Der-Funtensee">Beispiel: Der Funtensee<a class="anchor-link" href="#Beispiel:-Der-Funtensee">¶</a></h2><ul>
+<li>See in den Berchtesgadener Alpen</li>
+<li>In einem Tal, das von höheren Bergen<br/>umgeben ist</li>
+<li>Kältester Ort Deutschlands</li>
+<li>Wenn Sie dort landen, denken Sie vielleicht,<br/>Sie sind am tiefsten Punkt</li>
+<li>Aber Sie sind immer noch 1601 Meter hoch!</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=67778d5b9d62e809"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=9cb397d81a03d2ff"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiele-f%C3%BCr-LLMs">Beispiele für LLMs<a class="anchor-link" href="#Beispiele-f%C3%BCr-LLMs">¶</a></h2><ul>
-<li><strong>GPT-4</strong> (OpenAI): Sehr leistungsfähig, vielseitig</li>
-<li><strong>Claude</strong> (Anthropic): Gut bei langen Texten, hilfreich</li>
-<li><strong>Llama 2</strong> (Meta): Open Source, läuft lokal</li>
-<li><strong>Gemini</strong> (Google): Multimodal (Text + Bilder)</li>
-</ul>
-<p>Alle basieren auf denselben Grundprinzipien:
-Neuronale Netze + Embeddings + Attention!</p>
+<p><img alt="No description has been provided for this image" src="../../../../img/Funtensee-2.jpg" style="width:80%;margin-left:10px;"/></p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7939c3cef857dc6d"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ef285b7540c4418a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nn_training_essentials_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_funtensee_local_minimum</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=799ece40f415f5f8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7b3c3cafe9ac2c56"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Die-Kernbotschaft">Die Kernbotschaft<a class="anchor-link" href="#Die-Kernbotschaft">¶</a></h2><p><strong>LLMs sind neuronale Netze wie die, die Sie gebaut haben!</strong></p>
-<ul>
-<li>Dieselben Grundprinzipien: Gewichte, Training, Muster lernen</li>
-<li>Nur <strong>viel größer</strong> und auf <strong>viel mehr Text</strong> trainiert</li>
-<li>Kombiniert mit <strong>cleveren Techniken</strong> (Embeddings, Attention)</li>
-<li>Das Ergebnis: Systeme, die Sprache verstehen und generieren können</li>
+<h2 id="Lokales-vs.-Globales-Minimum">Lokales vs. Globales Minimum<a class="anchor-link" href="#Lokales-vs.-Globales-Minimum">¶</a></h2><ul>
+<li><strong>Lokales Minimum</strong>: Ein Tal, aber nicht das tiefste</li>
+<li><strong>Globales Minimum</strong>: Das tiefste Tal überhaupt</li>
+<li>Problem: Gradient Descent kann in lokalem Minimum stecken bleiben</li>
+<li>Wie der Funtensee: Ein Tal, aber nicht das tiefste</li>
 </ul>
-<p><strong>Im nächsten Abschnitt</strong>: Lernen wir, wie man LLMs nutzt!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=22ea556b60790cd1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6956caad5e3acdc2"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Demonstration:-Wo-man-startet,-ist-wichtig">Demonstration: Wo man startet, ist wichtig<a class="anchor-link" href="#Demonstration:-Wo-man-startet,-ist-wichtig">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2f1a5bf021616502">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nn_training_essentials_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_starting_point_matters</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=22912afe337f6189">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c0fb47c6269b98fc"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Die-Lernrate">Die Lernrate<a class="anchor-link" href="#Die-Lernrate">¶</a></h2><ul>
+<li>Wie groß soll der Schritt sein?</li>
+<li>Die <strong>Lernrate</strong> (Learning Rate) steuert die Schrittgröße</li>
+<li><strong>Zu groß</strong>: Man springt über das Minimum hinweg</li>
+<li><strong>Zu klein</strong>: Man braucht sehr lange</li>
+<li><strong>Genau richtig</strong>: Effizientes Lernen</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7b7ac395818cb88a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nn_training_essentials_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_learning_rate_effects</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=57962d0c9f299119">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=598eef3ac4f3fc4b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="In-der-Praxis">In der Praxis<a class="anchor-link" href="#In-der-Praxis">¶</a></h2><ul>
+<li>Neuronale Netze haben Hunderte oder Tausende von Parametern</li>
+<li>Der Gradient zeigt für jeden Parameter die Richtung</li>
+<li>Moderne Optimierer (wie Adam) passen die Lernrate automatisch an</li>
+<li>Sie helfen, lokale Minima zu vermeiden</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a50dadb9d6e4a9d9"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Embeddings</strong>: Wörter als Zahlen → Netze können damit arbeiten</li>
-<li><strong>Attention</strong>: Konzentrieren auf wichtige Teile des Textes</li>
-<li><strong>Größe</strong>: Von Tausenden zu Milliarden von Parametern</li>
-<li><strong>Training</strong>: Auf riesigen Textmengen lernen</li>
-<li><strong>Fähigkeiten</strong>: Text verstehen, generieren, übersetzen, ...</li>
+<li><strong>Gradientenabstieg</strong> = Methode zum Finden des Minimums</li>
+<li><strong>Gradient</strong> = Richtung des steilsten Anstiegs</li>
+<li>Wir gehen in die entgegengesetzte Richtung (bergab)</li>
+<li><strong>Lernrate</strong> steuert die Schrittgröße</li>
+<li><strong>Lokale Minima</strong> wie der Funtensee sind ein Problem</li>
+<li>Moderne Optimierer helfen, gute Lösungen zu finden</li>
 </ul>
-<p><strong>Sie haben schon die Grundlagen!</strong> Jetzt nutzen wir große Modelle.</p>
 </div>
 </div>
 </div>

@@ -22,7 +22,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from sklearn.neural_network import MLPRegressor
 from sklearn.model_selection import train_test_split
-from nn_training_deep_dive_plots import plot_training_error, plot_learning_stages
+from nn_training_plots import plot_training_error, plot_learning_stages
 
 # %%
 sns.set_theme(style="darkgrid")

@@ -23,7 +23,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.neural_network import MLPRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import mean_squared_error, r2_score
-from nn_training_deep_dive_plots import (
+from nn_training_plots import (
     plot_linear_comparison, plot_nonlinear_comparison,
     plot_small_data_comparison, plot_score_comparison
 )

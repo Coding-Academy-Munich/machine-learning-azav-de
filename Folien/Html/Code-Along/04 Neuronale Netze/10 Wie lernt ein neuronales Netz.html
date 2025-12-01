@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c95355865ffd53fc"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3b3c5bb40703f9b4"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Training Neuronaler Netze: Grundlagen</b>
+<b>Wie lernt ein neuronales Netz?</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13157,45 +13157,19 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2605b5eb7c2a6d1f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neural_network</span><span class="w"> </span><span class="kn">import</span> <span class="n">MLPRegressor</span><span class="p">,</span> <span class="n">MLPClassifier</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.datasets</span><span class="w"> </span><span class="kn">import</span> <span class="n">make_moons</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ffcd3d6249a7a8c3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"darkgrid"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=54f9ccd7aff0a2c6"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=09bea4a5237d4a56"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Das-Lernziel">Das Lernziel<a class="anchor-link" href="#Das-Lernziel">¶</a></h2><ul>
 <li>Beim Training hat das Netz ein klares Ziel</li>
 <li><strong>Minimiere den Fehler</strong> bei den Vorhersagen</li>
 <li>Der Fehler misst, wie weit die Vorhersagen von den echten Werten entfernt sind</li>
+<li>Je kleiner der Fehler, desto besser das Modell</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=39363b6c02056a5d"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=39363b6c02056a5d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Die-Loss-Funktion">Die Loss-Funktion<a class="anchor-link" href="#Die-Loss-Funktion">¶</a></h2><ul>
@@ -13208,109 +13182,53 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ee879f46faf6d458"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=25d4fb34da20d7b1"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Was-ist-MSE?">Was ist MSE?<a class="anchor-link" href="#Was-ist-MSE?">¶</a></h2><ul>
+<li><strong>MSE</strong> = Mean Squared Error (Mittlerer quadratischer Fehler)</li>
+<li>Berechnung: $(y_{true} - y_{pred})^2$ für jeden Datenpunkt</li>
+<li>Dann: Durchschnitt aller quadrierten Fehler</li>
+<li>Große Fehler werden stärker bestraft (wegen Quadrat)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d8d092e32c175d1c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Epochen:-Wie-oft-lernen-wir?">Epochen: Wie oft lernen wir?<a class="anchor-link" href="#Epochen:-Wie-oft-lernen-wir?">¶</a></h2><ul>
 <li>Eine <strong>Epoche</strong> = einmal durch alle Trainingsdaten</li>
 <li>Mehr Epochen = mehr Lerngelegenheiten</li>
 <li>Aber: Irgendwann wird es nicht mehr besser</li>
-<li><strong>Zu wenig</strong>: Netz hat nicht genug gelernt (underfitting)</li>
-<li><strong>Zu viel</strong>: Netz lernt Trainingsdaten auswendig (overfitting)</li>
+<li><strong>Zu wenig</strong>: Netz hat nicht genug gelernt</li>
+<li><strong>Zu viel</strong>: Netz lernt Trainingsdaten auswendig</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=3a51d7e28f0b06b8"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2df708e439cc9298"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Erzeugen von Beispieldaten</p>
+<h2 id="Visualisierung:-Fehler-w%C3%A4hrend-des-Trainings">Visualisierung: Fehler während des Trainings<a class="anchor-link" href="#Visualisierung:-Fehler-w%C3%A4hrend-des-Trainings">¶</a></h2><ul>
+<li>Schauen wir uns an, wie sich der Fehler ändert</li>
+<li>Beispiel: Vorhersage von Noten basierend auf Lernstunden</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d6936eab62a530d8">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=383ae5c8c1e05dae">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nn_training_essentials_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_error_during_training</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4b472f00bbe2d3ba">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">make_moons</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">noise</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7a5518b77b550333">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=94f4bdbef6aefc2e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Trainieren mit verschiedenen Epochen-Anzahlen</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=50e3fb33ecc7108e">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">epoch_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=59665d2dff1a8827">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">train_scores</span> <span class="o">=</span> <span class="p">[]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=134c316f422b95a3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">test_scores</span> <span class="o">=</span> <span class="p">[]</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
-    <span class="k">for</span> <span class="n">max_iter</span> <span class="ow">in</span> <span class="n">epoch_list</span><span class="p">:</span>
-        <span class="n">mlp</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span><span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,),</span> <span class="n">max_iter</span><span class="o">=</span><span class="n">max_iter</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
-        <span class="n">mlp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-        <span class="n">train_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mlp</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">))</span>
-        <span class="n">test_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">mlp</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8df208d5c3c27f79">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=e118f1de5a81a092">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13321,118 +13239,40 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3903232f8d860ee9"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8b0f70949796a996"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Lernrate-(Learning-Rate)">Lernrate (Learning Rate)<a class="anchor-link" href="#Lernrate-(Learning-Rate)">¶</a></h2><ul>
-<li>Wie groß sind die Anpassungsschritte?</li>
-<li><strong>Zu klein</strong>: Lernen dauert ewig</li>
-<li><strong>Zu groß</strong>: Das Netz "springt" über die Lösung</li>
-<li><strong>Goldlöckchen-Prinzip</strong>: Nicht zu groß, nicht zu klein!</li>
+<h2 id="Was-sehen-wir?">Was sehen wir?<a class="anchor-link" href="#Was-sehen-wir?">¶</a></h2><ul>
+<li>Am Anfang: hoher Fehler (das Netz weiß noch nichts)</li>
+<li>Während des Trainings: Fehler sinkt</li>
+<li>Nach genug Training: Fehler stabilisiert sich</li>
+<li>Das Netz hat gelernt!</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=58121f27791f9ff6"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b604639287ddbd23"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Visualisierung:-Lernrate">Visualisierung: Lernrate<a class="anchor-link" href="#Visualisierung:-Lernrate">¶</a></h2><ul>
-<li>Stellen Sie sich vor, Sie suchen den tiefsten Punkt in einem Tal</li>
-<li><strong>Kleine Lernrate</strong>: Kleine Schritte - sicher aber langsam</li>
-<li><strong>Große Lernrate</strong>: Große Schritte - schnell aber riskant</li>
-<li><strong>Richtige Lernrate</strong>: Gute Balance zwischen Geschwindigkeit und Präzision</li>
+<h2 id="Visualisierung:-Vorhersagen-verbessern-sich">Visualisierung: Vorhersagen verbessern sich<a class="anchor-link" href="#Visualisierung:-Vorhersagen-verbessern-sich">¶</a></h2><ul>
+<li>Schauen wir uns die Vorhersagen nach verschiedenen Epochen an</li>
+<li>Von "keine Ahnung" zu "gute Vorhersage"</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f9b13bc5f4da2ac9">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=83d4a821b4e78dff">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Compare different learning rates (using SGD solver)</span>
-<span class="n">learning_rates</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]</span>
-<span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'blue'</span><span class="p">,</span> <span class="s1">'green'</span><span class="p">,</span> <span class="s1">'red'</span><span class="p">]</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">lr</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">learning_rates</span><span class="p">,</span> <span class="n">colors</span><span class="p">):</span>
-        <span class="n">mlp</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span>
-            <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,),</span>
-            <span class="n">max_iter</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-            <span class="n">learning_rate_init</span><span class="o">=</span><span class="n">lr</span><span class="p">,</span>
-            <span class="n">solver</span><span class="o">=</span><span class="s1">'sgd'</span><span class="p">,</span>
-            <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
-        <span class="p">)</span>
-        <span class="n">mlp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-
-        <span class="c1"># Plot loss curve</span>
-        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">mlp</span><span class="o">.</span><span class="n">loss_curve_</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s1">'Learning Rate = </span><span class="si">{</span><span class="n">lr</span><span class="si">}</span><span class="s1">'</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">color</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">'Epochen / Epochs'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Loss'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Einfluss der Lernrate / Impact of Learning Rate'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nn_training_essentials_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_predictions_improving</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7c7a9fdf1985b447"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Batch-Size">Batch Size<a class="anchor-link" href="#Batch-Size">¶</a></h2><ul>
-<li><strong>Batch Size</strong>: Wie viele Beispiele auf einmal verarbeiten?</li>
-<li><strong>Vollständiger Batch</strong>: Alle Daten auf einmal - langsam aber stabil</li>
-<li><strong>Mini-Batch</strong>: Kleine Gruppen - schneller, etwas rauschiger</li>
-<li><strong>Einzelnes Beispiel (SGD)</strong>: Sehr schnell, sehr rauschig</li>
-<li>Üblich: Mini-Batches von 32, 64, 128 Beispielen</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=73be6c180ed8d2b4"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Early-Stopping">Early Stopping<a class="anchor-link" href="#Early-Stopping">¶</a></h2><ul>
-<li>Problem: Woher wissen wir, wann wir aufhören sollen?</li>
-<li><strong>Early Stopping</strong>: Stoppe, wenn Test-Fehler nicht mehr besser wird</li>
-<li>Verhindert Overfitting</li>
-<li>sklearn macht das automatisch (wenn <code>early_stopping=True</code>)</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=522fe16690e427dd">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Example with early stopping</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
-
-    <span class="n">mlp_early</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span>
-        <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,),</span>
-        <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-        <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">validation_fraction</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
-        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
-    <span class="p">)</span>
-    <span class="n">mlp_early</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=62b54a7183ba1ce5">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=8aff0c852a17446a">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13443,146 +13283,29 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0d61d0aff0773703"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8c1ae9ee03b95532"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Regularisierung:-Overfitting-vermeiden">Regularisierung: Overfitting vermeiden<a class="anchor-link" href="#Regularisierung:-Overfitting-vermeiden">¶</a></h2><ul>
-<li><strong>Regularisierung</strong>: Verhindert zu komplexe Modelle</li>
-<li>Parameter: <code>alpha</code> (höher = stärkere Regularisierung)</li>
-<li><strong>Zu klein (<code>alpha=0</code>)</strong>: Overfitting möglich</li>
-<li><strong>Zu groß</strong>: Underfitting</li>
-<li>Standard: <code>alpha=0.0001</code> (funktioniert oft gut)</li>
+<h2 id="Was-passiert-beim-Lernen?">Was passiert beim Lernen?<a class="anchor-link" href="#Was-passiert-beim-Lernen?">¶</a></h2><ul>
+<li>Das Netz hat <strong>Parameter</strong> (Gewichte und Bias-Werte)</li>
+<li>Diese Parameter bestimmen die Vorhersagen</li>
+<li>Beim Training werden diese Parameter angepasst</li>
+<li>Ziel: Bessere Vorhersagen → kleinerer Fehler</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c6f3735de8671222">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Compare different alpha values</span>
-<span class="n">alphas</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">alpha</span> <span class="ow">in</span> <span class="n">alphas</span><span class="p">:</span>
-        <span class="n">mlp</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span>
-            <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,),</span>
-            <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span>
-            <span class="n">max_iter</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-            <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
-        <span class="p">)</span>
-        <span class="n">mlp</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-
-        <span class="n">train_acc</span> <span class="o">=</span> <span class="n">mlp</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-        <span class="n">test_acc</span> <span class="o">=</span> <span class="n">mlp</span><span class="o">.</span><span class="n">score</span><span class="p">(</span><span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-
-        <span class="n">plt</span><span class="o">.</span><span class="n">bar</span><span class="p">([</span><span class="sa">f</span><span class="s1">'α=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="se">\n</span><span class="s1">Train'</span><span class="p">,</span> <span class="sa">f</span><span class="s1">'α=</span><span class="si">{</span><span class="n">alpha</span><span class="si">}</span><span class="se">\n</span><span class="s1">Test'</span><span class="p">],</span>
-                <span class="p">[</span><span class="n">train_acc</span><span class="p">,</span> <span class="n">test_acc</span><span class="p">],</span>
-                <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
-
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">'Genauigkeit / Accuracy'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">'Einfluss von Regularisierung (alpha) / Impact of Regularization (alpha)'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">ylim</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="s1">'y'</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e289c0fa156875e6"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Praktische-Tipps">Praktische Tipps<a class="anchor-link" href="#Praktische-Tipps">¶</a></h2><h3 id="Anzahl-Epochen">Anzahl Epochen<a class="anchor-link" href="#Anzahl-Epochen">¶</a></h3><ul>
-<li>Start: 100-200 Epochen</li>
-<li>Nutze <code>early_stopping=True</code> für automatisches Stoppen</li>
-</ul>
-<h3 id="Lernrate">Lernrate<a class="anchor-link" href="#Lernrate">¶</a></h3><ul>
-<li>sklearn wählt meist gute Standardwerte</li>
-<li>Bei Problemen: Standardwerte aus sklearn Dokumentation prüfen</li>
-</ul>
-<h3 id="Regularisierung">Regularisierung<a class="anchor-link" href="#Regularisierung">¶</a></h3><ul>
-<li>Start mit <code>alpha=0.0001</code> (sklearn Standard)</li>
-<li>Bei Overfitting: <code>alpha</code> erhöhen (z.B. 0.001, 0.01)</li>
-<li>Bei Underfitting: <code>alpha</code> verringern (z.B. 0.00001)</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b57fa487142b0f1a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Wann-ist-mein-Modell-%C3%BCberangepasst?">Wann ist mein Modell überangepasst?<a class="anchor-link" href="#Wann-ist-mein-Modell-%C3%BCberangepasst?">¶</a></h2><ul>
-<li><strong>Training-Fehler</strong> ist sehr klein</li>
-<li><strong>Test-Fehler</strong> ist deutlich größer</li>
-<li>Das Netz hat die Trainingsdaten auswendig gelernt</li>
-<li><strong>Lösung</strong>: Mehr Daten, Regularisierung, oder Early Stopping</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6367df1624e14752">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Demonstration of overfitting</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="k">with</span> <span class="n">warnings</span><span class="o">.</span><span class="n">catch_warnings</span><span class="p">():</span>
-    <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
-
-    <span class="c1"># Overfit model (too complex, too many iterations, no regularization)</span>
-    <span class="n">mlp_overfit</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span>
-        <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span>
-        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>  <span class="c1"># No regularization</span>
-        <span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
-        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
-    <span class="p">)</span>
-    <span class="n">mlp_overfit</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-
-    <span class="c1"># Good model (balanced)</span>
-    <span class="n">mlp_good</span> <span class="o">=</span> <span class="n">MLPClassifier</span><span class="p">(</span>
-        <span class="n">hidden_layer_sizes</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,),</span>
-        <span class="n">alpha</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span>  <span class="c1"># Some regularization</span>
-        <span class="n">max_iter</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
-        <span class="n">early_stopping</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-        <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
-    <span class="p">)</span>
-    <span class="n">mlp_good</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ddee7511e85b0c81">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2c4b45ead2ff9e45"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=cc731f56a6136c07"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Loss-Funktion</strong>: Misst, wie schlecht das Modell ist</li>
-<li><strong>Epochen</strong>: Wie oft durch die Daten (zu viele → Overfitting)</li>
-<li><strong>Lernrate</strong>: Schrittgröße beim Lernen (Goldlöckchen-Prinzip!)</li>
-<li><strong>Batch Size</strong>: Wie viele Beispiele gleichzeitig</li>
-<li><strong>Early Stopping</strong>: Automatisch stoppen bei Overfitting</li>
-<li><strong>Regularisierung (alpha)</strong>: Verhindert zu komplexe Modelle</li>
+<li>Neuronale Netze lernen durch <strong>Minimierung des Fehlers</strong></li>
+<li>Der Fehler (Loss) wird mit einer <strong>Loss-Funktion</strong> berechnet</li>
+<li>Mehr Training (Epochen) → kleinerer Fehler</li>
+<li>Die <strong>Parameter</strong> (Gewichte und Bias) werden angepasst</li>
+<li>Aber <strong>wie</strong> werden sie angepasst?</li>
+<li>Das sehen wir in der nächsten Lektion!</li>
 </ul>
-<p><strong>Wichtigste Regel</strong>: Trainings- UND Test-Fehler beobachten!</p>
 </div>
 </div>
 </div>

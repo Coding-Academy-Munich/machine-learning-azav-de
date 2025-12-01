@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c8ecf2c6ad89b7f3"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=70aef80ed820a0d2"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Gradientenabstieg</b>
+<b>Von Neuronalen Netzen zu Large Language Models</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,464 +13145,266 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=42a8a5a980e3b44e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2c37a7dc58003099"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Die-gro%C3%9Fe-Frage">Die große Frage<a class="anchor-link" href="#Die-gro%C3%9Fe-Frage">¶</a></h2><ul>
-<li>Wir wissen: Das Netz minimiert den Fehler</li>
-<li>Aber <strong>wie genau</strong> findet es die besten Parameter?</li>
-<li>Die Antwort: <strong>Gradientenabstieg</strong> (Gradient Descent)</li>
+<h2 id="Was-wir-bisher-gelernt-haben">Was wir bisher gelernt haben<a class="anchor-link" href="#Was-wir-bisher-gelernt-haben">¶</a></h2><ul>
+<li>Neuronale Netze können komplexe Muster lernen</li>
+<li>Sie bestehen aus Neuronen, Gewichten und Aktivierungsfunktionen</li>
+<li>Durch Training lernen sie, Vorhersagen zu machen</li>
+<li>Wir haben sie für Zahlen und einfache Klassifikation genutzt</li>
 </ul>
+<p><strong>Aber</strong>: Neuronale Netze können noch viel mehr!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=79e7474328492b44">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=37382b97c6af5edf">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">mpl_toolkits.mplot3d</span><span class="w"> </span><span class="kn">import</span> <span class="n">Axes3D</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">nn_training_plots</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">plot_simple_loss_landscape</span><span class="p">,</span> <span class="n">plot_gradient_descent_steps</span><span class="p">,</span>
-    <span class="n">plot_2d_loss_landscape</span><span class="p">,</span> <span class="n">plot_2d_loss_landscape_3d</span><span class="p">,</span>
-    <span class="n">plot_local_minimum</span><span class="p">,</span> <span class="n">plot_different_starting_points</span><span class="p">,</span>
-    <span class="n">plot_learning_rates</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">nns_to_llms_plots</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">plot_tokenization_example</span><span class="p">,</span>
+    <span class="n">plot_word_embeddings</span><span class="p">,</span>
+    <span class="n">plot_attention_weights</span><span class="p">,</span>
+    <span class="n">plot_parameter_comparison</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ffcd3d6249a7a8c3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">set_theme</span><span class="p">(</span><span class="n">style</span><span class="o">=</span><span class="s2">"darkgrid"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=41a97332ae3ce9f9"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=285149d80215f587"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Eine-Analogie:-Abstieg-vom-Berg">Eine Analogie: Abstieg vom Berg<a class="anchor-link" href="#Eine-Analogie:-Abstieg-vom-Berg">¶</a></h2><ul>
-<li>Stellen Sie sich vor, Sie stehen auf einem Berg</li>
-<li>Es ist neblig, Sie können nur wenige Meter weit sehen</li>
-<li>Ihr Ziel: Ins Tal hinabsteigen</li>
-<li>Wie finden Sie den Weg?</li>
+<h2 id="Neuronale-Netze-auf-Text">Neuronale Netze auf Text<a class="anchor-link" href="#Neuronale-Netze-auf-Text">¶</a></h2><ul>
+<li><strong>Frage</strong>: Können neuronale Netze auch mit Text arbeiten?</li>
+<li><strong>Problem</strong>: Netze verarbeiten nur Zahlen, nicht Wörter</li>
+<li><strong>Lösung</strong>: Wörter in Zahlen umwandeln!</li>
+<li>Zwei Schritte: <strong>Tokenisierung</strong> → <strong>Embeddings</strong></li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=67e5513c4b6686eb"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=653205186f6698f8"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Die-Strategie">Die Strategie<a class="anchor-link" href="#Die-Strategie">¶</a></h2><ol>
-<li>Schauen Sie sich um (im Nebel)</li>
-<li>Finden Sie die steilste Stelle nach unten</li>
-<li>Machen Sie einen Schritt in diese Richtung</li>
-<li>Wiederholen Sie, bis Sie im Tal sind</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=be5b46d32dd09680"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Gradientenabstieg-funktioniert-genauso!">Gradientenabstieg funktioniert genauso!<a class="anchor-link" href="#Gradientenabstieg-funktioniert-genauso!">¶</a></h2><ul>
-<li><strong>Berg</strong> = Loss-Funktion (Fehler)</li>
-<li><strong>Tal</strong> = Minimaler Fehler (bestes Modell)</li>
-<li><strong>Steilste Stelle</strong> = Gradient</li>
-<li><strong>Schritt</strong> = Parameter-Update</li>
+<h2 id="Schritt-1:-Tokenisierung">Schritt 1: Tokenisierung<a class="anchor-link" href="#Schritt-1:-Tokenisierung">¶</a></h2><ul>
+<li>Text wird in kleine Einheiten zerlegt: <strong>Tokens</strong></li>
+<li>Ein Token kann ein Wort, Teil eines Wortes oder ein Zeichen sein</li>
+<li><strong>Beispiel</strong>: "Die Katze schläft" → ["Die", "Katze", "schläft"]</li>
+<li>Jedes Token bekommt eine eindeutige Nummer (ID)</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=2d1238755935c729"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=6735d44066373bab">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_tokenization_example</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ac884294e852de7d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Visualisierung:-Einfache-Fehler-Landschaft">Visualisierung: Einfache Fehler-Landschaft<a class="anchor-link" href="#Visualisierung:-Einfache-Fehler-Landschaft">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9dd6ca94a5bc7d4a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create a simple 1D loss function (parabola)</span>
-<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">loss</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=de4714faae2f3306">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=fdbbfac458a78492"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Schrittweises-Abstieg">Schrittweises Abstieg<a class="anchor-link" href="#Schrittweises-Abstieg">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4627b59e15c79a21">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Simulate gradient descent on the simple function</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">gradient_simple</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Gradient of (w-2)^2 + 1"""</span>
-    <span class="k">return</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d06c0205806bdb0e">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Gradient descent simulation</span>
-<span class="n">w_start</span> <span class="o">=</span> <span class="o">-</span><span class="mi">4</span>
-<span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">0.3</span>
-<span class="n">steps</span> <span class="o">=</span> <span class="mi">15</span>
-
-<span class="n">w_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">w_start</span><span class="p">]</span>
-<span class="n">loss_history</span> <span class="o">=</span> <span class="p">[(</span><span class="n">w_start</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
-
-<span class="n">w_current</span> <span class="o">=</span> <span class="n">w_start</span>
-<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
-    <span class="n">grad</span> <span class="o">=</span> <span class="n">gradient_simple</span><span class="p">(</span><span class="n">w_current</span><span class="p">)</span>
-    <span class="n">w_current</span> <span class="o">=</span> <span class="n">w_current</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">grad</span>
-    <span class="n">w_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w_current</span><span class="p">)</span>
-    <span class="n">loss_history</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">w_current</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8e87306d7060b48a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b213c516ee69b262"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-ist-der-Gradient?">Was ist der Gradient?<a class="anchor-link" href="#Was-ist-der-Gradient?">¶</a></h2><ul>
-<li>Der <strong>Gradient</strong> ist die Steigung der Fehler-Funktion</li>
-<li>Er zeigt in die Richtung des steilsten <strong>Anstiegs</strong></li>
-<li>Wir gehen in die <strong>entgegengesetzte</strong> Richtung (bergab)</li>
-<li>Mathematisch: Eine Ableitung (oder mehrere bei vielen Parametern)</li>
+<h2 id="Schritt-2:-Embeddings">Schritt 2: Embeddings<a class="anchor-link" href="#Schritt-2:-Embeddings">¶</a></h2><ul>
+<li>Jedes Token wird als Vektor (Liste von Zahlen) dargestellt</li>
+<li>Ähnliche Wörter haben ähnliche Vektoren</li>
+<li><strong>Beispiel</strong>:<ul>
+<li>"König" und "Königin" sind nahe beieinander</li>
+<li>"Hund" und "Katze" sind nahe beieinander</li>
+<li>"König" und "Tisch" sind weit auseinander</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f169e9e5512663d5"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=1f6bd2104765125d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="2D-Beispiel:-Zwei-Parameter">2D-Beispiel: Zwei Parameter<a class="anchor-link" href="#2D-Beispiel:-Zwei-Parameter">¶</a></h2><ul>
-<li>Neuronale Netze haben viele Parameter</li>
-<li>Schauen wir uns zwei Parameter an</li>
-<li>Die Fehler-Landschaft wird zu einem Gebirge</li>
+<p>Vereinfachte Wort-Embeddings (2D zur Visualisierung)
+In der Realität haben Embeddings typischerweise 300-1000 Dimensionen</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=f54809ed6c29b7c4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_word_embeddings</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c33a9aa7090d7367"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Attention:-Die-Geheimwaffe">Attention: Die Geheimwaffe<a class="anchor-link" href="#Attention:-Die-Geheimwaffe">¶</a></h2><ul>
+<li><strong>Problem</strong>: Nicht alle Wörter im Satz sind gleich wichtig</li>
+<li><strong>Lösung</strong>: <strong>Attention-Mechanismus</strong></li>
+<li>Das Netzwerk lernt, auf wichtige Teile zu "achten"</li>
+<li>Wie wenn Sie einen Text lesen und wichtige Wörter hervorheben</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=91b87a008bb7a98f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create a 2D loss landscape</span>
-<span class="n">w1_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">w2_range</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
-<span class="n">W1</span><span class="p">,</span> <span class="n">W2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">meshgrid</span><span class="p">(</span><span class="n">w1_range</span><span class="p">,</span> <span class="n">w2_range</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=320e42840152bbd0">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Simple bowl-shaped loss function</span>
-<span class="n">Loss_2d</span> <span class="o">=</span> <span class="p">(</span><span class="n">W1</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="p">(</span><span class="n">W2</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">+</span> <span class="mf">0.5</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=9c1ee96265aac369">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=60aa1913e000c6b0">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5f8b37c2d9276fd6"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=61cb49c20539f33d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Das-Problem:-Lokale-Minima">Das Problem: Lokale Minima<a class="anchor-link" href="#Das-Problem:-Lokale-Minima">¶</a></h2><ul>
-<li>Unsere Analogie hat einen Haken!</li>
-<li>Was passiert, wenn es mehrere Täler gibt?</li>
-<li>Sie könnten in einem kleinen Tal landen, nicht im tiefsten</li>
+<h2 id="Beispiel:-Attention">Beispiel: Attention<a class="anchor-link" href="#Beispiel:-Attention">¶</a></h2><p><strong>Satz</strong>: "Der Hund jagte die Katze durch den Park"</p>
+<ul>
+<li>Wenn wir über "jagte" nachdenken:<ul>
+<li>Wichtig: "Hund" (wer jagt?)</li>
+<li>Wichtig: "Katze" (wen wird gejagt?)</li>
+<li>Weniger wichtig: "der", "die", "durch"</li>
+</ul>
+</li>
+</ul>
+<p>Attention gewichtet automatisch, welche Wörter wichtig sind!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=743d016bb948cd41">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_attention_weights</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0f55ee5c1e308dc2"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Von-klein-zu-gro%C3%9F:-Die-Gr%C3%B6%C3%9Fenrevolution">Von klein zu groß: Die Größenrevolution<a class="anchor-link" href="#Von-klein-zu-gro%C3%9F:-Die-Gr%C3%B6%C3%9Fenrevolution">¶</a></h2><ul>
+<li>Unsere neuronalen Netze: ~1.000-10.000 Parameter</li>
+<li>Moderne neuronale Netze: Millionen von Parametern</li>
+<li><strong>Large Language Models</strong>: <strong>Milliarden</strong> von Parametern!</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Modell</th>
+<th>Parameter</th>
+<th>Jahr</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GPT-2</td>
+<td>1.5 Milliarden</td>
+<td>2019</td>
+</tr>
+<tr>
+<td>GPT-3</td>
+<td>175 Milliarden</td>
+<td>2020</td>
+</tr>
+<tr>
+<td>GPT-4</td>
+<td>~1 Billion (geschätzt)</td>
+<td>2023</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=8a73cab78d0d2f11">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_parameter_comparison</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=30bb49bc13c2927e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Warum-so-gro%C3%9F?">Warum so groß?<a class="anchor-link" href="#Warum-so-gro%C3%9F?">¶</a></h2><ul>
+<li><strong>Mehr Parameter</strong> = mehr Kapazität zum Lernen</li>
+<li>LLMs werden auf <strong>riesigen Textmengen</strong> trainiert<ul>
+<li>Bücher, Wikipedia, Websites, Code, ...</li>
+<li>Milliarden von Wörtern!</li>
+</ul>
+</li>
+<li>Sie lernen:<ul>
+<li>Grammatik und Syntax</li>
+<li>Fakten und Wissen</li>
+<li>Schreibstile und Muster</li>
+<li>Logik und Schlussfolgerungen</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d20e55264ceeacaa"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e31e78cdf32a7392"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiel:-Der-Funtensee">Beispiel: Der Funtensee<a class="anchor-link" href="#Beispiel:-Der-Funtensee">¶</a></h2><ul>
-<li>Der Funtensee liegt in den Berchtesgadener Alpen</li>
-<li>Es ist ein Tal, das von höheren Bergen umgeben ist</li>
-<li>Kältester Ort Deutschlands (kalte Luft sammelt sich)</li>
-<li>Wenn Sie dort landen, denken Sie vielleicht, Sie sind am tiefsten Punkt</li>
-<li>Aber es gibt tiefere Täler woanders!</li>
+<h2 id="Was-k%C3%B6nnen-LLMs?">Was können LLMs?<a class="anchor-link" href="#Was-k%C3%B6nnen-LLMs?">¶</a></h2><ul>
+<li><strong>Text generieren</strong>: Geschichten, Artikel, Code schreiben</li>
+<li><strong>Fragen beantworten</strong>: Wissen abrufen und erklären</li>
+<li><strong>Übersetzen</strong>: Zwischen Sprachen übersetzen</li>
+<li><strong>Zusammenfassen</strong>: Lange Texte kurz zusammenfassen</li>
+<li><strong>Code schreiben</strong>: Programme in verschiedenen Sprachen</li>
+<li><strong>Konversation</strong>: Natürliche Unterhaltungen führen</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e00442759d5d844a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create a loss landscape with local minimum (like Funtensee)</span>
-<span class="n">w_landscape</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>
-<span class="c1"># Create two valleys using negative Gaussians</span>
-<span class="c1"># Local valley (Funtensee) at w=-2 (shallower)</span>
-<span class="c1"># Global valley at w=3 (deeper)</span>
-<span class="n">valley_local</span> <span class="o">=</span> <span class="o">-</span><span class="mf">2.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">w_landscape</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.0</span><span class="p">)</span>
-<span class="n">valley_global</span> <span class="o">=</span> <span class="o">-</span><span class="mf">3.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">w_landscape</span> <span class="o">-</span> <span class="mi">3</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1.5</span><span class="p">)</span>
-<span class="c1"># Add baseline to keep all values positive</span>
-<span class="n">loss_with_local</span> <span class="o">=</span> <span class="mf">5.5</span> <span class="o">+</span> <span class="n">valley_local</span> <span class="o">+</span> <span class="n">valley_global</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=983a1c1952666b61">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7b3c3cafe9ac2c56"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=f5bf6d267d0f5b68"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Lokales-vs.-Globales-Minimum">Lokales vs. Globales Minimum<a class="anchor-link" href="#Lokales-vs.-Globales-Minimum">¶</a></h2><ul>
-<li><strong>Lokales Minimum</strong>: Ein Tal, aber nicht das tiefste</li>
-<li><strong>Globales Minimum</strong>: Das tiefste Tal überhaupt</li>
-<li>Problem: Gradient Descent kann in lokalem Minimum stecken bleiben</li>
-<li>Wie der Funtensee: Ein Tal, aber nicht das tiefste</li>
+<h2 id="Beispiele-f%C3%BCr-LLMs">Beispiele für LLMs<a class="anchor-link" href="#Beispiele-f%C3%BCr-LLMs">¶</a></h2><ul>
+<li><strong>GPT-5</strong> (OpenAI): Sehr leistungsfähig, vielseitig</li>
+<li><strong>Claude</strong> (Anthropic): Sehr gut für Code, Agenten</li>
+<li><strong>Qwen</strong> (Alibaba): Open Source, läuft lokal</li>
+<li><strong>Gemini</strong> (Google): Multimodal (Text + Bilder)</li>
 </ul>
+<p>Alle basieren auf denselben Grundprinzipien:
+Neuronale Netze + Embeddings + Attention!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6956caad5e3acdc2"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7939c3cef857dc6d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Demonstration:-Wo-man-startet,-ist-wichtig">Demonstration: Wo man startet, ist wichtig<a class="anchor-link" href="#Demonstration:-Wo-man-startet,-ist-wichtig">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=a836a49c26d058b4">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Gradient for the landscape with local minimum</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">gradient_landscape</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Numerical gradient of the loss landscape"""</span>
-    <span class="n">h</span> <span class="o">=</span> <span class="mf">0.01</span>
-    <span class="n">w_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">w_landscape</span> <span class="o">-</span> <span class="n">w</span><span class="p">))</span>
-    <span class="k">if</span> <span class="n">w_idx</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">w_idx</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">w_landscape</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
-        <span class="k">return</span> <span class="mi">0</span>
-    <span class="k">return</span> <span class="p">(</span><span class="n">loss_with_local</span><span class="p">[</span><span class="n">w_idx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">loss_with_local</span><span class="p">[</span><span class="n">w_idx</span> <span class="o">-</span> <span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=96f56a318f154358">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Two different starting points</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">run_gradient_descent</span><span class="p">(</span><span class="n">w_start</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Run gradient descent from a starting point"""</span>
-    <span class="n">w_history</span> <span class="o">=</span> <span class="p">[</span><span class="n">w_start</span><span class="p">]</span>
-    <span class="n">w_current</span> <span class="o">=</span> <span class="n">w_start</span>
-
-    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">steps</span><span class="p">):</span>
-        <span class="n">grad</span> <span class="o">=</span> <span class="n">gradient_landscape</span><span class="p">(</span><span class="n">w_current</span><span class="p">)</span>
-        <span class="n">w_current</span> <span class="o">=</span> <span class="n">w_current</span> <span class="o">-</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">grad</span>
-        <span class="n">w_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">w_current</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">w_history</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=18d489d2aa790f8a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Start from left side (will reach Funtensee)</span>
-<span class="n">path_left</span> <span class="o">=</span> <span class="n">run_gradient_descent</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-
-<span class="c1"># Start from right side (will reach global minimum)</span>
-<span class="n">path_right</span> <span class="o">=</span> <span class="n">run_gradient_descent</span><span class="p">(</span><span class="mf">4.5</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d12d920c5bd13b67">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b903d11faf8bd48e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Die-Lernrate">Die Lernrate<a class="anchor-link" href="#Die-Lernrate">¶</a></h2><ul>
-<li>Wie groß soll der Schritt sein?</li>
-<li>Die <strong>Lernrate</strong> (Learning Rate) steuert die Schrittgröße</li>
-<li>Zu groß: Man springt über das Minimum hinweg</li>
-<li>Zu klein: Man braucht sehr lange</li>
-<li>Genau richtig: Effizientes Lernen</li>
+<h2 id="Die-Kernbotschaft">Die Kernbotschaft<a class="anchor-link" href="#Die-Kernbotschaft">¶</a></h2><p><strong>LLMs sind neuronale Netze wie die, die Sie gebaut haben!</strong></p>
+<ul>
+<li>Dieselben Grundprinzipien: Gewichte, Training, Muster lernen</li>
+<li>Nur <strong>viel größer</strong> und auf <strong>viel mehr Text</strong> trainiert</li>
+<li>Kombiniert mit <strong>cleveren Techniken</strong> (Embeddings, Attention)</li>
+<li>Das Ergebnis: Systeme, die Sprache verstehen und generieren können</li>
 </ul>
+<p><strong>Im nächsten Abschnitt</strong>: Lernen wir, wie man LLMs nutzt!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8cb9243b04fb8464">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Demonstrate different learning rates</span>
-<span class="n">path_small</span> <span class="o">=</span> <span class="n">run_gradient_descent</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">path_good</span> <span class="o">=</span> <span class="n">run_gradient_descent</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">path_large</span> <span class="o">=</span> <span class="n">run_gradient_descent</span><span class="p">(</span><span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">learning_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8771b5617d43e986">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=598eef3ac4f3fc4b"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="In-der-Praxis">In der Praxis<a class="anchor-link" href="#In-der-Praxis">¶</a></h2><ul>
-<li>Neuronale Netze haben Hunderte oder Tausende von Parametern</li>
-<li>Der Gradient zeigt für jeden Parameter die Richtung</li>
-<li>Moderne Optimierer (wie Adam) passen die Lernrate automatisch an</li>
-<li>Sie helfen, lokale Minima zu vermeiden</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a50dadb9d6e4a9d9"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=22ea556b60790cd1"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Gradientenabstieg</strong> = Methode zum Finden des Minimums</li>
-<li><strong>Gradient</strong> = Richtung des steilsten Anstiegs</li>
-<li>Wir gehen in die entgegengesetzte Richtung (bergab)</li>
-<li><strong>Lernrate</strong> steuert die Schrittgröße</li>
-<li><strong>Lokale Minima</strong> wie der Funtensee sind ein Problem</li>
-<li>Moderne Optimierer helfen, gute Lösungen zu finden</li>
+<li><strong>Embeddings</strong>: Wörter als Zahlen → Netze können damit arbeiten</li>
+<li><strong>Attention</strong>: Konzentrieren auf wichtige Teile des Textes</li>
+<li><strong>Größe</strong>: Von Tausenden zu Milliarden von Parametern</li>
+<li><strong>Training</strong>: Auf riesigen Textmengen lernen</li>
+<li><strong>Fähigkeiten</strong>: Text verstehen, generieren, übersetzen, ...</li>
 </ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4bbb484299a35f9a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="In-der-n%C3%A4chsten-Lektion">In der nächsten Lektion<a class="anchor-link" href="#In-der-n%C3%A4chsten-Lektion">¶</a></h2><ul>
-<li>Wie wir das in der Praxis anwenden</li>
-<li>Epochen, Batches, und mehr</li>
-<li>Praktische Tipps für das Training</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
+<p><strong>Sie haben schon die Grundlagen!</strong> Jetzt nutzen wir große Modelle.</p>
 </div>
 </div>
 </div>

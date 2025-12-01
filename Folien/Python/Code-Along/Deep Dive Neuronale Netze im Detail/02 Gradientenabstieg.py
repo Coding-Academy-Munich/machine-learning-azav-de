@@ -20,7 +20,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 from mpl_toolkits.mplot3d import Axes3D
-from nn_training_deep_dive_plots import (
+from nn_training_plots import (
     plot_simple_loss_landscape, plot_gradient_descent_steps,
     plot_2d_loss_landscape, plot_2d_loss_landscape_3d,
     plot_local_minimum, plot_different_starting_points,
