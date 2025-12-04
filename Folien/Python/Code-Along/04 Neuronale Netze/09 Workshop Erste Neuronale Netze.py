@@ -131,7 +131,7 @@ plt.show()
 # Lösen Sie das klassische XOR-Problem:
 #
 # 1. Die Daten sind bereits vorbereitet (siehe unten)
-# 2. Erstellen Sie einen `MLPClassifier` mit 4 Neuronen
+# 2. Erstellen Sie einen `MLPClassifier` mit 10 Neuronen
 # 3. Trainieren Sie das Modell für 5000 Iterationen (`max_iter=5000`)
 # 4. Prüfen Sie die Vorhersagen
 
@@ -146,7 +146,7 @@ y_xor = np.array([0, 1, 1, 0])
 
 # %%
 plt.figure(figsize=(6, 6))
-colors = ['red' if label == 0 else 'blue' for label in y_xor]
+colors = ['blue' if label == 0 else 'red' for label in y_xor]
 plt.scatter(X_xor[:, 0], X_xor[:, 1], c=colors, s=200, alpha=0.6, edgecolors='black', linewidth=2)
 plt.xlabel('$x_1$')
 plt.ylabel('$x_2$')
@@ -160,8 +160,16 @@ plt.show()
 #
 # ### Erstellen und Trainieren Sie das Modell
 #
-# - Verwenden Sie einen `MLPClassifier` mit einer versteckten Schicht und 4 Neuronen
+# - Verwenden Sie einen `MLPClassifier` mit zwei versteckten Schichten mit je 10 Neuronen
 # - Setzen Sie `max_iter=5000` für ausreichende Trainingszeit
+
+# %%
+
+# %%
+
+# %%
+
+# %%
 
 # %%
 
@@ -174,7 +182,7 @@ plt.show()
 # Vergleichen Sie neuronale Netze mit linearen Modellen auf komplexen Daten:
 #
 # 1. Die "Moons" Daten sind bereits vorbereitet
-# 2. Trainieren Sie einen `MLPClassifier` mit 10 Neuronen
+# 2. Trainieren Sie einen `MLPClassifier` mit `(20, 5)` Neuronen
 # 3. Trainieren Sie eine `LogisticRegression`
 # 4. Vergleichen Sie die Accuracies
 # 5. Was funktioniert besser?
@@ -219,6 +227,10 @@ plt.show()
 # %% [markdown]
 #
 # ### Vergleichen Sie die Genauigkeit
+
+# %%
+
+# %%
 
 # %%
 
