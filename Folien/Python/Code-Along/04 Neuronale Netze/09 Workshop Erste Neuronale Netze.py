@@ -58,11 +58,11 @@ X_train, X_test, y_train, y_test = train_test_split(
 
 # %%
 plt.figure(figsize=(10, 6))
-plt.scatter(X_train, y_train, alpha=0.6, label='Training Data')
-plt.scatter(X_test, y_test, alpha=0.6, label='Test Data', color='orange')
-plt.xlabel('x')
-plt.ylabel('y')
-plt.title('Quadratic Data')
+plt.scatter(X_train, y_train, alpha=0.6, label="Training Data")
+plt.scatter(X_test, y_test, alpha=0.6, label="Test Data", color="orange")
+plt.xlabel("x")
+plt.ylabel("y")
+plt.title("Quadratic Data")
 plt.legend()
 plt.grid(True, alpha=0.3)
 plt.show()
@@ -146,15 +146,24 @@ y_xor = np.array([0, 1, 1, 0])
 
 # %%
 plt.figure(figsize=(6, 6))
-colors = ['blue' if label == 0 else 'red' for label in y_xor]
-plt.scatter(X_xor[:, 0], X_xor[:, 1], c=colors, s=200, alpha=0.6, edgecolors='black', linewidth=2)
-plt.xlabel('$x_1$')
-plt.ylabel('$x_2$')
-plt.title('XOR Problem')
+colors = ["blue" if label == 0 else "red" for label in y_xor]
+plt.scatter(
+    X_xor[:, 0],
+    X_xor[:, 1],
+    c=colors,
+    s=200,
+    alpha=0.6,
+    edgecolors="black",
+    linewidth=2,
+)
+plt.xlabel("$x_1$")
+plt.ylabel("$x_2$")
+plt.title("XOR Problem")
 plt.grid(True, alpha=0.3)
 plt.xlim(-0.5, 1.5)
 plt.ylim(-0.5, 1.5)
 plt.show()
+
 
 # %% [markdown]
 #
@@ -170,10 +179,43 @@ plt.show()
 # %%
 
 # %%
+def plot_decision_boundary(
+    model,
+    X,
+    y,
+    x_grid=np.linspace(-0.5, 1.5, 100),
+    y_grid=np.linspace(-0.5, 1.5, 100),
+    s=100,
+    linewidth=1,
+):
+    xx, yy = np.meshgrid(x_grid, y_grid)
+    Z = model.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+    colors = np.array(["blue", "red"])
+    plt.figure(figsize=(6, 6))
+    plt.contourf(xx, yy, Z, alpha=0.3, cmap=plt.cm.Paired)
+    plt.scatter(
+        X[:, 0], X[:, 1], c=colors[y], s=s, edgecolors="black", linewidth=linewidth
+    )
+    plt.xlabel("$x_1$")
+    plt.ylabel("$x_2$")
+    plt.title("Decision Boundary")
+    plt.grid(True, alpha=0.3)
+    plt.show()
+
 
 # %%
+plot_decision_boundary(mlp_xor, X_xor, y_xor)
 
 # %%
+plot_decision_boundary(
+    mlp_xor,
+    X_xor,
+    y_xor,
+    x_grid=np.linspace(-15, 5, 500),
+    y_grid=np.linspace(-5, 15, 500),
+    s=10,
+    linewidth=0.5,
+)
 
 # %% [markdown]
 #
@@ -200,11 +242,13 @@ X_train_moons, X_test_moons, y_train_moons, y_test_moons = train_test_split(
 
 # %%
 plt.figure(figsize=(8, 6))
-colors = ['red' if label == 0 else 'blue' for label in y_moons]
-plt.scatter(X_moons[:, 0], X_moons[:, 1], c=colors, alpha=0.6, edgecolors='black', linewidth=0.5)
-plt.xlabel('Feature 1')
-plt.ylabel('Feature 2')
-plt.title('Moons Dataset - Can a straight line separate these?')
+colors = ["red" if label == 0 else "blue" for label in y_moons]
+plt.scatter(
+    X_moons[:, 0], X_moons[:, 1], c=colors, alpha=0.6, edgecolors="black", linewidth=0.5
+)
+plt.xlabel("Feature 1")
+plt.ylabel("Feature 2")
+plt.title("Moons Dataset - Can a straight line separate these?")
 plt.grid(True, alpha=0.3)
 plt.show()
 
