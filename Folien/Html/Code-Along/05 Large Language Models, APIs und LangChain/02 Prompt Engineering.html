@@ -13202,15 +13202,49 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a4de475dda2bb611"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1507706e956ca8fb"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Anatomie-eines-guten-Prompts">Anatomie eines guten Prompts<a class="anchor-link" href="#Anatomie-eines-guten-Prompts">¶</a></h2><p>Jeder gute Prompt enthält diese <strong>4 Kern-Elemente</strong>:</p>
+<ol>
+<li><strong>Kontext</strong>: Was ist die Situation?</li>
+<li><strong>Anforderung</strong>: Was genau soll das LLM tun?</li>
+<li><strong>Einschränkungen</strong>: Format, Länge, Stil</li>
+<li><strong>Beispiele</strong>: Optional, aber sehr hilfreich (Few-Shot)</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=9e0b757e184341e0"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Beispiel:-Anatomie-anwenden">Beispiel: Anatomie anwenden<a class="anchor-link" href="#Beispiel:-Anatomie-anwenden">¶</a></h2><pre><code>[Kontext]
+Ich entwickle eine Python-Anwendung für Dateimanagement.
+
+[Anforderung]
+Schreibe eine Funktion, die alle Dateien in einem Ordner auflistet.
+
+[Einschränkungen]
+- Verwende pathlib (nicht os)
+- Füge Type Hints hinzu
+- Maximal 10 Zeilen
+
+[Beispiel-Output]
+def list_files(folder: Path) -&gt; list[Path]:
+    ...
+</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=75d6aa236653bfbd"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Grundprinzipien-guter-Prompts">Grundprinzipien guter Prompts<a class="anchor-link" href="#Grundprinzipien-guter-Prompts">¶</a></h2><ol>
-<li><strong>Sei spezifisch</strong>: Was genau willst du?</li>
-<li><strong>Gib Kontext</strong>: Wer ist die Zielgruppe?</li>
-<li><strong>Gib Format vor</strong>: Liste? Absätze? Code?</li>
-<li><strong>Gib Beispiele</strong>: Few-Shot Learning</li>
-<li><strong>Iteriere</strong>: Verfeinere den Prompt basierend auf Antworten</li>
+<li><strong>Seien Sie spezifisch</strong>: Was genau wollen Sie?</li>
+<li><strong>Geben Sie Kontext</strong>: Wer ist die Zielgruppe?</li>
+<li><strong>Geben Sie Format vor</strong>: Liste? Absätze? Code?</li>
+<li><strong>Geben Sie Beispiele</strong>: Few-Shot Learning</li>
+<li><strong>Iterieren Sie</strong>: Verfeinern Sie den Prompt basierend auf Antworten</li>
 </ol>
 </div>
 </div>
@@ -13308,6 +13342,41 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b9c092721686a54a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Praktische-Prompt-Muster">Praktische Prompt-Muster<a class="anchor-link" href="#Praktische-Prompt-Muster">¶</a></h2><p><strong>4 häufige Muster für Programmieraufgaben:</strong></p>
+<ol>
+<li><strong>Generieren</strong>: "Schreibe eine Funktion, die..."</li>
+<li><strong>Verbessern</strong>: "Refaktoriere diesen Code, um..."</li>
+<li><strong>Erweitern</strong>: "Füge Fehlerbehandlung hinzu für..."</li>
+<li><strong>Erklären</strong>: "Erkläre diesen Code..."</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=72ce7d6ffd75ce30"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Muster-in-Aktion">Muster in Aktion<a class="anchor-link" href="#Muster-in-Aktion">¶</a></h2><p><strong>Generieren:</strong></p>
+<blockquote>
+<p>"Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist. Verwende Type Hints."</p>
+</blockquote>
+<p><strong>Verbessern:</strong></p>
+<blockquote>
+<p>"Refaktoriere diese Funktion, um List Comprehensions statt Schleifen zu verwenden."</p>
+</blockquote>
+<p><strong>Erweitern:</strong></p>
+<blockquote>
+<p>"Füge Validierung hinzu: Die Funktion soll einen ValueError werfen, wenn die Eingabe negativ ist."</p>
+</blockquote>
+<p><strong>Erklären:</strong></p>
+<blockquote>
+<p>"Erkläre Zeile für Zeile, was dieser Code macht."</p>
+</blockquote>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1f825bb08f8823de"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13349,6 +13418,41 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ee3b6efee5eeb263"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Iteratives-Verfeinern">Iteratives Verfeinern<a class="anchor-link" href="#Iteratives-Verfeinern">¶</a></h2><p><strong>Prompts werden selten beim ersten Mal perfekt!</strong></p>
+<p>Der Workflow:</p>
+<ol>
+<li><strong>Prompt schreiben</strong> → Antwort erhalten</li>
+<li><strong>Antwort bewerten</strong> → Was fehlt? Was ist falsch?</li>
+<li><strong>Prompt verfeinern</strong> → Spezifischer, mehr Kontext</li>
+<li><strong>Wiederholen</strong> → Bis zufrieden (max. 3-4 Iterationen)</li>
+</ol>
+<p><strong>Wichtig</strong>: Nach 3-4 Iterationen ohne Verbesserung → anderen Ansatz versuchen!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=552dfd7b71c2c446"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Effektives-Feedback-geben">Effektives Feedback geben<a class="anchor-link" href="#Effektives-Feedback-geben">¶</a></h2><p><strong>Vages Feedback</strong> (❌):</p>
+<blockquote>
+<p>"Das ist nicht gut genug"</p>
+</blockquote>
+<p><strong>Spezifisches Feedback</strong> (✓):</p>
+<blockquote>
+<p>"Die Funktion behandelt keine leeren Listen. Füge eine Prüfung hinzu, die einen leeren String zurückgibt."</p>
+</blockquote>
+<p><strong>Noch besser</strong> (✓✓):</p>
+<blockquote>
+<p>"Problem: Die Funktion gibt None zurück bei leerer Liste.
+Erwartetes Verhalten: Leerer String zurückgeben.
+Bitte korrigiere die Funktion entsprechend."</p>
+</blockquote>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1dbd1d06a0ebfbdd"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13367,13 +13471,52 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3a537ab61ad015bd"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4281839c772c961b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop:-Prompt-Engineering-Praxis">Workshop: Prompt Engineering Praxis<a class="anchor-link" href="#Workshop:-Prompt-Engineering-Praxis">¶</a></h2><p><strong>Aufgaben</strong> (nutzen Sie ChatGPT, Claude oder ein anderes LLM):</p>
+<ol>
+<li><p><strong>Bad → Good</strong>: Nehmen Sie den Prompt "Erkläre Python" und verbessern Sie ihn
+mit allen 4 Kernelementen</p>
+</li>
+<li><p><strong>Few-Shot</strong>: Erstellen Sie einen Prompt mit 2-3 Beispielen, der
+Datumsformate konvertiert (z.B. "15.03.2024" → "March 15, 2024")</p>
+</li>
+<li><p><strong>Chain-of-Thought</strong>: Lassen Sie das LLM ein Logik-Rätsel lösen und
+dabei seine Schritte erklären</p>
+</li>
+<li><p><strong>Iterieren</strong>: Schreiben Sie einen Prompt für eine Funktion, dann
+verbessern Sie ihn 3x basierend auf den Ergebnissen</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=5ec01d80c8956cfb"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop:-Beispiell%C3%B6sung-Aufgabe-1">Workshop: Beispiellösung Aufgabe 1<a class="anchor-link" href="#Workshop:-Beispiell%C3%B6sung-Aufgabe-1">¶</a></h2><p><strong>Vorher:</strong></p>
+<blockquote>
+<p>"Erkläre Python"</p>
+</blockquote>
+<p><strong>Nachher:</strong></p>
+<blockquote>
+<p>"[Kontext] Ich bin Anfänger und möchte programmieren lernen.</p>
+<p>[Anforderung] Erkläre mir, was Python ist und warum es eine gute
+erste Programmiersprache ist.</p>
+<p>[Format] 3 kurze Absätze mit Überschriften.</p>
+<p>[Einschränkungen] Vermeide Fachbegriffe ohne Erklärung."</p>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fb9fbcd6fef989e0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="In-der-n%C3%A4chsten-Lektion">In der nächsten Lektion<a class="anchor-link" href="#In-der-n%C3%A4chsten-Lektion">¶</a></h2><ul>
-<li><strong>Praktische Anwendungen</strong> von LLMs</li>
-<li>Wie man LLMs in eigene Projekte integriert</li>
-<li>APIs und Tools</li>
+<li><strong>LLM APIs</strong>: LLMs programmatisch nutzen</li>
+<li>Wie man LLMs in eigene Anwendungen integriert</li>
+<li>OpenAI, Anthropic und andere Anbieter</li>
 </ul>
 </div>
 </div>

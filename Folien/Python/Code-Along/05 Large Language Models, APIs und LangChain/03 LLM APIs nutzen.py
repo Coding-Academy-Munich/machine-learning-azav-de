@@ -27,6 +27,54 @@
 #
 # LLM-APIs funktionieren genauso!
 
+# %% [markdown]
+#
+# ## Kurze Code-Wiederholung: requests
+#
+# **GET-Request** (Daten abrufen):
+#
+# ```python
+# import requests
+#
+# response = requests.get(url)
+# response.raise_for_status()  # Fehler bei schlechtem Status
+# data = response.json()       # JSON → Python dict
+# ```
+
+# %% [markdown]
+#
+# ## POST-Request mit Headers
+#
+# **POST-Request** (Daten senden):
+#
+# ```python
+# headers = {
+#     "Content-Type": "application/json",
+#     "Authorization": "Bearer MEIN_API_KEY"
+# }
+#
+# data = {"message": "Hallo", "model": "gpt-3.5"}
+#
+# response = requests.post(url, headers=headers, json=data)
+# response.raise_for_status()
+# result = response.json()
+# ```
+#
+# Das ist **exakt** das Muster für LLM-APIs!
+
+# %% [markdown]
+#
+# ## Von requests zu LLM-APIs
+#
+# | requests-Konzept | LLM-API-Anwendung |
+# |-----------------|-------------------|
+# | URL | `api.openai.com/v1/chat/completions` |
+# | Headers | `Authorization: Bearer sk-...` |
+# | JSON-Daten | Modell, Nachricht, Parameter |
+# | Response | Antwort des LLMs |
+#
+# **Jetzt sehen wir es in Aktion!**
+
 # %%
 import requests
 

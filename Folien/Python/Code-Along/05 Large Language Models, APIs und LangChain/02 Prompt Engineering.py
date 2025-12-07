@@ -42,13 +42,45 @@ sns.set_theme(style="darkgrid")
 
 # %% [markdown]
 #
+# ## Anatomie eines guten Prompts
+#
+# Jeder gute Prompt enthält diese **4 Kern-Elemente**:
+#
+# 1. **Kontext**: Was ist die Situation?
+# 2. **Anforderung**: Was genau soll das LLM tun?
+# 3. **Einschränkungen**: Format, Länge, Stil
+# 4. **Beispiele**: Optional, aber sehr hilfreich (Few-Shot)
+
+# %% [markdown]
+#
+# ## Beispiel: Anatomie anwenden
+#
+# ```
+# [Kontext]
+# Ich entwickle eine Python-Anwendung für Dateimanagement.
+#
+# [Anforderung]
+# Schreibe eine Funktion, die alle Dateien in einem Ordner auflistet.
+#
+# [Einschränkungen]
+# - Verwende pathlib (nicht os)
+# - Füge Type Hints hinzu
+# - Maximal 10 Zeilen
+#
+# [Beispiel-Output]
+# def list_files(folder: Path) -> list[Path]:
+#     ...
+# ```
+
+# %% [markdown]
+#
 # ## Grundprinzipien guter Prompts
 #
-# 1. **Sei spezifisch**: Was genau willst du?
-# 2. **Gib Kontext**: Wer ist die Zielgruppe?
-# 3. **Gib Format vor**: Liste? Absätze? Code?
-# 4. **Gib Beispiele**: Few-Shot Learning
-# 5. **Iteriere**: Verfeinere den Prompt basierend auf Antworten
+# 1. **Seien Sie spezifisch**: Was genau wollen Sie?
+# 2. **Geben Sie Kontext**: Wer ist die Zielgruppe?
+# 3. **Geben Sie Format vor**: Liste? Absätze? Code?
+# 4. **Geben Sie Beispiele**: Few-Shot Learning
+# 5. **Iterieren Sie**: Verfeinern Sie den Prompt basierend auf Antworten
 
 # %%
 
@@ -96,6 +128,33 @@ sns.set_theme(style="darkgrid")
 
 # %% [markdown]
 #
+# ## Praktische Prompt-Muster
+#
+# **4 häufige Muster für Programmieraufgaben:**
+#
+# 1. **Generieren**: "Schreibe eine Funktion, die..."
+# 2. **Verbessern**: "Refaktoriere diesen Code, um..."
+# 3. **Erweitern**: "Füge Fehlerbehandlung hinzu für..."
+# 4. **Erklären**: "Erkläre diesen Code..."
+
+# %% [markdown]
+#
+# ## Muster in Aktion
+#
+# **Generieren:**
+# > "Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist. Verwende Type Hints."
+#
+# **Verbessern:**
+# > "Refaktoriere diese Funktion, um List Comprehensions statt Schleifen zu verwenden."
+#
+# **Erweitern:**
+# > "Füge Validierung hinzu: Die Funktion soll einen ValueError werfen, wenn die Eingabe negativ ist."
+#
+# **Erklären:**
+# > "Erkläre Zeile für Zeile, was dieser Code macht."
+
+# %% [markdown]
+#
 # ## Häufige Fehler vermeiden
 #
 # ❌ **Zu vage**: "Schreibe etwas über KI"
@@ -129,6 +188,35 @@ sns.set_theme(style="darkgrid")
 
 # %% [markdown]
 #
+# ## Iteratives Verfeinern
+#
+# **Prompts werden selten beim ersten Mal perfekt!**
+#
+# Der Workflow:
+# 1. **Prompt schreiben** → Antwort erhalten
+# 2. **Antwort bewerten** → Was fehlt? Was ist falsch?
+# 3. **Prompt verfeinern** → Spezifischer, mehr Kontext
+# 4. **Wiederholen** → Bis zufrieden (max. 3-4 Iterationen)
+#
+# **Wichtig**: Nach 3-4 Iterationen ohne Verbesserung → anderen Ansatz versuchen!
+
+# %% [markdown]
+#
+# ## Effektives Feedback geben
+#
+# **Vages Feedback** (❌):
+# > "Das ist nicht gut genug"
+#
+# **Spezifisches Feedback** (✓):
+# > "Die Funktion behandelt keine leeren Listen. Füge eine Prüfung hinzu, die einen leeren String zurückgibt."
+#
+# **Noch besser** (✓✓):
+# > "Problem: Die Funktion gibt None zurück bei leerer Liste.
+# > Erwartetes Verhalten: Leerer String zurückgeben.
+# > Bitte korrigiere die Funktion entsprechend."
+
+# %% [markdown]
+#
 # ## Zusammenfassung
 #
 # - **Prompt Engineering**: Kunst, LLMs optimal zu nutzen
@@ -142,10 +230,45 @@ sns.set_theme(style="darkgrid")
 
 # %% [markdown]
 #
+# ## Workshop: Prompt Engineering Praxis
+#
+# **Aufgaben** (nutzen Sie ChatGPT, Claude oder ein anderes LLM):
+#
+# 1. **Bad → Good**: Nehmen Sie den Prompt "Erkläre Python" und verbessern Sie ihn
+#    mit allen 4 Kernelementen
+#
+# 2. **Few-Shot**: Erstellen Sie einen Prompt mit 2-3 Beispielen, der
+#    Datumsformate konvertiert (z.B. "15.03.2024" → "March 15, 2024")
+#
+# 3. **Chain-of-Thought**: Lassen Sie das LLM ein Logik-Rätsel lösen und
+#    dabei seine Schritte erklären
+#
+# 4. **Iterieren**: Schreiben Sie einen Prompt für eine Funktion, dann
+#    verbessern Sie ihn 3x basierend auf den Ergebnissen
+
+# %% [markdown]
+#
+# ## Workshop: Beispiellösung Aufgabe 1
+#
+# **Vorher:**
+# > "Erkläre Python"
+#
+# **Nachher:**
+# > "[Kontext] Ich bin Anfänger und möchte programmieren lernen.
+# >
+# > [Anforderung] Erkläre mir, was Python ist und warum es eine gute
+# > erste Programmiersprache ist.
+# >
+# > [Format] 3 kurze Absätze mit Überschriften.
+# >
+# > [Einschränkungen] Vermeide Fachbegriffe ohne Erklärung."
+
+# %% [markdown]
+#
 # ## In der nächsten Lektion
 #
-# - **Praktische Anwendungen** von LLMs
-# - Wie man LLMs in eigene Projekte integriert
-# - APIs und Tools
+# - **LLM APIs**: LLMs programmatisch nutzen
+# - Wie man LLMs in eigene Anwendungen integriert
+# - OpenAI, Anthropic und andere Anbieter
 
 # %%

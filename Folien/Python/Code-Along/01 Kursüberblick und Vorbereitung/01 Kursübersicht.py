@@ -9,37 +9,37 @@
 
 # %% [markdown]
 #
-# <img src="../../../../img/programmer-06.png"
+# <img src="img/programmer-06.png"
 #      style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
 
 # %% [markdown]
 #
-# <img src="../../../../img/professor-18.png"
+# <img src="img/professor-18.png"
 #      style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
 
 # %% [markdown]
 #
-# <img src="../../../../img/industrial-robot-02.png"
+# <img src="img/industrial-robot-02.png"
 #      style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
 
 # %% [markdown]
 #
-# <img src="../../../../img/swarm-robots.png"
+# <img src="img/swarm-robots.png"
 #      style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
 
 # %% [markdown]
 #
-# <img src="../../../../img/driverless-car.png"
+# <img src="img/driverless-car.png"
 #      style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
 
 # %% [markdown]
 #
-# <img src="../../../../img/modern-city-27.png"
+# <img src="img/modern-city-27.png"
 #      style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
 
 # %% [markdown]
 #
-# <img src="../../../../img/survey-01.png"
+# <img src="img/survey-01.png"
 #      style="width: 100%; margin-left: auto; margin-right: auto; display: block;">
 
 

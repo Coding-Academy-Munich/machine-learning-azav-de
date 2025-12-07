@@ -9,7 +9,7 @@
 
 # %% [markdown]
 #
-# <img src="../../../../img/robots-playing-checkers.png"
+# <img src="img/robots-playing-checkers.png"
 #      style="width: 90%; margin-left: auto; margin-right: auto; display: block;">
 
 # %% [markdown]
@@ -250,28 +250,28 @@ interact(
 #
 # ## Programm vs. trainiertes Modell
 #
-# <img src="../../../../img/program-vs-model-01.png"
+# <img src="img/program-vs-model-01.png"
 #      style="width: 80%; margin-left: auto; margin-right: auto;"/>
 
 # %% [markdown]
 #
 # ## Programm vs. trainiertes Modell
 #
-# <img src="../../../../img/program-vs-model-02.png"
+# <img src="img/program-vs-model-02.png"
 #      style="width: 80%; margin-left: auto; margin-right: auto;"/>
 
 # %% [markdown]
 #
 # ## Programm vs. Modell (Erstellung)
 #
-# <img src="../../../../img/program-vs-model-03.png"
+# <img src="img/program-vs-model-03.png"
 #      style="width: 50%; margin-left: auto; margin-right: auto;"/>
 
 # %% [markdown]
 #
 # ## Programm vs. Modell (Erstellung)
 #
-# <img src="../../../../img/program-vs-model-04.png"
+# <img src="img/program-vs-model-04.png"
 #      style="width: 60%; margin-left: auto; margin-right: auto;"/>
 
 # %% [markdown]

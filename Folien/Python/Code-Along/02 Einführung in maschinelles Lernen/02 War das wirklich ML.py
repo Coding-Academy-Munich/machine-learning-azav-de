@@ -58,7 +58,7 @@
 #
 # ## Der ML Workflow
 #
-# <img src="../../../../img/ml-workflow-data.png"
+# <img src="img/ml-workflow-data.png"
 #      style="width: 60%; margin-left: auto; margin-right: auto;"/>
 
 # %% [markdown]

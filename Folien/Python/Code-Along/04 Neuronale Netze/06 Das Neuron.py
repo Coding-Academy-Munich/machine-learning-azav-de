@@ -30,7 +30,7 @@
 #
 # ## Struktur eines Neurons
 #
-# <img src="../../../../img/neuron-structure.png" alt="Neuron Structure" style="width:50%;float:right;">
+# <img src="img/neuron-structure.png" alt="Neuron Structure" style="width:50%;float:right;">
 #
 # - **Eingaben**: Die Features (x₁, x₂, ...)
 # - **Gewichte**: Wie wichtig ist jede Eingabe?

@@ -427,7 +427,7 @@ C_vis = A_vis @ B_vis
 
 # %% [markdown]
 #
-# <img src="../../../../img/matmul.png"
+# <img src="img/matmul.png"
 #      style="width: 90%; margin-left: auto; margin-right: auto; display: block;">
 
 # %%

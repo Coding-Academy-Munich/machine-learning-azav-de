@@ -49,7 +49,7 @@
 #
 # ## Einfaches MLP Diagramm
 #
-# <img src="../../../../img/mlp-structure.png" alt="MLP Struktur" style="width:50%;float:right;margin-left:5px;">
+# <img src="img/mlp-structure.png" alt="MLP Struktur" style="width:50%;float:right;margin-left:5px;">
 #
 # - 2 Neuronen in der versteckten Schicht
 # - Jedes erhält alle 3 Eingaben
@@ -105,7 +105,7 @@ from building_nn_azav_plots import plot_xor_problem_mlp
 #
 # ## Manuelles MLP für XOR
 #
-# <img src="../../../../img/xor-mlp.png" alt="XOR MLP" style="width:50%;float:right;margin-left:5px;">
+# <img src="img/xor-mlp.png" alt="XOR MLP" style="width:50%;float:right;margin-left:5px;">
 #
 # - Wir können ein MLP mit 2 Neuronen<br>in der versteckten Schicht bauen
 # - Diese können das XOR-Problem lösen!
@@ -141,7 +141,7 @@ for x1, x2 in [[0, 0], [0, 1], [1, 0], [1, 1]]:
 #
 # ## Tiefes Netzwerk Diagramm
 #
-# <img src="../../../../img/deep-net-structure.png" alt="Deep Network Struktur" style="width:50%;float:right;margin-left:5px;">
+# <img src="img/deep-net-structure.png" alt="Deep Network Struktur" style="width:50%;float:right;margin-left:5px;">
 #
 # ```
 # Input  →  Hidden 1  →  Hidden 2  →  Output

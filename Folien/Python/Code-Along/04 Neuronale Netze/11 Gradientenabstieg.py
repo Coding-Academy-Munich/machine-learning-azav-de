@@ -102,7 +102,7 @@ from nn_training_essentials_plots import plot_2d_loss_landscape, plot_2d_loss_la
 
 # %% [markdown]
 #
-# <img src="../../../../img/Funtensee-1.jpg" style="width:40%;float:right;margin-left:10px;"/>
+# <img src="img/Funtensee-1.jpg" style="width:40%;float:right;margin-left:10px;"/>
 #
 # ## Beispiel: Der Funtensee
 #
@@ -116,7 +116,7 @@ from nn_training_essentials_plots import plot_2d_loss_landscape, plot_2d_loss_la
 
 # %% [markdown]
 #
-# <img src="../../../../img/Funtensee-2.jpg" style="width:80%;margin-left:10px;"/>
+# <img src="img/Funtensee-2.jpg" style="width:80%;margin-left:10px;"/>
 
 # %%
 from nn_training_essentials_plots import plot_funtensee_local_minimum
