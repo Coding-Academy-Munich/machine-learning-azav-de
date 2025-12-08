@@ -13227,21 +13227,20 @@ statistisch wahrscheinlichen Mustern, nicht Fakten!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=540ca8a9089654ac"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e5fb74d552eb3289"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Bekannte-LLMs">Bekannte LLMs<a class="anchor-link" href="#Bekannte-LLMs">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=37586f6a3d3b62a9">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
+<h2 id="Bekannte-LLMs">Bekannte LLMs<a class="anchor-link" href="#Bekannte-LLMs">¶</a></h2><ul>
+<li>OpenAI: GPT (ChatGPT/Codex; 3, 4, 5, 5.1)</li>
+<li>Anthropic: Claude (Haiku/Sonnet/Opus; 3, 4, 4.5)</li>
+<li>Google: Gemini (2.5, 3)</li>
+<li>Meta: Llama (2, 3, 4)</li>
+<li>Mistral: (Ministral, Mixtral, Small/Medium/Large; 2, 3)</li>
+<li>DeepSeek: (V3, R1, V3.2, V3.2 Speciale)</li>
+<li>MoonshotAI: Kimi K2</li>
+<li>Z.AI: GLM (4, 4.5, 4.6)</li>
+<li>Qwen: (2.5, 3)</li>
+</ul>
 </div>
 </div>
 </div>
@@ -13256,17 +13255,6 @@ statistisch wahrscheinlichen Mustern, nicht Fakten!</p>
 <li><strong>Code schreiben</strong>: Programmier-Aufgaben lösen</li>
 <li><strong>Konversation</strong>: Natürliche Gespräche führen</li>
 </ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2bc59d8f26a1d2dc">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -13350,14 +13338,40 @@ statistisch wahrscheinlichen Mustern, nicht Fakten!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=9cb52108e8f03cea">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=61f1b7efb64f227f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dolma-3-Trainingsdaten-(Beispiel)">Dolma 3 Trainingsdaten (Beispiel)<a class="anchor-link" href="#Dolma-3-Trainingsdaten-(Beispiel)">¶</a></h2><ul>
+<li>Trainingsdaten von Olmo 3 (Allen AI)</li>
+<li>9,3 Billionen Token</li>
+<li>37 Terabytes Rohtext</li>
+<li>Als Bücher: 62 Millionen Bücher<ul>
+<li>Gestapelt: 1.240 km hoch (3x zur ISS)</li>
+<li>Vergleich: 140x Mount Everest (8,8 km hoch)</li>
+</ul>
+</li>
+<li>Reading time: 53.000 Jahre (24/7 lesen)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=9cb52108e8f03cea">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_training_data_sources</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=9e8722aa295df3a3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Pre-Training-vs.-Fine-Tuning">Pre-Training vs. Fine-Tuning<a class="anchor-link" href="#Pre-Training-vs.-Fine-Tuning">¶</a></h2><p><br/><br/>
+<img alt="Pre-Training vs. Fine-Tuning" src="img/llm-pretraining.jpg" style="width: 49%;float: left;margin-right: 2%;"/>
+<img alt="Pre-Training vs. Fine-Tuning" src="img/llm-sft.jpg" style="width: 49%;"/></p>
 </div>
 </div>
 </div>
@@ -13379,21 +13393,10 @@ statistisch wahrscheinlichen Mustern, nicht Fakten!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=3295adadaa83ab2a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8b4fe8d206856301"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=18c8adb72d070349"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Emergent-Abilities-(?)">Emergent Abilities (?)<a class="anchor-link" href="#Emergent-Abilities-(?)">¶</a></h2><p>Angeblich:</p>
+<h2 id="Emergente-F%C3%A4higkeiten-(?)">Emergente Fähigkeiten (?)<a class="anchor-link" href="#Emergente-F%C3%A4higkeiten-(?)">¶</a></h2><p>Angeblich:</p>
 <ul>
 <li>Bei einer gewissen Größe: <strong>Neue Fähigkeiten tauchen auf</strong></li>
 <li>Kleinere Modelle können es nicht</li>
@@ -13409,12 +13412,12 @@ statistisch wahrscheinlichen Mustern, nicht Fakten!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7d88304ca6cd610c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=7d88304ca6cd610c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_emergent_abilities</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>

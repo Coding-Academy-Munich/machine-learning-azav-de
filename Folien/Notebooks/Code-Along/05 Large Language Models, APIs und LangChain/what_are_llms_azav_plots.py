@@ -84,11 +84,11 @@ def plot_llm_capabilities():
 
 def plot_training_data_sources():
     """Plot sources of training data"""
-    sources = ['Books', 'Wikipedia', 'Websites', 'Academic\nPapers', 'Code\nRepositories', 'Other']
-    percentages = [15, 10, 50, 10, 10, 5]
+    sources = ['Books', 'Websites', 'Wikipedia', 'Academic\nPapers', 'Synthetic\nData', 'Code\nRepositories']
+    percentages = [1, 65, 2, 10, 4, 18]
     colors = ['lightblue', 'lightgreen', 'lightcoral', 'lightyellow', 'lightpink', 'lightgray']
 
-    fig, ax = plt.subplots(figsize=(10, 10))
+    fig, ax = plt.subplots(figsize=(7, 7))
 
     wedges, texts, autotexts = ax.pie(percentages, labels=sources, colors=colors,
                                        autopct='%1.0f%%', startangle=90,
@@ -100,7 +100,7 @@ def plot_training_data_sources():
         autotext.set_fontweight('bold')
         autotext.set_fontsize(11)
 
-    ax.set_title('LLM Training Data Sources (Illustrative)', fontsize=14, fontweight='bold', pad=20)
+    ax.set_title('LLM Training Data Sources (Dolma 3 corpus)', fontsize=14, fontweight='bold', pad=20)
     plt.tight_layout()
     plt.show()
 

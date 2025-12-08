@@ -20,9 +20,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from prompt_engineering_azav_plots import (plot_prompt_quality_spectrum, plot_shot_learning_comparison,
-                        plot_chain_of_thought, plot_role_examples,
-                        plot_prompt_template)
+from prompt_engineering_azav_plots import (
+    plot_prompt_quality_spectrum,
+    plot_shot_learning_comparison,
+    plot_chain_of_thought,
+    plot_role_examples,
+    plot_prompt_template,
+)
 
 # %%
 sns.set_theme(style="darkgrid")
@@ -31,14 +35,16 @@ sns.set_theme(style="darkgrid")
 #
 # ## Beispiel: Schlechter vs. Guter Prompt
 #
-# **Schlecht:**
-# > "Erkläre Machine Learning"
+# **Schlecht (falls einfache Erklärung gewünscht):**
+# > Erkläre Machine Learning
 #
 # **Besser:**
-# > "Erkläre Machine Learning für einen 10-Jährigen in 3 Sätzen"
+# > Erkläre Machine Learning für einen 10-Jährigen in 3 Sätzen
 #
 # **Noch besser:**
-# > "Du bist ein geduldiger Lehrer. Erkläre einem 10-jährigen Kind, was Machine Learning ist. Verwende ein Beispiel aus dem Alltag und halte dich auf 3 Sätze."
+# > Du bist ein geduldiger Lehrer. Erkläre einem 10-jährigen Kind, was Machine
+# > Learning ist. Verwende ein Beispiel aus dem Alltag und beschränke dich auf 3
+# > Sätze.
 
 # %% [markdown]
 #
@@ -55,46 +61,65 @@ sns.set_theme(style="darkgrid")
 #
 # ## Beispiel: Anatomie anwenden
 #
+# *Kontext:*
 # ```
-# [Kontext]
 # Ich entwickle eine Python-Anwendung für Dateimanagement.
+# ```
 #
-# [Anforderung]
+# *Anforderung:*
+# ```
 # Schreibe eine Funktion, die alle Dateien in einem Ordner auflistet.
+# ```
 #
-# [Einschränkungen]
+# *Einschränkungen:*
+# ```
 # - Verwende pathlib (nicht os)
 # - Füge Type Hints hinzu
 # - Maximal 10 Zeilen
-#
-# [Beispiel-Output]
-# def list_files(folder: Path) -> list[Path]:
-#     ...
 # ```
 
 # %% [markdown]
 #
-# ## Grundprinzipien guter Prompts
+# ## Grundprinzip guter Prompts
 #
-# 1. **Seien Sie spezifisch**: Was genau wollen Sie?
-# 2. **Geben Sie Kontext**: Wer ist die Zielgruppe?
-# 3. **Geben Sie Format vor**: Liste? Absätze? Code?
+# **Seien Sie spezifisch**
+#
+# - Was genau wollen Sie?
+# - Haben Sie das präzise formuliert?
+
+# %% [markdown]
+#
+# ## Grundprinzipien guter Prompts (detailliert)
+#
+# 1. **Geben Sie Kontext an**:
+#    - Wer ist die Zielgruppe?
+#    - Welche Rolle spielt das LLM?
+# 2. **Geben Sie die Aufgabe/Anforderungen an**: Was wollen Sie erreichen?
+# 3. **Geben Sie Einschränkungen vor**:
+#    - Welches Format benötigen Sie? Liste? Absätze? Code?
+#    - Wie lang soll die Antwort sein? 1 Satz? 3 Absätze?
+#    - Welcher Stil ist gewünscht? Formell? Locker?
 # 4. **Geben Sie Beispiele**: Few-Shot Learning
 # 5. **Iterieren Sie**: Verfeinern Sie den Prompt basierend auf Antworten
 
 # %%
+plot_prompt_quality_spectrum()
 
 # %% [markdown]
 #
 # ## Technik 1: Zero-Shot vs. Few-Shot
 #
 # **Zero-Shot**: Keine Beispiele
-# > "Übersetze ins Französische: Hello"
+# > Übersetze ins Französische: Danke
 #
 # **Few-Shot**: Mit Beispielen
-# > "Übersetze ins Französische:\n> Hello → Bonjour\n> Goodbye → Au revoir\n> Thank you → ?"
+# > Übersetze ins Französische:<br><br>
+# > Hallo → Bonjour<br>
+# > Auf Wiedersehen → Au revoir<br>
+# > Danke → ?
 
 # %%
+plot_shot_learning_comparison()
 
 # %% [markdown]
 #
@@ -105,12 +130,29 @@ sns.set_theme(style="darkgrid")
 # - "Let's think step by step"
 #
 # **Ohne CoT:**
-# > "Was ist 127 * 43?"
+# > Roger hat 5 Tennisbälle. Er kauft 2 weitere Dosen Tennisbälle. Jede Dose
+# > enthält 3 Tennisbälle. Wie viele Tennisbälle hat er jetzt?
 #
 # **Mit CoT:**
-# > "Was ist 127 * 43? Zeige deine Rechenschritte."
+# > Roger hat 5 Tennisbälle. Er kauft 2 weitere Dosen Tennisbälle. Jede Dose
+# > enthält 3 Tennisbälle. Wie viele Tennisbälle hat er jetzt? Zeige deine
+# > Rechenschritte bevor du die Antwort gibst.
+
+# %% [markdown]
+#
+# ### Chain of Thought (Explizit)
+#
+# Manchmal hilft es, dem LLM die Schritte genauer zu sagen.
+#
+# **Beispiel:**
+# > Roger hat 5 Tennisbälle. Er kauft 2 weitere Dosen Tennisbälle. Jede Dose
+# > enthält 3 Tennisbälle. Wie viele Tennisbälle hat er jetzt?
+# > - Bestimme die Anzahl der Dosen und Bälle pro Dose<br>
+# > - Berechne daraus die Anzahl gekauften Bälle<br>
+# > - Addiere sie zu den vorhandenen Bällen
 
 # %%
+plot_chain_of_thought()
 
 # %% [markdown]
 #
@@ -125,6 +167,7 @@ sns.set_theme(style="darkgrid")
 # - "In der Rolle eines Wissenschafts-Journalisten..."
 
 # %%
+plot_role_examples()
 
 # %% [markdown]
 #
@@ -142,49 +185,45 @@ sns.set_theme(style="darkgrid")
 # ## Muster in Aktion
 #
 # **Generieren:**
-# > "Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist. Verwende Type Hints."
+# > Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist. Verwende Type Hints.
 #
 # **Verbessern:**
-# > "Refaktoriere diese Funktion, um List Comprehensions statt Schleifen zu verwenden."
+# > Refaktoriere diese Funktion, um List Comprehensions statt Schleifen zu verwenden.
+
+# %% [markdown]
 #
 # **Erweitern:**
-# > "Füge Validierung hinzu: Die Funktion soll einen ValueError werfen, wenn die Eingabe negativ ist."
+# > Füge Validierung hinzu: Die Funktion soll einen `ValueError` werfen, wenn die Eingabe negativ ist.
 #
 # **Erklären:**
-# > "Erkläre Zeile für Zeile, was dieser Code macht."
+# > Erkläre Zeile für Zeile, was dieser Code macht.
 
 # %% [markdown]
 #
 # ## Häufige Fehler vermeiden
 #
-# ❌ **Zu vage**: "Schreibe etwas über KI"
+# ❌ **Zu vage**: "Schreibe etwas über KI"<br>
 # ✓ **Spezifisch**: "Schreibe einen 200-Wort-Blogpost über KI-Ethik für Laien"
 #
-# ❌ **Mehrere Fragen**: "Erkläre X und Y und schreibe auch Code"
+# ❌ **Mehrere Fragen**: "Erkläre X und Y und schreibe auch Code"<br>
 # ✓ **Eine Sache**: "Erkläre X" (dann separat nach Code fragen)
 #
-# ❌ **Keine Formatangabe**: Unklare Struktur
+# ❌ **Keine Formatangabe**: Unklare Struktur<br>
 # ✓ **Format vorgeben**: "Antworte als nummerierte Liste"
 
 # %% [markdown]
 #
 # ## Template für gute Prompts
 #
-# ```
-# [Rolle]: Du bist ein [Experte/Lehrer/etc.]
-#
-# [Aufgabe]: [Genaue Beschreibung der Aufgabe]
-#
-# [Kontext]: [Zielgruppe, Zweck]
-#
-# [Format]: [Wie soll die Antwort strukturiert sein]
-#
-# [Beispiele]: [Optional: 1-3 Beispiele]
-#
-# [Einschränkungen]: [Länge, Stil, was zu vermeiden ist]
-# ```
+# - **Rolle**: `Du bist ein [Experte/Lehrer/etc.]`
+# - **Aufgabe**: `[Genaue Beschreibung der Aufgabe]`
+# - **Kontext**: `[Zielgruppe, Zweck]`
+# - **Einschränkungen**: `[Länge, Stil, was zu vermeiden ist]`
+# - **Format**: `[Wie soll die Antwort strukturiert sein]`
+# - **Beispiele**: `[Optional: 1-3 Beispiele]`
 
 # %%
+plot_prompt_template()
 
 # %% [markdown]
 #
@@ -205,15 +244,15 @@ sns.set_theme(style="darkgrid")
 # ## Effektives Feedback geben
 #
 # **Vages Feedback** (❌):
-# > "Das ist nicht gut genug"
+# > Das ist nicht gut genug
 #
 # **Spezifisches Feedback** (✓):
-# > "Die Funktion behandelt keine leeren Listen. Füge eine Prüfung hinzu, die einen leeren String zurückgibt."
+# > Die Funktion behandelt keine leeren Listen. Füge eine Prüfung hinzu, die einen leeren String zurückgibt.
 #
 # **Noch besser** (✓✓):
-# > "Problem: Die Funktion gibt None zurück bei leerer Liste.
+# > Problem: Die Funktion gibt None zurück bei leerer Liste.
 # > Erwartetes Verhalten: Leerer String zurückgeben.
-# > Bitte korrigiere die Funktion entsprechend."
+# > Bitte korrigiere die Funktion entsprechend.
 
 # %% [markdown]
 #
@@ -234,41 +273,16 @@ sns.set_theme(style="darkgrid")
 #
 # **Aufgaben** (nutzen Sie ChatGPT, Claude oder ein anderes LLM):
 #
-# 1. **Bad → Good**: Nehmen Sie den Prompt "Erkläre Python" und verbessern Sie ihn
-#    mit allen 4 Kernelementen
+# 1. **Bad → Good**: Nehmen Sie den Prompt "Erkläre Python" und verbessern Sie
+#    ihn mit allen 4 Kernelementen
 #
 # 2. **Few-Shot**: Erstellen Sie einen Prompt mit 2-3 Beispielen, der
-#    Datumsformate konvertiert (z.B. "15.03.2024" → "March 15, 2024")
+#    Datumsformate konvertiert (z.B. "15.03.2024" → "15. März 2024"). Versuchen
+#    Sie mehrere Prompts für verschiedene Datumsformate zu erstellen, z.B.
+#    "15.03.2024" → "March 15, 2024", oder "2024-03-15" → "03/15/2024"
 #
-# 3. **Chain-of-Thought**: Lassen Sie das LLM ein Logik-Rätsel lösen und
-#    dabei seine Schritte erklären
+# 3. **Chain-of-Thought**: Lassen Sie das LLM ein Logik-Rätsel lösen und dabei
+#    seine Schritte erklären
 #
 # 4. **Iterieren**: Schreiben Sie einen Prompt für eine Funktion, dann
-#    verbessern Sie ihn 3x basierend auf den Ergebnissen
-
-# %% [markdown]
-#
-# ## Workshop: Beispiellösung Aufgabe 1
-#
-# **Vorher:**
-# > "Erkläre Python"
-#
-# **Nachher:**
-# > "[Kontext] Ich bin Anfänger und möchte programmieren lernen.
-# >
-# > [Anforderung] Erkläre mir, was Python ist und warum es eine gute
-# > erste Programmiersprache ist.
-# >
-# > [Format] 3 kurze Absätze mit Überschriften.
-# >
-# > [Einschränkungen] Vermeide Fachbegriffe ohne Erklärung."
-
-# %% [markdown]
-#
-# ## In der nächsten Lektion
-#
-# - **LLM APIs**: LLMs programmatisch nutzen
-# - Wie man LLMs in eigene Anwendungen integriert
-# - OpenAI, Anthropic und andere Anbieter
-
-# %%
+#    verbessern Sie ihn 2-3x basierend auf den Ergebnissen

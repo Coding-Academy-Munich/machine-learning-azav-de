@@ -13157,7 +13157,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f0bb7e23314b663b">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=bf83288309669976">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13165,9 +13165,13 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">prompt_engineering_azav_plots</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span><span class="n">plot_prompt_quality_spectrum</span><span class="p">,</span> <span class="n">plot_shot_learning_comparison</span><span class="p">,</span>
-                        <span class="n">plot_chain_of_thought</span><span class="p">,</span> <span class="n">plot_role_examples</span><span class="p">,</span>
-                        <span class="n">plot_prompt_template</span><span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">prompt_engineering_azav_plots</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">plot_prompt_quality_spectrum</span><span class="p">,</span>
+    <span class="n">plot_shot_learning_comparison</span><span class="p">,</span>
+    <span class="n">plot_chain_of_thought</span><span class="p">,</span>
+    <span class="n">plot_role_examples</span><span class="p">,</span>
+    <span class="n">plot_prompt_template</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13184,20 +13188,22 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=bb81ccf7b4c9dadf"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=89fdcdd60dd65eb5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiel:-Schlechter-vs.-Guter-Prompt">Beispiel: Schlechter vs. Guter Prompt<a class="anchor-link" href="#Beispiel:-Schlechter-vs.-Guter-Prompt">¶</a></h2><p><strong>Schlecht:</strong></p>
+<h2 id="Beispiel:-Schlechter-vs.-Guter-Prompt">Beispiel: Schlechter vs. Guter Prompt<a class="anchor-link" href="#Beispiel:-Schlechter-vs.-Guter-Prompt">¶</a></h2><p><strong>Schlecht (falls einfache Erklärung gewünscht):</strong></p>
 <blockquote>
-<p>"Erkläre Machine Learning"</p>
+<p>Erkläre Machine Learning</p>
 </blockquote>
 <p><strong>Besser:</strong></p>
 <blockquote>
-<p>"Erkläre Machine Learning für einen 10-Jährigen in 3 Sätzen"</p>
+<p>Erkläre Machine Learning für einen 10-Jährigen in 3 Sätzen</p>
 </blockquote>
 <p><strong>Noch besser:</strong></p>
 <blockquote>
-<p>"Du bist ein geduldiger Lehrer. Erkläre einem 10-jährigen Kind, was Machine Learning ist. Verwende ein Beispiel aus dem Alltag und halte dich auf 3 Sätze."</p>
+<p>Du bist ein geduldiger Lehrer. Erkläre einem 10-jährigen Kind, was Machine
+Learning ist. Verwende ein Beispiel aus dem Alltag und beschränke dich auf 3
+Sätze.</p>
 </blockquote>
 </div>
 </div>
@@ -13215,77 +13221,96 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=9e0b757e184341e0"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=0173e7fd42b2da01"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiel:-Anatomie-anwenden">Beispiel: Anatomie anwenden<a class="anchor-link" href="#Beispiel:-Anatomie-anwenden">¶</a></h2><pre><code>[Kontext]
-Ich entwickle eine Python-Anwendung für Dateimanagement.
-
-[Anforderung]
-Schreibe eine Funktion, die alle Dateien in einem Ordner auflistet.
-
-[Einschränkungen]
-- Verwende pathlib (nicht os)
+<h2 id="Beispiel:-Anatomie-anwenden">Beispiel: Anatomie anwenden<a class="anchor-link" href="#Beispiel:-Anatomie-anwenden">¶</a></h2><p><em>Kontext:</em></p>
+<pre><code>Ich entwickle eine Python-Anwendung für Dateimanagement.
+</code></pre>
+<p><em>Anforderung:</em></p>
+<pre><code>Schreibe eine Funktion, die alle Dateien in einem Ordner auflistet.
+</code></pre>
+<p><em>Einschränkungen:</em></p>
+<pre><code>- Verwende pathlib (nicht os)
 - Füge Type Hints hinzu
 - Maximal 10 Zeilen
-
-[Beispiel-Output]
-def list_files(folder: Path) -&gt; list[Path]:
-    ...
 </code></pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=75d6aa236653bfbd"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e74d84471a02dc45"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Grundprinzipien-guter-Prompts">Grundprinzipien guter Prompts<a class="anchor-link" href="#Grundprinzipien-guter-Prompts">¶</a></h2><ol>
-<li><strong>Seien Sie spezifisch</strong>: Was genau wollen Sie?</li>
-<li><strong>Geben Sie Kontext</strong>: Wer ist die Zielgruppe?</li>
-<li><strong>Geben Sie Format vor</strong>: Liste? Absätze? Code?</li>
+<h2 id="Grundprinzip-guter-Prompts">Grundprinzip guter Prompts<a class="anchor-link" href="#Grundprinzip-guter-Prompts">¶</a></h2><p><strong>Seien Sie spezifisch</strong></p>
+<ul>
+<li>Was genau wollen Sie?</li>
+<li>Haben Sie das präzise formuliert?</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=748da7494b194f6e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Grundprinzipien-guter-Prompts-(detailliert)">Grundprinzipien guter Prompts (detailliert)<a class="anchor-link" href="#Grundprinzipien-guter-Prompts-(detailliert)">¶</a></h2><ol>
+<li><strong>Geben Sie Kontext an</strong>:<ul>
+<li>Wer ist die Zielgruppe?</li>
+<li>Welche Rolle spielt das LLM?</li>
+</ul>
+</li>
+<li><strong>Geben Sie die Aufgabe/Anforderungen an</strong>: Was wollen Sie erreichen?</li>
+<li><strong>Geben Sie Einschränkungen vor</strong>:<ul>
+<li>Welches Format benötigen Sie? Liste? Absätze? Code?</li>
+<li>Wie lang soll die Antwort sein? 1 Satz? 3 Absätze?</li>
+<li>Welcher Stil ist gewünscht? Formell? Locker?</li>
+</ul>
+</li>
 <li><strong>Geben Sie Beispiele</strong>: Few-Shot Learning</li>
 <li><strong>Iterieren Sie</strong>: Verfeinern Sie den Prompt basierend auf Antworten</li>
 </ol>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=05bc2e61191e31ac">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=05bc2e61191e31ac">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_prompt_quality_spectrum</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8ff9c38e11a411e3"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e73dcc13a02d652b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Technik-1:-Zero-Shot-vs.-Few-Shot">Technik 1: Zero-Shot vs. Few-Shot<a class="anchor-link" href="#Technik-1:-Zero-Shot-vs.-Few-Shot">¶</a></h2><p><strong>Zero-Shot</strong>: Keine Beispiele</p>
 <blockquote>
-<p>"Übersetze ins Französische: Hello"</p>
+<p>Übersetze ins Französische: Danke</p>
 </blockquote>
 <p><strong>Few-Shot</strong>: Mit Beispielen</p>
 <blockquote>
-<p>"Übersetze ins Französische:\n&gt; Hello → Bonjour\n&gt; Goodbye → Au revoir\n&gt; Thank you → ?"</p>
+<p>Übersetze ins Französische:<br/><br/>
+Hallo → Bonjour<br/>
+Auf Wiedersehen → Au revoir<br/>
+Danke → ?</p>
 </blockquote>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=b2e092216e0552af">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=b2e092216e0552af">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_shot_learning_comparison</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c051cad9ccb32dac"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ec15b7aea36593db"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Technik-2:-Chain-of-Thought">Technik 2: Chain-of-Thought<a class="anchor-link" href="#Technik-2:-Chain-of-Thought">¶</a></h2><ul>
@@ -13295,21 +13320,41 @@ def list_files(folder: Path) -&gt; list[Path]:
 </ul>
 <p><strong>Ohne CoT:</strong></p>
 <blockquote>
-<p>"Was ist 127 * 43?"</p>
+<p>Roger hat 5 Tennisbälle. Er kauft 2 weitere Dosen Tennisbälle. Jede Dose
+enthält 3 Tennisbälle. Wie viele Tennisbälle hat er jetzt?</p>
 </blockquote>
 <p><strong>Mit CoT:</strong></p>
 <blockquote>
-<p>"Was ist 127 * 43? Zeige deine Rechenschritte."</p>
+<p>Roger hat 5 Tennisbälle. Er kauft 2 weitere Dosen Tennisbälle. Jede Dose
+enthält 3 Tennisbälle. Wie viele Tennisbälle hat er jetzt? Zeige deine
+Rechenschritte bevor du die Antwort gibst.</p>
 </blockquote>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=3569eaef6e1e904e">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=368e8d89dcff0cf0"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Chain-of-Thought-(Explizit)">Chain of Thought (Explizit)<a class="anchor-link" href="#Chain-of-Thought-(Explizit)">¶</a></h3><p>Manchmal hilft es, dem LLM die Schritte genauer zu sagen.</p>
+<p><strong>Beispiel:</strong></p>
+<blockquote>
+<p>Roger hat 5 Tennisbälle. Er kauft 2 weitere Dosen Tennisbälle. Jede Dose
+enthält 3 Tennisbälle. Wie viele Tennisbälle hat er jetzt?</p>
+<ul>
+<li>Bestimme die Anzahl der Dosen und Bälle pro Dose<br/></li>
+<li>Berechne daraus die Anzahl gekauften Bälle<br/></li>
+<li>Addiere sie zu den vorhandenen Bällen</li>
+</ul>
+</blockquote>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=3569eaef6e1e904e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_chain_of_thought</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -13331,12 +13376,12 @@ def list_files(folder: Path) -&gt; list[Path]:
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2e22125288e394af">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=2e22125288e394af">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_role_examples</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -13355,64 +13400,66 @@ def list_files(folder: Path) -&gt; list[Path]:
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=72ce7d6ffd75ce30"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=28a22cc57930acf5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Muster-in-Aktion">Muster in Aktion<a class="anchor-link" href="#Muster-in-Aktion">¶</a></h2><p><strong>Generieren:</strong></p>
 <blockquote>
-<p>"Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist. Verwende Type Hints."</p>
+<p>Schreibe eine Python-Funktion, die prüft, ob eine Zahl eine Primzahl ist. Verwende Type Hints.</p>
 </blockquote>
 <p><strong>Verbessern:</strong></p>
 <blockquote>
-<p>"Refaktoriere diese Funktion, um List Comprehensions statt Schleifen zu verwenden."</p>
+<p>Refaktoriere diese Funktion, um List Comprehensions statt Schleifen zu verwenden.</p>
 </blockquote>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=31dc5ea3b23e6ad2"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Erweitern:</strong></p>
 <blockquote>
-<p>"Füge Validierung hinzu: Die Funktion soll einen ValueError werfen, wenn die Eingabe negativ ist."</p>
+<p>Füge Validierung hinzu: Die Funktion soll einen <code>ValueError</code> werfen, wenn die Eingabe negativ ist.</p>
 </blockquote>
 <p><strong>Erklären:</strong></p>
 <blockquote>
-<p>"Erkläre Zeile für Zeile, was dieser Code macht."</p>
+<p>Erkläre Zeile für Zeile, was dieser Code macht.</p>
 </blockquote>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1f825bb08f8823de"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=62c2352cff170474"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="H%C3%A4ufige-Fehler-vermeiden">Häufige Fehler vermeiden<a class="anchor-link" href="#H%C3%A4ufige-Fehler-vermeiden">¶</a></h2><p>❌ <strong>Zu vage</strong>: "Schreibe etwas über KI"
+<h2 id="H%C3%A4ufige-Fehler-vermeiden">Häufige Fehler vermeiden<a class="anchor-link" href="#H%C3%A4ufige-Fehler-vermeiden">¶</a></h2><p>❌ <strong>Zu vage</strong>: "Schreibe etwas über KI"<br/>
 ✓ <strong>Spezifisch</strong>: "Schreibe einen 200-Wort-Blogpost über KI-Ethik für Laien"</p>
-<p>❌ <strong>Mehrere Fragen</strong>: "Erkläre X und Y und schreibe auch Code"
+<p>❌ <strong>Mehrere Fragen</strong>: "Erkläre X und Y und schreibe auch Code"<br/>
 ✓ <strong>Eine Sache</strong>: "Erkläre X" (dann separat nach Code fragen)</p>
-<p>❌ <strong>Keine Formatangabe</strong>: Unklare Struktur
+<p>❌ <strong>Keine Formatangabe</strong>: Unklare Struktur<br/>
 ✓ <strong>Format vorgeben</strong>: "Antworte als nummerierte Liste"</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0550b8acfb55449c"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a4b93ef1782b9347"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Template-f%C3%BCr-gute-Prompts">Template für gute Prompts<a class="anchor-link" href="#Template-f%C3%BCr-gute-Prompts">¶</a></h2><pre><code>[Rolle]: Du bist ein [Experte/Lehrer/etc.]
-
-[Aufgabe]: [Genaue Beschreibung der Aufgabe]
-
-[Kontext]: [Zielgruppe, Zweck]
-
-[Format]: [Wie soll die Antwort strukturiert sein]
-
-[Beispiele]: [Optional: 1-3 Beispiele]
-
-[Einschränkungen]: [Länge, Stil, was zu vermeiden ist]
-</code></pre>
+<h2 id="Template-f%C3%BCr-gute-Prompts">Template für gute Prompts<a class="anchor-link" href="#Template-f%C3%BCr-gute-Prompts">¶</a></h2><ul>
+<li><strong>Rolle</strong>: <code>Du bist ein [Experte/Lehrer/etc.]</code></li>
+<li><strong>Aufgabe</strong>: <code>[Genaue Beschreibung der Aufgabe]</code></li>
+<li><strong>Kontext</strong>: <code>[Zielgruppe, Zweck]</code></li>
+<li><strong>Einschränkungen</strong>: <code>[Länge, Stil, was zu vermeiden ist]</code></li>
+<li><strong>Format</strong>: <code>[Wie soll die Antwort strukturiert sein]</code></li>
+<li><strong>Beispiele</strong>: <code>[Optional: 1-3 Beispiele]</code></li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ad3e57acfc4ef536">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=ad3e57acfc4ef536">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_prompt_template</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -13433,22 +13480,22 @@ def list_files(folder: Path) -&gt; list[Path]:
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=552dfd7b71c2c446"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=2dc0c409f437789d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Effektives-Feedback-geben">Effektives Feedback geben<a class="anchor-link" href="#Effektives-Feedback-geben">¶</a></h2><p><strong>Vages Feedback</strong> (❌):</p>
 <blockquote>
-<p>"Das ist nicht gut genug"</p>
+<p>Das ist nicht gut genug</p>
 </blockquote>
 <p><strong>Spezifisches Feedback</strong> (✓):</p>
 <blockquote>
-<p>"Die Funktion behandelt keine leeren Listen. Füge eine Prüfung hinzu, die einen leeren String zurückgibt."</p>
+<p>Die Funktion behandelt keine leeren Listen. Füge eine Prüfung hinzu, die einen leeren String zurückgibt.</p>
 </blockquote>
 <p><strong>Noch besser</strong> (✓✓):</p>
 <blockquote>
-<p>"Problem: Die Funktion gibt None zurück bei leerer Liste.
+<p>Problem: Die Funktion gibt None zurück bei leerer Liste.
 Erwartetes Verhalten: Leerer String zurückgeben.
-Bitte korrigiere die Funktion entsprechend."</p>
+Bitte korrigiere die Funktion entsprechend.</p>
 </blockquote>
 </div>
 </div>
@@ -13471,64 +13518,26 @@ Bitte korrigiere die Funktion entsprechend."</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4281839c772c961b"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=239abd785325045a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Workshop:-Prompt-Engineering-Praxis">Workshop: Prompt Engineering Praxis<a class="anchor-link" href="#Workshop:-Prompt-Engineering-Praxis">¶</a></h2><p><strong>Aufgaben</strong> (nutzen Sie ChatGPT, Claude oder ein anderes LLM):</p>
 <ol>
-<li><p><strong>Bad → Good</strong>: Nehmen Sie den Prompt "Erkläre Python" und verbessern Sie ihn
-mit allen 4 Kernelementen</p>
+<li><p><strong>Bad → Good</strong>: Nehmen Sie den Prompt "Erkläre Python" und verbessern Sie
+ihn mit allen 4 Kernelementen</p>
 </li>
 <li><p><strong>Few-Shot</strong>: Erstellen Sie einen Prompt mit 2-3 Beispielen, der
-Datumsformate konvertiert (z.B. "15.03.2024" → "March 15, 2024")</p>
+Datumsformate konvertiert (z.B. "15.03.2024" → "15. März 2024"). Versuchen
+Sie mehrere Prompts für verschiedene Datumsformate zu erstellen, z.B.
+"15.03.2024" → "March 15, 2024", oder "2024-03-15" → "03/15/2024"</p>
 </li>
-<li><p><strong>Chain-of-Thought</strong>: Lassen Sie das LLM ein Logik-Rätsel lösen und
-dabei seine Schritte erklären</p>
+<li><p><strong>Chain-of-Thought</strong>: Lassen Sie das LLM ein Logik-Rätsel lösen und dabei
+seine Schritte erklären</p>
 </li>
 <li><p><strong>Iterieren</strong>: Schreiben Sie einen Prompt für eine Funktion, dann
-verbessern Sie ihn 3x basierend auf den Ergebnissen</p>
+verbessern Sie ihn 2-3x basierend auf den Ergebnissen</p>
 </li>
 </ol>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=5ec01d80c8956cfb"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop:-Beispiell%C3%B6sung-Aufgabe-1">Workshop: Beispiellösung Aufgabe 1<a class="anchor-link" href="#Workshop:-Beispiell%C3%B6sung-Aufgabe-1">¶</a></h2><p><strong>Vorher:</strong></p>
-<blockquote>
-<p>"Erkläre Python"</p>
-</blockquote>
-<p><strong>Nachher:</strong></p>
-<blockquote>
-<p>"[Kontext] Ich bin Anfänger und möchte programmieren lernen.</p>
-<p>[Anforderung] Erkläre mir, was Python ist und warum es eine gute
-erste Programmiersprache ist.</p>
-<p>[Format] 3 kurze Absätze mit Überschriften.</p>
-<p>[Einschränkungen] Vermeide Fachbegriffe ohne Erklärung."</p>
-</blockquote>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fb9fbcd6fef989e0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="In-der-n%C3%A4chsten-Lektion">In der nächsten Lektion<a class="anchor-link" href="#In-der-n%C3%A4chsten-Lektion">¶</a></h2><ul>
-<li><strong>LLM APIs</strong>: LLMs programmatisch nutzen</li>
-<li>Wie man LLMs in eigene Anwendungen integriert</li>
-<li>OpenAI, Anthropic und andere Anbieter</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
 </div>
 </div>
 </div>

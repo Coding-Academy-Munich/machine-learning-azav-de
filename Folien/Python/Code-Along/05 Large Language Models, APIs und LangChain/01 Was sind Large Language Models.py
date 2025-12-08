@@ -69,8 +69,16 @@ sns.set_theme(style="darkgrid")
 # %% [markdown]
 #
 # ## Bekannte LLMs
-
-# %%
+#
+# - OpenAI: GPT (ChatGPT/Codex; 3, 4, 5, 5.1)
+# - Anthropic: Claude (Haiku/Sonnet/Opus; 3, 4, 4.5)
+# - Google: Gemini (2.5, 3)
+# - Meta: Llama (2, 3, 4)
+# - Mistral: (Ministral, Mixtral, Small/Medium/Large; 2, 3)
+# - DeepSeek: (V3, R1, V3.2, V3.2 Speciale)
+# - MoonshotAI: Kimi K2
+# - Z.AI: GLM (4, 4.5, 4.6)
+# - Qwen: (2.5, 3)
 
 # %% [markdown]
 #
@@ -82,8 +90,6 @@ sns.set_theme(style="darkgrid")
 # - **Fragen beantworten**: Auf Wissensfragen antworten
 # - **Code schreiben**: Programmier-Aufgaben lösen
 # - **Konversation**: Natürliche Gespräche führen
-
-# %%
 
 # %% [markdown]
 #
@@ -135,7 +141,30 @@ sns.set_theme(style="darkgrid")
 # - **Ziel**: Nächstes Wort vorhersagen
 # - "The cat sat on the ___" → "mat"
 
+# %% [markdown]
+#
+# ## Dolma 3 Trainingsdaten (Beispiel)
+#
+# - Trainingsdaten von Olmo 3 (Allen AI)
+# - 9,3 Billionen Token
+# - 37 Terabytes Rohtext
+# - Als Bücher: 62 Millionen Bücher
+#   - Gestapelt: 1.240 km hoch (3x zur ISS)
+#   - Vergleich: 140x Mount Everest (8,8 km hoch)
+# - Reading time: 53.000 Jahre (24/7 lesen)
+
 # %%
+plot_training_data_sources()
+
+
+# %% [markdown]
+#
+# ## Pre-Training vs. Fine-Tuning
+#
+# <br><br>
+# <img src="img/llm-pretraining.jpg" alt="Pre-Training vs. Fine-Tuning" style="width: 49%;float: left;margin-right: 2%;">
+# <img src="img/llm-sft.jpg" alt="Pre-Training vs. Fine-Tuning" style="width: 49%;">
+
 
 # %% [markdown]
 #
@@ -148,11 +177,9 @@ sns.set_theme(style="darkgrid")
 #   - Konversation, Instruktionen befolgen
 #   - Viel günstiger
 
-# %%
-
 # %% [markdown]
 #
-# ## Emergent Abilities (?)
+# ## Emergente Fähigkeiten (?)
 #
 # Angeblich:
 #
@@ -167,6 +194,7 @@ sns.set_theme(style="darkgrid")
 # Allerdings umstritten!
 
 # %%
+plot_emergent_abilities()
 
 # %% [markdown]
 #
