@@ -13170,10 +13170,10 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=964128ce9b42aaa1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=dc7216e944abf969"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kurze-Wiederholung:-REST-APIs">Kurze Wiederholung: REST APIs<a class="anchor-link" href="#Kurze-Wiederholung:-REST-APIs">¶</a></h2><p>Wir haben REST APIs bereits in Abschnitt 01 kennengelernt:</p>
+<h2 id="Kurze-Wiederholung:-REST-APIs">Kurze Wiederholung: REST APIs<a class="anchor-link" href="#Kurze-Wiederholung:-REST-APIs">¶</a></h2><p>Wir haben REST APIs bereits in Abschnitt 1 kennengelernt:</p>
 <ul>
 <li><strong>API</strong>: Schnittstelle für Programm-zu-Programm-Kommunikation</li>
 <li><strong>REST</strong>: Standard für Web-APIs</li>
@@ -13277,7 +13277,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=33696db98e7052d2">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=dc218826044ba580">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13378,7 +13378,7 @@ Defaultwert zurück</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1de5c9ec91ec389b">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8c5ea6f781202c5f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13454,14 +13454,15 @@ Defaultwert zurück</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d3c8ab06009a7501">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c76e5be2e0bc7845">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">load_dotenv</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">load_dotenv</span><span class="p">(</span><span class="s2">".env"</span><span class="p">,</span> <span class="n">override</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">)</span>
 <span class="k">assert</span> <span class="n">api_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"API key not set!"</span>
+<span class="n">api_key</span><span class="p">[:</span><span class="mi">12</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>

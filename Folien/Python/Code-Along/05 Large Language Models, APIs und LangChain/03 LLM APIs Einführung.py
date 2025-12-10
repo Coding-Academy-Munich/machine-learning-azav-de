@@ -30,7 +30,7 @@
 #
 # ## Kurze Wiederholung: REST APIs
 #
-# Wir haben REST APIs bereits in Abschnitt 01 kennengelernt:
+# Wir haben REST APIs bereits in Abschnitt 1 kennengelernt:
 #
 # - **API**: Schnittstelle für Programm-zu-Programm-Kommunikation
 # - **REST**: Standard für Web-APIs
@@ -200,9 +200,10 @@ from dotenv import load_dotenv
 import os
 
 # %%
-load_dotenv()
+load_dotenv(".env", override=True)
 api_key = os.getenv("OPENROUTER_API_KEY")
 assert api_key is not None, "API key not set!"
+api_key[:12]
 
 # %% [markdown]
 #
