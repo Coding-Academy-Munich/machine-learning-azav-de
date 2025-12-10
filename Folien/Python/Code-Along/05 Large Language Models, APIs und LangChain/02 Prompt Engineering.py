@@ -13,7 +13,7 @@
 #
 # - **Prompt**: Die Eingabe, die wir dem LLM geben
 # - **Engineering**: Kunst & Wissenschaft, gute Prompts zu schreiben
-# - Ziel: Beste Antworten vom LLM bekommen
+# - **Ziel**: Beste Antworten vom LLM bekommen
 # - **Wichtig**: Gleiche Frage, unterschiedlich formuliert → unterschiedliche Antworten!
 
 # %%

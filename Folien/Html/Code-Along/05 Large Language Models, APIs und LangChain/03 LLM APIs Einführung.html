@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5de3ee414ee4867a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1f5faf1e9f74b549"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>LLM APIs nutzen</b>
+<b>LLM APIs: Einführung</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13157,401 +13157,116 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a296eab41a467fef"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=428b6f3d0ab94bce"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="R%C3%BCckblick:-REST-APIs">Rückblick: REST APIs<a class="anchor-link" href="#R%C3%BCckblick:-REST-APIs">¶</a></h2><ul>
-<li>Wir haben REST APIs bereits in Abschnitt 01 kennengelernt</li>
+<h2 id="Was-k%C3%B6nnen-wir-damit-bauen?">Was können wir damit bauen?<a class="anchor-link" href="#Was-k%C3%B6nnen-wir-damit-bauen?">¶</a></h2><ul>
+<li><strong>Chatbots:</strong> Kundenservice, Assistenten</li>
+<li><strong>Textverarbeitung:</strong> Zusammenfassungen, Übersetzungen</li>
+<li><strong>Code-Assistenten:</strong> Automatische Code-Generierung</li>
+<li><strong>Datenanalyse:</strong> Automatische Berichte aus Daten</li>
+<li><strong>Kreative Tools:</strong> Geschichten, Marketing-Texte</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=964128ce9b42aaa1"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Kurze-Wiederholung:-REST-APIs">Kurze Wiederholung: REST APIs<a class="anchor-link" href="#Kurze-Wiederholung:-REST-APIs">¶</a></h2><p>Wir haben REST APIs bereits in Abschnitt 01 kennengelernt:</p>
+<ul>
 <li><strong>API</strong>: Schnittstelle für Programm-zu-Programm-Kommunikation</li>
 <li><strong>REST</strong>: Standard für Web-APIs</li>
-<li><strong>HTTP-Methoden</strong>: GET, POST, PUT, DELETE</li>
+<li><strong>HTTP-Methoden</strong>: GET (abrufen), POST (senden)</li>
+<li><strong>JSON</strong>: Datenformat für Anfragen und Antworten</li>
 </ul>
 <p>LLM-APIs funktionieren genauso!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=79c5badc9651759d"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=2ed7ef9b950a1da9"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kurze-Code-Wiederholung:-requests">Kurze Code-Wiederholung: requests<a class="anchor-link" href="#Kurze-Code-Wiederholung:-requests">¶</a></h2><p><strong>GET-Request</strong> (Daten abrufen):</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<h2 id="Das-Muster-f%C3%BCr-LLM-APIs">Das Muster für LLM-APIs<a class="anchor-link" href="#Das-Muster-f%C3%BCr-LLM-APIs">¶</a></h2><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 
-<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-<span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>  <span class="c1"># Fehler bei schlechtem Status</span>
-<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>       <span class="c1"># JSON → Python dict</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=bb733cf759d6d990"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="POST-Request-mit-Headers">POST-Request mit Headers<a class="anchor-link" href="#POST-Request-mit-Headers">¶</a></h2><p><strong>POST-Request</strong> (Daten senden):</p>
-<div class="highlight"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span><span class="p">,</span>
-    <span class="s2">"Authorization"</span><span class="p">:</span> <span class="s2">"Bearer MEIN_API_KEY"</span>
+<span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"Authorization"</span><span class="p">:</span> <span class="s2">"Bearer MEIN_API_KEY"</span><span class="p">,</span>
+    <span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span>
 <span class="p">}</span>
 
-<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"message"</span><span class="p">:</span> <span class="s2">"Hallo"</span><span class="p">,</span> <span class="s2">"model"</span><span class="p">:</span> <span class="s2">"gpt-3.5"</span><span class="p">}</span>
+<span class="n">data</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"model"</span><span class="p">:</span> <span class="s2">"..."</span><span class="p">,</span> <span class="s2">"messages"</span><span class="p">:</span> <span class="p">[</span><span class="o">...</span><span class="p">]}</span>
 
 <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-<span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
 <span class="n">result</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
 </pre></div>
-<p>Das ist <strong>exakt</strong> das Muster für LLM-APIs!</p>
+<p><strong>Wichtig:</strong> Wir brauchen einen API-Schlüssel!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=71b97f26c9c52922"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=47697fe82adb2232"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Von-requests-zu-LLM-APIs">Von requests zu LLM-APIs<a class="anchor-link" href="#Von-requests-zu-LLM-APIs">¶</a></h2><table>
-<thead>
-<tr>
-<th>requests-Konzept</th>
-<th>LLM-API-Anwendung</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>URL</td>
-<td><code>api.openai.com/v1/chat/completions</code></td>
-</tr>
-<tr>
-<td>Headers</td>
-<td><code>Authorization: Bearer sk-...</code></td>
-</tr>
-<tr>
-<td>JSON-Daten</td>
-<td>Modell, Nachricht, Parameter</td>
-</tr>
-<tr>
-<td>Response</td>
-<td>Antwort des LLMs</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Jetzt sehen wir es in Aktion!</strong></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=cd7033f913593e0c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=85c8d65759aa7dc8">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c246775ae2a597f0">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a21bf309b9f4a909"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hauptanbieter-von-LLM-APIs">Hauptanbieter von LLM APIs<a class="anchor-link" href="#Hauptanbieter-von-LLM-APIs">¶</a></h2><ul>
-<li><strong>OpenAI</strong>: GPT-3.5, GPT-4</li>
-<li><strong>Anthropic</strong>: Claude (verschiedene Versionen)</li>
-<li><strong>Google</strong>: Gemini</li>
-<li><strong>Meta</strong>: Llama (lokal oder über Partner)</li>
-</ul>
-<p>Heute: OpenAI und Anthropic APIs</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f5ec23d43aec8b6e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="API-Schl%C3%BCssel:-Authentifizierung">API-Schlüssel: Authentifizierung<a class="anchor-link" href="#API-Schl%C3%BCssel:-Authentifizierung">¶</a></h2><ul>
+<h2 id="API-Schl%C3%BCssel:-Was-ist-das?">API-Schlüssel: Was ist das?<a class="anchor-link" href="#API-Schl%C3%BCssel:-Was-ist-das?">¶</a></h2><ul>
 <li><strong>API-Schlüssel</strong>: Wie ein Passwort für den API-Zugriff</li>
-<li>Wo bekommen?<ul>
-<li>OpenAI: platform.openai.com/api-keys</li>
-<li>Anthropic: console.anthropic.com</li>
+<li>Identifiziert Sie gegenüber dem Dienst</li>
+<li>Wird für die Abrechnung verwendet</li>
+<li>Jeder Anbieter hat eigene Schlüssel:<ul>
+<li>OpenAI: <code>sk-...</code></li>
+<li>Anthropic: <code>sk-ant-...</code></li>
+<li>OpenRouter: <code>sk-or-...</code></li>
 </ul>
 </li>
-<li><strong>WICHTIG</strong>: API-Schlüssel NIEMALS im Code speichern!</li>
-<li>Besser: Umgebungsvariablen nutzen</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=5e8bf5b47cf536f0"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4627ac37f9327c91"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="API-Schl%C3%BCssel-sicher-speichern">API-Schlüssel sicher speichern<a class="anchor-link" href="#API-Schl%C3%BCssel-sicher-speichern">¶</a></h2><div class="highlight"><pre><span></span><span class="c1"># In .env Datei (nicht in Git committen!)</span>
-<span class="nv">OPENAI_API_KEY</span><span class="o">=</span>sk-...
-<span class="nv">ANTHROPIC_API_KEY</span><span class="o">=</span>sk-ant-...
+<h2 id="Wichtig:-API-Schl%C3%BCssel-sicher-aufbewahren!">Wichtig: API-Schlüssel sicher aufbewahren!<a class="anchor-link" href="#Wichtig:-API-Schl%C3%BCssel-sicher-aufbewahren!">¶</a></h2><p><strong>NIEMALS</strong> API-Schlüssel im Code speichern:</p>
+<div class="highlight"><pre><span></span><span class="c1"># FALSCH - Niemals so machen!</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="s2">"sk-abc123..."</span>
 </pre></div>
-<div class="highlight"><pre><span></span><span class="c1"># In Python-Code</span>
+<p>Warum nicht?</p>
+<ul>
+<li>Code wird oft in Git gespeichert</li>
+<li>Andere könnten den Schlüssel sehen</li>
+<li>Sie müssten für deren Nutzung bezahlen!</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=255438525161f46a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="L%C3%B6sung:-Umgebungsvariablen">Lösung: Umgebungsvariablen<a class="anchor-link" href="#L%C3%B6sung:-Umgebungsvariablen">¶</a></h2><ul>
+<li>Speichern Sie Schlüssel <strong>außerhalb</strong> des Codes</li>
+<li>Nutzen Sie <strong>Umgebungsvariablen</strong> (Environment Variables)</li>
+<li>In Python mit <code>os.getenv()</code> abrufen</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f19a5d6fb54d81a5">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">json</span><span class="w"> </span><span class="kn">import</span> <span class="n">load</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENAI_API_KEY"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=dd9c2dbdf805f84f"><div class="prompt input_prompt">
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a547fc8e97615032"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Option-1:-Reine-HTTP-Requests">Option 1: Reine HTTP-Requests<a class="anchor-link" href="#Option-1:-Reine-HTTP-Requests">¶</a></h2><ul>
-<li>Nutzt die <code>requests</code> Bibliothek</li>
-<li>Zeigt, was wirklich passiert</li>
-<li>Gut zum Verständnis</li>
-<li>Etwas umständlich für produktiven Code</li>
-</ul>
+<h2 id="Umgebungsvariablen-mit-os.getenv()">Umgebungsvariablen mit <code>os.getenv()</code><a class="anchor-link" href="#Umgebungsvariablen-mit-os.getenv()">¶</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=7a7593f2cb706c86"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiel:-OpenAI-mit-requests">Beispiel: OpenAI mit requests<a class="anchor-link" href="#Beispiel:-OpenAI-mit-requests">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=adfd935f153b185d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Example: Making a completion request (raw HTTP)</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">call_openai_raw</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">api_key</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Call OpenAI API using raw HTTP requests"""</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="s2">"https://api.openai.com/v1/chat/completions"</span>
-
-    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">"Authorization"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Bearer </span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
-        <span class="s2">"Content-Type"</span><span class="p">:</span> <span class="s2">"application/json"</span>
-    <span class="p">}</span>
-
-    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">"model"</span><span class="p">:</span> <span class="s2">"gpt-3.5-turbo"</span><span class="p">,</span>
-        <span class="s2">"messages"</span><span class="p">:</span> <span class="p">[</span>
-            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}</span>
-        <span class="p">]</span>
-    <span class="p">}</span>
-
-    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8f5524c38bdd64d6"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-sehen-wir-hier?">Was sehen wir hier?<a class="anchor-link" href="#Was-sehen-wir-hier?">¶</a></h2><ul>
-<li><strong>URL</strong>: Endpoint der API</li>
-<li><strong>Headers</strong>: Authentifizierung (API-Schlüssel)</li>
-<li><strong>Data</strong>: Unsere Anfrage (Modell, Nachricht, Parameter)</li>
-<li><strong>Response</strong>: Antwort des LLMs</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e328aa399ac0ea80"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Option-2:-OpenAI-Python-Bibliothek">Option 2: OpenAI Python-Bibliothek<a class="anchor-link" href="#Option-2:-OpenAI-Python-Bibliothek">¶</a></h2><ul>
-<li>Einfacher zu nutzen</li>
-<li>Bessere Fehlerbehandlung</li>
-<li>Automatische Retries</li>
-<li><strong>Installation</strong>: <code>pip install openai</code></li>
-<li>Empfohlen für produktiven Code</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1fed5e094d5fdbae"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiel:-OpenAI-Bibliothek">Beispiel: OpenAI-Bibliothek<a class="anchor-link" href="#Beispiel:-OpenAI-Bibliothek">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e3794354251baec6">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>openai
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=53ba29a78e0e9689">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8583019b343dceb1">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">call_openai_lib</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">api_key</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Call OpenAI using the official library"""</span>
-    <span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
-
-    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-        <span class="n">model</span><span class="o">=</span><span class="s2">"gpt-3.5-turbo"</span><span class="p">,</span>
-        <span class="n">messages</span><span class="o">=</span><span class="p">[</span>
-            <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}</span>
-        <span class="p">]</span>
-    <span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=57b7602e62961cc0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Fehlerbehandlung">Fehlerbehandlung<a class="anchor-link" href="#Fehlerbehandlung">¶</a></h2><ul>
-<li>APIs können fehlschlagen</li>
-<li><strong>Häufige Fehler</strong>:<ul>
-<li>Ungültiger API-Schlüssel (401)</li>
-<li>Rate Limit überschritten (429)</li>
-<li>Netzwerkprobleme (Timeout)</li>
-<li>Ungültige Anfrage (400)</li>
-</ul>
-</li>
-<li><strong>Wichtig</strong>: Immer Fehler behandeln!</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=cea6268a17e2a6b3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span><span class="p">,</span> <span class="n">AuthenticationError</span><span class="p">,</span> <span class="n">RateLimitError</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=b987ad0a09cbddf7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">call_llm_safely</span><span class="p">(</span><span class="n">prompt</span><span class="p">,</span> <span class="n">api_key</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Call LLM with error handling"""</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">chat</span><span class="o">.</span><span class="n">completions</span><span class="o">.</span><span class="n">create</span><span class="p">(</span>
-            <span class="n">model</span><span class="o">=</span><span class="s2">"gpt-3.5-turbo"</span><span class="p">,</span>
-            <span class="n">messages</span><span class="o">=</span><span class="p">[{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="n">prompt</span><span class="p">}]</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">choices</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">message</span><span class="o">.</span><span class="n">content</span>
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="sa">f</span><span class="s2">"Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5141c62113565aa7"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Konversation-mit-Verlauf">Konversation mit Verlauf<a class="anchor-link" href="#Konversation-mit-Verlauf">¶</a></h2><ul>
-<li>Für Chatbots: Gesprächsverlauf speichern</li>
-<li>Liste von Nachrichten mit Rollen:<ul>
-<li><code>system</code>: Anweisungen an das LLM</li>
-<li><code>user</code>: Benutzereingabe</li>
-<li><code>assistant</code>: Antworten des LLMs</li>
-</ul>
-</li>
-<li>LLM sieht gesamten Verlauf</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9d68282994bd8664">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start celltag_subslide" id="cell-id=f64fd4520be563ed">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">chatbot_with_history</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">"""Simple chatbot with conversation history"""</span>
-    <span class="n">messages</span> <span class="o">=</span> <span class="p">[</span>
-        <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"system"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="s2">"You are a helpful assistant."</span><span class="p">}</span>
-    <span class="p">]</span>
-
-    <span class="c1"># TODO: Implement conversation loop</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=5d7eceae83746067">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9500998e099f0d14">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># api_key = os.getenv("OPENAI_API_KEY")</span>
-<span class="c1"># assert api_key is not None, "Please set the OPENAI_API_KEY environment variable."</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e4608e1b5bb46229">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b7464a3c4a35b38d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13562,50 +13277,578 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2eed02c12c2dd5ac"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=33696db98e7052d2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=c4fee7c28a2c971f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Kosten-und-Rate-Limits">Kosten und Rate Limits<a class="anchor-link" href="#Kosten-und-Rate-Limits">¶</a></h2><ul>
-<li><strong>Kosten</strong>: Pro Token (Eingabe + Ausgabe)<ul>
-<li>GPT-3.5: ~$0.001 pro 1000 Tokens</li>
-<li>GPT-4: ~$0.03 pro 1000 Tokens</li>
+<ul>
+<li>Wenn die Variable nicht gesetzt ist, gibt <code>os.getenv()</code> <code>None</code> oder einen
+Defaultwert zurück</li>
+<li>Wir müssen die Variable noch setzen!</li>
 </ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=96813e538370cd48"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Die-.env-Datei">Die <code>.env</code> Datei<a class="anchor-link" href="#Die-.env-Datei">¶</a></h2><ul>
+<li>Erstellen Sie eine Datei namens <code>.env</code> im Projektordner</li>
+<li>Speichern Sie dort Ihre Schlüssel:</li>
+</ul>
+<div class="highlight"><pre><span></span><span class="c1"># .env Datei</span>
+<span class="nv">OPENROUTER_API_KEY</span><span class="o">=</span>sk-or-v1-abc123...
+</pre></div>
+<p><strong>Wichtig:</strong> <code>.env</code> niemals in Git committen!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=65b58ee2ca4b4960"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id=".gitignore-nicht-vergessen!"><code>.gitignore</code> nicht vergessen!<a class="anchor-link" href="#.gitignore-nicht-vergessen!">¶</a></h2><p>Fügen Sie <code>.env</code> zu Ihrer <code>.gitignore</code> Datei hinzu:</p>
+<pre><code># .gitignore
+.env
+</code></pre>
+<p>So wird die Datei nie versehentlich hochgeladen.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3f69e7efb1fcd3a9"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="python-dotenv:-.env-laden">python-dotenv: <code>.env</code> laden<a class="anchor-link" href="#python-dotenv:-.env-laden">¶</a></h2><p>Das Package <code>python-dotenv</code> lädt <code>.env</code> automatisch:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=33904093594cebfa">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>python-dotenv
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d3861dcfca3f5685">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=97e289b209663996"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id=".env-Datei-laden"><code>.env</code> Datei laden<a class="anchor-link" href="#.env-Datei-laden">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ce35827a2adb266e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6246b8ef904170cf"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Um eine andere Datei als <code>.env</code> zu verwenden</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1de5c9ec91ec389b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7cb29404d7dc6e04">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=aeeee57df359d0e1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0ecf3b3327783da9"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Zusammenfassung:-API-Schl%C3%BCssel-einrichten">Zusammenfassung: API-Schlüssel einrichten<a class="anchor-link" href="#Zusammenfassung:-API-Schl%C3%BCssel-einrichten">¶</a></h2><ol>
+<li>Erstellen Sie eine <code>.env</code> Datei:<pre><code>OPENROUTER_API_KEY=sk-or-v1-...
+</code></pre>
 </li>
-<li><strong>Rate Limits</strong>: Maximale Anfragen pro Minute<ul>
-<li>Unterschiedlich je nach Tarif</li>
-<li>Bei Überschreitung: Warten oder Retry</li>
-</ul>
+<li>Fügen Sie <code>.env</code> zu <code>.gitignore</code> hinzu</li>
+<li>Laden Sie die Datei in Python:<div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">)</span>
+</pre></div>
 </li>
-</ul>
-<p><strong>Tipp</strong>: Mit günstigen Modellen testen!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=70d628cf371f8214"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li>LLM APIs ermöglichen programmatischen Zugriff</li>
-<li>Zwei Optionen: Reine HTTP-Requests oder Bibliotheken</li>
-<li>Wichtig: API-Schlüssel sicher speichern</li>
-<li>Fehlerbehandlung ist essenziell</li>
-<li>Kosten und Rate Limits beachten</li>
-</ul>
-<p><strong>Nächster Schritt</strong>: Gradio für schöne Benutzeroberflächen!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0fb24f4c5befc103"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop:-Erste-API-Aufrufe">Workshop: Erste API-Aufrufe<a class="anchor-link" href="#Workshop:-Erste-API-Aufrufe">¶</a></h2><p><strong>Aufgaben:</strong></p>
-<ol>
-<li>API-Schlüssel einrichten (OpenAI oder Anthropic)</li>
-<li>Ersten API-Aufruf machen</li>
-<li>Einfachen Chatbot bauen</li>
-<li>Fehlerbehandlung hinzufügen</li>
-<li>Kosten tracken</li>
 </ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fd814135a356d326"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Erster-API-Aufruf:-Verf%C3%BCgbare-Modelle">Erster API-Aufruf: Verfügbare Modelle<a class="anchor-link" href="#Erster-API-Aufruf:-Verf%C3%BCgbare-Modelle">¶</a></h2><ul>
+<li>Bevor wir ein LLM nutzen, schauen wir uns die verfügbaren Modelle an</li>
+<li>OpenRouter bietet einen Endpunkt <code>/api/v1/models</code></li>
+<li>Dieser zeigt alle verfügbaren Modelle</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1e6c06fe41bddeee">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d3c8ab06009a7501">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">load_dotenv</span><span class="p">()</span>
+<span class="n">api_key</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">)</span>
+<span class="k">assert</span> <span class="n">api_key</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">,</span> <span class="s2">"API key not set!"</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c98b4c320e5d4f29"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Modelle-abrufen">Modelle abrufen<a class="anchor-link" href="#Modelle-abrufen">¶</a></h2><p>Siehe auch: <a href="https://openrouter.ai/docs/api/api-reference/models/get-models">OpenRouter API
+Dokumentation</a></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9e476ec509662d71">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">"https://openrouter.ai/api/v1/models"</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c1bd602599342f40">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">headers</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"Authorization"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Bearer </span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s2">"</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9cc8a859499a9acc">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d587961ffb8a1109">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=dafddef798576017"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Die-Antwort-untersuchen">Die Antwort untersuchen<a class="anchor-link" href="#Die-Antwort-untersuchen">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b4e98d7ac289aaab">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9fd2d2b815f888e9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b4179e91bfbe429e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4b34f8876c2eb8a6"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ein-einzelnes-Modell-ansehen">Ein einzelnes Modell ansehen<a class="anchor-link" href="#Ein-einzelnes-Modell-ansehen">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=34954db547a5d73d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1d3b66b0c932db54"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Wichtige-Felder-eines-Modells">Wichtige Felder eines Modells<a class="anchor-link" href="#Wichtige-Felder-eines-Modells">¶</a></h2><ul>
+<li><code>id</code>: Der Name, den wir in API-Aufrufen verwenden</li>
+<li><code>name</code>: Menschenlesbarer Name</li>
+<li><code>pricing</code>: Kosten pro Token</li>
+<li><code>context_length</code>: Maximale Kontextlänge in Token</li>
+<li><code>description</code>: Kurze Beschreibung des Modells</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=ef5b74ae1311ed60">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ad21ee8db14fb2ae">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=aee7807e5ad95597">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=bc940ca4ff3097ec">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ecc99b7aa977aa21">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=fad61dc41edf20b3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Modelle-filtern">Modelle filtern<a class="anchor-link" href="#Modelle-filtern">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5b4939904073756e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">print_models</span><span class="p">(</span><span class="n">models</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">model</span> <span class="ow">in</span> <span class="n">models</span><span class="p">[:</span><span class="n">limit</span><span class="p">]:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">model</span><span class="p">[</span><span class="s1">'id'</span><span class="p">]</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">model</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=47a5a509203b2117"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Einige OpenAI-Modelle:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a9a6a4f9ea0cf005">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=5e5ace3abe1f8191"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Einige Anthropic-Modelle (Claude):</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=13e76aa5b9ef1baa">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=0ddaaf228677feb7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Kostenlose Modelle:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8088a2b8a03ea0f5">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=39f45034bafa8778">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=fbd591979d04dd82">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=51b2477dba279725">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=26cb6f0306eff1ee"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Was-haben-wir-gelernt?">Was haben wir gelernt?<a class="anchor-link" href="#Was-haben-wir-gelernt?">¶</a></h2><ol>
+<li><strong>API-Schlüssel</strong> sind wie Passwörter für APIs</li>
+<li><strong>Niemals</strong> Schlüssel im Code speichern</li>
+<li><code>.env</code> Dateien und <code>python-dotenv</code> nutzen</li>
+<li>Der erste API-Aufruf zeigt verfügbare Modelle</li>
+<li>OpenRouter bietet Zugang zu vielen verschiedenen LLMs</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=02f6d9127d78b788"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Mini-Workshop:-API-Schl%C3%BCssel-einrichten">Mini-Workshop: API-Schlüssel einrichten<a class="anchor-link" href="#Mini-Workshop:-API-Schl%C3%BCssel-einrichten">¶</a></h2><p><strong>Aufgaben:</strong></p>
+<ol>
+<li>Erstellen Sie eine <code>.env</code> Datei in Ihrem Projektordner</li>
+<li>Fügen Sie Ihren OpenRouter API-Schlüssel hinzu:<pre><code>OPENROUTER_API_KEY=sk-or-v1-...
+</code></pre>
+</li>
+<li>Laden Sie den Schlüssel mit <code>python-dotenv</code></li>
+<li>Rufen Sie die Modell-Liste von OpenRouter ab</li>
+<li>Finden Sie alle Modelle eines bestimmten Anbieters (z.B. "meta-llama")</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f6e5eee61ddef93a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=dd0a04cbc8bfc4d7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="L%C3%B6sung">Lösung<a class="anchor-link" href="#L%C3%B6sung">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7b58914625e1ecdb">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=82d399fe6892dc26">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4b2e2ce9e7b39b88"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Meta Llama Modelle finden:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9d37a748081fb021">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5c23ed3cdd1a0941">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>
