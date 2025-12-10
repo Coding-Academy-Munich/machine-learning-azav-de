@@ -13,12 +13,17 @@
 #
 # Es gibt viele Anbieter von LLM-APIs:
 #
-# | Anbieter | Modelle | Besonderheit |
-# |----------|---------|--------------|
-# | OpenAI | GPT-4, GPT-3.5 | Marktführer |
-# | Anthropic | Claude 3 | Fokus auf Sicherheit |
-# | Google | Gemini | Multimodal |
-# | Meta | Llama | Open Source |
+# | Anbieter       | Modelle                     | Besonderheit                             |
+# | ----------     | ---------                   | --------------                           |
+# | OpenAI         | GPT-5.1                     | Marktführer                              |
+# | Anthropic      | Claude 4.5                  | Alignment, Coding                        |
+# | Google         | Gemini 3                    | Multimodal                               |
+# | Meta           | Llama 2,3,4                 | Open Source                              |
+# | Mistral        | Ministral, Mixtral, Medium  | Europäisch, teilweise OS                 |
+# | DeepSeek       | V3, R1, V3.2, V3.2 Speciale | SotA Open Source                         |
+# | MoonshotAI     | Kimi K2                     | SotA Open Source                         |
+# | Z.AI           | GLM 4.6                     | SotA Open Source                         |
+# | Qwen (Alibaba) | Qwen 3                      | Sehr gute "kleinere" Open Source Modelle |
 
 # %% [markdown]
 #
