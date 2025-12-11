@@ -13145,7 +13145,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=dafb769ac843738b"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c256c65f0d61b547"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Von-Chains-zu-Graphs">Von Chains zu Graphs<a class="anchor-link" href="#Von-Chains-zu-Graphs">¶</a></h2><ul>
@@ -13153,21 +13153,36 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <li><strong>Graphs</strong>: Flexibel (Verzweigungen, Schleifen, Bedingungen)</li>
 <li><strong>LangGraph</strong>: Bibliothek für Graph-basierte Workflows</li>
 </ul>
+<p>LangGraph ist der <strong>moderne Standard</strong> für komplexe LLM-Anwendungen!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5a763215eea4b44f">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=50360359bfc862de">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>langgraph
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2dee11c509c81696"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d80991aa92e2ca81">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+
+<span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6fe1e05060171540"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Wann-Graphs-statt-Chains?">Wann Graphs statt Chains?<a class="anchor-link" href="#Wann-Graphs-statt-Chains?">¶</a></h2><ul>
@@ -13175,20 +13190,610 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <li><strong>Schleifen</strong>: Wiederhole Schritte bis Bedingung erfüllt</li>
 <li><strong>Agentic Workflows</strong>: LLM entscheidet nächsten Schritt</li>
 <li><strong>Komplexe Workflows</strong>: Mehrere parallele Prozesse</li>
+<li><strong>Tool Calling</strong>: LLM ruft externe Tools auf</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=dc835131c478b97a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5f718b77fa773ce5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="LangGraph-Grundkonzepte">LangGraph Grundkonzepte<a class="anchor-link" href="#LangGraph-Grundkonzepte">¶</a></h2><ol>
+<li><strong>State</strong>: Gemeinsamer Zustand, der durch den Graph fließt</li>
+<li><strong>Nodes</strong>: Funktionen, die den State verarbeiten</li>
+<li><strong>Edges</strong>: Verbindungen zwischen Nodes</li>
+<li><strong>Conditional Edges</strong>: Verzweigungen basierend auf State</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5e6d8f17d107ee75">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph</span><span class="w"> </span><span class="kn">import</span> <span class="n">StateGraph</span><span class="p">,</span> <span class="n">START</span><span class="p">,</span> <span class="n">END</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=01547a377eb336e8"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="State-definieren-mit-TypedDict">State definieren mit TypedDict<a class="anchor-link" href="#State-definieren-mit-TypedDict">¶</a></h2><p>Der State ist ein Dictionary mit definierten Feldern:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=bb8bbc6cdbb66c9b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SimpleState</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""State for our simple graph."""</span>
+    <span class="n">message</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">processed</span><span class="p">:</span> <span class="nb">bool</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0fa52086fa8c4312"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Erster-Graph:-Hello-World">Erster Graph: Hello World<a class="anchor-link" href="#Erster-Graph:-Hello-World">¶</a></h2><p>Ein minimaler Graph mit zwei Nodes:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=fe1e04ea689da2d2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">greet</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">SimpleState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimpleState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Add greeting to message."""</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"message"</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"Hello! </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">'message'</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"processed"</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">SimpleState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">SimpleState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Mark as processed."""</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"message"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"message"</span><span class="p">]</span><span class="o">.</span><span class="n">upper</span><span class="p">(),</span> <span class="s2">"processed"</span><span class="p">:</span> <span class="kc">True</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8f55ceb3bea60542">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create a StateGraph with SimpleState</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1c927fa0e0f1c0a8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4bdf070b36f1f43d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Conditional-Edges:-Verzweigungen">Conditional Edges: Verzweigungen<a class="anchor-link" href="#Conditional-Edges:-Verzweigungen">¶</a></h2><p>Manchmal brauchen wir verschiedene Pfade basierend auf dem State:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=aaa5c415531ed0d1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">RouterState</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""State with routing capability."""</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">sentiment</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">response</span><span class="p">:</span> <span class="nb">str</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6c566345458d4a49">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analyze_sentiment</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RouterState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RouterState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Simple sentiment analysis (mock)."""</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"text"</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">word</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"happy"</span><span class="p">,</span> <span class="s2">"great"</span><span class="p">,</span> <span class="s2">"love"</span><span class="p">,</span> <span class="s2">"good"</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"sentiment"</span><span class="p">:</span> <span class="s2">"positive"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"text"</span><span class="p">],</span> <span class="s2">"response"</span><span class="p">:</span> <span class="s2">""</span><span class="p">}</span>
+    <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">word</span> <span class="ow">in</span> <span class="n">text</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"sad"</span><span class="p">,</span> <span class="s2">"bad"</span><span class="p">,</span> <span class="s2">"hate"</span><span class="p">,</span> <span class="s2">"terrible"</span><span class="p">]):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"sentiment"</span><span class="p">:</span> <span class="s2">"negative"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"text"</span><span class="p">],</span> <span class="s2">"response"</span><span class="p">:</span> <span class="s2">""</span><span class="p">}</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"sentiment"</span><span class="p">:</span> <span class="s2">"neutral"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"text"</span><span class="p">],</span> <span class="s2">"response"</span><span class="p">:</span> <span class="s2">""</span><span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">respond_positive</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RouterState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RouterState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Respond to positive sentiment."""</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"response"</span><span class="p">:</span> <span class="s2">"That's wonderful to hear! 😊"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"text"</span><span class="p">],</span> <span class="s2">"sentiment"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"sentiment"</span><span class="p">]}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">respond_negative</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RouterState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RouterState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Respond to negative sentiment."""</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"response"</span><span class="p">:</span> <span class="s2">"I'm sorry to hear that. How can I help?"</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"text"</span><span class="p">],</span> <span class="s2">"sentiment"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"sentiment"</span><span class="p">]}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">respond_neutral</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RouterState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RouterState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Respond to neutral sentiment."""</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"response"</span><span class="p">:</span> <span class="s2">"I understand. Tell me more."</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"text"</span><span class="p">],</span> <span class="s2">"sentiment"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"sentiment"</span><span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8e7706322b19a373"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Router-Funktion">Router-Funktion<a class="anchor-link" href="#Router-Funktion">¶</a></h2><p>Bestimmt den nächsten Node basierend auf State:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5e9b79c17491625c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">route_by_sentiment</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">RouterState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Route to appropriate response based on sentiment."""</span>
+    <span class="n">sentiment</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"sentiment"</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">sentiment</span> <span class="o">==</span> <span class="s2">"positive"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"respond_positive"</span>
+    <span class="k">elif</span> <span class="n">sentiment</span> <span class="o">==</span> <span class="s2">"negative"</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">"respond_negative"</span>
+    <span class="k">return</span> <span class="s2">"respond_neutral"</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=7914331f78fec638">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create graph with conditional edges</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5ab8467e80bb4f99">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5bfc478d844b7433">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=beab68421f4db7db"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="LangGraph-mit-LLMs">LangGraph mit LLMs<a class="anchor-link" href="#LangGraph-mit-LLMs">¶</a></h2><p>Jetzt kombinieren wir LangGraph mit echten LLM-Aufrufen:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c36980741dd9483f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">HumanMessage</span><span class="p">,</span> <span class="n">AIMessage</span><span class="p">,</span> <span class="n">SystemMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Annotated</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.graph.message</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_messages</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=19a32d5c67a1427b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"mistralai/ministral-14b-2512"</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.7</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c9ef4a7dda1c2a35">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ChatState</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""State for chat with message history."""</span>
+    <span class="n">messages</span><span class="p">:</span> <span class="n">Annotated</span><span class="p">[</span><span class="nb">list</span><span class="p">,</span> <span class="n">add_messages</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1bf4cbf2f03b8d34"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Einfacher-Chatbot-mit-LangGraph">Einfacher Chatbot mit LangGraph<a class="anchor-link" href="#Einfacher-Chatbot-mit-LangGraph">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b239c8c3f00a498d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">chat_node</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">ChatState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ChatState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Process messages with LLM."""</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">"messages"</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">"messages"</span><span class="p">:</span> <span class="p">[</span><span class="n">response</span><span class="p">]}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=2be50f6d846d5637">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create chat graph</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=6516238387f44945">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c41e404bbdbbb4ac"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tool-Calling-mit-LangGraph">Tool Calling mit LangGraph<a class="anchor-link" href="#Tool-Calling-mit-LangGraph">¶</a></h2><p>Agents können <strong>Tools</strong> nutzen, um Aufgaben zu erledigen:</p>
+<ul>
+<li>Taschenrechner</li>
+<li>Web-Suche</li>
+<li>Datenbank-Abfragen</li>
+<li>API-Aufrufe</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=802f8b6e75548720">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">tool</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=82580971fd755f67">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">calculator</span><span class="p">(</span><span class="n">expression</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Evaluate a mathematical expression. Use Python syntax."""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">expression</span><span class="p">)</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"Result: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
+
+<span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">search_knowledge</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Search for information (simulated). Returns mock results."""</span>
+    <span class="n">knowledge_base</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"python"</span><span class="p">:</span> <span class="s2">"Python is a high-level programming language known for readability."</span><span class="p">,</span>
+        <span class="s2">"machine learning"</span><span class="p">:</span> <span class="s2">"Machine learning is a subset of AI that learns from data."</span><span class="p">,</span>
+        <span class="s2">"langchain"</span><span class="p">:</span> <span class="s2">"LangChain is a framework for building LLM applications."</span><span class="p">,</span>
+        <span class="s2">"langgraph"</span><span class="p">:</span> <span class="s2">"LangGraph is a library for building stateful, multi-actor LLM applications."</span><span class="p">,</span>
+    <span class="p">}</span>
+    <span class="n">query_lower</span> <span class="o">=</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">knowledge_base</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">query_lower</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">value</span>
+    <span class="k">return</span> <span class="s2">"No information found for this query."</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7d1b24c454d5da45">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=621c8277a7acff61"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Agent-mit-Tools-bauen">Agent mit Tools bauen<a class="anchor-link" href="#Agent-mit-Tools-bauen">¶</a></h2><p>Ein Agent entscheidet selbst, welches Tool er nutzt:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1605a71327820579">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.prebuilt</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_react_agent</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=bac83910d8ab074e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create a ReAct agent with tools</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1a92715dfc96e62f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8cf08fc6c207ad01">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=cf8226fa6ba6232a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Komplexeres-Beispiel:-Forschungsassistent">Komplexeres Beispiel: Forschungsassistent<a class="anchor-link" href="#Komplexeres-Beispiel:-Forschungsassistent">¶</a></h2><p>Ein Agent, der:</p>
+<ol>
+<li>Fragen analysiert</li>
+<li>Informationen sucht</li>
+<li>Eine Zusammenfassung erstellt</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7d1e21f560dc2789">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">ResearchState</span><span class="p">(</span><span class="n">TypedDict</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""State for research assistant."""</span>
+    <span class="n">question</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">search_results</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">answer</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">needs_more_info</span><span class="p">:</span> <span class="nb">bool</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e2168960e0b5bbca">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analyze_question</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">ResearchState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResearchState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Analyze the question and decide if we need to search."""</span>
+    <span class="n">question</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"question"</span><span class="p">]</span>
+    <span class="c1"># Simple heuristic: if question contains certain keywords, search</span>
+    <span class="n">needs_search</span> <span class="o">=</span> <span class="nb">any</span><span class="p">(</span><span class="n">word</span> <span class="ow">in</span> <span class="n">question</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">"what"</span><span class="p">,</span> <span class="s2">"how"</span><span class="p">,</span> <span class="s2">"explain"</span><span class="p">,</span> <span class="s2">"define"</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="n">question</span><span class="p">,</span>
+        <span class="s2">"search_results"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"answer"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"needs_more_info"</span><span class="p">:</span> <span class="n">needs_search</span>
+    <span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">search_info</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">ResearchState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResearchState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Search for information (simulated)."""</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">search_knowledge</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">state</span><span class="p">[</span><span class="s2">"question"</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"question"</span><span class="p">],</span>
+        <span class="s2">"search_results"</span><span class="p">:</span> <span class="n">result</span><span class="p">,</span>
+        <span class="s2">"answer"</span><span class="p">:</span> <span class="s2">""</span><span class="p">,</span>
+        <span class="s2">"needs_more_info"</span><span class="p">:</span> <span class="kc">False</span>
+    <span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_answer</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">ResearchState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">ResearchState</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Generate answer based on search results."""</span>
+    <span class="n">context</span> <span class="o">=</span> <span class="n">state</span><span class="p">[</span><span class="s2">"search_results"</span><span class="p">]</span> <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">"search_results"</span><span class="p">]</span> <span class="k">else</span> <span class="s2">"No additional context."</span>
+    <span class="n">prompt</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Question: </span><span class="si">{</span><span class="n">state</span><span class="p">[</span><span class="s1">'question'</span><span class="p">]</span><span class="si">}</span><span class="se">\n</span><span class="s2">Context: </span><span class="si">{</span><span class="n">context</span><span class="si">}</span><span class="se">\n</span><span class="s2">Provide a helpful answer:"</span>
+
+    <span class="n">response</span> <span class="o">=</span> <span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">([</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">prompt</span><span class="p">)])</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"question"</span><span class="p">],</span>
+        <span class="s2">"search_results"</span><span class="p">:</span> <span class="n">state</span><span class="p">[</span><span class="s2">"search_results"</span><span class="p">],</span>
+        <span class="s2">"answer"</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span><span class="p">,</span>
+        <span class="s2">"needs_more_info"</span><span class="p">:</span> <span class="kc">False</span>
+    <span class="p">}</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">route_search</span><span class="p">(</span><span class="n">state</span><span class="p">:</span> <span class="n">ResearchState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Route to search or directly to answer."""</span>
+    <span class="k">if</span> <span class="n">state</span><span class="p">[</span><span class="s2">"needs_more_info"</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="s2">"search"</span>
+    <span class="k">return</span> <span class="s2">"answer"</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=6cc2cb84106a761a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create research assistant graph</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f23eba3e2e436c1d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=cd73d0183e577fc6"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Graph-Visualisierung">Graph Visualisierung<a class="anchor-link" href="#Graph-Visualisierung">¶</a></h2><p>LangGraph kann Graphs als Mermaid-Diagramme exportieren:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=177b0eff1737f879">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0b25972da8f04a6b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li>LangGraph für komplexe Workflows</li>
-<li>Nodes und Edges definieren Ablauf</li>
-<li>Conditional Edges für Entscheidungen</li>
-<li>State Management für Datenweitergabe</li>
+<li><strong>StateGraph</strong>: Definiert Workflows mit Nodes und Edges</li>
+<li><strong>State</strong>: TypedDict für gemeinsamen Zustand</li>
+<li><strong>Conditional Edges</strong>: Verzweigungen basierend auf State</li>
+<li><strong>Tools</strong>: Agents können externe Funktionen aufrufen</li>
+<li><strong>create_react_agent</strong>: Einfache Agent-Erstellung</li>
 </ul>
 <p><strong>Nächster Schritt</strong>: LangFlow für visuelle Workflows!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b8044a2eeda04cb5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop:-Eigenen-Agent-bauen">Workshop: Eigenen Agent bauen<a class="anchor-link" href="#Workshop:-Eigenen-Agent-bauen">¶</a></h2><p><strong>Aufgabe</strong>: Bauen Sie einen einfachen Assistenten, der:</p>
+<ol>
+<li>Fragen zu Mathematik mit dem Calculator beantwortet</li>
+<li>Wissensfragen mit der Suche beantwortet</li>
+<li>Alles andere direkt beantwortet</li>
+</ol>
+<p><strong>Bonus</strong>: Fügen Sie ein eigenes Tool hinzu!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5be5a98c86f1010b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Workshop space - try building your own agent!</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=21063b4f54409609">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4990ea034365cc01">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e9533dff702f379f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>

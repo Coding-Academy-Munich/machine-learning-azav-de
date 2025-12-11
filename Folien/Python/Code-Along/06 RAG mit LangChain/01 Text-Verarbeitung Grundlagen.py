@@ -179,4 +179,4 @@ def load_and_chunk_text(filepath, chunk_size=500, chunk_overlap=50):
 # - **LangChain Text Splitters**: Intelligente Aufteilung
 # - **chunk_size und chunk_overlap**: Wichtige Parameter
 #
-# **Nächster Schritt**: Chatbot-Workshop mit allem, was wir gelernt haben!
+# **Nächster Schritt**: RAG-Systeme - Dokumente mit LLMs verbinden!

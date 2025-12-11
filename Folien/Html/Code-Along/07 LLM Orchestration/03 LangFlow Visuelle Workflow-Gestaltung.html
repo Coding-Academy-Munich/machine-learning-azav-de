@@ -13145,51 +13145,375 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8657e2f9eaa7489f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ee274fcd54a9e8ee"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Von-Code-zu-Visual-Design">Von Code zu Visual Design<a class="anchor-link" href="#Von-Code-zu-Visual-Design">¶</a></h2><ul>
-<li>Bisher: Workflows in Code schreiben</li>
+<li>Bisher: Workflows in Code schreiben (LangChain, LangGraph)</li>
 <li><strong>LangFlow</strong>: Workflows <strong>visuell</strong> designen</li>
 <li>Drag &amp; Drop Interface</li>
 <li>Kein Code nötig (aber möglich!)</li>
 </ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=42ba8dd70a864c4c"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-ist-LangFlow?">Was ist LangFlow?<a class="anchor-link" href="#Was-ist-LangFlow?">¶</a></h2><ul>
-<li><strong>Visuelles Tool</strong> für LangChain-Workflows</li>
-<li>Web-basiertes Interface</li>
-<li><strong>Komponenten</strong> per Drag &amp; Drop verbinden</li>
-<li>Export zu Python-Code</li>
-<li><strong>Integration</strong> mit LangChain-Ökosystem</li>
+<p>Ideal für:</p>
+<ul>
+<li>Schnelles Prototyping</li>
+<li>Nicht-Programmierer im Team</li>
+<li>Komplexe Workflows visualisieren</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ef9a6724c80bd261"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d2b16a00fd9e8092"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Was-ist-LangFlow?">Was ist LangFlow?<a class="anchor-link" href="#Was-ist-LangFlow?">¶</a></h2><ul>
+<li><strong>Open Source</strong> visuelles Tool für LangChain-Workflows</li>
+<li>Web-basiertes Interface (läuft lokal)</li>
+<li><strong>Komponenten</strong> per Drag &amp; Drop verbinden</li>
+<li>Export zu Python-Code möglich</li>
+<li><strong>Integration</strong> mit dem LangChain-Ökosystem</li>
+</ul>
+<p>Entwickelt von der LangChain-Community</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a748840c3d9af5b7"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Installation-und-Start">Installation und Start<a class="anchor-link" href="#Installation-und-Start">¶</a></h2><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>langflow
 langflow<span class="w"> </span>run
 </pre></div>
-<p>Öffnet Browser mit LangFlow UI</p>
+<p>Öffnet automatisch den Browser mit LangFlow UI (<a href="http://localhost:7860">http://localhost:7860</a>)</p>
+<p><strong>Alternativ mit Docker:</strong></p>
+<div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">7860</span>:7860<span class="w"> </span>langflowai/langflow
+</pre></div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b9fb1279f2cd9c34"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=65dcde722a0d6c4b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Die-LangFlow-Oberfl%C3%A4che">Die LangFlow Oberfläche<a class="anchor-link" href="#Die-LangFlow-Oberfl%C3%A4che">¶</a></h2><!-- Placeholder: Screenshot of LangFlow UI overview -->
+<p><img alt="LangFlow UI: Komponenten-Panel links, Canvas in der Mitte, Eigenschaften rechts" src="img/langflow_ui_overview.png"/></p>
+<p><strong>Hauptbereiche:</strong></p>
+<ul>
+<li><strong>Links</strong>: Komponenten-Panel (Inputs, Models, Outputs, etc.)</li>
+<li><strong>Mitte</strong>: Canvas zum Verbinden der Komponenten</li>
+<li><strong>Rechts</strong>: Eigenschaften der ausgewählten Komponente</li>
+<li><strong>Oben</strong>: Toolbar (Speichern, Ausführen, Teilen)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=61c8f24d69e0961d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Komponenten-Kategorien">Komponenten-Kategorien<a class="anchor-link" href="#Komponenten-Kategorien">¶</a></h2><table>
+<thead>
+<tr>
+<th>Kategorie</th>
+<th>Beschreibung</th>
+<th>Beispiele</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Inputs</strong></td>
+<td>Benutzereingaben</td>
+<td>Chat Input, Text Input</td>
+</tr>
+<tr>
+<td><strong>Models</strong></td>
+<td>LLM-Verbindungen</td>
+<td>OpenAI, Anthropic, Ollama</td>
+</tr>
+<tr>
+<td><strong>Outputs</strong></td>
+<td>Ergebnisanzeige</td>
+<td>Chat Output, Text Output</td>
+</tr>
+<tr>
+<td><strong>Prompts</strong></td>
+<td>Prompt Templates</td>
+<td>Prompt Template</td>
+</tr>
+<tr>
+<td><strong>Data</strong></td>
+<td>Datenquellen</td>
+<td>File Loader, URL Loader</td>
+</tr>
+<tr>
+<td><strong>Vector Stores</strong></td>
+<td>Vektordatenbanken</td>
+<td>Chroma, Pinecone</td>
+</tr>
+<tr>
+<td><strong>Embeddings</strong></td>
+<td>Embedding-Modelle</td>
+<td>OpenAI Embeddings</td>
+</tr>
+<tr>
+<td><strong>Chains</strong></td>
+<td>Vorgefertigte Chains</td>
+<td>Conversation Chain</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4a1d69d1979ddbe9"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Chatbot-bauen:-Schritt-1---Chat-Input">Chatbot bauen: Schritt 1 - Chat Input<a class="anchor-link" href="#Chatbot-bauen:-Schritt-1---Chat-Input">¶</a></h2><!-- Placeholder: Screenshot showing Chat Input component being added -->
+<p><img alt="Chat Input Komponente auf dem Canvas" src="img/langflow_step1_chat_input.png"/></p>
+<ol>
+<li>Im Komponenten-Panel: <strong>Inputs</strong> → <strong>Chat Input</strong></li>
+<li>Per Drag &amp; Drop auf den Canvas ziehen</li>
+<li>Der Chat Input nimmt Benutzernachrichten entgegen</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1da7280798e6f672"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Chatbot-bauen:-Schritt-2---LLM-Model">Chatbot bauen: Schritt 2 - LLM Model<a class="anchor-link" href="#Chatbot-bauen:-Schritt-2---LLM-Model">¶</a></h2><!-- Placeholder: Screenshot showing OpenAI model component -->
+<p><img alt="OpenAI Model Komponente mit Konfiguration" src="img/langflow_step2_model.png"/></p>
+<ol>
+<li><strong>Models</strong> → <strong>OpenAI</strong> (oder anderer Anbieter)</li>
+<li>Auf Canvas ziehen</li>
+<li><strong>API Key</strong> in den Eigenschaften eingeben</li>
+<li><strong>Model Name</strong> auswählen (z.B. <code>gpt-4o-mini</code>)</li>
+</ol>
+<p><strong>Für OpenRouter</strong>: Base URL auf <code>https://openrouter.ai/api/v1</code> setzen</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2bbeb7103a479a70"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Chatbot-bauen:-Schritt-3---Chat-Output">Chatbot bauen: Schritt 3 - Chat Output<a class="anchor-link" href="#Chatbot-bauen:-Schritt-3---Chat-Output">¶</a></h2><!-- Placeholder: Screenshot showing Chat Output component -->
+<p><img alt="Chat Output Komponente" src="img/langflow_step3_chat_output.png"/></p>
+<ol>
+<li><strong>Outputs</strong> → <strong>Chat Output</strong></li>
+<li>Auf Canvas ziehen</li>
+<li>Zeigt die LLM-Antworten an</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5e9c8ac8b3132448"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Chatbot-bauen:-Schritt-4---Verbinden">Chatbot bauen: Schritt 4 - Verbinden<a class="anchor-link" href="#Chatbot-bauen:-Schritt-4---Verbinden">¶</a></h2><!-- Placeholder: Screenshot showing connected components -->
+<p><img alt="Alle Komponenten verbunden: Input → Model → Output" src="img/langflow_step4_connected.png"/></p>
+<ol>
+<li><strong>Chat Input</strong> Ausgang → <strong>OpenAI</strong> Eingang verbinden</li>
+<li><strong>OpenAI</strong> Ausgang → <strong>Chat Output</strong> Eingang verbinden</li>
+<li>Fertig! Der Datenfluss ist: Input → Model → Output</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d208b13513d8b581"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Chatbot-bauen:-Schritt-5---Testen">Chatbot bauen: Schritt 5 - Testen<a class="anchor-link" href="#Chatbot-bauen:-Schritt-5---Testen">¶</a></h2><!-- Placeholder: Screenshot showing the Playground -->
+<p><img alt="LangFlow Playground mit Chat-Interface" src="img/langflow_step5_playground.png"/></p>
+<ol>
+<li>Klick auf <strong>Playground</strong> (unten rechts)</li>
+<li>Chat-Interface öffnet sich</li>
+<li>Nachricht eingeben und testen!</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1517da684c570c02"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="RAG-Flow-bauen:-%C3%9Cbersicht">RAG-Flow bauen: Übersicht<a class="anchor-link" href="#RAG-Flow-bauen:-%C3%9Cbersicht">¶</a></h2><p>Für ein RAG-System brauchen wir mehr Komponenten:</p>
+<pre><code>Dokument Loader → Text Splitter → Embeddings → Vector Store
+                                                   ↓
+Chat Input → Retriever → Prompt Template → LLM → Chat Output
+</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=21fc2d2e9044c93b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="RAG-Flow:-Dokumente-laden">RAG-Flow: Dokumente laden<a class="anchor-link" href="#RAG-Flow:-Dokumente-laden">¶</a></h2><!-- Placeholder: Screenshot showing document loading components -->
+<p><img alt="File Loader und Text Splitter Komponenten" src="img/langflow_rag_documents.png"/></p>
+<ol>
+<li><strong>Data</strong> → <strong>File Loader</strong>: Lädt PDF, TXT, etc.</li>
+<li><strong>Processing</strong> → <strong>Text Splitter</strong>: Teilt in Chunks</li>
+<li>Verbinden: File Loader → Text Splitter</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ea578b792313c79a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="RAG-Flow:-Vector-Store">RAG-Flow: Vector Store<a class="anchor-link" href="#RAG-Flow:-Vector-Store">¶</a></h2><!-- Placeholder: Screenshot showing vector store setup -->
+<p><img alt="Chroma Vector Store mit Embeddings" src="img/langflow_rag_vectorstore.png"/></p>
+<ol>
+<li><strong>Embeddings</strong> → <strong>OpenAI Embeddings</strong></li>
+<li><strong>Vector Stores</strong> → <strong>Chroma</strong> (oder Pinecone, etc.)</li>
+<li>Verbinden: Text Splitter → Chroma, Embeddings → Chroma</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c31c3e986b7f7466"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="RAG-Flow:-Retrieval-Chain">RAG-Flow: Retrieval Chain<a class="anchor-link" href="#RAG-Flow:-Retrieval-Chain">¶</a></h2><!-- Placeholder: Screenshot showing complete RAG flow -->
+<p><img alt="Vollständiger RAG-Flow mit allen Komponenten" src="img/langflow_rag_complete.png"/></p>
+<ol>
+<li><strong>Retriever</strong> aus Vector Store erstellen</li>
+<li><strong>Prompt Template</strong> für RAG-Kontext</li>
+<li>Alles verbinden: Input → Retriever → Prompt → LLM → Output</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e52dbc6ec2a2077b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Export-zu-Python">Export zu Python<a class="anchor-link" href="#Export-zu-Python">¶</a></h2><p>LangFlow kann Flows als Python-Code exportieren:</p>
+<ol>
+<li><strong>Menü</strong> → <strong>Export</strong> → <strong>Python Code</strong></li>
+<li>Code wird generiert</li>
+<li>Kann in eigenen Projekten verwendet werden</li>
+</ol>
+<p><strong>Wichtig</strong>: Exportierter Code kann als Basis für weitere Anpassungen dienen</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d512938db68b348c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Beispiel:-Exportierter-Code">Beispiel: Exportierter Code<a class="anchor-link" href="#Beispiel:-Exportierter-Code">¶</a></h2><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.prompts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">"gpt-4o-mini"</span><span class="p">,</span> <span class="n">api_key</span><span class="o">=</span><span class="s2">"..."</span><span class="p">)</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">"system"</span><span class="p">,</span> <span class="s2">"You are a helpful assistant."</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{input}</span><span class="s2">"</span><span class="p">)</span>
+<span class="p">])</span>
+
+<span class="n">chain</span> <span class="o">=</span> <span class="n">prompt</span> <span class="o">|</span> <span class="n">llm</span>
+<span class="n">result</span> <span class="o">=</span> <span class="n">chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">({</span><span class="s2">"input"</span><span class="p">:</span> <span class="s2">"Hello!"</span><span class="p">})</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=13d48d25b7cfb30c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="LangFlow-vs.-Code">LangFlow vs. Code<a class="anchor-link" href="#LangFlow-vs.-Code">¶</a></h2><table>
+<thead>
+<tr>
+<th>Aspekt</th>
+<th>LangFlow</th>
+<th>Code (LangChain/LangGraph)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lernkurve</strong></td>
+<td>Niedrig</td>
+<td>Mittel-Hoch</td>
+</tr>
+<tr>
+<td><strong>Flexibilität</strong></td>
+<td>Begrenzt</td>
+<td>Sehr hoch</td>
+</tr>
+<tr>
+<td><strong>Prototyping</strong></td>
+<td>Sehr schnell</td>
+<td>Langsamer</td>
+</tr>
+<tr>
+<td><strong>Versionierung</strong></td>
+<td>Schwieriger</td>
+<td>Git-freundlich</td>
+</tr>
+<tr>
+<td><strong>Debugging</strong></td>
+<td>Visuell</td>
+<td>Detaillierter</td>
+</tr>
+<tr>
+<td><strong>Team-Arbeit</strong></td>
+<td>Nicht-Entwickler können helfen</td>
+<td>Entwickler-fokussiert</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6df3ef684ed26fd5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Wann-LangFlow-nutzen?">Wann LangFlow nutzen?<a class="anchor-link" href="#Wann-LangFlow-nutzen?">¶</a></h2><p><strong>Gut geeignet für:</strong></p>
+<ul>
+<li>Schnelles Prototyping neuer Ideen</li>
+<li>Demonstrationen für Stakeholder</li>
+<li>Einfache Chatbots und Q&amp;A-Systeme</li>
+<li>Teams mit Nicht-Programmierern</li>
+</ul>
+<p><strong>Besser Code nutzen für:</strong></p>
+<ul>
+<li>Komplexe Geschäftslogik</li>
+<li>Production-Systeme</li>
+<li>Feinabstimmung und Optimierung</li>
+<li>Versionskontrolle und CI/CD</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=08fab87009193406"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li>LangFlow für visuelle Workflow-Gestaltung</li>
-<li>Perfekt für komplexe Systeme</li>
-<li>Kein Code-Experte nötig</li>
-<li>Export zu Python möglich</li>
+<li><strong>LangFlow</strong>: Visuelle Alternative zu Code</li>
+<li><strong>Drag &amp; Drop</strong> Interface für Workflows</li>
+<li><strong>Komponenten</strong>: Inputs, Models, Outputs, Vector Stores, etc.</li>
+<li><strong>Export</strong>: Flows können als Python-Code exportiert werden</li>
+<li><strong>Use Case</strong>: Prototyping und einfache Anwendungen</li>
 </ul>
-<p><strong>Nächster Schritt</strong>: Production-Ready Architekturen!</p>
+<p><strong>Empfehlung</strong>: LangFlow für Prototypen, dann zu Code migrieren</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2e673fac3158ceaf"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop:-LangFlow-erkunden">Workshop: LangFlow erkunden<a class="anchor-link" href="#Workshop:-LangFlow-erkunden">¶</a></h2><p><strong>Aufgabe</strong>: Erstellen Sie in LangFlow:</p>
+<ol>
+<li>Einen einfachen Chatbot mit System-Prompt</li>
+<li>Testen Sie verschiedene Modelle</li>
+<li>Fügen Sie einen Prompt Template hinzu</li>
+<li>Exportieren Sie den Flow als Python-Code</li>
+</ol>
+<p><strong>Bonus</strong>: Bauen Sie einen einfachen RAG-Flow mit einer Textdatei</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ccd34e9c5201ec9f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop-Hilfe:-LangFlow-starten">Workshop-Hilfe: LangFlow starten<a class="anchor-link" href="#Workshop-Hilfe:-LangFlow-starten">¶</a></h2><div class="highlight"><pre><span></span><span class="c1"># Terminal öffnen</span>
+pip<span class="w"> </span>install<span class="w"> </span>langflow
+langflow<span class="w"> </span>run
+</pre></div>
+<p>Browser öffnet sich automatisch!</p>
 </div>
 </div>
 </div>
