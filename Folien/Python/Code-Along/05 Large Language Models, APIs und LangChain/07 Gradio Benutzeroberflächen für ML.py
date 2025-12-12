@@ -41,7 +41,7 @@
 # **Das war's!** Keine weitere Konfiguration nötig.
 
 # %%
-# !pip install gradio
+# !pip install gradio --root-user-action=ignore
 
 # %%
 import gradio as gr
@@ -49,6 +49,7 @@ from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
+# %%
 load_dotenv()
 
 # %% [markdown]
@@ -56,13 +57,10 @@ load_dotenv()
 # ## Erstes Beispiel: Hello World
 
 # %%
-def greet(name):
-    """Simple greeting function"""
-    # TODO: Return greeting
 
 # %%
-# Create Gradio interface
-# TODO: Create interface with gr.Interface()
+
+# %%
 
 # %% [markdown]
 #
@@ -83,107 +81,63 @@ def greet(name):
 # - Zeigt Unterhaltungsverlauf
 # - Perfekt für LLM-Anwendungen
 
-# %%
-def respond(message, history):
-    """Simple chatbot response function"""
-    # history is list of {"role": ..., "content": ...} dicts
-    # TODO: Implement response logic
-    return "Response goes here"
-
-# %%
-# Create chatbot interface
-# TODO: Create with gr.ChatInterface()
+# %% [markdown]
+#
+# ### Stub für eine Chatbot-Funktion
+#
+# ```python
+# def respond(message, history):
+#    ...
+# ```
+#
+# - `message`: Neue Nachricht des Nutzers
+# - `history`: Liste vorheriger Nachrichten
+#    - Jede Nachricht ist ein Dictionary:<br>`{"role": "user"/"assistant", "content": ...}`
 
 # %%
 
 # %% [markdown]
 #
-# ## Ein echter LLM-Chatbot!
+# ### Chat Interface
 #
-# Jetzt verbinden wir Gradio mit unserem LLM:
+# `gr.ChatInterface` erzeugt ein vollständiges Chat Interface:
 #
-# - Nutzen die OpenAI-Bibliothek aus der vorherigen Lektion
-# - Gradio übergibt die **gesamte History** an unsere Funktion
-# - Wir müssen sie nur ins richtige Format bringen
+# - `fn`: Die Chat-Funktion
+# - `type`: Art der History (`"messages"` für OpenAI-Format)
+# - `title` und `description`: Text für die Oberfläche
 
 # %%
-# Create OpenAI client for OpenRouter
+
+# %%
+
+# %% [markdown]
+#
+# ## LLM-Chatbot mit System Prompt
+#
+# Jetzt verbinden wir Gradio mit einem echten LLM:
+#
+# - Nutzen die OpenAI-Bibliothek
+# - Fügen einen **System Prompt** hinzu
+# - Der System Prompt definiert die "Persönlichkeit" des Chatbots
+
+# %%
 client = OpenAI(
     api_key=os.getenv("OPENROUTER_API_KEY"),
     base_url="https://openrouter.ai/api/v1"
 )
 
+
+# %%
+
 # %%
 def llm_respond(message, history):
-    """Real LLM chatbot response function"""
-    # TODO: Convert history and call LLM
+    """LLM chatbot with system prompt"""
+    # TODO: Build messages with system prompt and call LLM
     pass
 
 # %%
-# Create real LLM chatbot
-llm_chatbot = gr.ChatInterface(
-    fn=llm_respond,
-    type="messages",
-    title="LLM Chatbot",
-    description="Ein echter Chatbot mit LLM! / A real chatbot with LLM!"
-)
 
 # %%
-
-# %% [markdown]
-#
-# ## Eingabe-Typen
-#
-# Gradio unterstützt viele Input-Typen:
-# - `"text"`: Textfeld
-# - `gr.Slider()`: Schieberegler
-# - `gr.Dropdown()`: Auswahlmenü
-# - `gr.Checkbox()`: Kontrollkästchen
-# - `gr.Image()`: Bild-Upload
-# - `gr.File()`: Datei-Upload
-# - Und viele mehr!
-
-# %% [markdown]
-#
-# ## Beispiel: Chatbot mit Einstellungen
-
-# %%
-PERSONALITY_PROMPTS = {
-    "Freundlich": "Du bist ein freundlicher, hilfsbereiter Assistent. Sei warmherzig und ermutigend.",
-    "Professionell": "Du bist ein professioneller Assistent. Antworte sachlich und präzise.",
-    "Lustig": "Du bist ein lustiger Assistent. Mache Witze und sei unterhaltsam, aber bleibe hilfreich."
-}
-
-# %%
-def enhanced_chatbot(message, history, personality, temperature):
-    """Chatbot with personality and temperature settings"""
-    # TODO: Implement with settings
-    pass
-
-# %%
-# Create interface with additional inputs
-# TODO: Create with gr.ChatInterface and additional_inputs
-
-# %% [markdown]
-#
-# ## Styling und Themes
-#
-# - Gradio kommt mit verschiedenen Themes
-# - Anpassbar mit CSS
-# - Einfache Parameter für Layout
-
-# %%
-# Example with custom theme
-demo_styled = gr.Interface(
-    fn=greet,
-    inputs=gr.Textbox(placeholder="Geben Sie Ihren Namen ein / Enter your name"),
-    outputs=gr.Textbox(label="Begrüßung / Greeting"),
-    title="Stylish Greeter",
-    theme=gr.themes.Soft()
-)
-
-# Launch
-# demo_styled.launch()
 
 # %% [markdown]
 #
@@ -197,105 +151,68 @@ demo_styled = gr.Interface(
 
 # %% [markdown]
 #
-# ## Workshop: Bild-Klassifikator mit Gradio
+# ## Zusammenfassung
 #
-# **Ziel**: Eine Bildklassifikations-App mit professioneller Oberfläche bauen!
+# - **Gradio**: Schnell professionelle UIs erstellen
+# - **`gr.Interface`**: Einfache Eingabe/Ausgabe-Oberflächen
+# - **`gr.ChatInterface`**: Chatbot mit History
+# - **System Prompt**: Definiert Chatbot-Verhalten
+# - **Teilbar**: Lokal oder öffentlich
 #
-# Wir lernen:
-# - `gr.Image()` für Bild-Upload
-# - `gr.Label()` für Klassifikations-Ergebnisse
-# - Mehrere Outputs kombinieren
-# - Styling mit Themes
+# **Nächster Schritt**: RAG - Chatbots mit eigenem Wissen!
 
 # %% [markdown]
 #
-# ### Schritt 1: Einfache Klassifikator-Funktion
+# ## Workshop: Experten-Chatbot
 #
-# Zuerst erstellen wir eine Mock-Funktion, die Bilder "klassifiziert":
+# **Ziel**: Einen spezialisierten Chatbot mit eigenem System Prompt bauen!
+#
+# Der Chatbot soll:
+# - Ein Experte auf einem Gebiet sein (z.B. Koch, Reiseberater, Fitness-Trainer)
+# - Nur zu seinem Thema antworten
+# - Eine eigene "Persönlichkeit" haben
+
+# %% [markdown]
+#
+# ### Aufgabe 1: System Prompt erstellen
+#
+# Erstellen Sie einen System Prompt für Ihren Experten-Chatbot.
+#
+# **Beispiel** (Koch):
+# ```
+# Du bist ein erfahrener Koch mit 20 Jahren Erfahrung.
+# Du gibst nur Ratschläge zu Kochen und Rezepten.
+# Wenn jemand nach anderen Themen fragt, lenkst du
+# freundlich zurück zum Thema Kochen.
+# ```
 
 # %%
-def classify_image(image):
-    """Simple image classifier function"""
-    # TODO: Return classification results as dictionary
-    # Format: {"label": confidence, ...}
+EXPERT_PROMPT = """
+# TODO: Write your expert system prompt here
+"""
+
+
+# %% [markdown]
+#
+# ### Aufgabe 2: Chatbot-Funktion erstellen
+#
+# Erstellen Sie die Funktion für Ihren Experten-Chatbot.
+
+# %%
+def expert_respond(message, history):
+    """Expert chatbot response function"""
+    # TODO: Use EXPERT_PROMPT and call the LLM
     pass
 
 # %% [markdown]
 #
-# ### Schritt 2: Gradio Interface erstellen
+# ### Aufgabe 3: Gradio Interface erstellen
 #
-# Jetzt verbinden wir die Funktion mit Gradio:
+# Erstellen Sie das ChatInterface mit passendem Titel und Beschreibung.
 
 # %%
-# Create classifier interface
-# TODO: Create with gr.Interface, gr.Image input, gr.Label output
-
-# %%
-
-# %% [markdown]
-#
-# ### Schritt 3: Mehrere Outputs hinzufügen
-#
-# Wir können mehrere Informationen zurückgeben:
-
-# %%
-def classify_with_details(image):
-    """Classifier with detailed output"""
-    if image is None:
-        return {"No image": 1.0}, "Kein Bild / No image", 0
-
-    # Simulated predictions
-    predictions = {
-        "Katze / Cat": 0.75,
-        "Hund / Dog": 0.15,
-        "Vogel / Bird": 0.07,
-        "Andere / Other": 0.03
-    }
-
-    # Get top prediction
-    top_label = max(predictions, key=predictions.get)
-    confidence = predictions[top_label]
-
-    # Create summary text
-    summary = f"Top: {top_label} ({confidence:.0%})"
-
-    return predictions, summary, confidence
-
-# %%
-# Create interface with multiple outputs
-# TODO: Create with list of outputs
-
-# %%
-
-# %% [markdown]
-#
-# ### Schritt 4: Mit Theme stylen
-#
-# Machen wir die App professioneller:
-
-# %%
-# Styled classifier with theme
-styled_classifier = gr.Interface(
-    fn=classify_with_details,
-    inputs=gr.Image(
-        type="pil",
-        label="Bild hochladen / Upload Image",
-        sources=["upload", "clipboard"]
-    ),
-    outputs=[
-        gr.Label(num_top_classes=4, label="Klassifikation / Classification"),
-        gr.Textbox(label="Ergebnis / Result"),
-        gr.Number(label="Konfidenz / Confidence", precision=2)
-    ],
-    title="🖼️ ML Bild-Klassifikator / Image Classifier",
-    description="Laden Sie ein Bild hoch und sehen Sie die KI-Vorhersage! / Upload an image and see the AI prediction!",
-    theme=gr.themes.Soft(),
-    examples=[
-        # Add example images if available
-        # ["path/to/example1.jpg"],
-        # ["path/to/example2.jpg"],
-    ]
-)
+# TODO: Create gr.ChatInterface for your expert chatbot
+# expert_chatbot = gr.ChatInterface(...)
 
 # %%
 
@@ -303,48 +220,6 @@ styled_classifier = gr.Interface(
 #
 # ### Bonus-Aufgaben
 #
-# 1. **Echtes Modell**: Verwenden Sie ein vortrainiertes Modell (z.B. `torchvision.models`)
-# 2. **Mehrere Bilder**: Erlauben Sie den Upload mehrerer Bilder
-# 3. **Verlauf**: Zeigen Sie die letzten Klassifikationen an
-# 4. **Export**: Fügen Sie einen Button zum Speichern der Ergebnisse hinzu
-
-# %%
-# Bonus: Example with error handling
-
-def robust_classifier(image):
-    """Classifier with error handling"""
-    try:
-        if image is None:
-            return {"Fehler / Error": 1.0}, "Bitte Bild hochladen / Please upload image"
-
-        # Simulated classification
-        predictions = {
-            "Katze / Cat": 0.75,
-            "Hund / Dog": 0.15,
-            "Vogel / Bird": 0.07,
-            "Andere / Other": 0.03
-        }
-
-        top_label = max(predictions, key=predictions.get)
-        return predictions, f"Erkannt / Detected: {top_label}"
-
-    except Exception as e:
-        return {"Fehler / Error": 1.0}, f"Fehler: {e} / Error: {e}"
-
-# %%
-
-# %%
-
-# %% [markdown]
-#
-# ## Zusammenfassung
-#
-# - **Gradio**: Schnell professionelle UIs erstellen
-# - **Wenige Zeilen Code**: Große Wirkung
-# - **Viele Input/Output-Typen**: Bilder, Text, Labels, Slider, ...
-# - **Teilbar**: Lokal oder öffentlich
-# - **Perfekt für ML-Demos**: Portfolio-Qualität
-#
-# **Nächster Schritt**: LangChain für leistungsfähige LLM-Anwendungen mit Chatbot-Workshop!
-
-# %%
+# 1. **Testen**: Versuchen Sie, den Chatbot mit Off-Topic-Fragen zu verwirren
+# 2. **Verbessern**: Passen Sie den System Prompt an, falls der Chatbot zu leicht abgelenkt wird
+# 3. **Zweiter Experte**: Erstellen Sie einen zweiten Chatbot mit anderem Thema

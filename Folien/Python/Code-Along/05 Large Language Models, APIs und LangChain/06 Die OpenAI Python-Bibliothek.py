@@ -21,13 +21,13 @@
 # - **Einfachere Syntax**
 # - **Automatische Fehlerbehandlung** mit spezifischen Exceptions
 # - **Token-Tracking** für Kostenüberwachung
-# - **Automatische Retries** bei Fehlern
+# - **Automatische Retries** bei Netzwerk- und Serverfehlern
 
 # %%
 # !pip install openai
 
 # %%
-from openai import OpenAI, api_key
+from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
@@ -40,7 +40,7 @@ load_dotenv()
 #
 # - Initialisierung mit API-Schlüssel
 # - Optionale `base_url` für OpenRouter (anstatt OpenAI)
-# - Methoden für verschiedene Endpunkte, z.B. `chat.completions.create()`
+# - Methode `chat.completions.create()` für Textgenerierung
 
 # %%
 api_key = os.getenv("OPENROUTER_API_KEY")
@@ -48,13 +48,14 @@ url = "https://openrouter.ai/api/v1"
 model = "mistralai/ministral-14b-2512"
 
 # %%
-from openai import OpenAI
-
-# %%
 
 # %% [markdown]
 #
-# ### Chat mit dem LLM
+# ### Die Chat Completions API
+#
+# - API für Textgenerierung mit Message-Format
+# - Parameter: `model` und `messages` (Liste von Nachrichten)
+# - Ergebnis: `response.choices[0].message.content`
 
 # %%
 
@@ -114,15 +115,37 @@ print(f"Total tokens:      {response.usage.total_tokens}")
 
 # %% [markdown]
 #
-# ## Rate Limits
+# ## Automatische Retries
 #
-# - Maximale Anfragen pro Minute/Tag
-# - Bei Überschreitung: `RateLimitError`
+# Die Bibliothek wiederholt bestimmte Anfragen **automatisch**:
 #
-# **Tipps:**
-# - Pausen zwischen Anfragen einbauen
-# - Fehler abfangen und warten
-# - Die Bibliothek hat automatische Retries!
+# - **Standardmäßig 2 Wiederholungen** mit exponentiellem Backoff
+# - Funktioniert bei: Verbindungsfehlern, Timeouts (408), Rate Limits (429),
+#   Serverfehlern (500+)
+#
+# **Wichtig:** `AuthenticationError` (401) wird **nicht** wiederholt!
+
+# %% [markdown]
+#
+# ### Retries konfigurieren
+#
+# Mit dem Parameter `max_retries`:
+
+# %%
+client_no_retry = OpenAI(api_key=api_key, base_url=url, max_retries=0)
+
+# %%
+client_many_retries = OpenAI(api_key=api_key, base_url=url, max_retries=5)
+
+# %% [markdown]
+#
+# ### Retries pro Anfrage
+#
+# Mit `with_options()` kann man Retries für einzelne Anfragen ändern:
+
+# %%
+
+# %%
 
 # %% [markdown]
 #
@@ -130,30 +153,33 @@ print(f"Total tokens:      {response.usage.total_tokens}")
 #
 # Die OpenAI-Bibliothek vereinfacht LLM-Aufrufe:
 #
+# - **Chat Completions API**: `client.chat.completions.create(model, messages)`
 # - **Spezifische Exceptions** für verschiedene Fehlertypen
 # - **Token-Tracking** mit `response.usage`
-# - **Automatische Retries** bei Rate Limits
+# - **Automatische Retries** bei Netzwerk-/Serverfehlern (konfigurierbar)
 # - Konfigurierbar für OpenRouter mit `base_url`
-#
-# **Nächster Schritt**: LangChain für noch weniger Code!
 
 # %% [markdown]
 #
-# ## Mini-Workshop: Fehlerbehandlung
+# ## Mini-Workshop: Client konfigurieren
 #
-# **Aufgabe**: Schreiben Sie eine Funktion, die:
-# 1. Eine Anfrage an das LLM sendet
-# 2. Bei `AuthenticationError` eine hilfreiche Nachricht ausgibt
-# 3. Bei `RateLimitError` 5 Sekunden wartet und es nochmal versucht
-# 4. Die Token-Nutzung am Ende ausgibt
+# **Aufgabe**: Erstellen Sie zwei verschiedene OpenAI-Clients:
 #
-# **Hinweise**:
-# - Nutzen Sie `time.sleep(5)`, um 5 Sekunden zu warten
-# - Sie können oft einen `RateLimitError` provozieren, wenn Sie eines der
-#   kostenlosen Modelle nutzen, z.B. `allenai/olmo-3-32b-think:free`
+# 1. Einen Client für **schnelle, einfache Anfragen** (ohne Retries)
+# 2. Einen Client für **wichtige Anfragen** (mit 5 Retries)
+#
+# Schreiben Sie dann eine Funktion `ask_important()`, die den zweiten Client
+# nutzt und bei `AuthenticationError` eine hilfreiche Nachricht ausgibt.
+
+# %% [markdown]
+#
+# ### Hinweise
+#
+# - Nutzen Sie den Parameter `max_retries` beim Erstellen des Clients
+# - `AuthenticationError` wird **nicht** automatisch wiederholt
+# - Geben Sie die Token-Nutzung mit `response.usage` aus
 
 # %%
-import time
 
 # %%
 
@@ -178,11 +204,9 @@ import time
 # ### Hinweise
 #
 # - Nutzen Sie `client.chat.completions.create()` statt `requests.post()`
-# - Die Message-Liste funktioniert genauso
+# - Die Message-Liste funktioniert genauso wie bei `requests`
 # - Antwort: `response.choices[0].message.content`
 # - **Bonus**: Tracken Sie die Token-Nutzung pro Nachricht
-
-# %%
 
 # %%
 

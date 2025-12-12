@@ -13145,7 +13145,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=605d10fcfb930e89"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e8a1d4dd78677dad"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Warum-eine-Bibliothek-nutzen?">Warum eine Bibliothek nutzen?<a class="anchor-link" href="#Warum-eine-Bibliothek-nutzen?">¶</a></h2><p>Bisher: Rohe HTTP-Anfragen mit <code>requests</code></p>
@@ -13158,7 +13158,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <li><strong>Einfachere Syntax</strong></li>
 <li><strong>Automatische Fehlerbehandlung</strong> mit spezifischen Exceptions</li>
 <li><strong>Token-Tracking</strong> für Kostenüberwachung</li>
-<li><strong>Automatische Retries</strong> bei Fehlern</li>
+<li><strong>Automatische Retries</strong> bei Netzwerk- und Serverfehlern</li>
 </ul>
 </div>
 </div>
@@ -13174,12 +13174,12 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7d43ff0c14e22dc6">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7d14ea9b0d8c0f6f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span><span class="p">,</span> <span class="n">api_key</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 </pre></div>
@@ -13198,13 +13198,13 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e2279fd9e1450e64"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=070e2d257582f838"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Die-OpenAI-Klasse">Die <code>OpenAI</code>-Klasse<a class="anchor-link" href="#Die-OpenAI-Klasse">¶</a></h2><ul>
 <li>Initialisierung mit API-Schlüssel</li>
 <li>Optionale <code>base_url</code> für OpenRouter (anstatt OpenAI)</li>
-<li>Methoden für verschiedene Endpunkte, z.B. <code>chat.completions.create()</code></li>
+<li>Methode <code>chat.completions.create()</code> für Textgenerierung</li>
 </ul>
 </div>
 </div>
@@ -13222,17 +13222,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=53ba29a78e0e9689">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=bf3331204a7e4a86">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
@@ -13244,10 +13233,14 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8747201ac290fcc9"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=4622b857f3e4572f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Chat-mit-dem-LLM">Chat mit dem LLM<a class="anchor-link" href="#Chat-mit-dem-LLM">¶</a></h3>
+<h3 id="Die-Chat-Completions-API">Die Chat Completions API<a class="anchor-link" href="#Die-Chat-Completions-API">¶</a></h3><ul>
+<li>API für Textgenerierung mit Message-Format</li>
+<li>Parameter: <code>model</code> und <code>messages</code> (Liste von Nachrichten)</li>
+<li>Ergebnis: <code>response.choices[0].message.content</code></li>
+</ul>
 </div>
 </div>
 </div>
@@ -13347,7 +13340,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=bd14712ea79e3ee4">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b7804e542c81604f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13382,67 +13375,116 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b581ec6f2d84bbf1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1e6708d641070d38"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Rate-Limits">Rate Limits<a class="anchor-link" href="#Rate-Limits">¶</a></h2><ul>
-<li>Maximale Anfragen pro Minute/Tag</li>
-<li>Bei Überschreitung: <code>RateLimitError</code></li>
-</ul>
-<p><strong>Tipps:</strong></p>
+<h2 id="Automatische-Retries">Automatische Retries<a class="anchor-link" href="#Automatische-Retries">¶</a></h2><p>Die Bibliothek wiederholt bestimmte Anfragen <strong>automatisch</strong>:</p>
 <ul>
-<li>Pausen zwischen Anfragen einbauen</li>
-<li>Fehler abfangen und warten</li>
-<li>Die Bibliothek hat automatische Retries!</li>
+<li><strong>Standardmäßig 2 Wiederholungen</strong> mit exponentiellem Backoff</li>
+<li>Funktioniert bei: Verbindungsfehlern, Timeouts (408), Rate Limits (429),
+Serverfehlern (500+)</li>
 </ul>
+<p><strong>Wichtig:</strong> <code>AuthenticationError</code> (401) wird <strong>nicht</strong> wiederholt!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=cd1cb7f13eb13b16"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1813e5e9a7462ac8"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Retries-konfigurieren">Retries konfigurieren<a class="anchor-link" href="#Retries-konfigurieren">¶</a></h3><p>Mit dem Parameter <code>max_retries</code>:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=acf5f9d911e29eca">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">client_no_retry</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b61c816cb9a4de3d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">client_many_retries</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span><span class="n">api_key</span><span class="o">=</span><span class="n">api_key</span><span class="p">,</span> <span class="n">base_url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">max_retries</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=84669b6981cc76dc"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Retries-pro-Anfrage">Retries pro Anfrage<a class="anchor-link" href="#Retries-pro-Anfrage">¶</a></h3><p>Mit <code>with_options()</code> kann man Retries für einzelne Anfragen ändern:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=db3f750c399ccb3a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=eae85a9f48e13a0d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=106f1ed48728dc6f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><p>Die OpenAI-Bibliothek vereinfacht LLM-Aufrufe:</p>
 <ul>
+<li><strong>Chat Completions API</strong>: <code>client.chat.completions.create(model, messages)</code></li>
 <li><strong>Spezifische Exceptions</strong> für verschiedene Fehlertypen</li>
 <li><strong>Token-Tracking</strong> mit <code>response.usage</code></li>
-<li><strong>Automatische Retries</strong> bei Rate Limits</li>
+<li><strong>Automatische Retries</strong> bei Netzwerk-/Serverfehlern (konfigurierbar)</li>
 <li>Konfigurierbar für OpenRouter mit <code>base_url</code></li>
 </ul>
-<p><strong>Nächster Schritt</strong>: LangChain für noch weniger Code!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=71661826c2841f08"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=bf5ba14f5b3f1146"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Mini-Workshop:-Fehlerbehandlung">Mini-Workshop: Fehlerbehandlung<a class="anchor-link" href="#Mini-Workshop:-Fehlerbehandlung">¶</a></h2><p><strong>Aufgabe</strong>: Schreiben Sie eine Funktion, die:</p>
+<h2 id="Mini-Workshop:-Client-konfigurieren">Mini-Workshop: Client konfigurieren<a class="anchor-link" href="#Mini-Workshop:-Client-konfigurieren">¶</a></h2><p><strong>Aufgabe</strong>: Erstellen Sie zwei verschiedene OpenAI-Clients:</p>
 <ol>
-<li>Eine Anfrage an das LLM sendet</li>
-<li>Bei <code>AuthenticationError</code> eine hilfreiche Nachricht ausgibt</li>
-<li>Bei <code>RateLimitError</code> 5 Sekunden wartet und es nochmal versucht</li>
-<li>Die Token-Nutzung am Ende ausgibt</li>
+<li>Einen Client für <strong>schnelle, einfache Anfragen</strong> (ohne Retries)</li>
+<li>Einen Client für <strong>wichtige Anfragen</strong> (mit 5 Retries)</li>
 </ol>
-<p><strong>Hinweise</strong>:</p>
-<ul>
-<li>Nutzen Sie <code>time.sleep(5)</code>, um 5 Sekunden zu warten</li>
-<li>Sie können oft einen <code>RateLimitError</code> provozieren, wenn Sie eines der
-kostenlosen Modelle nutzen, z.B. <code>allenai/olmo-3-32b-think:free</code></li>
+<p>Schreiben Sie dann eine Funktion <code>ask_important()</code>, die den zweiten Client
+nutzt und bei <code>AuthenticationError</code> eine hilfreiche Nachricht ausgibt.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=dcfb800f3eafb9b7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Hinweise">Hinweise<a class="anchor-link" href="#Hinweise">¶</a></h3><ul>
+<li>Nutzen Sie den Parameter <code>max_retries</code> beim Erstellen des Clients</li>
+<li><code>AuthenticationError</code> wird <strong>nicht</strong> automatisch wiederholt</li>
+<li>Geben Sie die Token-Nutzung mit <code>response.usage</code> aus</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c3944ce674d5d4bc">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6524ebc5c6b27271">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c656f3d3b42b8c7a">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13453,7 +13495,7 @@ kostenlosen Modelle nutzen, z.B. <code>allenai/olmo-3-32b-think:free</code></li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8e860e1ac9cb5467">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0af27eb0a6031e3e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13464,7 +13506,18 @@ kostenlosen Modelle nutzen, z.B. <code>allenai/olmo-3-32b-think:free</code></li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=cb320e8e14132392">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4de53642b42b48c8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=922c061e7bf67cb4">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13488,19 +13541,19 @@ kostenlosen Modelle nutzen, z.B. <code>allenai/olmo-3-32b-think:free</code></li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=71a0b44e697fe560"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=95a3e7de29c40a19"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Hinweise">Hinweise<a class="anchor-link" href="#Hinweise">¶</a></h3><ul>
 <li>Nutzen Sie <code>client.chat.completions.create()</code> statt <code>requests.post()</code></li>
-<li>Die Message-Liste funktioniert genauso</li>
+<li>Die Message-Liste funktioniert genauso wie bei <code>requests</code></li>
 <li>Antwort: <code>response.choices[0].message.content</code></li>
 <li><strong>Bonus</strong>: Tracken Sie die Token-Nutzung pro Nachricht</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=a00d391260865ec6">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=37cf3b5414c36f85">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13545,17 +13598,6 @@ kostenlosen Modelle nutzen, z.B. <code>allenai/olmo-3-32b-think:free</code></li>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=e05870ef604126e6">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">

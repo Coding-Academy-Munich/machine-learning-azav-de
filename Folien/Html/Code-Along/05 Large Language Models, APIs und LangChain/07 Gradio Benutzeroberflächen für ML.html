@@ -13181,18 +13181,18 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0837d943b49fdb86">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=517fee239b064ff6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gradio
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gradio<span class="w"> </span>--root-user-action<span class="o">=</span>ignore
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1dbfff0c37cd4d98">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=2766419520aa6bfb">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13201,8 +13201,17 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-
-<span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ce35827a2adb266e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">load_dotenv</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -13215,26 +13224,34 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=a1a50ba9cd5eb96d">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7d9696fa305f4f0a">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">greet</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Simple greeting function"""</span>
-    <span class="c1"># TODO: Return greeting</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=6625f8b5efdb1442">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=cf4aab2778dcdfdb">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create Gradio interface</span>
-<span class="c1"># TODO: Create interface with gr.Interface()</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=54d1895feb5b2c3e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
@@ -13264,34 +13281,23 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=40910f5638a01f43">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">respond</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Simple chatbot response function"""</span>
-    <span class="c1"># history is list of {"role": ..., "content": ...} dicts</span>
-    <span class="c1"># TODO: Implement response logic</span>
-    <span class="k">return</span> <span class="s2">"Response goes here"</span>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=bbbe9da638d2c4e4"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Stub-f%C3%BCr-eine-Chatbot-Funktion">Stub für eine Chatbot-Funktion<a class="anchor-link" href="#Stub-f%C3%BCr-eine-Chatbot-Funktion">¶</a></h3><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">respond</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
+   <span class="o">...</span>
 </pre></div>
+<ul>
+<li><code>message</code>: Neue Nachricht des Nutzers</li>
+<li><code>history</code>: Liste vorheriger Nachrichten<ul>
+<li>Jede Nachricht ist ein Dictionary:<br/><code>{"role": "user"/"assistant", "content": ...}</code></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=9c95e5a3f7e283b0">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create chatbot interface</span>
-<span class="c1"># TODO: Create with gr.ChatInterface()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a1285c3ab1541bd0">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=25b24ba9a5a6fe2b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13302,25 +13308,58 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a059b7cc5a95be57"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=5c7cc0c0c78abad6"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Ein-echter-LLM-Chatbot!">Ein echter LLM-Chatbot!<a class="anchor-link" href="#Ein-echter-LLM-Chatbot!">¶</a></h2><p>Jetzt verbinden wir Gradio mit unserem LLM:</p>
+<h3 id="Chat-Interface">Chat Interface<a class="anchor-link" href="#Chat-Interface">¶</a></h3><p><code>gr.ChatInterface</code> erzeugt ein vollständiges Chat Interface:</p>
 <ul>
-<li>Nutzen die OpenAI-Bibliothek aus der vorherigen Lektion</li>
-<li>Gradio übergibt die <strong>gesamte History</strong> an unsere Funktion</li>
-<li>Wir müssen sie nur ins richtige Format bringen</li>
+<li><code>fn</code>: Die Chat-Funktion</li>
+<li><code>type</code>: Art der History (<code>"messages"</code> für OpenAI-Format)</li>
+<li><code>title</code> und <code>description</code>: Text für die Oberfläche</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f87d0d160a0a5e29">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=bbaba1f54ca04d31">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create OpenAI client for OpenRouter</span>
-<span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=52bdcca04c5f5d6a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ebf505446046a2e3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="LLM-Chatbot-mit-System-Prompt">LLM-Chatbot mit System Prompt<a class="anchor-link" href="#LLM-Chatbot-mit-System-Prompt">¶</a></h2><p>Jetzt verbinden wir Gradio mit einem echten LLM:</p>
+<ul>
+<li>Nutzen die OpenAI-Bibliothek</li>
+<li>Fügen einen <strong>System Prompt</strong> hinzu</li>
+<li>Der System Prompt definiert die "Persönlichkeit" des Chatbots</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ec130811223ac05b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span>
     <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
     <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span>
 <span class="p">)</span>
@@ -13329,32 +13368,37 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8a4dc493153ecbc4">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=c69d6310899dfbe3">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=cc6ce23d6fb6ab65">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">llm_respond</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Real LLM chatbot response function"""</span>
-    <span class="c1"># TODO: Convert history and call LLM</span>
+<span class="w">    </span><span class="sd">"""LLM chatbot with system prompt"""</span>
+    <span class="c1"># TODO: Build messages with system prompt and call LLM</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=75e59b5a925a17ae">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=19c694082dcea910">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create real LLM chatbot</span>
-<span class="n">llm_chatbot</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">ChatInterface</span><span class="p">(</span>
-    <span class="n">fn</span><span class="o">=</span><span class="n">llm_respond</span><span class="p">,</span>
-    <span class="nb">type</span><span class="o">=</span><span class="s2">"messages"</span><span class="p">,</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">"LLM Chatbot"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">"Ein echter Chatbot mit LLM! / A real chatbot with LLM!"</span>
-<span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
@@ -13366,102 +13410,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7fb2abc1e10e91bd"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Eingabe-Typen">Eingabe-Typen<a class="anchor-link" href="#Eingabe-Typen">¶</a></h2><p>Gradio unterstützt viele Input-Typen:</p>
-<ul>
-<li><code>"text"</code>: Textfeld</li>
-<li><code>gr.Slider()</code>: Schieberegler</li>
-<li><code>gr.Dropdown()</code>: Auswahlmenü</li>
-<li><code>gr.Checkbox()</code>: Kontrollkästchen</li>
-<li><code>gr.Image()</code>: Bild-Upload</li>
-<li><code>gr.File()</code>: Datei-Upload</li>
-<li>Und viele mehr!</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6e3261da11678a07"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiel:-Chatbot-mit-Einstellungen">Beispiel: Chatbot mit Einstellungen<a class="anchor-link" href="#Beispiel:-Chatbot-mit-Einstellungen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=26b21bc2b004c9ec">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">PERSONALITY_PROMPTS</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"Freundlich"</span><span class="p">:</span> <span class="s2">"Du bist ein freundlicher, hilfsbereiter Assistent. Sei warmherzig und ermutigend."</span><span class="p">,</span>
-    <span class="s2">"Professionell"</span><span class="p">:</span> <span class="s2">"Du bist ein professioneller Assistent. Antworte sachlich und präzise."</span><span class="p">,</span>
-    <span class="s2">"Lustig"</span><span class="p">:</span> <span class="s2">"Du bist ein lustiger Assistent. Mache Witze und sei unterhaltsam, aber bleibe hilfreich."</span>
-<span class="p">}</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=39b7b435cda6785e">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">enhanced_chatbot</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">,</span> <span class="n">personality</span><span class="p">,</span> <span class="n">temperature</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Chatbot with personality and temperature settings"""</span>
-    <span class="c1"># TODO: Implement with settings</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=d057dbff52fe08e9">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create interface with additional inputs</span>
-<span class="c1"># TODO: Create with gr.ChatInterface and additional_inputs</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1fe2c8779ce10ee8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Styling-und-Themes">Styling und Themes<a class="anchor-link" href="#Styling-und-Themes">¶</a></h2><ul>
-<li>Gradio kommt mit verschiedenen Themes</li>
-<li>Anpassbar mit CSS</li>
-<li>Einfache Parameter für Layout</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=76444641e5d52514">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Example with custom theme</span>
-<span class="n">demo_styled</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span>
-    <span class="n">fn</span><span class="o">=</span><span class="n">greet</span><span class="p">,</span>
-    <span class="n">inputs</span><span class="o">=</span><span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">placeholder</span><span class="o">=</span><span class="s2">"Geben Sie Ihren Namen ein / Enter your name"</span><span class="p">),</span>
-    <span class="n">outputs</span><span class="o">=</span><span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Begrüßung / Greeting"</span><span class="p">),</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">"Stylish Greeter"</span><span class="p">,</span>
-    <span class="n">theme</span><span class="o">=</span><span class="n">gr</span><span class="o">.</span><span class="n">themes</span><span class="o">.</span><span class="n">Soft</span><span class="p">()</span>
-<span class="p">)</span>
-
-<span class="c1"># Launch</span>
-<span class="c1"># demo_styled.launch()</span>
 </pre></div>
 </div>
 </div>
@@ -13479,62 +13427,100 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d737a69381dbacee"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=9c1bcd69a6c9d80d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop:-Bild-Klassifikator-mit-Gradio">Workshop: Bild-Klassifikator mit Gradio<a class="anchor-link" href="#Workshop:-Bild-Klassifikator-mit-Gradio">¶</a></h2><p><strong>Ziel</strong>: Eine Bildklassifikations-App mit professioneller Oberfläche bauen!</p>
-<p>Wir lernen:</p>
+<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
+<li><strong>Gradio</strong>: Schnell professionelle UIs erstellen</li>
+<li><strong><code>gr.Interface</code></strong>: Einfache Eingabe/Ausgabe-Oberflächen</li>
+<li><strong><code>gr.ChatInterface</code></strong>: Chatbot mit History</li>
+<li><strong>System Prompt</strong>: Definiert Chatbot-Verhalten</li>
+<li><strong>Teilbar</strong>: Lokal oder öffentlich</li>
+</ul>
+<p><strong>Nächster Schritt</strong>: RAG - Chatbots mit eigenem Wissen!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=488838c7cdbf3da4"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop:-Experten-Chatbot">Workshop: Experten-Chatbot<a class="anchor-link" href="#Workshop:-Experten-Chatbot">¶</a></h2><p><strong>Ziel</strong>: Einen spezialisierten Chatbot mit eigenem System Prompt bauen!</p>
+<p>Der Chatbot soll:</p>
 <ul>
-<li><code>gr.Image()</code> für Bild-Upload</li>
-<li><code>gr.Label()</code> für Klassifikations-Ergebnisse</li>
-<li>Mehrere Outputs kombinieren</li>
-<li>Styling mit Themes</li>
+<li>Ein Experte auf einem Gebiet sein (z.B. Koch, Reiseberater, Fitness-Trainer)</li>
+<li>Nur zu seinem Thema antworten</li>
+<li>Eine eigene "Persönlichkeit" haben</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=0e0eb238a981c1e7"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d283d2882975c03e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Schritt-1:-Einfache-Klassifikator-Funktion">Schritt 1: Einfache Klassifikator-Funktion<a class="anchor-link" href="#Schritt-1:-Einfache-Klassifikator-Funktion">¶</a></h3><p>Zuerst erstellen wir eine Mock-Funktion, die Bilder "klassifiziert":</p>
+<h3 id="Aufgabe-1:-System-Prompt-erstellen">Aufgabe 1: System Prompt erstellen<a class="anchor-link" href="#Aufgabe-1:-System-Prompt-erstellen">¶</a></h3><p>Erstellen Sie einen System Prompt für Ihren Experten-Chatbot.</p>
+<p><strong>Beispiel</strong> (Koch):</p>
+<pre><code>Du bist ein erfahrener Koch mit 20 Jahren Erfahrung.
+Du gibst nur Ratschläge zu Kochen und Rezepten.
+Wenn jemand nach anderen Themen fragt, lenkst du
+freundlich zurück zum Thema Kochen.
+</code></pre>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=0d7bdaec6229f343">
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=93c6cce664fad7cc">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">classify_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Simple image classifier function"""</span>
-    <span class="c1"># TODO: Return classification results as dictionary</span>
-    <span class="c1"># Format: {"label": confidence, ...}</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">EXPERT_PROMPT</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2"># TODO: Write your expert system prompt here</span>
+<span class="s2">"""</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d8f5f742d3a34484"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-2:-Chatbot-Funktion-erstellen">Aufgabe 2: Chatbot-Funktion erstellen<a class="anchor-link" href="#Aufgabe-2:-Chatbot-Funktion-erstellen">¶</a></h3><p>Erstellen Sie die Funktion für Ihren Experten-Chatbot.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8f092585e30138b6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">expert_respond</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Expert chatbot response function"""</span>
+    <span class="c1"># TODO: Use EXPERT_PROMPT and call the LLM</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a873fed687c3ffdd"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e17d60a4eba7bfdf"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Schritt-2:-Gradio-Interface-erstellen">Schritt 2: Gradio Interface erstellen<a class="anchor-link" href="#Schritt-2:-Gradio-Interface-erstellen">¶</a></h3><p>Jetzt verbinden wir die Funktion mit Gradio:</p>
+<h3 id="Aufgabe-3:-Gradio-Interface-erstellen">Aufgabe 3: Gradio Interface erstellen<a class="anchor-link" href="#Aufgabe-3:-Gradio-Interface-erstellen">¶</a></h3><p>Erstellen Sie das ChatInterface mit passendem Titel und Beschreibung.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=ff0b60f120c42762">
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=1afd37ef15f240f7">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create classifier interface</span>
-<span class="c1"># TODO: Create with gr.Interface, gr.Image input, gr.Label output</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create gr.ChatInterface for your expert chatbot</span>
+<span class="c1"># expert_chatbot = gr.ChatInterface(...)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=85e02458616decc5">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=89daa550859b4a61">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13545,204 +13531,14 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=51852deaa9e41ce8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Schritt-3:-Mehrere-Outputs-hinzuf%C3%BCgen">Schritt 3: Mehrere Outputs hinzufügen<a class="anchor-link" href="#Schritt-3:-Mehrere-Outputs-hinzuf%C3%BCgen">¶</a></h3><p>Wir können mehrere Informationen zurückgeben:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8c3bf1517bbc061c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">classify_with_details</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Classifier with detailed output"""</span>
-    <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">"No image"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span> <span class="s2">"Kein Bild / No image"</span><span class="p">,</span> <span class="mi">0</span>
-
-    <span class="c1"># Simulated predictions</span>
-    <span class="n">predictions</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">"Katze / Cat"</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>
-        <span class="s2">"Hund / Dog"</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>
-        <span class="s2">"Vogel / Bird"</span><span class="p">:</span> <span class="mf">0.07</span><span class="p">,</span>
-        <span class="s2">"Andere / Other"</span><span class="p">:</span> <span class="mf">0.03</span>
-    <span class="p">}</span>
-
-    <span class="c1"># Get top prediction</span>
-    <span class="n">top_label</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">predictions</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
-    <span class="n">confidence</span> <span class="o">=</span> <span class="n">predictions</span><span class="p">[</span><span class="n">top_label</span><span class="p">]</span>
-
-    <span class="c1"># Create summary text</span>
-    <span class="n">summary</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"Top: </span><span class="si">{</span><span class="n">top_label</span><span class="si">}</span><span class="s2"> (</span><span class="si">{</span><span class="n">confidence</span><span class="si">:</span><span class="s2">.0%</span><span class="si">}</span><span class="s2">)"</span>
-
-    <span class="k">return</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">summary</span><span class="p">,</span> <span class="n">confidence</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=12472a1bc25ea362">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create interface with multiple outputs</span>
-<span class="c1"># TODO: Create with list of outputs</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=34d7e1d5d82f52bd">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ff2852bf3ba9384c"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Schritt-4:-Mit-Theme-stylen">Schritt 4: Mit Theme stylen<a class="anchor-link" href="#Schritt-4:-Mit-Theme-stylen">¶</a></h3><p>Machen wir die App professioneller:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6805571811ff26f3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Styled classifier with theme</span>
-<span class="n">styled_classifier</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span>
-    <span class="n">fn</span><span class="o">=</span><span class="n">classify_with_details</span><span class="p">,</span>
-    <span class="n">inputs</span><span class="o">=</span><span class="n">gr</span><span class="o">.</span><span class="n">Image</span><span class="p">(</span>
-        <span class="nb">type</span><span class="o">=</span><span class="s2">"pil"</span><span class="p">,</span>
-        <span class="n">label</span><span class="o">=</span><span class="s2">"Bild hochladen / Upload Image"</span><span class="p">,</span>
-        <span class="n">sources</span><span class="o">=</span><span class="p">[</span><span class="s2">"upload"</span><span class="p">,</span> <span class="s2">"clipboard"</span><span class="p">]</span>
-    <span class="p">),</span>
-    <span class="n">outputs</span><span class="o">=</span><span class="p">[</span>
-        <span class="n">gr</span><span class="o">.</span><span class="n">Label</span><span class="p">(</span><span class="n">num_top_classes</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Klassifikation / Classification"</span><span class="p">),</span>
-        <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Ergebnis / Result"</span><span class="p">),</span>
-        <span class="n">gr</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Konfidenz / Confidence"</span><span class="p">,</span> <span class="n">precision</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
-    <span class="p">],</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">"🖼️ ML Bild-Klassifikator / Image Classifier"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">"Laden Sie ein Bild hoch und sehen Sie die KI-Vorhersage! / Upload an image and see the AI prediction!"</span><span class="p">,</span>
-    <span class="n">theme</span><span class="o">=</span><span class="n">gr</span><span class="o">.</span><span class="n">themes</span><span class="o">.</span><span class="n">Soft</span><span class="p">(),</span>
-    <span class="n">examples</span><span class="o">=</span><span class="p">[</span>
-        <span class="c1"># Add example images if available</span>
-        <span class="c1"># ["path/to/example1.jpg"],</span>
-        <span class="c1"># ["path/to/example2.jpg"],</span>
-    <span class="p">]</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=97bf39f3e8890322">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=46cf7b7bc7613d0f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c07a5bdbb00a67dc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Bonus-Aufgaben">Bonus-Aufgaben<a class="anchor-link" href="#Bonus-Aufgaben">¶</a></h3><ol>
-<li><strong>Echtes Modell</strong>: Verwenden Sie ein vortrainiertes Modell (z.B. <code>torchvision.models</code>)</li>
-<li><strong>Mehrere Bilder</strong>: Erlauben Sie den Upload mehrerer Bilder</li>
-<li><strong>Verlauf</strong>: Zeigen Sie die letzten Klassifikationen an</li>
-<li><strong>Export</strong>: Fügen Sie einen Button zum Speichern der Ergebnisse hinzu</li>
+<li><strong>Testen</strong>: Versuchen Sie, den Chatbot mit Off-Topic-Fragen zu verwirren</li>
+<li><strong>Verbessern</strong>: Passen Sie den System Prompt an, falls der Chatbot zu leicht abgelenkt wird</li>
+<li><strong>Zweiter Experte</strong>: Erstellen Sie einen zweiten Chatbot mit anderem Thema</li>
 </ol>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0fc11b3cd896c872">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Bonus: Example with error handling</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">robust_classifier</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Classifier with error handling"""</span>
-    <span class="k">try</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">image</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">return</span> <span class="p">{</span><span class="s2">"Fehler / Error"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span> <span class="s2">"Bitte Bild hochladen / Please upload image"</span>
-
-        <span class="c1"># Simulated classification</span>
-        <span class="n">predictions</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="s2">"Katze / Cat"</span><span class="p">:</span> <span class="mf">0.75</span><span class="p">,</span>
-            <span class="s2">"Hund / Dog"</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>
-            <span class="s2">"Vogel / Bird"</span><span class="p">:</span> <span class="mf">0.07</span><span class="p">,</span>
-            <span class="s2">"Andere / Other"</span><span class="p">:</span> <span class="mf">0.03</span>
-        <span class="p">}</span>
-
-        <span class="n">top_label</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">predictions</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">predictions</span><span class="o">.</span><span class="n">get</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">predictions</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"Erkannt / Detected: </span><span class="si">{</span><span class="n">top_label</span><span class="si">}</span><span class="s2">"</span>
-
-    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">"Fehler / Error"</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">},</span> <span class="sa">f</span><span class="s2">"Fehler: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2"> / Error: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">"</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8bc84a023d1ee814">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d951715352fe5965">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=55f4270942e8fab0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Gradio</strong>: Schnell professionelle UIs erstellen</li>
-<li><strong>Wenige Zeilen Code</strong>: Große Wirkung</li>
-<li><strong>Viele Input/Output-Typen</strong>: Bilder, Text, Labels, Slider, ...</li>
-<li><strong>Teilbar</strong>: Lokal oder öffentlich</li>
-<li><strong>Perfekt für ML-Demos</strong>: Portfolio-Qualität</li>
-</ul>
-<p><strong>Nächster Schritt</strong>: LangChain für leistungsfähige LLM-Anwendungen mit Chatbot-Workshop!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
 </div>
 </div>
 </div>
