@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=29df946393dbefa0"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=726d2ef61c18b591"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Gradio: Benutzeroberflächen für ML</b>
+<b>Workshop: Experten-Chatbot</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,114 +13145,143 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=18099086434de2e7"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-Benutzeroberfl%C3%A4chen?">Warum Benutzeroberflächen?<a class="anchor-link" href="#Warum-Benutzeroberfl%C3%A4chen?">¶</a></h2><ul>
-<li>Kommandozeilen-Apps sind funktional, aber...</li>
-<li><strong>Nicht benutzerfreundlich</strong> für Nicht-Programmierer</li>
-<li><strong>Nicht beeindruckend</strong> im Portfolio</li>
-<li><strong>Nicht teilbar</strong> ohne Code</li>
-</ul>
-<p><strong>Lösung</strong>: Einfache Web-Interfaces!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=821957313ceb1862"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-ist-Gradio?">Was ist Gradio?<a class="anchor-link" href="#Was-ist-Gradio?">¶</a></h2><ul>
-<li><strong>Python-Bibliothek</strong> für ML-Interfaces</li>
-<li><strong>Wenige Zeilen Code</strong> → Professionelle Web-UI</li>
-<li><strong>Funktioniert mit jedem Python-Code</strong></li>
-<li><strong>Teilbar</strong> via Link</li>
-<li><strong>Kostenlos und Open Source</strong></li>
-</ul>
-<p><strong>Ideal für</strong>: Demos, Prototypen, Portfolio-Projekte</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=18905639345a5ff3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Installation">Installation<a class="anchor-link" href="#Installation">¶</a></h2><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>gradio
-</pre></div>
-<p><strong>Das war's!</strong> Keine weitere Konfiguration nötig.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=517fee239b064ff6">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>gradio<span class="w"> </span>--root-user-action<span class="o">=</span>ignore
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=5777c88c8865f5f3">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2766419520aa6bfb">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=df26d81dac3ea431"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ce35827a2adb266e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ec130811223ac05b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">client</span> <span class="o">=</span> <span class="n">OpenAI</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=488838c7cdbf3da4"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Erstes-Beispiel:-Hello-World">Erstes Beispiel: Hello World<a class="anchor-link" href="#Erstes-Beispiel:-Hello-World">¶</a></h2>
+<h2 id="Workshop:-Experten-Chatbot">Workshop: Experten-Chatbot<a class="anchor-link" href="#Workshop:-Experten-Chatbot">¶</a></h2><p><strong>Ziel</strong>: Einen spezialisierten Chatbot mit eigenem System Prompt bauen!</p>
+<p>Der Chatbot soll:</p>
+<ul>
+<li>Ein Experte auf einem Gebiet sein (z.B. Koch, Reiseberater, Fitness-Trainer)</li>
+<li>Nur zu seinem Thema antworten</li>
+<li>Eine eigene "Persönlichkeit" haben</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7d9696fa305f4f0a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=cf4aab2778dcdfdb">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=54d1895feb5b2c3e">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=9c38cdf46e51d3c7"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d283d2882975c03e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-passiert-hier?">Was passiert hier?<a class="anchor-link" href="#Was-passiert-hier?">¶</a></h2><ol>
-<li><code>fn=greet</code>: Unsere Python-Funktion</li>
-<li><code>inputs="text"</code>: Textfeld für Eingabe</li>
-<li><code>outputs="text"</code>: Textfeld für Ausgabe</li>
-<li><code>demo.launch()</code>: Startet Web-Server</li>
+<h3 id="Aufgabe-1:-System-Prompt-erstellen">Aufgabe 1: System Prompt erstellen<a class="anchor-link" href="#Aufgabe-1:-System-Prompt-erstellen">¶</a></h3><p>Erstellen Sie einen System Prompt für Ihren Experten-Chatbot.</p>
+<p><strong>Beispiel</strong> (Koch):</p>
+<pre><code>Du bist ein erfahrener Koch mit 20 Jahren Erfahrung.
+Du gibst nur Ratschläge zu Kochen und Rezepten.
+Wenn jemand nach anderen Themen fragt, lenkst du
+freundlich zurück zum Thema Kochen.
+</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=93c6cce664fad7cc">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">EXPERT_PROMPT</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2"># TODO: Write your expert system prompt here</span>
+<span class="s2">"""</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d8f5f742d3a34484"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-2:-Chatbot-Funktion-erstellen">Aufgabe 2: Chatbot-Funktion erstellen<a class="anchor-link" href="#Aufgabe-2:-Chatbot-Funktion-erstellen">¶</a></h3><p>Erstellen Sie die Funktion für Ihren Experten-Chatbot.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8f092585e30138b6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">expert_respond</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Expert chatbot response function"""</span>
+    <span class="c1"># TODO: Use EXPERT_PROMPT and call the LLM</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e17d60a4eba7bfdf"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-3:-Gradio-Interface-erstellen">Aufgabe 3: Gradio Interface erstellen<a class="anchor-link" href="#Aufgabe-3:-Gradio-Interface-erstellen">¶</a></h3><p>Erstellen Sie das ChatInterface mit passendem Titel und Beschreibung.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=1afd37ef15f240f7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create gr.ChatInterface for your expert chatbot</span>
+<span class="c1"># expert_chatbot = gr.ChatInterface(...)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=89daa550859b4a61">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c07a5bdbb00a67dc"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Bonus-Aufgaben">Bonus-Aufgaben<a class="anchor-link" href="#Bonus-Aufgaben">¶</a></h3><ol>
+<li><strong>Testen</strong>: Versuchen Sie, den Chatbot mit Off-Topic-Fragen zu verwirren</li>
+<li><strong>Verbessern</strong>: Passen Sie den System Prompt an, falls der Chatbot zu leicht abgelenkt wird</li>
+<li><strong>Zweiter Experte</strong>: Erstellen Sie einen zweiten Chatbot mit anderem Thema</li>
 </ol>
-<p>Gradio erstellt automatisch die Web-Oberfläche!</p>
 </div>
 </div>
 </div>

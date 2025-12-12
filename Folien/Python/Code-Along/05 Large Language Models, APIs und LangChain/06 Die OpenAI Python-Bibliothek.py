@@ -24,7 +24,7 @@
 # - **Automatische Retries** bei Netzwerk- und Serverfehlern
 
 # %%
-# !pip install openai
+# !pip install openai --root-user-action=ignore
 
 # %%
 from openai import OpenAI
