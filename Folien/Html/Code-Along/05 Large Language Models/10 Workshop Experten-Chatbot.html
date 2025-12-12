@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e05234f86fb735de"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=726d2ef61c18b591"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Gradio: LLM Chatbot</b>
+<b>Workshop: Experten-Chatbot</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,7 +13145,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2766419520aa6bfb">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_slide" id="cell-id=2766419520aa6bfb">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13170,18 +13170,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ebf505446046a2e3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="LLM-Chatbot-mit-System-Prompt">LLM-Chatbot mit System Prompt<a class="anchor-link" href="#LLM-Chatbot-mit-System-Prompt">¶</a></h2><p>Jetzt verbinden wir Gradio mit einem echten LLM:</p>
-<ul>
-<li>Nutzen die OpenAI-Bibliothek</li>
-<li>Fügen einen <strong>System Prompt</strong> hinzu</li>
-<li>Der System Prompt definiert die "Persönlichkeit" des Chatbots</li>
-</ul>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ec130811223ac05b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
@@ -13196,32 +13184,86 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=c69d6310899dfbe3">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=488838c7cdbf3da4"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop:-Experten-Chatbot">Workshop: Experten-Chatbot<a class="anchor-link" href="#Workshop:-Experten-Chatbot">¶</a></h2><p><strong>Ziel</strong>: Einen spezialisierten Chatbot mit eigenem System Prompt bauen!</p>
+<p>Der Chatbot soll:</p>
+<ul>
+<li>Ein Experte auf einem Gebiet sein (z.B. Koch, Reiseberater, Fitness-Trainer)</li>
+<li>Nur zu seinem Thema antworten</li>
+<li>Eine eigene "Persönlichkeit" haben</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d283d2882975c03e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-1:-System-Prompt-erstellen">Aufgabe 1: System Prompt erstellen<a class="anchor-link" href="#Aufgabe-1:-System-Prompt-erstellen">¶</a></h3><p>Erstellen Sie einen System Prompt für Ihren Experten-Chatbot.</p>
+<p><strong>Beispiel</strong> (Koch):</p>
+<pre><code>Du bist ein erfahrener Koch mit 20 Jahren Erfahrung.
+Du gibst nur Ratschläge zu Kochen und Rezepten.
+Wenn jemand nach anderen Themen fragt, lenkst du
+freundlich zurück zum Thema Kochen.
+</code></pre>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=93c6cce664fad7cc">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">EXPERT_PROMPT</span> <span class="o">=</span> <span class="s2">"""</span>
+<span class="s2"># TODO: Write your expert system prompt here</span>
+<span class="s2">"""</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=cc6ce23d6fb6ab65">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d8f5f742d3a34484"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-2:-Chatbot-Funktion-erstellen">Aufgabe 2: Chatbot-Funktion erstellen<a class="anchor-link" href="#Aufgabe-2:-Chatbot-Funktion-erstellen">¶</a></h3><p>Erstellen Sie die Funktion für Ihren Experten-Chatbot.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8f092585e30138b6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">llm_respond</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""LLM chatbot with system prompt"""</span>
-    <span class="c1"># TODO: Build messages with system prompt and call LLM</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">expert_respond</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Expert chatbot response function"""</span>
+    <span class="c1"># TODO: Use EXPERT_PROMPT and call the LLM</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=19c694082dcea910">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e17d60a4eba7bfdf"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-3:-Gradio-Interface-erstellen">Aufgabe 3: Gradio Interface erstellen<a class="anchor-link" href="#Aufgabe-3:-Gradio-Interface-erstellen">¶</a></h3><p>Erstellen Sie das ChatInterface mit passendem Titel und Beschreibung.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=1afd37ef15f240f7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create gr.ChatInterface for your expert chatbot</span>
+<span class="c1"># expert_chatbot = gr.ChatInterface(...)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=89daa550859b4a61">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13232,40 +13274,14 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ca8bc1efa733646a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5165244069fa4243"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c07a5bdbb00a67dc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Teilen-Ihrer-Anwendung">Teilen Ihrer Anwendung<a class="anchor-link" href="#Teilen-Ihrer-Anwendung">¶</a></h2><ul>
-<li><strong>Lokal</strong>: <code>demo.launch()</code> - Nur auf Ihrem Computer</li>
-<li><strong>Öffentlich</strong>: <code>demo.launch(share=True)</code> - Temporärer öffentlicher Link</li>
-<li><strong>HuggingFace Spaces</strong>: Permanent hosten (kostenlos!)</li>
-</ul>
-<p><strong>Perfekt für Portfolio-Projekte!</strong></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=9c1bcd69a6c9d80d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Gradio</strong>: Schnell professionelle UIs erstellen</li>
-<li><strong><code>gr.Interface</code></strong>: Einfache Eingabe/Ausgabe-Oberflächen</li>
-<li><strong><code>gr.ChatInterface</code></strong>: Chatbot mit History</li>
-<li><strong>System Prompt</strong>: Definiert Chatbot-Verhalten</li>
-<li><strong>Teilbar</strong>: Lokal oder öffentlich</li>
-</ul>
-<p><strong>Nächster Schritt</strong>: RAG - Chatbots mit eigenem Wissen!</p>
+<h3 id="Bonus-Aufgaben">Bonus-Aufgaben<a class="anchor-link" href="#Bonus-Aufgaben">¶</a></h3><ol>
+<li><strong>Testen</strong>: Versuchen Sie, den Chatbot mit Off-Topic-Fragen zu verwirren</li>
+<li><strong>Verbessern</strong>: Passen Sie den System Prompt an, falls der Chatbot zu leicht abgelenkt wird</li>
+<li><strong>Zweiter Experte</strong>: Erstellen Sie einen zweiten Chatbot mit anderem Thema</li>
+</ol>
 </div>
 </div>
 </div>

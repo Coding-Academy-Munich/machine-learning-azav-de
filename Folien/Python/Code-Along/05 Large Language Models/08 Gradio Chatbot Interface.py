@@ -7,9 +7,6 @@
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
 
-# %%
-import gradio as gr
-
 # %% [markdown]
 #
 # ## Chatbot-Interface
@@ -42,6 +39,11 @@ import gradio as gr
 # - `fn`: Die Chat-Funktion
 # - `type`: Art der History (`"messages"` für OpenAI-Format)
 # - `title` und `description`: Text für die Oberfläche
+
+# %%
+import gradio as gr
+
+# %%
 
 # %%
 
