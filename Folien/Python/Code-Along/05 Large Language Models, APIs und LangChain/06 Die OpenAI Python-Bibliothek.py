@@ -27,17 +27,41 @@
 # !pip install openai
 
 # %%
-from openai import OpenAI
+from openai import OpenAI, api_key
 from dotenv import load_dotenv
 import os
 
+# %%
 load_dotenv()
 
+# %% [markdown]
+#
+# ## Die `OpenAI`-Klasse
+#
+# - Initialisierung mit API-Schlüssel
+# - Optionale `base_url` für OpenRouter (anstatt OpenAI)
+# - Methoden für verschiedene Endpunkte, z.B. `chat.completions.create()`
+
 # %%
-client = OpenAI(
-    api_key=os.getenv("OPENROUTER_API_KEY"),
-    base_url="https://openrouter.ai/api/v1"
-)
+api_key = os.getenv("OPENROUTER_API_KEY")
+url = "https://openrouter.ai/api/v1"
+model = "mistralai/ministral-14b-2512"
+
+# %%
+from openai import OpenAI
+
+# %%
+
+# %% [markdown]
+#
+# ### Chat mit dem LLM
+
+# %%
+
+# %%
+
+# %%
+
 
 # %% [markdown]
 #
@@ -52,21 +76,24 @@ client = OpenAI(
 # Viel besser als HTTP-Statuscodes prüfen!
 
 # %%
-from openai import OpenAI, AuthenticationError, RateLimitError, APIError
+from openai import AuthenticationError, RateLimitError, APIError
+
 
 # %%
-def ask_llm_safely(prompt, model="mistralai/ministral-14b-2512"):
+def ask_llm_safely(prompt, model=model):
     """Ask LLM with error handling."""
     try:
         response = client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": prompt}]
+            model=model, messages=[{"role": "user", "content": prompt}]
         )
         return response.choices[0].message.content
     except Exception as e:
         return f"Error: {e}"
 
+
 # %%
+result = ask_llm_safely("What is a Large Language Model?")
+print(result)
 
 # %% [markdown]
 #
@@ -81,6 +108,9 @@ def ask_llm_safely(prompt, model="mistralai/ministral-14b-2512"):
 # %%
 
 # %%
+print(f"Prompt tokens:     {response.usage.prompt_tokens}")
+print(f"Completion tokens: {response.usage.completion_tokens}")
+print(f"Total tokens:      {response.usage.total_tokens}")
 
 # %% [markdown]
 #
@@ -116,9 +146,16 @@ def ask_llm_safely(prompt, model="mistralai/ministral-14b-2512"):
 # 2. Bei `AuthenticationError` eine hilfreiche Nachricht ausgibt
 # 3. Bei `RateLimitError` 5 Sekunden wartet und es nochmal versucht
 # 4. Die Token-Nutzung am Ende ausgibt
+#
+# **Hinweise**:
+# - Nutzen Sie `time.sleep(5)`, um 5 Sekunden zu warten
+# - Sie können oft einen `RateLimitError` provozieren, wenn Sie eines der
+#   kostenlosen Modelle nutzen, z.B. `allenai/olmo-3-32b-think:free`
 
 # %%
 import time
+
+# %%
 
 # %%
 
@@ -144,9 +181,6 @@ import time
 # - Die Message-Liste funktioniert genauso
 # - Antwort: `response.choices[0].message.content`
 # - **Bonus**: Tracken Sie die Token-Nutzung pro Nachricht
-
-# %%
-# Workshop space - rebuild the chatbot!
 
 # %%
 
