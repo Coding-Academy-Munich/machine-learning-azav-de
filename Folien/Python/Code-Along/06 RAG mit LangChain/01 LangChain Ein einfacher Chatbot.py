@@ -119,7 +119,6 @@ llm = ChatOpenAI(
 # %%
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 
-
 # %% [markdown]
 #
 # ## Nachrichten als Liste
@@ -145,26 +144,6 @@ from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 # Aber: **Viel weniger Code!**
 
 # %%
-class LangChainChatbot:
-    """A chatbot using LangChain."""
-
-    def __init__(self, system_prompt=None):
-        self.llm = ChatOpenAI(
-            api_key=os.getenv("OPENROUTER_API_KEY"),
-            base_url="https://openrouter.ai/api/v1",
-            model=model,
-        )
-        self.messages = []
-        if system_prompt:
-            self.messages.append(SystemMessage(content=system_prompt))
-
-    def chat(self, user_message):
-        """Send a message and get a response."""
-        self.messages.append(HumanMessage(content=user_message))
-        response = self.llm.invoke(self.messages)
-        self.messages.append(response)
-        return response.content
-
 
 # %% [markdown]
 #
@@ -203,39 +182,45 @@ for msg in bot.messages:
 # Mit einer kleinen Änderung können wir den Provider wechseln.
 
 # %%
+from langchain_core.language_models.base import BaseLanguageModel
 from langchain_anthropic import ChatAnthropic
 
+
+# %%
+def create_llm(provider) -> BaseLanguageModel:
+    """Create LLM based on provider name."""
+    if provider == "openrouter":
+        return ChatOpenAI(
+            api_key=os.getenv("OPENROUTER_API_KEY"),
+            base_url="https://openrouter.ai/api/v1",
+            model=model,
+        )
+    elif provider == "openai":
+        return ChatOpenAI(
+            api_key=os.getenv("OPENAI_API_KEY"),
+            model="gpt-5.2",
+        )
+    elif provider == "anthropic":
+        return ChatAnthropic(
+            api_key=os.getenv("ANTHROPIC_API_KEY"),
+            model="claude-haiku-4-5",
+        )
+    else:
+        raise ValueError(f"Unknown provider: {provider}")
 
 # %%
 class FlexibleChatbot:
     """A chatbot that can use different providers."""
 
     def __init__(self, provider="openrouter", system_prompt=None):
-        self.llm = self._create_llm(provider)
+        self.llm = ChatOpenAI(
+            api_key=os.getenv("OPENROUTER_API_KEY"),
+            base_url="https://openrouter.ai/api/v1",
+            model=model,
+        )
         self.messages = []
         if system_prompt:
             self.messages.append(SystemMessage(content=system_prompt))
-
-    def _create_llm(self, provider):
-        """Create LLM based on provider name."""
-        if provider == "openrouter":
-            return ChatOpenAI(
-                api_key=os.getenv("OPENROUTER_API_KEY"),
-                base_url="https://openrouter.ai/api/v1",
-                model=model,
-            )
-        elif provider == "openai":
-            return ChatOpenAI(
-                api_key=os.getenv("OPENAI_API_KEY"),
-                model="gpt-5.2",
-            )
-        elif provider == "anthropic":
-            return ChatAnthropic(
-                api_key=os.getenv("ANTHROPIC_API_KEY"),
-                model="claude-haiku-4-5",
-            )
-        else:
-            raise ValueError(f"Unknown provider: {provider}")
 
     def chat(self, user_message):
         """Send a message and get a response."""
@@ -243,6 +228,7 @@ class FlexibleChatbot:
         response = self.llm.invoke(self.messages)
         self.messages.append(response)
         return response.content
+
 
 
 # %% [markdown]
@@ -277,7 +263,6 @@ class FlexibleChatbot:
 # %%
 from langchain_core.chat_history import InMemoryChatMessageHistory
 from langchain_core.runnables.history import RunnableWithMessageHistory
-from langsmith import uuid7
 
 # %% [markdown]
 #
@@ -287,7 +272,7 @@ from langsmith import uuid7
 store = {}
 
 # %%
-def get_session_history(session_id: str):
+def get_session_history(session_id) -> InMemoryChatMessageHistory:
     if session_id not in store:
         store[session_id] = InMemoryChatMessageHistory()
     return store[session_id]
@@ -297,7 +282,7 @@ def get_session_history(session_id: str):
 chatbot_with_history = RunnableWithMessageHistory(llm, get_session_history)
 
 # %%
-session_id = uuid7()
+session_id = "user_123"
 
 # %%
 
@@ -368,7 +353,7 @@ def chat_with_system_prompt(message, history):
     """Chatbot that uses the selected system prompt."""
     system_prompt = "You are a helpful assistant."
 
-    messages = [SystemMessage(content=system_prompt)]
+    messages: list = [SystemMessage(content=system_prompt)]
     for msg in history:
         if msg["role"] == "user":
             messages.append(HumanMessage(content=msg["content"]))
