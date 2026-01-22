@@ -13275,6 +13275,58 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=374b68da8e184501"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ein-etwas-komplizierterer-Generator">Ein etwas komplizierterer Generator<a class="anchor-link" href="#Ein-etwas-komplizierterer-Generator">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=6c48492d110eaf94">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide celltag_keep" id="cell-id=bbe96c1f536582fb">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">text</span> <span class="o">=</span> <span class="s2">"""</span><span class="se">\</span>
+<span class="s2"># Introduction to Python Lists</span>
+
+<span class="s2">Python lists are a fundamental data structure used to store a collection of </span><span class="se">\</span>
+<span class="s2">items. They are ordered, mutable, and allow duplicate elements. Lists are </span><span class="se">\</span>
+<span class="s2">defined by enclosing sequence of items in square brackets `[]`, separated by </span><span class="se">\</span>
+<span class="s2">commas.</span>
+
+<span class="s2">## Creating a List</span>
+
+<span class="s2">You can create a list with various data types, including integers, floats, </span><span class="se">\</span>
+<span class="s2">strings, and even other lists. Here are a few examples:</span>
+<span class="s2">"""</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=c1988db629402a96">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0a6c448529b01ed3"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13368,112 +13420,117 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e895b0342747617e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a4013163abce867b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Streaming-Chatbot-mit-Gradio">Streaming-Chatbot mit Gradio<a class="anchor-link" href="#Streaming-Chatbot-mit-Gradio">¶</a></h2><p>Jetzt kombinieren wir alles:</p>
+<h2 id="Ein-einfacher-Chatbot">Ein einfacher Chatbot<a class="anchor-link" href="#Ein-einfacher-Chatbot">¶</a></h2><p>Zuerst erstellen wir einen einfachen Chatbot ohne Streaming.</p>
+<p>Diesmal speichern wir die Listen der Nachrichten nicht im Chatbot-Objekt,
+sondern verwenden die History von Gradio.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=aa67c03f6db0723c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5777c88c8865f5f3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_anthropic</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatAnthropic</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4c3e83c88be06ebb">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5b26176b2194a47d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">chatbot_instances</span> <span class="o">=</span> <span class="p">{}</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_llm</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
+        <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
+        <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="s2">"mistralai/ministral-14b-2512"</span><span class="p">,</span>
+    <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ccfde9388f01b576">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=58a310f83f2f4dc1"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Warum-Gradios-History-verwenden?">Warum Gradios History verwenden?<a class="anchor-link" href="#Warum-Gradios-History-verwenden?">¶</a></h2><p>Gradio bietet Funktionen wie <strong>Nachricht löschen</strong> und <strong>Antwort neu generieren</strong></p>
+<ul>
+<li>Damit diese korrekt funktionieren, müssen wir Gradios History verwenden</li>
+<li>Wir speichern die Nachrichten nicht mehr im Chatbot-Objekt</li>
+<li><code>history_to_messages()</code> konvertiert zwischen Gradio- und LangChain-Format</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=68a78fa2a04def15">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">FlexibleChatbot</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">"""A chatbot that can use different providers."""</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="o">=</span><span class="s2">"openrouter"</span><span class="p">,</span> <span class="n">system_prompt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_create_llm</span><span class="p">(</span><span class="n">provider</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
-        <span class="k">if</span> <span class="n">system_prompt</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SystemMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">system_prompt</span><span class="p">))</span>
-
-    <span class="k">def</span><span class="w"> </span><span class="nf">_create_llm</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">provider</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">"""Create LLM based on provider name."""</span>
-        <span class="k">if</span> <span class="n">provider</span> <span class="o">==</span> <span class="s2">"openrouter"</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
-                <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
-                <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
-                <span class="n">model</span><span class="o">=</span><span class="s2">"mistralai/ministral-14b-2512"</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">provider</span> <span class="o">==</span> <span class="s2">"openai"</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
-                <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENAI_API_KEY"</span><span class="p">),</span>
-                <span class="n">model</span><span class="o">=</span><span class="s2">"gpt-4o-mini"</span><span class="p">,</span>
-            <span class="p">)</span>
-        <span class="k">elif</span> <span class="n">provider</span> <span class="o">==</span> <span class="s2">"anthropic"</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">ChatAnthropic</span><span class="p">(</span>
-                <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"ANTHROPIC_API_KEY"</span><span class="p">),</span>
-                <span class="n">model</span><span class="o">=</span><span class="s2">"claude-haiku-4-5"</span><span class="p">,</span>
-            <span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">history_to_messages</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="n">system_prompt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Convert Gradio history to LangChain messages."""</span>
+    <span class="n">messages</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">if</span> <span class="n">system_prompt</span><span class="p">:</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SystemMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">system_prompt</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">history</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">msg</span><span class="p">[</span><span class="s2">"role"</span><span class="p">]</span> <span class="o">==</span> <span class="s2">"user"</span><span class="p">:</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">msg</span><span class="p">[</span><span class="s2">"content"</span><span class="p">]))</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Unknown provider: </span><span class="si">{</span><span class="n">provider</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+            <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AIMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">msg</span><span class="p">[</span><span class="s2">"content"</span><span class="p">]))</span>
+    <span class="k">return</span> <span class="n">messages</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=ee7041a7363f566b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SimpleChatbot</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""A simple chatbot using OpenRouter."""</span>
 
-    <span class="k">def</span><span class="w"> </span><span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_message</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system_prompt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">create_llm</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">system_prompt</span> <span class="o">=</span> <span class="n">system_prompt</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">"""Send a message and get a response."""</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">user_message</span><span class="p">))</span>
-        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="n">history_to_messages</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_prompt</span><span class="p">)</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">user_message</span><span class="p">))</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9f083d782fc5c7de">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=cdaf7bb879902c4a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Nicht-Streaming-Chatbot-mit-Gradio">Nicht-Streaming Chatbot mit Gradio<a class="anchor-link" href="#Nicht-Streaming-Chatbot-mit-Gradio">¶</a></h2><p>Beobachten Sie: Die Antwort erscheint erst nach einer Wartezeit!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=765ef8acb83a73dc">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">streaming_chat</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">_history</span><span class="p">,</span> <span class="n">provider</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Chatbot with streaming responses."""</span>
-    <span class="k">global</span> <span class="n">chatbot_instances</span>
-
-    <span class="k">if</span> <span class="n">provider</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">chatbot_instances</span><span class="p">:</span>
-        <span class="n">chatbot_instances</span><span class="p">[</span><span class="n">provider</span><span class="p">]</span> <span class="o">=</span> <span class="n">FlexibleChatbot</span><span class="p">(</span>
-            <span class="n">provider</span><span class="p">,</span> <span class="s2">"Du bist ein hilfreicher Assistent."</span>
-        <span class="p">)</span>
-
-    <span class="n">bot</span> <span class="o">=</span> <span class="n">chatbot_instances</span><span class="p">[</span><span class="n">provider</span><span class="p">]</span>
-    <span class="n">bot</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">message</span><span class="p">))</span>
-
-    <span class="n">full_response</span> <span class="o">=</span> <span class="s2">""</span>
-    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">bot</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">stream</span><span class="p">(</span><span class="n">bot</span><span class="o">.</span><span class="n">messages</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">chunk</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
-            <span class="n">full_response</span> <span class="o">+=</span> <span class="n">chunk</span><span class="o">.</span><span class="n">content</span>
-            <span class="k">yield</span> <span class="n">full_response</span>
-
-    <span class="n">bot</span><span class="o">.</span><span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">AIMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">full_response</span><span class="p">))</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">simple_bot</span> <span class="o">=</span> <span class="n">SimpleChatbot</span><span class="p">(</span><span class="s2">"Du bist ein hilfreicher Assistent."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=c0ff7c4a51e1be8f">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=fe967378f037c777">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13484,7 +13541,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=57b920362be9dfa0">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=845d0d541f5be6d3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13495,19 +13552,132 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=30442775891fb3ec"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b6ab8c83b03522fb">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7c3c652ab05c6531">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=28a1ec13a8c83afa"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Streaming-zum-Chatbot-hinzuf%C3%BCgen">Streaming zum Chatbot hinzufügen<a class="anchor-link" href="#Streaming-zum-Chatbot-hinzuf%C3%BCgen">¶</a></h2><p>Wir erweitern unseren <code>SimpleChatbot</code> mit einer <code>stream()</code>-Methode:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=5702ee07564f13ea">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SimpleChatbot</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">system_prompt</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">create_llm</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">system_prompt</span> <span class="o">=</span> <span class="n">system_prompt</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">chat</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Send a message and get a response."""</span>
+        <span class="n">messages</span> <span class="o">=</span> <span class="n">history_to_messages</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">system_prompt</span><span class="p">)</span>
+        <span class="n">messages</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="n">user_message</span><span class="p">))</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">llm</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">content</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d6b9d90e1dd0e0c7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Streaming-Chatbot-mit-Gradio">Streaming Chatbot mit Gradio<a class="anchor-link" href="#Streaming-Chatbot-mit-Gradio">¶</a></h2><p>Jetzt sehen wir die Antwort Wort für Wort entstehen!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=821b1ebc36ef1300">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">streaming_bot</span> <span class="o">=</span> <span class="n">SimpleChatbot</span><span class="p">(</span><span class="s2">"Du bist ein hilfreicher Assistent."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4c8501925f9e41c8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=f74b575576473196">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c690579e64cd779b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=dcf2c919957ec95f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=71bbe8dd567148a0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Workshop:-Streaming-Chatbot-erweitern">Workshop: Streaming-Chatbot erweitern<a class="anchor-link" href="#Workshop:-Streaming-Chatbot-erweitern">¶</a></h2><p><strong>Aufgabe</strong>: Erweitern Sie den Streaming-Chatbot!</p>
 <ol>
-<li>Fügen Sie einen System-Prompt-Auswahl hinzu (wie im vorherigen Workshop)</li>
+<li>Fügen Sie eine Provider-Auswahl hinzu (openrouter, openai, anthropic)</li>
+<li>Fügen Sie eine System-Prompt-Auswahl hinzu</li>
 <li>Der Benutzer soll sowohl Provider als auch System-Prompt wählen können</li>
 <li><strong>Bonus</strong>: Zeigen Sie an, wie viele Zeichen bereits generiert wurden</li>
 </ol>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2bfbdae15f3d4d8e">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=2bfbdae15f3d4d8e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13522,12 +13692,34 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=25563c1a1f5c7704">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=feced98429e4578e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extended_streaming_chat</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">_history</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">system_prompt_name</span><span class="p">):</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_anthropic</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatAnthropic</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=0c9cb3360220f6a6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start celltag_subslide" id="cell-id=bc911c0769befb98">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">extended_streaming_chat</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">,</span> <span class="n">provider</span><span class="p">,</span> <span class="n">system_prompt_name</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Streaming chatbot with provider and system prompt selection."""</span>
     <span class="c1"># TODO: Implementieren Sie den Streaming-Chatbot</span>
     <span class="c1"># Hint: Erstellen Sie für jede Kombination aus Provider und System-Prompt</span>
@@ -13549,7 +13741,18 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=29ee69890cac3fc4">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f4413a2ec660fc39">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ab8a886339fc6eae">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">

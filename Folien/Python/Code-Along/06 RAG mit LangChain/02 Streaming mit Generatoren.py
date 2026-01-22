@@ -39,6 +39,7 @@ def normal_function():
     return "Erster Wert"
     return "Zweiter Wert"  # Wird nie erreicht!
 
+
 # %%
 
 # %% [markdown]
@@ -72,6 +73,31 @@ def generator_function():
 # Mit einer `for`-Schleife können wir alle Werte durchlaufen:
 
 # %%
+
+# %% [markdown]
+#
+# ## Ein etwas komplizierterer Generator
+
+
+# %%
+
+# %%
+text = """\
+# Introduction to Python Lists
+
+Python lists are a fundamental data structure used to store a collection of \
+items. They are ordered, mutable, and allow duplicate elements. Lists are \
+defined by enclosing sequence of items in square brackets `[]`, separated by \
+commas.
+
+## Creating a List
+
+You can create a list with various data types, including integers, floats, \
+strings, and even other lists. Here are a few examples:
+"""
+
+# %%
+
 
 # %% [markdown]
 #
@@ -129,78 +155,115 @@ llm = ChatOpenAI(
 
 # %% [markdown]
 #
-# ## Streaming-Chatbot mit Gradio
+# ## Ein einfacher Chatbot
 #
-# Jetzt kombinieren wir alles:
+# Zuerst erstellen wir einen einfachen Chatbot ohne Streaming.
+#
+# Diesmal speichern wir die Listen der Nachrichten nicht im Chatbot-Objekt,
+# sondern verwenden die History von Gradio.
 
 # %%
 import gradio as gr
-from langchain_anthropic import ChatAnthropic
-
-# %%
-chatbot_instances = {}
 
 
 # %%
-class FlexibleChatbot:
-    """A chatbot that can use different providers."""
+def create_llm():
+    return ChatOpenAI(
+        api_key=os.getenv("OPENROUTER_API_KEY"),
+        base_url="https://openrouter.ai/api/v1",
+        model="mistralai/ministral-14b-2512",
+    )
 
-    def __init__(self, provider="openrouter", system_prompt=None):
-        self.llm = self._create_llm(provider)
-        self.messages = []
-        if system_prompt:
-            self.messages.append(SystemMessage(content=system_prompt))
 
-    def _create_llm(self, provider):
-        """Create LLM based on provider name."""
-        if provider == "openrouter":
-            return ChatOpenAI(
-                api_key=os.getenv("OPENROUTER_API_KEY"),
-                base_url="https://openrouter.ai/api/v1",
-                model="mistralai/ministral-14b-2512",
-            )
-        elif provider == "openai":
-            return ChatOpenAI(
-                api_key=os.getenv("OPENAI_API_KEY"),
-                model="gpt-4o-mini",
-            )
-        elif provider == "anthropic":
-            return ChatAnthropic(
-                api_key=os.getenv("ANTHROPIC_API_KEY"),
-                model="claude-haiku-4-5",
-            )
+# %% [markdown]
+#
+# ## Warum Gradios History verwenden?
+#
+# Gradio bietet Funktionen wie **Nachricht löschen** und **Antwort neu generieren**
+#
+# - Damit diese korrekt funktionieren, müssen wir Gradios History verwenden
+# - Wir speichern die Nachrichten nicht mehr im Chatbot-Objekt
+# - `history_to_messages()` konvertiert zwischen Gradio- und LangChain-Format
+
+# %%
+def history_to_messages(history, system_prompt=None):
+    """Convert Gradio history to LangChain messages."""
+    messages = []
+    if system_prompt:
+        messages.append(SystemMessage(content=system_prompt))
+    for msg in history:
+        if msg["role"] == "user":
+            messages.append(HumanMessage(content=msg["content"]))
         else:
-            raise ValueError(f"Unknown provider: {provider}")
+            messages.append(AIMessage(content=msg["content"]))
+    return messages
 
-    def chat(self, user_message):
+# %%
+class SimpleChatbot:
+    """A simple chatbot using OpenRouter."""
+
+    def __init__(self, system_prompt=None):
+        self.llm = create_llm()
+        self.system_prompt = system_prompt
+
+    def chat(self, user_message, history):
         """Send a message and get a response."""
-        self.messages.append(HumanMessage(content=user_message))
-        response = self.llm.invoke(self.messages)
-        self.messages.append(response)
+        messages = history_to_messages(history, self.system_prompt)
+        messages.append(HumanMessage(content=user_message))
+        response = self.llm.invoke(messages)
         return response.content
 
 
+# %% [markdown]
+#
+# ## Nicht-Streaming Chatbot mit Gradio
+#
+# Beobachten Sie: Die Antwort erscheint erst nach einer Wartezeit!
+
 # %%
-def streaming_chat(message, _history, provider):
-    """Chatbot with streaming responses."""
-    global chatbot_instances
+simple_bot = SimpleChatbot("Du bist ein hilfreicher Assistent.")
 
-    if provider not in chatbot_instances:
-        chatbot_instances[provider] = FlexibleChatbot(
-            provider, "Du bist ein hilfreicher Assistent."
-        )
 
-    bot = chatbot_instances[provider]
-    bot.messages.append(HumanMessage(content=message))
+# %%
 
-    full_response = ""
-    for chunk in bot.llm.stream(bot.messages):
-        if chunk.content:
-            full_response += chunk.content
-            yield full_response
+# %%
 
-    bot.messages.append(AIMessage(content=full_response))
+# %%
 
+# %%
+
+# %% [markdown]
+#
+# ## Streaming zum Chatbot hinzufügen
+#
+# Wir erweitern unseren `SimpleChatbot` mit einer `stream()`-Methode:
+
+# %%
+class SimpleChatbot:
+    def __init__(self, system_prompt=None):
+        self.llm = create_llm()
+        self.system_prompt = system_prompt
+
+    def chat(self, user_message, history):
+        """Send a message and get a response."""
+        messages = history_to_messages(history, self.system_prompt)
+        messages.append(HumanMessage(content=user_message))
+        response = self.llm.invoke(messages)
+        return response.content
+
+
+# %% [markdown]
+#
+# ## Streaming Chatbot mit Gradio
+#
+# Jetzt sehen wir die Antwort Wort für Wort entstehen!
+
+# %%
+streaming_bot = SimpleChatbot("Du bist ein hilfreicher Assistent.")
+
+# %%
+
+# %%
 
 # %%
 
@@ -212,9 +275,10 @@ def streaming_chat(message, _history, provider):
 #
 # **Aufgabe**: Erweitern Sie den Streaming-Chatbot!
 #
-# 1. Fügen Sie einen System-Prompt-Auswahl hinzu (wie im vorherigen Workshop)
-# 2. Der Benutzer soll sowohl Provider als auch System-Prompt wählen können
-# 3. **Bonus**: Zeigen Sie an, wie viele Zeichen bereits generiert wurden
+# 1. Fügen Sie eine Provider-Auswahl hinzu (openrouter, openai, anthropic)
+# 2. Fügen Sie eine System-Prompt-Auswahl hinzu
+# 3. Der Benutzer soll sowohl Provider als auch System-Prompt wählen können
+# 4. **Bonus**: Zeigen Sie an, wie viele Zeichen bereits generiert wurden
 
 # %%
 SYSTEM_PROMPTS = {
@@ -225,7 +289,13 @@ SYSTEM_PROMPTS = {
 
 
 # %%
-def extended_streaming_chat(message, _history, provider, system_prompt_name):
+from langchain_anthropic import ChatAnthropic
+
+
+# %%
+
+# %%
+def extended_streaming_chat(message, history, provider, system_prompt_name):
     """Streaming chatbot with provider and system prompt selection."""
     # TODO: Implementieren Sie den Streaming-Chatbot
     # Hint: Erstellen Sie für jede Kombination aus Provider und System-Prompt
@@ -234,6 +304,8 @@ def extended_streaming_chat(message, _history, provider, system_prompt_name):
 
 # %%
 # TODO: Erstellen Sie das ChatInterface mit beiden Dropdowns
+
+# %%
 
 # %%
 
