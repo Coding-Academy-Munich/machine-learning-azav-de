@@ -33,7 +33,6 @@
 #
 # **Probleme**:
 # - Kompliziert bei vielen Variablen
-# - Fehleranfällig (vergessene `f`, falsche Variablen)
 # - Schwer zu debuggen
 
 # %% [markdown]
@@ -50,6 +49,7 @@
 import os
 from dotenv import load_dotenv
 
+# %%
 load_dotenv()
 
 # %%
@@ -131,24 +131,37 @@ template = ChatPromptTemplate.from_messages(
 # ## LangSmith einrichten
 #
 # 1. Account erstellen: https://smith.langchain.com
-# 2. API-Key in `.env` speichern:
+# 2. Konfiguration in `.env` speichern:
 #    ```
 #    LANGSMITH_API_KEY=lsv2_pt_...
+#    LANGSMITH_TRACING=true
+#    LANGSMITH_ENDPOINT=https://api.smith.langchain.com
+#    LANGSMITH_PROJECT=ml-azav-course
 #    ```
-# 3. Tracing aktivieren:
+#
+# **Wichtig:** Diese Variablen müssen gesetzt sein, **bevor** LangChain
+# importiert wird!
 
 # %%
-os.environ["LANGSMITH_TRACING"] = "true"
-os.environ["LANGSMITH_ENDPOINT"] = "https://api.smith.langchain.com"
-os.environ["LANGSMITH_PROJECT"] = "ml-azav-course"
-if os.getenv("LANGSMITH_API_KEY") is None:
-    print("Warning: LANGSMITH_API_KEY not set in environment variables.")
+print(f"LangSmith Tracing: {os.getenv('LANGSMITH_TRACING')}")
+print(f"LangSmith Project: {os.getenv('LANGSMITH_PROJECT')!r}")
+if os.getenv("LANGSMITH_API_KEY"):
+    print("LangSmith API Key: configured")
+else:
+    print("Warning: LANGSMITH_API_KEY not set!")
+
 
 # %% [markdown]
 #
-# ## Jetzt mit Tracing!
+# ## Alle Aufrufe wurden aufgezeichnet!
 #
-# Nach der Aktivierung wird jeder Aufruf in LangSmith sichtbar:
+# Da die Umgebungsvariablen in `.env` stehen, wurden **alle bisherigen
+# LLM-Aufrufe** bereits in LangSmith aufgezeichnet!
+#
+# (Wenn Sie die .env erst jetzt hinzugefügt haben, müssen Sie das Notebook neu
+# starten und noch einmal ausführen.)
+#
+# Schauen wir uns noch einen Aufruf an:
 
 # %%
 
@@ -221,7 +234,6 @@ history = [
     AIMessage(content="Python ist eine Programmiersprache..."),
 ]
 
-
 # %%
 
 # %%
@@ -232,30 +244,64 @@ history = [
 
 # %% [markdown]
 #
+# ## OpenAI-Format für History
+#
+# - Wir können auch das OpenAI-Format für Nachrichten verwenden:
+
+# %%
+history_openai = [
+    {"role": "user", "content": "Was ist Python?"},
+    {"role": "assistant", "content": "Python ist eine Programmiersprache..."},
+]
+
+# %%
+messages = chat_template.invoke(
+    {
+        "topic": "Python",
+        "history": history_openai,
+        "input": "Und wofür wird es verwendet?",
+    }
+)
+
+# %%
+
+# %%
+
+# %%
+
+
+# %% [markdown]
+#
 # ## Template-basierter Chatbot
 #
 # Jetzt kombinieren wir alles zu einem flexiblen Chatbot:
+
+# %%
+def create_openrouter_llm():
+    return ChatOpenAI(
+        api_key=os.getenv("OPENROUTER_API_KEY"),
+        base_url="https://openrouter.ai/api/v1",
+        model=model,
+    )
+
+
+# %%
+EXPERT_PROMPT = """Du bist ein {topic}-Experte. Dein Stil ist: {style}"""
+
 
 # %%
 class TemplateChatbot:
     """A chatbot using prompt templates."""
 
     def __init__(self, topic, style="freundlich und hilfsbereit"):
-        self.llm = ChatOpenAI(
-            api_key=os.getenv("OPENROUTER_API_KEY"),
-            base_url="https://openrouter.ai/api/v1",
-            model=model,
-        )
+        self.llm = create_openrouter_llm()
         self.topic = topic
         self.style = style
         self.history = []
 
         self.template = ChatPromptTemplate.from_messages(
             [
-                (
-                    "system",
-                    "Du bist ein {topic}-Experte. Dein Stil ist: {style}",
-                ),
+                ("system", EXPERT_PROMPT),
                 MessagesPlaceholder(variable_name="history"),
                 ("human", "{input}"),
             ]
@@ -282,7 +328,7 @@ class TemplateChatbot:
 
 # %% [markdown]
 #
-# ## Den flexiblen Chatbot testen
+# ## Den template-basierten Chatbot testen
 
 # %%
 
@@ -326,31 +372,27 @@ class TemplateChatbot:
 # 2. Gradio Interface mit Eingabefeldern für Thema und Stil
 # 3. LangSmith Traces überprüfen
 # 4. **Bonus**: Verschiedene Lehrstile als Dropdown
-
-# %%
-import gradio as gr
+# 5. **Bonus**: Streaming-Antworten
+# 6. **Bonus**: Konversation als Text exportieren (Benötigt Gradio Blocks)
+#
+# **Hinweis**: Sie müssen, wie bei Gradio üblich, die History _nicht_ manuell
+# verwalten. Verwenden Sie `type="messages"` im ChatInterface und verwenden Sie
+# den `history` Parameter.
 
 # %% [markdown]
 #
 # ### Teil 1: Template und Chatbot
 
 # %%
-TEACHING_STYLES_DE = {
+import gradio as gr
+
+# %%
+TEACHING_STYLES = {
     "Sokratisch": "Du stellst Fragen, um den Lernenden zum Nachdenken zu bringen.",
     "Schritt-für-Schritt": "Du erklärst alles in kleinen, klaren Schritten.",
     "Mit Beispielen": "Du verwendest viele praktische Beispiele.",
     "Einfach": "Du erklärst alles so einfach wie möglich.",
 }
-
-TEACHING_STYLES_EN = {
-    "Socratic": "You ask questions to make the learner think.",
-    "Step-by-step": "You explain everything in small, clear steps.",
-    "With examples": "You use many practical examples.",
-    "Simple": "You explain everything as simply as possible.",
-}
-
-# %%
-TEACHING_STYLES = TEACHING_STYLES_DE
 
 
 # %%
@@ -368,6 +410,8 @@ def create_tutor_response(message, history, topic, style):
 
 # %%
 
+# %%
+
 # %% [markdown]
 #
 # ### Überprüfen Sie LangSmith!
@@ -381,18 +425,6 @@ def create_tutor_response(message, history, topic, style):
 #    - Welcher Lehrstil wurde verwendet?
 #    - Wie viele Token wurden verbraucht?
 
-# %% [markdown]
-#
-# ## Workshop-Aufgaben Zusammenfassung
-#
-# ### Basis (Pflicht):
-# 1. Template mit `{topic}` und `{style}` erstellen
-# 2. Gradio Interface mit Eingabefeldern
-# 3. LangSmith Traces überprüfen
-#
-# ### Erweitert (Optional):
-# 4. Eigene Lehrstile hinzufügen
-# 5. Token-Kosten pro Konversation anzeigen
-# 6. Export der Konversation als Text
+# %%
 
 # %%

@@ -391,7 +391,6 @@ system_prompt_demo = gr.ChatInterface(
 # 1. Erstellen Sie einen `FlexibleChatbot` mit Gradio-Interface
 # 2. Fügen Sie ein Dropdown hinzu, um den Provider zu wählen
 # 3. Testen Sie verschiedene Provider
-# 4. **Bonus**: Fügen Sie Streaming hinzu mit `llm.stream()`
 
 # %% [markdown]
 #

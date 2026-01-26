@@ -13160,7 +13160,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8427bcf5ab632541"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=062fcebb85c49837"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Naive-L%C3%B6sung:-String-Formatierung">Naive Lösung: String-Formatierung<a class="anchor-link" href="#Naive-L%C3%B6sung:-String-Formatierung">¶</a></h2><div class="highlight"><pre><span></span><span class="n">topic</span> <span class="o">=</span> <span class="s2">"Kochen"</span>
@@ -13169,7 +13169,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <p><strong>Probleme</strong>:</p>
 <ul>
 <li>Kompliziert bei vielen Variablen</li>
-<li>Fehleranfällig (vergessene <code>f</code>, falsche Variablen)</li>
 <li>Schwer zu debuggen</li>
 </ul>
 </div>
@@ -13187,21 +13186,30 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d80991aa92e2ca81">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=4135f7cdf8859522">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
-
-<span class="n">load_dotenv</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6a5398e807e72585">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ce35827a2adb266e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=6a5398e807e72585">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13262,7 +13270,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=e1a79438d92dcd6d"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=e1a79438d92dcd6d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Jetzt können wir das Template mit verschiedenen Werten füllen:</p>
@@ -13291,7 +13299,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e07b6c6e46a55f6a">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=e07b6c6e46a55f6a">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13302,7 +13310,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=f3adff1be2429a0e">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=29c4234f1e3a88a5">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13331,7 +13339,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=29c4234f1e3a88a5">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=34ca354c900b53e4">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13368,42 +13376,51 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4a8db6e8c4be2c30"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=cc7e9da019cbb165"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="LangSmith-einrichten">LangSmith einrichten<a class="anchor-link" href="#LangSmith-einrichten">¶</a></h2><ol>
 <li>Account erstellen: <a href="https://smith.langchain.com">https://smith.langchain.com</a></li>
-<li>API-Key in <code>.env</code> speichern:<pre><code>LANGSMITH_API_KEY=lsv2_pt_...
+<li>Konfiguration in <code>.env</code> speichern:<pre><code>LANGSMITH_API_KEY=lsv2_pt_...
+LANGSMITH_TRACING=true
+LANGSMITH_ENDPOINT=https://api.smith.langchain.com
+LANGSMITH_PROJECT=ml-azav-course
 </code></pre>
 </li>
-<li>Tracing aktivieren:</li>
 </ol>
+<p><strong>Wichtig:</strong> Diese Variablen müssen gesetzt sein, <strong>bevor</strong> LangChain
+importiert wird!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=77e2b57ac361160c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=512ac85063a72c0e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"LANGSMITH_TRACING"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"true"</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"LANGSMITH_ENDPOINT"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"https://api.smith.langchain.com"</span>
-<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"LANGSMITH_PROJECT"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"ml-azav-course"</span>
-<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"LANGSMITH_API_KEY"</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">"Warning: LANGSMITH_API_KEY not set in environment variables."</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"LangSmith Tracing: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'LANGSMITH_TRACING'</span><span class="p">)</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"LangSmith Project: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s1">'LANGSMITH_PROJECT'</span><span class="p">)</span><span class="si">!r}</span><span class="s2">"</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"LANGSMITH_API_KEY"</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"LangSmith API Key: configured"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Warning: LANGSMITH_API_KEY not set!"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a88dbf37254a43b8"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e2acd83eec99bf10"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Jetzt-mit-Tracing!">Jetzt mit Tracing!<a class="anchor-link" href="#Jetzt-mit-Tracing!">¶</a></h2><p>Nach der Aktivierung wird jeder Aufruf in LangSmith sichtbar:</p>
+<h2 id="Alle-Aufrufe-wurden-aufgezeichnet!">Alle Aufrufe wurden aufgezeichnet!<a class="anchor-link" href="#Alle-Aufrufe-wurden-aufgezeichnet!">¶</a></h2><p>Da die Umgebungsvariablen in <code>.env</code> stehen, wurden <strong>alle bisherigen
+LLM-Aufrufe</strong> bereits in LangSmith aufgezeichnet!</p>
+<p>(Wenn Sie die .env erst jetzt hinzugefügt haben, müssen Sie das Notebook neu
+starten und noch einmal ausführen.)</p>
+<p>Schauen wir uns noch einen Aufruf an:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=dfb9e8ede97d171b">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=b472f71cf2eb3952">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13414,7 +13431,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=590fa3a94556a24f">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=99382722a39d69a9">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13467,7 +13484,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d26f6593d377e70d">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=d26f6593d377e70d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13478,7 +13495,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1adcfda69dc3e2e7">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=a3d856930106b69f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13489,7 +13506,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c820c1f614894227">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ceb5eefbc7253fd2">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13568,7 +13585,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ba5a80f3a598bab9">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=88d07b56842cf3f8">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13579,7 +13596,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8057225271c82afb">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=f482d8b8909d64a3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13590,7 +13607,80 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=f32804739de61609">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2fad3c99bb0ee600">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b1f53a7660a479d8"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="OpenAI-Format-f%C3%BCr-History">OpenAI-Format für History<a class="anchor-link" href="#OpenAI-Format-f%C3%BCr-History">¶</a></h2><ul>
+<li>Wir können auch das OpenAI-Format für Nachrichten verwenden:</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=c957931c76ac76e7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">history_openai</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"user"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="s2">"Was ist Python?"</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"role"</span><span class="p">:</span> <span class="s2">"assistant"</span><span class="p">,</span> <span class="s2">"content"</span><span class="p">:</span> <span class="s2">"Python ist eine Programmiersprache..."</span><span class="p">},</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=fe46ff1adfd2e49a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">messages</span> <span class="o">=</span> <span class="n">chat_template</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"Python"</span><span class="p">,</span>
+        <span class="s2">"history"</span><span class="p">:</span> <span class="n">history_openai</span><span class="p">,</span>
+        <span class="s2">"input"</span><span class="p">:</span> <span class="s2">"Und wofür wird es verwendet?"</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=3a763d8c606cb13d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=04fd7ee66e10ee2f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4f4fc29623b608bf">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13608,7 +13698,34 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e0c0c7cf46de3cdb">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4dd88dc2df0c0406">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">create_openrouter_llm</span><span class="p">():</span>
+    <span class="k">return</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
+        <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
+        <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=583c05b7633d8284">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">EXPERT_PROMPT</span> <span class="o">=</span> <span class="s2">"""Du bist ein </span><span class="si">{topic}</span><span class="s2">-Experte. Dein Stil ist: </span><span class="si">{style}</span><span class="s2">"""</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=81c7eaf9dae0d22b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13617,21 +13734,14 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <span class="w">    </span><span class="sd">"""A chatbot using prompt templates."""</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s2">"freundlich und hilfsbereit"</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
-            <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
-            <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
-            <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
-        <span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">llm</span> <span class="o">=</span> <span class="n">create_openrouter_llm</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">topic</span> <span class="o">=</span> <span class="n">topic</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">style</span> <span class="o">=</span> <span class="n">style</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">history</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">template</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
             <span class="p">[</span>
-                <span class="p">(</span>
-                    <span class="s2">"system"</span><span class="p">,</span>
-                    <span class="s2">"Du bist ein </span><span class="si">{topic}</span><span class="s2">-Experte. Dein Stil ist: </span><span class="si">{style}</span><span class="s2">"</span><span class="p">,</span>
-                <span class="p">),</span>
+                <span class="p">(</span><span class="s2">"system"</span><span class="p">,</span> <span class="n">EXPERT_PROMPT</span><span class="p">),</span>
                 <span class="n">MessagesPlaceholder</span><span class="p">(</span><span class="n">variable_name</span><span class="o">=</span><span class="s2">"history"</span><span class="p">),</span>
                 <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{input}</span><span class="s2">"</span><span class="p">),</span>
             <span class="p">]</span>
@@ -13659,10 +13769,10 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c7283c4704b9d6f4"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=59a447879f6a6bb7"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Den-flexiblen-Chatbot-testen">Den flexiblen Chatbot testen<a class="anchor-link" href="#Den-flexiblen-Chatbot-testen">¶</a></h2>
+<h2 id="Den-template-basierten-Chatbot-testen">Den template-basierten Chatbot testen<a class="anchor-link" href="#Den-template-basierten-Chatbot-testen">¶</a></h2>
 </div>
 </div>
 </div>
@@ -13730,7 +13840,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=45ea00a18613ddbd"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f2031a6b48161219"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Workshop:-%22Lerne-Alles%22-Tutor">Workshop: "Lerne Alles" Tutor<a class="anchor-link" href="#Workshop:-%22Lerne-Alles%22-Tutor">¶</a></h2><p><strong>Ziel</strong>: Ein Chatbot, der jedes Thema erklären kann!</p>
@@ -13740,18 +13850,12 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <li>Gradio Interface mit Eingabefeldern für Thema und Stil</li>
 <li>LangSmith Traces überprüfen</li>
 <li><strong>Bonus</strong>: Verschiedene Lehrstile als Dropdown</li>
+<li><strong>Bonus</strong>: Streaming-Antworten</li>
+<li><strong>Bonus</strong>: Konversation als Text exportieren (Benötigt Gradio Blocks)</li>
 </ol>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5777c88c8865f5f3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
-</pre></div>
-</div>
+<p><strong>Hinweis</strong>: Sie müssen, wie bei Gradio üblich, die History <em>nicht</em> manuell
+verwalten. Verwenden Sie <code>type="messages"</code> im ChatInterface und verwenden Sie
+den <code>history</code> Parameter.</p>
 </div>
 </div>
 </div>
@@ -13762,41 +13866,34 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=df4c2c4065760051">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=5777c88c8865f5f3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">TEACHING_STYLES_DE</span> <span class="o">=</span> <span class="p">{</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1381e422c733ac70">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">TEACHING_STYLES</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s2">"Sokratisch"</span><span class="p">:</span> <span class="s2">"Du stellst Fragen, um den Lernenden zum Nachdenken zu bringen."</span><span class="p">,</span>
     <span class="s2">"Schritt-für-Schritt"</span><span class="p">:</span> <span class="s2">"Du erklärst alles in kleinen, klaren Schritten."</span><span class="p">,</span>
     <span class="s2">"Mit Beispielen"</span><span class="p">:</span> <span class="s2">"Du verwendest viele praktische Beispiele."</span><span class="p">,</span>
     <span class="s2">"Einfach"</span><span class="p">:</span> <span class="s2">"Du erklärst alles so einfach wie möglich."</span><span class="p">,</span>
 <span class="p">}</span>
-
-<span class="n">TEACHING_STYLES_EN</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s2">"Socratic"</span><span class="p">:</span> <span class="s2">"You ask questions to make the learner think."</span><span class="p">,</span>
-    <span class="s2">"Step-by-step"</span><span class="p">:</span> <span class="s2">"You explain everything in small, clear steps."</span><span class="p">,</span>
-    <span class="s2">"With examples"</span><span class="p">:</span> <span class="s2">"You use many practical examples."</span><span class="p">,</span>
-    <span class="s2">"Simple"</span><span class="p">:</span> <span class="s2">"You explain everything as simply as possible."</span><span class="p">,</span>
-<span class="p">}</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=00b92ef955c4638e">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">TEACHING_STYLES</span> <span class="o">=</span> <span class="n">TEACHING_STYLES_DE</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=e46be1bf306dd158">
+<div class="cell border-box-sizing code_cell rendered celltag_start celltag_subslide" id="cell-id=e46be1bf306dd158">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13828,7 +13925,18 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=67ec6e4c34165976">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2826dd38a8479f6c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f89c2c31a8d9c831">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13856,23 +13964,18 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=940dab3db664a9a8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop-Aufgaben-Zusammenfassung">Workshop-Aufgaben Zusammenfassung<a class="anchor-link" href="#Workshop-Aufgaben-Zusammenfassung">¶</a></h2><h3 id="Basis-(Pflicht):">Basis (Pflicht):<a class="anchor-link" href="#Basis-(Pflicht):">¶</a></h3><ol>
-<li>Template mit <code>{topic}</code> und <code>{style}</code> erstellen</li>
-<li>Gradio Interface mit Eingabefeldern</li>
-<li>LangSmith Traces überprüfen</li>
-</ol>
-<h3 id="Erweitert-(Optional):">Erweitert (Optional):<a class="anchor-link" href="#Erweitert-(Optional):">¶</a></h3><ol start="4">
-<li>Eigene Lehrstile hinzufügen</li>
-<li>Token-Kosten pro Konversation anzeigen</li>
-<li>Export der Konversation als Text</li>
-</ol>
+<div class="cell border-box-sizing code_cell rendered celltag_slide" id="cell-id=697f71c6fc70c1c1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e5abc550e1ad1fc7">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
