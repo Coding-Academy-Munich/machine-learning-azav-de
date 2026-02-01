@@ -13145,12 +13145,25 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_slide" id="cell-id=d80991aa92e2ca81">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7bbb398e2c9548df"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Das-Problem:-Mehrere-unabh%C3%A4ngige-Analysen">Das Problem: Mehrere unabhängige Analysen<a class="anchor-link" href="#Das-Problem:-Mehrere-unabh%C3%A4ngige-Analysen">¶</a></h2><p>Wir wollen <strong>mehrere Informationen</strong> aus demselben Text extrahieren:</p>
+<ul>
+<li>Stimmung, Schlüsselwörter, Zusammenfassung, Hauptthemen, Ton</li>
+</ul>
+<p>Diese Analysen sind <strong>unabhängig voneinander</strong> - keine braucht das Ergebnis
+der anderen.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_slide" id="cell-id=1cc081befa9b42c6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pprint</span><span class="w"> </span><span class="kn">import</span> <span class="n">pprint</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 
 <span class="n">load_dotenv</span><span class="p">()</span>
@@ -13242,21 +13255,10 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1fd5c2b88c3add6c"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=012b10137c0a56ee"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="RunnableParallel:-Mehrere-Dinge-gleichzeitig">RunnableParallel: Mehrere Dinge gleichzeitig<a class="anchor-link" href="#RunnableParallel:-Mehrere-Dinge-gleichzeitig">¶</a></h2><p>Was wenn wir mehrere Informationen brauchen?</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d7b9605f74b75725">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnableParallel</span>
-</pre></div>
-</div>
+<h2 id="Die-Analysen">Die Analysen<a class="anchor-link" href="#Die-Analysen">¶</a></h2><p>Wir definieren eine Chain für jede Analyse:</p>
 </div>
 </div>
 </div>
@@ -13279,6 +13281,17 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">sentiment_template</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
     <span class="p">[(</span><span class="s2">"system"</span><span class="p">,</span> <span class="n">sentiment_prompt</span><span class="p">),</span> <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{text}</span><span class="s2">"</span><span class="p">)]</span>
 <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e9368517c7fb9409">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sentiment_chain</span> <span class="o">=</span> <span class="n">sentiment_template</span> <span class="o">|</span> <span class="n">llm</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -13310,17 +13323,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=e9368517c7fb9409">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">sentiment_chain</span> <span class="o">=</span> <span class="n">sentiment_template</span> <span class="o">|</span> <span class="n">llm</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ddf12b6622d456aa">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
@@ -13332,16 +13334,108 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=456abbdec36d0414"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Das-Problem:-Mehrere-unabh%C3%A4ngige-Analysen">Das Problem: Mehrere unabhängige Analysen<a class="anchor-link" href="#Das-Problem:-Mehrere-unabh%C3%A4ngige-Analysen">¶</a></h2><p>Wir wollen <strong>mehrere Informationen</strong> aus demselben Text extrahieren:</p>
-<ul>
-<li>Stimmung (positiv/negativ/neutral)</li>
-<li>Schlüsselwörter</li>
-</ul>
-<p>Diese Analysen sind <strong>unabhängig voneinander</strong> - keine braucht das Ergebnis
-der anderen.</p>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=499d5cf4aa213479">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">summary_prompt</span> <span class="o">=</span> <span class="s2">"Fasse den Text in einem Satz zusammen."</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4528b047d9a65797">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">summary_template</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
+    <span class="p">[(</span><span class="s2">"system"</span><span class="p">,</span> <span class="n">summary_prompt</span><span class="p">),</span> <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{text}</span><span class="s2">"</span><span class="p">)]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=39a60471648968aa">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">summary_chain</span> <span class="o">=</span> <span class="n">summary_template</span> <span class="o">|</span> <span class="n">llm</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=41b03323a2d52153">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">topics_prompt</span> <span class="o">=</span> <span class="s2">"Liste die 2-3 Hauptthemen des Textes auf. Nur Stichwörter."</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6be744ff02ca6fe0">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">topics_template</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
+    <span class="p">[(</span><span class="s2">"system"</span><span class="p">,</span> <span class="n">topics_prompt</span><span class="p">),</span> <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{text}</span><span class="s2">"</span><span class="p">)]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6446f248b90863bb">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">topics_chain</span> <span class="o">=</span> <span class="n">topics_template</span> <span class="o">|</span> <span class="n">llm</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=ff6b83de7ebe0039">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">tone_prompt</span> <span class="o">=</span> <span class="s2">"Beschreibe den Ton des Textes in einem Wort (z.B. sachlich, optimistisch, kritisch)."</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e05d46a3c792bf25">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">tone_template</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
+    <span class="p">[(</span><span class="s2">"system"</span><span class="p">,</span> <span class="n">tone_prompt</span><span class="p">),</span> <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{text}</span><span class="s2">"</span><span class="p">)]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6bfcf6ca18b9d59d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">tone_chain</span> <span class="o">=</span> <span class="n">tone_template</span> <span class="o">|</span> <span class="n">llm</span> <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -13386,29 +13480,14 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=78cbd59850742684"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=d087f3be23ed3922"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Ansatz-2:-Sequentielle-Funktion">Ansatz 2: Sequentielle Funktion<a class="anchor-link" href="#Ansatz-2:-Sequentielle-Funktion">¶</a></h3><p>Wir können eine Funktion schreiben, die beide Chains nacheinander aufruft:</p>
+<h3 id="Ansatz-2:-Sequentielle-Funktion">Ansatz 2: Sequentielle Funktion<a class="anchor-link" href="#Ansatz-2:-Sequentielle-Funktion">¶</a></h3><p>Wir können eine Funktion schreiben, die alle Chains nacheinander aufruft:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=35d52bbf451c5ab3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analyze_sequentially</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Analyze text sequentially - works but slow."""</span>
-    <span class="n">sentiment</span> <span class="o">=</span> <span class="n">sentiment_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="n">keywords</span> <span class="o">=</span> <span class="n">keywords_chain</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="k">return</span> <span class="p">{</span><span class="s2">"sentiment"</span><span class="p">:</span> <span class="n">sentiment</span><span class="p">,</span> <span class="s2">"keywords"</span><span class="p">:</span> <span class="n">keywords</span><span class="p">}</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=5e012a73952cab39">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8b87210088c668f8">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13419,7 +13498,18 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=b215ed253f8d6b8d">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=5e012a73952cab39">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=87c4743c2fa0f2c6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13441,18 +13531,35 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8773bef6e3039436"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=89bbbeddb3b19ea2"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Die-L%C3%B6sung:-RunnableParallel">Die Lösung: RunnableParallel<a class="anchor-link" href="#Die-L%C3%B6sung:-RunnableParallel">¶</a></h2><p><code>RunnableParallel</code> löst beide Probleme:</p>
 <ul>
+<li><code>RunnableParallel</code> bekommt mehrere Runnables<ul>
+<li>Als Keyword-Argumente</li>
+<li>Oder als Dictionary</li>
+</ul>
+</li>
+<li>Alle Runnables werden gleichzeitig ausgeführt</li>
 <li>Alle Ergebnisse werden gesammelt</li>
 <li>Chains laufen gleichzeitig (parallel)</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=61443123892fa34d">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=d7b9605f74b75725">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnableParallel</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e1347550bb9603c5">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13463,7 +13570,7 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e7917ad1c33201ea">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=e7917ad1c33201ea">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13474,7 +13581,48 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6a81d250fa33f690">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a5a39d0765b8e949">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=333698e44e5084fa">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">analysis_chain_dict</span> <span class="o">=</span> <span class="n">RunnableParallel</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"sentiment"</span><span class="p">:</span> <span class="n">sentiment_chain</span><span class="p">,</span>
+        <span class="s2">"keywords"</span><span class="p">:</span> <span class="n">keywords_chain</span><span class="p">,</span>
+        <span class="s2">"summary"</span><span class="p">:</span> <span class="n">summary_chain</span><span class="p">,</span>
+        <span class="s2">"topics"</span><span class="p">:</span> <span class="n">topics_chain</span><span class="p">,</span>
+        <span class="s2">"tone"</span><span class="p">:</span> <span class="n">tone_chain</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=d8f3e74d4c455106">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=79d66ff746727b39">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13503,12 +13651,12 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ce4029162bee1de0">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6121718d3fa989c3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">num_runs</span> <span class="o">=</span> <span class="mi">5</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">num_runs</span> <span class="o">=</span> <span class="mi">3</span>
 </pre></div>
 </div>
 </div>
@@ -13542,12 +13690,14 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=266a6371a4d8209f">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=266a6371a4d8209f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Sequentiell: </span><span class="si">{</span><span class="n">sequential_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Parallel: </span><span class="si">{</span><span class="n">parallel_time</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">s"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Speedup: </span><span class="si">{</span><span class="n">sequential_time</span><span class="o">/</span><span class="n">parallel_time</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">x"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13614,7 +13764,24 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=01b4b33b6446b46d">
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=e00829d1a00c256a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">analysis_with_original</span> <span class="o">=</span> <span class="n">RunnableParallel</span><span class="p">(</span>
+    <span class="n">sentiment</span><span class="o">=</span><span class="n">sentiment_chain</span><span class="p">,</span>
+    <span class="n">keywords</span><span class="o">=</span><span class="n">keywords_chain</span><span class="p">,</span>
+    <span class="n">summary</span><span class="o">=</span><span class="n">summary_chain</span><span class="p">,</span>
+    <span class="n">topics</span><span class="o">=</span><span class="n">topics_chain</span><span class="p">,</span>
+    <span class="n">tone</span><span class="o">=</span><span class="n">tone_chain</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=246f2436afd57e92">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13625,18 +13792,7 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=246f2436afd57e92">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2141cb01395bd3de">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=6a81d250fa33f690">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13667,7 +13823,7 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7148b714a2a4fd85">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=7148b714a2a4fd85">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13689,7 +13845,7 @@ der anderen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=023cae2bd52705dc">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ca2b3e28025c2878">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13821,25 +13977,6 @@ der anderen.</p>
 <span class="n">chain2</span> <span class="o">=</span> <span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">{</span><span class="s2">"text"</span><span class="p">:</span> <span class="n">x</span><span class="p">})</span> <span class="o">|</span> <span class="n">summarize_template</span> <span class="o">|</span> <span class="n">llm</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=bd403d3461809aee"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Wann-Chains-verwenden?">Wann Chains verwenden?<a class="anchor-link" href="#Wann-Chains-verwenden?">¶</a></h2><p><strong>Chains sind gut für</strong>:</p>
-<ul>
-<li>Wiederholbare Pipelines</li>
-<li>Multi-Step-Verarbeitung</li>
-<li>Klare, dokumentierte Workflows</li>
-<li>Debugging mit LangSmith</li>
-</ul>
-<p><strong>Einfaches <code>invoke()</code> reicht für</strong>:</p>
-<ul>
-<li>Einzelne Aufrufe</li>
-<li>Einfache Chatbots</li>
-<li>Prototyping</li>
-</ul>
 </div>
 </div>
 </div>
@@ -14003,7 +14140,7 @@ Translator.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=7f2f99c3c8db8d95">
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=f73009a4b0d4d82b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -14012,19 +14149,17 @@ Translator.</p>
 <span class="w">    </span><span class="sd">"""Übersetzt Text in alle Sprachen."""</span>
     <span class="c1"># TODO: Implementieren Sie die Funktion</span>
     <span class="k">pass</span>
-
-
-<span class="n">translator_demo</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Interface</span><span class="p">(</span>
-    <span class="n">fn</span><span class="o">=</span><span class="n">translate_to_all</span><span class="p">,</span>
-    <span class="n">inputs</span><span class="o">=</span><span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">lines</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"Text"</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="s2">"Text zum Übersetzen..."</span><span class="p">),</span>
-    <span class="n">outputs</span><span class="o">=</span><span class="p">[</span>
-        <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Französisch"</span><span class="p">),</span>
-        <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Spanisch"</span><span class="p">),</span>
-        <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Italienisch"</span><span class="p">),</span>
-    <span class="p">],</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">"Multi-Language Translator"</span><span class="p">,</span>
-    <span class="n">description</span><span class="o">=</span><span class="s2">"Übersetzen Sie Text gleichzeitig in mehrere Sprachen!"</span><span class="p">,</span>
-<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=1d16678ebc34824c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">translator_demo</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># gr.Interface(...)</span>
 </pre></div>
 </div>
 </div>
@@ -14041,10 +14176,10 @@ Translator.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f282d4351dab1b36"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5dd9b16c4b98cdcd"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="%C3%9Cberpr%C3%BCfen-Sie-LangSmith!">Überprüfen Sie LangSmith!<a class="anchor-link" href="#%C3%9Cberpr%C3%BCfen-Sie-LangSmith!">¶</a></h3><p>Nach dem Testen sehen Sie in LangSmith:</p>
+<h3 id="%C3%9Cberpr%C3%BCfen-Sie-in-LangSmith!">Überprüfen Sie in LangSmith!<a class="anchor-link" href="#%C3%9Cberpr%C3%BCfen-Sie-in-LangSmith!">¶</a></h3><p>Nach dem Testen sehen Sie in LangSmith:</p>
 <ol>
 <li><strong>RunnableParallel</strong>: Alle drei Übersetzungen</li>
 <li><strong>Parallele Ausführung</strong>: Die Chains laufen gleichzeitig</li>

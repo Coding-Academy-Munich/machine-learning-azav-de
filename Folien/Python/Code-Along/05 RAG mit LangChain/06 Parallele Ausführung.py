@@ -7,8 +7,20 @@
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
 
+# %% [markdown]
+#
+# ## Das Problem: Mehrere unabhängige Analysen
+#
+# Wir wollen **mehrere Informationen** aus demselben Text extrahieren:
+#
+# - Stimmung, Schlüsselwörter, Zusammenfassung, Hauptthemen, Ton
+#
+# Diese Analysen sind **unabhängig voneinander** - keine braucht das Ergebnis
+# der anderen.
+
 # %%
 import os
+from pprint import pprint
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -66,12 +78,9 @@ priorisieren.
 
 # %% [markdown]
 #
-# ## RunnableParallel: Mehrere Dinge gleichzeitig
+# ## Die Analysen
 #
-# Was wenn wir mehrere Informationen brauchen?
-
-# %%
-from langchain_core.runnables import RunnableParallel
+# Wir definieren eine Chain für jede Analyse:
 
 # %%
 sentiment_prompt = "Analysiere die Stimmung des Textes. Antworte nur mit: positiv, negativ oder neutral"
@@ -80,6 +89,9 @@ sentiment_prompt = "Analysiere die Stimmung des Textes. Antworte nur mit: positi
 sentiment_template = ChatPromptTemplate.from_messages(
     [("system", sentiment_prompt), ("human", "{text}")]
 )
+
+# %%
+sentiment_chain = sentiment_template | llm | StrOutputParser()
 
 # %%
 keywords_prompt = """\
@@ -92,22 +104,40 @@ keywords_template = ChatPromptTemplate.from_messages(
 )
 
 # %%
-sentiment_chain = sentiment_template | llm | StrOutputParser()
-
-# %%
 keywords_chain = keywords_template | llm | StrOutputParser()
 
-# %% [markdown]
-#
-# ## Das Problem: Mehrere unabhängige Analysen
-#
-# Wir wollen **mehrere Informationen** aus demselben Text extrahieren:
-#
-# - Stimmung (positiv/negativ/neutral)
-# - Schlüsselwörter
-#
-# Diese Analysen sind **unabhängig voneinander** - keine braucht das Ergebnis
-# der anderen.
+# %%
+summary_prompt = "Fasse den Text in einem Satz zusammen."
+
+# %%
+summary_template = ChatPromptTemplate.from_messages(
+    [("system", summary_prompt), ("human", "{text}")]
+)
+
+# %%
+summary_chain = summary_template | llm | StrOutputParser()
+
+# %%
+topics_prompt = "Liste die 2-3 Hauptthemen des Textes auf. Nur Stichwörter."
+
+# %%
+topics_template = ChatPromptTemplate.from_messages(
+    [("system", topics_prompt), ("human", "{text}")]
+)
+
+# %%
+topics_chain = topics_template | llm | StrOutputParser()
+
+# %%
+tone_prompt = "Beschreibe den Ton des Textes in einem Wort (z.B. sachlich, optimistisch, kritisch)."
+
+# %%
+tone_template = ChatPromptTemplate.from_messages(
+    [("system", tone_prompt), ("human", "{text}")]
+)
+
+# %%
+tone_chain = tone_template | llm | StrOutputParser()
 
 # %% [markdown]
 #
@@ -122,7 +152,6 @@ awkward_chain = (
     | keywords_chain
 )
 
-
 # %%
 
 # %% [markdown]
@@ -135,14 +164,9 @@ awkward_chain = (
 #
 # ### Ansatz 2: Sequentielle Funktion
 #
-# Wir können eine Funktion schreiben, die beide Chains nacheinander aufruft:
+# Wir können eine Funktion schreiben, die alle Chains nacheinander aufruft:
 
 # %%
-def analyze_sequentially(text):
-    """Analyze text sequentially - works but slow."""
-    sentiment = sentiment_chain.invoke(text)
-    keywords = keywords_chain.invoke(text)
-    return {"sentiment": sentiment, "keywords": keywords}
 
 # %%
 
@@ -162,10 +186,32 @@ def analyze_sequentially(text):
 #
 # `RunnableParallel` löst beide Probleme:
 #
+# - `RunnableParallel` bekommt mehrere Runnables
+#   - Als Keyword-Argumente
+#   - Oder als Dictionary
+# - Alle Runnables werden gleichzeitig ausgeführt
 # - Alle Ergebnisse werden gesammelt
 # - Chains laufen gleichzeitig (parallel)
 
 # %%
+from langchain_core.runnables import RunnableParallel
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+analysis_chain_dict = RunnableParallel(
+    {
+        "sentiment": sentiment_chain,
+        "keywords": keywords_chain,
+        "summary": summary_chain,
+        "topics": topics_chain,
+        "tone": tone_chain,
+    }
+)
 
 # %%
 
@@ -181,7 +227,7 @@ def analyze_sequentially(text):
 import time
 
 # %%
-num_runs = 5
+num_runs = 3
 
 # %%
 start = time.time()
@@ -196,6 +242,9 @@ for _ in range(num_runs):
 parallel_time = time.time() - start
 
 # %%
+print(f"Sequentiell: {sequential_time:.2f}s")
+print(f"Parallel: {parallel_time:.2f}s")
+print(f"Speedup: {sequential_time/parallel_time:.1f}x")
 
 # %% [markdown]
 #
@@ -220,6 +269,13 @@ from langchain_core.runnables import RunnablePassthrough
 # Mit `RunnablePassthrough` können wir die Originaleingabe behalten:
 
 # %%
+analysis_with_original = RunnableParallel(
+    sentiment=sentiment_chain,
+    keywords=keywords_chain,
+    summary=summary_chain,
+    topics=topics_chain,
+    tone=tone_chain,
+)
 
 # %%
 
@@ -312,21 +368,6 @@ chain2 = (lambda x: {"text": x}) | summarize_template | llm
 
 # %% [markdown]
 #
-# ## Wann Chains verwenden?
-#
-# **Chains sind gut für**:
-# - Wiederholbare Pipelines
-# - Multi-Step-Verarbeitung
-# - Klare, dokumentierte Workflows
-# - Debugging mit LangSmith
-#
-# **Einfaches `invoke()` reicht für**:
-# - Einzelne Aufrufe
-# - Einfache Chatbots
-# - Prototyping
-
-# %% [markdown]
-#
 # ## Zusammenfassung
 #
 # - **Sequentiell vs. Parallel**: Unabhängige Chains profitieren von Parallelisierung
@@ -412,24 +453,14 @@ def translate_to_all(text):
     # TODO: Implementieren Sie die Funktion
     pass
 
-
-translator_demo = gr.Interface(
-    fn=translate_to_all,
-    inputs=gr.Textbox(lines=3, label="Text", placeholder="Text zum Übersetzen..."),
-    outputs=[
-        gr.Textbox(label="Französisch"),
-        gr.Textbox(label="Spanisch"),
-        gr.Textbox(label="Italienisch"),
-    ],
-    title="Multi-Language Translator",
-    description="Übersetzen Sie Text gleichzeitig in mehrere Sprachen!",
-)
+# %%
+translator_demo = ... # gr.Interface(...)
 
 # %%
 
 # %% [markdown]
 #
-# ### Überprüfen Sie LangSmith!
+# ### Überprüfen Sie in LangSmith!
 #
 # Nach dem Testen sehen Sie in LangSmith:
 #
