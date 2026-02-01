@@ -367,7 +367,6 @@ def chat_with_system_prompt(message, history):
 # %%
 system_prompt_demo = gr.ChatInterface(
     fn=chat_with_system_prompt,
-    type="messages",
     additional_inputs=[
         gr.Dropdown(
             choices=list(SYSTEM_PROMPTS.keys()),
