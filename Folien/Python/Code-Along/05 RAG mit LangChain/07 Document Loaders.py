@@ -45,11 +45,8 @@
 import os
 from dotenv import load_dotenv
 
-load_dotenv()
-
 # %%
-os.environ["LANGCHAIN_TRACING_V2"] = "true"
-os.environ["LANGCHAIN_PROJECT"] = "ml-azav-course"
+load_dotenv()
 
 # %% [markdown]
 #
@@ -70,6 +67,8 @@ os.environ["LANGCHAIN_PROJECT"] = "ml-azav-course"
 # %%
 from langchain_core.documents import Document
 
+# %%
+
 # %% [markdown]
 #
 # ## TextLoader: Textdateien laden
@@ -80,29 +79,7 @@ from langchain_core.documents import Document
 from langchain_community.document_loaders import TextLoader
 
 # %%
-sample_text = """Python für Einsteiger
-
-Python ist eine beliebte Programmiersprache, die 1991 von Guido van Rossum
-entwickelt wurde. Sie ist bekannt für ihre einfache, lesbare Syntax.
-
-Hauptmerkmale:
-- Einfach zu lernen
-- Vielseitig einsetzbar
-- Große Community
-- Umfangreiche Bibliotheken
-
-Python wird verwendet für:
-1. Webentwicklung
-2. Datenanalyse
-3. Künstliche Intelligenz
-4. Automatisierung
-"""
-
-sample_file = "sample_document.txt"
-with open(sample_file, "w", encoding="utf-8") as f:
-    f.write(sample_text)
-
-# %%
+loader = TextLoader("docs/short.txt", encoding="utf-8")
 
 # %%
 
@@ -131,6 +108,12 @@ with open(sample_file, "w", encoding="utf-8") as f:
 
 # %%
 from langchain_community.document_loaders import WebBaseLoader
+import re
+
+# %%
+url = "https://de.wikipedia.org/wiki/Python_(Programmiersprache)"
+
+# %%
 
 # %%
 
@@ -157,15 +140,30 @@ from langchain_community.document_loaders import PyPDFLoader
 # %% [markdown]
 #
 # PDFs werden **seitenweise** geladen:
+
+
+# %%
+
+# %%
+
+# %%
+for page in pdf_pages:
+    print(f"Page {page.metadata['page']}, length: {len(page.page_content)} characters")
+    print(page.page_content[:50].replace("\n", " "))
+
+# %% [markdown]
 #
-# ```python
-# loader = PyPDFLoader("dokument.pdf")
-# pages = loader.load()  # Liste von Documents, eine pro Seite
-#
-# for page in pages:
-#     print(f"Seite {page.metadata['page']}")
-#     print(page.page_content[:100])
-# ```
+# Beachten Sie den Unterschied, wenn wir den gleichen Text aus einer Textdatei
+# laden:
+
+# %%
+
+# %%
+
+# %%
+for page in text_pages:
+    print(f"Page: {page.metadata.get('page')}, length: {len(page.page_content)} characters")
+    print(page.page_content[:50].replace("\n", " "))
 
 # %% [markdown]
 #
@@ -174,26 +172,18 @@ from langchain_community.document_loaders import PyPDFLoader
 # Oft haben wir mehrere Dateien:
 
 # %%
-sample_texts = {
-    "python_basics.txt": "Python Grundlagen: Variablen, Listen, Schleifen...",
-    "python_functions.txt": "Funktionen in Python: def, Parameter, return...",
-    "python_classes.txt": "Klassen in Python: class, __init__, Methoden...",
-}
-
-for filename, content in sample_texts.items():
-    with open(filename, "w", encoding="utf-8") as f:
-        f.write(content)
+sample_texts = ["docs/python-intro.txt", "docs/python-functions.txt", "docs/python-classes.txt"]
 
 # %%
 all_documents = []
-for filename in sample_texts.keys():
-    loader = TextLoader(filename, encoding="utf-8")
-    docs = loader.load()
-    all_documents.extend(docs)
 
 # %%
 
 # %%
+
+# %%
+for doc in all_documents:
+    print(f"- {doc.metadata['source']}:\t{doc.page_content[:40]}...")
 
 # %% [markdown]
 #
@@ -204,23 +194,23 @@ for filename in sample_texts.keys():
 # %%
 from langchain_community.document_loaders import DirectoryLoader
 
-# %% [markdown]
-#
-# ```python
-# loader = DirectoryLoader(
-#     "docs/",
-#     glob="**/*.txt",  # Nur .txt Dateien
-#     loader_cls=TextLoader,
-#     loader_kwargs={"encoding": "utf-8"}
-# )
-# documents = loader.load()
-# ```
+# %%
+
+# %%
+
+# %%
+for doc in all_documents:
+    print(f"- {doc.metadata['source']}:\t{doc.page_content[:40]}...")
+
 
 # %% [markdown]
 #
 # ## Token zählen
 #
-# Wichtig für Kosten und Context-Länge:
+# - Interessant für Kosten und Context-Länge.
+# - Wir verwenden die `tiktoken` Bibliothek.
+#   - Verschiedene Modelle verwenden unterschiedliche Tokenisierung.
+#   - Tiktoken unterstützt mehrere Modelle, aber nicht `ministral`.
 
 # %%
 # !pip install tiktoken
@@ -229,11 +219,7 @@ from langchain_community.document_loaders import DirectoryLoader
 import tiktoken
 
 
-def count_tokens(text, model="gpt-4"):
-    """Count tokens in text for a given model."""
-    encoding = tiktoken.encoding_for_model(model)
-    return len(encoding.encode(text))
-
+# %%
 
 # %%
 
@@ -261,7 +247,78 @@ def count_tokens(text, model="gpt-4"):
 # - **PyPDFLoader**: PDFs (seitenweise)
 # - **WebBaseLoader**: Webseiten
 # - **DirectoryLoader**: Ganze Ordner
-# - **Token-Zählung** wichtig für Kosten/Limits
+# - **Token-Zählung** um Kosten/Limits zu überwachen
+
+# %% [markdown]
+#
+# ## Workshop-Vorbereitung
+#
+# ### Gradio Blocks, Tabs und Buttons
+#
+# Bevor wir den Workshop starten, lernen wir die Gradio-Konzepte für das
+# Interface:
+#
+# - **Blocks**: Container für komplexe Layouts
+# - **Tabs**: Mehrere Seiten in einem Interface
+# - **Buttons**: Lösen Aktionen mit Callbacks aus
+
+# %% [markdown]
+#
+# ### Einfaches Beispiel: Text-Transformator
+#
+# Ein Interface mit zwei Tabs für verschiedene Text-Transformationen:
+
+# %% [markdown]
+#
+# ### Neue Gradio Konzepte
+#
+# - `gr.Blocks()`: Erstellt einen Container für das Layout
+# - `with gr.Tab("Name")`: Erstellt einen Tab mit dem angegebenen Namen
+# - `gr.Button("Text")`: Erstellt einen Button
+# - `button.click(fn, inputs, outputs)`: Verbindet Button mit einer Funktion
+#   - `fn`: Die Funktion, die aufgerufen wird
+#   - `inputs`: Die Eingabe-Komponenten
+#   - `outputs`: Die Ausgabe-Komponenten
+
+# %%
+def to_uppercase(text):
+    """Convert text to uppercase."""
+    return text.upper()
+
+
+# %%
+def to_leetspeak(text):
+    """Convert text to leetspeak."""
+    replacements = {"a": "4", "e": "3", "i": "1", "o": "0", "s": "5", "t": "7"}
+    result = text.lower()
+    for char, replacement in replacements.items():
+        result = result.replace(char, replacement)
+    return result
+
+
+# %%
+import gradio as gr
+
+# %%
+with gr.Blocks(title="Text Transformer") as text_demo:
+    gr.Markdown("# Text Transformer")
+
+    with gr.Tab("Uppercase"):
+        upper_input = gr.Textbox(label="Enter text", placeholder="Hello World...")
+        upper_button = gr.Button("Convert to UPPERCASE")
+        upper_output = gr.Textbox(label="Result")
+        upper_button.click(to_uppercase, inputs=upper_input, outputs=upper_output)
+
+    with gr.Tab("Leetspeak"):
+        leet_input = gr.Textbox(label="Enter text", placeholder="Hello World...")
+        leet_button = gr.Button("Convert to L33tsp34k")
+        leet_output = gr.Textbox(label="Result")
+        leet_button.click(to_leetspeak, inputs=leet_input, outputs=leet_output)
+
+# %%
+# text_demo.launch()
+
+# %%
 
 # %% [markdown]
 #
@@ -275,49 +332,97 @@ def count_tokens(text, model="gpt-4"):
 # 3. Token-Anzahl berechnen
 # 4. Gradio Interface mit Datei-Upload und URL-Eingabe
 
+
 # %%
 import gradio as gr
 
 # %% [markdown]
 #
-# ### Teil 1: Dokument-Analyse Funktionen
+# ### Teil 1: Dokument-Analyse Funktion
+#
+# Implementieren Sie eine Funktion `analyze_document(doc)`, die ein `Document`-Objekt
+# analysiert und Statistiken zurückgibt.
+#
+# **Eingabe**: Ein `Document`-Objekt mit:
+# - `page_content`: Der Textinhalt des Dokuments
+# - `metadata`: Ein Dictionary mit Metadaten (z.B. `source`)
+#
+# **Aufgaben**:
+# 1. Zählen Sie die **Tokens** mit der `count_tokens()`-Funktion
+# 2. Zählen Sie die **Zeichen** (Länge des Textes)
+# 3. Zählen Sie die **Zeilen** (Anzahl der Zeilenumbrüche + 1)
+# 4. Zählen Sie die **Wörter** (Text mit `split()` aufteilen)
+#
+# **Rückgabe**: Ein Dictionary mit den Schlüsseln:
+# - `"content"`: Der Textinhalt
+# - `"tokens"`: Anzahl der Tokens (GPT-5)
+# - `"characters"`: Anzahl der Zeichen
+# - `"lines"`: Anzahl der Zeilen
+# - `"words"`: Anzahl der Wörter
+# - `"metadata"`: Die Metadaten des Dokuments
 
 # %%
 def analyze_document(doc):
     """Analyze a single document."""
-    content = doc.page_content
-    tokens = count_tokens(content)
-    chars = len(content)
-    lines = content.count("\n") + 1
-    words = len(content.split())
+    pass
 
-    return {
-        "content": content,
-        "tokens": tokens,
-        "characters": chars,
-        "lines": lines,
-        "words": words,
-        "metadata": doc.metadata,
-    }
 
+# %% [markdown]
+#
+# ### Teil 2: Textdatei laden und analysieren
+#
+# Implementieren Sie eine Funktion `load_and_analyze_text(file_path)`, die eine
+# Textdatei lädt und analysiert.
+#
+# **Schritte**:
+# 1. Erstellen Sie einen `TextLoader` mit dem Dateipfad und `encoding="utf-8"`
+# 2. Laden Sie die Dokumente mit `.load()`
+# 3. Falls Dokumente vorhanden sind, rufen Sie `analyze_document()` auf dem ersten auf
+# 4. Geben Sie das Ergebnis zurück
+#
+# **Fehlerbehandlung**:
+# - Bei leerer Dokumentenliste: `{"error": "Keine Dokumente geladen"}` zurückgeben
+# - Bei Ausnahmen: `{"error": str(e)}` zurückgeben (mit try/except)
 
 # %%
 def load_and_analyze_text(file_path):
     """Load text file and analyze it."""
-    # TODO: Load file with TextLoader and analyze
     pass
 
+
+# %% [markdown]
+#
+# ### Teil 3: URL laden und analysieren
+#
+# Implementieren Sie eine Funktion `load_and_analyze_url(url)`, die eine Webseite
+# lädt und analysiert.
+#
+# **Schritte**:
+# 1. Erstellen Sie einen `WebBaseLoader` mit der URL
+# 2. Laden Sie die Dokumente mit `.load()`
+# 3. Falls Dokumente vorhanden sind, rufen Sie `analyze_document()` auf dem ersten auf
+# 4. Geben Sie das Ergebnis zurück
+#
+# **Fehlerbehandlung** (wie bei `load_and_analyze_text`):
+# - Bei leerer Dokumentenliste: `{"error": "Keine Dokumente geladen"}` zurückgeben
+# - Bei Ausnahmen: `{"error": str(e)}` zurückgeben
 
 # %%
 def load_and_analyze_url(url):
     """Load URL and analyze it."""
-    # TODO: Load URL with WebBaseLoader and analyze
     pass
 
 
 # %% [markdown]
 #
-# ### Teil 2: Testen
+# ### Teil 4: Testen
+#
+# Testen Sie die Funktionen `load_and_analyze_text()` und `load_and_analyze_url()`:
+#
+# - Analysieren Sie die Datei `docs/python-intro.txt`
+# - Analysieren Sie die URL `https://de.wikipedia.org/wiki/Python_(Programmiersprache)`
+
+# %%
 
 # %%
 
@@ -325,45 +430,41 @@ def load_and_analyze_url(url):
 
 # %% [markdown]
 #
-# ### Teil 3: Gradio Interface
+# ### Teil 5: Gradio Interface
+#
+# Erstellen Sie ein Gradio-Interface für den Document Inspector mit zwei Tabs.
+#
+# **Funktion `inspect_file(file)`**:
+# - Prüfen Sie, ob `file` `None` ist → Meldung "Bitte laden Sie eine Datei hoch."
+# - Rufen Sie `load_and_analyze_text(file.name)` auf
+# - Prüfen Sie, ob `"error"` im Ergebnis ist → Fehlermeldung anzeigen
+# - Formatieren Sie die Ausgabe mit Statistiken und Vorschau (erste 1000 Zeichen)
+#
+# **Funktion `inspect_url(url)`**:
+# - Prüfen Sie, ob die URL leer ist → Meldung "Bitte geben Sie eine URL ein."
+# - Rufen Sie `load_and_analyze_url(url.strip())` auf
+# - Prüfen Sie, ob `"error"` im Ergebnis ist → Fehlermeldung anzeigen
+# - Formatieren Sie die Ausgabe mit Statistiken und Vorschau
+#
+# **Gradio Blocks Interface**:
+# - Titel: "Document Inspector"
+# - Tab 1: Datei-Upload mit `gr.File` (nur `.txt`) und "Analysieren"-Button
+# - Tab 2: URL-Eingabe mit `gr.Textbox` und "Laden und Analysieren"-Button
+# - Ausgabe jeweils als `gr.Markdown`
 
 # %%
-# TODO: Create Gradio interface for document inspector
+def inspect_file(file):
+    """Inspect uploaded file."""
+    pass
+
+
+def inspect_url(url):
+    """Inspect URL content."""
+    pass
+
+
+# TODO: Create Gradio Blocks interface with two tabs
 
 # %%
-
-# %% [markdown]
-#
-# ## Workshop-Aufgaben Zusammenfassung
-#
-# ### Basis (Pflicht):
-# 1. TextLoader für Dateien verwenden
-# 2. WebBaseLoader für URLs verwenden
-# 3. Token-Zählung implementieren
-# 4. Gradio Interface erstellen
-#
-# ### Erweitert (Optional):
-# 5. PDF-Support hinzufügen
-# 6. Keyword-Suche in geladenen Dokumenten
-# 7. Mehrere Dateien gleichzeitig analysieren
-
-# %% [markdown]
-#
-# ## Ausblick: Text Processing und RAG
-#
-# Mit Document Loaders können wir Daten laden.
-#
-# **Nächste Schritte**:
-# 1. **Text Processing**: Dokumente in Chunks aufteilen
-# 2. **Vector Embeddings**: Text in Vektoren umwandeln
-# 3. **Vector Databases**: Vektoren speichern und suchen
-# 4. **RAG**: Retrieval Augmented Generation
-#
-# Das ist die Basis für **Dokumenten-Chatbots**!
-
-# %%
-os.remove("sample_document.txt")
-for filename in sample_texts.keys():
-    os.remove(filename)
 
 # %%
