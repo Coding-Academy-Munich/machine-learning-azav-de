@@ -21,12 +21,12 @@
 #
 # ## Warum ChromaDB?
 #
-# ✅ **Open Source** (Apache 2.0 Lizenz)
-# ✅ **Einfach zu installieren**: `pip install chromadb`
-# ✅ **Funktioniert auf Windows und Linux**
-# ✅ **Keine Server-Konfiguration** nötig
-# ✅ **Perfekt für Lernen** und Prototypen
-# ✅ **LangChain-Integration** out-of-the-box
+# - ✅ **Open Source** (Apache 2.0 Lizenz)
+# - ✅ **Einfach zu installieren**: `pip install chromadb`
+# - ✅ **Funktioniert auf Windows und Linux**
+# - ✅ **Keine Server-Konfiguration** nötig
+# - ✅ **Perfekt für Lernen** und Prototypen
+# - ✅ **LangChain-Integration** out-of-the-box
 #
 # **Ideal für Einstieg!**
 

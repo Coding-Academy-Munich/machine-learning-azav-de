@@ -11,7 +11,7 @@
 #
 # ## Rückblick: Embeddings
 #
-# - In Lektion 04.7 haben wir Embeddings kennengelernt
+# - In Sektion 03 (Neuronale Netze) haben wir Embeddings kennengelernt
 # - **Embeddings**: Wörter als Vektoren (Listen von Zahlen)
 # - Ähnliche Wörter → ähnliche Vektoren
 #

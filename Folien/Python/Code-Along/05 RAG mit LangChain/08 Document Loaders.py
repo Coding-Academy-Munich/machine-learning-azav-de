@@ -9,15 +9,15 @@
 
 # %% [markdown]
 #
-# ## Das Problem: Externe Dokumente
+# ## Dokumente für RAG laden
 #
-# Unser Chatbot kann Fragen beantworten, aber:
+# Für RAG brauchen wir Dokumente als Kontext:
 #
-# - Er kennt nur sein **Trainingswissen**
-# - Er kann nicht auf **unsere Dokumente** zugreifen
-# - Er weiß nichts über **unser Unternehmen**
+# - Wir wissen jetzt, **was** RAG ist
+# - Aber **woher** kommen die Dokumente?
+# - Dokumente liegen in verschiedenen **Formaten** vor
 #
-# **Was wir brauchen**: Daten aus verschiedenen Quellen laden!
+# **LangChain Document Loaders** laden Daten aus verschiedenen Quellen!
 
 # %% [markdown]
 #
@@ -205,23 +205,22 @@ for doc in all_documents:
 
 # %% [markdown]
 #
-# ## Token zählen
+# ## Tokens: Die Währung der LLMs
 #
-# - Interessant für Kosten und Context-Länge.
-# - Wir verwenden die `tiktoken` Bibliothek.
-#   - Verschiedene Modelle verwenden unterschiedliche Tokenisierung.
-#   - Tiktoken unterstützt mehrere Modelle, aber nicht `ministral`.
+# - LLMs arbeiten mit **Tokens**, nicht Zeichen
+# - **Faustregel**: 1 Token ≈ 4 Zeichen (englisch), etwas weniger für Deutsch
+# - Beispiel: "Hallo Welt" ≈ 3 Tokens
+# - Ein PDF mit 200.000 Zeichen ≈ **50.000 Tokens**
 
-# %%
-# !pip install tiktoken
-
-# %%
-import tiktoken
-
-
-# %%
-
-# %%
+# %% [markdown]
+#
+# ## Warum Tokens wichtig sind
+#
+# - **Context-Limit**: LLMs haben ein maximales Token-Limit (4K - 128K)
+# - **Kosten**: API-Preise basieren auf Token-Anzahl
+# - **Geschwindigkeit**: Mehr Tokens = längere Verarbeitung
+#
+# → Dokumente müssen in kleinere **Chunks** aufgeteilt werden!
 
 # %% [markdown]
 #
@@ -348,14 +347,14 @@ import gradio as gr
 # - `metadata`: Ein Dictionary mit Metadaten (z.B. `source`)
 #
 # **Aufgaben**:
-# 1. Zählen Sie die **Tokens** mit der `count_tokens()`-Funktion
+# 1. Schätzen Sie die **Tokens** (Zeichen // 4, da 1 Token ≈ 4 Zeichen)
 # 2. Zählen Sie die **Zeichen** (Länge des Textes)
 # 3. Zählen Sie die **Zeilen** (Anzahl der Zeilenumbrüche + 1)
 # 4. Zählen Sie die **Wörter** (Text mit `split()` aufteilen)
 #
 # **Rückgabe**: Ein Dictionary mit den Schlüsseln:
 # - `"content"`: Der Textinhalt
-# - `"tokens"`: Anzahl der Tokens (GPT-5)
+# - `"tokens"`: Geschätzte Anzahl der Tokens
 # - `"characters"`: Anzahl der Zeichen
 # - `"lines"`: Anzahl der Zeilen
 # - `"words"`: Anzahl der Wörter

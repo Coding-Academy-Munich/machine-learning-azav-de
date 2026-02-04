@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=071dd246e8db6dd1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e0af180bb13ef8ef"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Text-Verarbeitung: Grundlagen</b>
+<b>Document Loaders</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,242 +13145,97 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7709b4ec9337daec"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4833fe151aeb7ae5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-Text-Verarbeitung?">Warum Text-Verarbeitung?<a class="anchor-link" href="#Warum-Text-Verarbeitung?">¶</a></h2><ul>
-<li><strong>RAG-Systeme</strong> brauchen Texte in Dokumenten</li>
-<li>Dokumente müssen <strong>vorbereitet</strong> werden</li>
-<li>In <strong>Chunks</strong> (Stücke) aufteilen</li>
-<li>Für Vektor-Datenbanken <strong>optimieren</strong></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=35eaf207559dc7e6">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">tiktoken</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c5199386ab340e66">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2e14ecafdaa4219c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">RecursiveCharacterTextSplitter</span><span class="p">,</span>
-    <span class="n">CharacterTextSplitter</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6bdf278583c70ec4"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Text-laden-und-aufbereiten">Text laden und aufbereiten<a class="anchor-link" href="#Text-laden-und-aufbereiten">¶</a></h2><ul>
-<li>Text aus Dateien lesen</li>
-<li>Unnötige Zeichen entfernen</li>
-<li>In handhabbare Stücke teilen</li>
-<li>LangChain macht vieles davon automatisch!</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=7d5c39ad75ed9864"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Beispiel-Text (simuliert ein Dokument)</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=de92bb566f023851">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">document</span> <span class="o">=</span> <span class="s2">"""</span>
-<span class="s2">Machine Learning ist ein Teilgebiet der künstlichen Intelligenz.</span>
-<span class="s2">Es beschäftigt sich mit dem automatischen Lernen aus Daten.</span>
-
-<span class="s2">Neural Networks sind eine wichtige Methode im Machine Learning.</span>
-<span class="s2">Sie sind inspiriert von der Funktionsweise des Gehirns.</span>
-
-<span class="s2">Large Language Models verwenden sehr große Neural Networks.</span>
-<span class="s2">Sie werden auf riesigen Textmengen trainiert.</span>
-<span class="s2">"""</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=23a47e69ee7c0a82">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f77c2a5e3f90975a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Tokenisierung-f%C3%BCr-LLMs">Tokenisierung für LLMs<a class="anchor-link" href="#Tokenisierung-f%C3%BCr-LLMs">¶</a></h2><ul>
-<li>LLMs verwenden <strong>Subword-Tokenisierung</strong></li>
-<li>Nicht Wörter, sondern <strong>Teile von Wörtern</strong></li>
-<li>Beispiel: "unhappiness" → ["un", "happiness"]</li>
-<li><strong>Wichtig</strong>: Tokens zählen (Kosten!)</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5136ba90c8d2b762">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Count tokens with tiktoken (OpenAI's tokenizer)</span>
-<span class="n">encoding</span> <span class="o">=</span> <span class="n">tiktoken</span><span class="o">.</span><span class="n">encoding_for_model</span><span class="p">(</span><span class="s2">"gpt-3.5-turbo"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1114674adf42482e">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c99cb242836c6b58"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Chunking:-Text-aufteilen">Chunking: Text aufteilen<a class="anchor-link" href="#Chunking:-Text-aufteilen">¶</a></h2><ul>
-<li><strong>Problem</strong>: Lange Dokumente passen nicht in LLM-Context</li>
-<li><strong>Lösung</strong>: In kleinere <strong>Chunks</strong> aufteilen</li>
-<li><strong>Wichtig</strong>: Chunks sollten<ul>
-<li>Nicht zu klein (Kontext fehlt)</li>
-<li>Nicht zu groß (Context-Limit)</li>
-<li>Sinnvoll sein (nicht mitten im Satz!)</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8b084a86b51a7999"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="LangChain-Text-Splitters">LangChain Text Splitters<a class="anchor-link" href="#LangChain-Text-Splitters">¶</a></h2><ul>
-<li><strong>CharacterTextSplitter</strong>: Teilt bei bestimmten Zeichen</li>
-<li><strong>RecursiveCharacterTextSplitter</strong>: Schlauer (Absätze → Sätze → Wörter)</li>
-<li><strong>Empfohlen</strong>: RecursiveCharacterTextSplitter</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b59895cce3d0f626">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create text splitter</span>
-<span class="n">text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span>
-    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>        <span class="c1"># Maximum chunk size</span>
-    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>      <span class="c1"># Overlap between chunks</span>
-    <span class="n">length_function</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span>   <span class="c1"># How to measure length</span>
-    <span class="n">separators</span><span class="o">=</span><span class="p">[</span><span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">". "</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="s2">""</span><span class="p">]</span>  <span class="c1"># Split at these in order</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ae8c4ffb7cd1c41b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ab552cf0f9ef404b"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Chunk-Parameter-verstehen">Chunk-Parameter verstehen<a class="anchor-link" href="#Chunk-Parameter-verstehen">¶</a></h2><ul>
-<li><strong>chunk_size</strong>: Maximale Größe eines Chunks (in Zeichen)</li>
-<li><strong>chunk_overlap</strong>: Überlappung zwischen Chunks<ul>
-<li>Warum? Kontext am Rand nicht verlieren!</li>
-</ul>
-</li>
-<li><strong>separators</strong>: Wo wird geteilt? (Absatz → Satz → Wort)</li>
-</ul>
-<p><strong>Typische Werte</strong>:</p>
+<h2 id="Dokumente-f%C3%BCr-RAG-laden">Dokumente für RAG laden<a class="anchor-link" href="#Dokumente-f%C3%BCr-RAG-laden">¶</a></h2><p>Für RAG brauchen wir Dokumente als Kontext:</p>
 <ul>
-<li>chunk_size: 500-1000 für Dokumente</li>
-<li>chunk_overlap: 50-200 (10-20% von chunk_size)</li>
+<li>Wir wissen jetzt, <strong>was</strong> RAG ist</li>
+<li>Aber <strong>woher</strong> kommen die Dokumente?</li>
+<li>Dokumente liegen in verschiedenen <strong>Formaten</strong> vor</li>
 </ul>
+<p><strong>LangChain Document Loaders</strong> laden Daten aus verschiedenen Quellen!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e7e573fde688512f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6dbb5e56f9e365b3"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Tokens-vs.-Zeichen">Tokens vs. Zeichen<a class="anchor-link" href="#Tokens-vs.-Zeichen">¶</a></h2><ul>
-<li><strong>Problem</strong>: chunk_size ist in Zeichen, aber APIs zählen Tokens</li>
-<li><strong>Lösung</strong>: Token-basierter Splitter</li>
-<li>Oder: Mit Zeichen schätzen (1 Token ≈ 4 Zeichen)</li>
+<h2 id="Typische-Quellen">Typische Quellen<a class="anchor-link" href="#Typische-Quellen">¶</a></h2><ul>
+<li><strong>PDF-Dateien</strong>: Handbücher, Berichte, Verträge</li>
+<li><strong>Textdateien</strong>: Dokumentation, Notizen</li>
+<li><strong>Webseiten</strong>: Online-Dokumentation, Artikel</li>
+<li><strong>Word-Dokumente</strong>: Geschäftsdokumente</li>
+<li><strong>CSV/Excel</strong>: Daten, Tabellen</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=cc218c3bea0f0ceb">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=278d09c5b3ae9e8b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Die-L%C3%B6sung:-Document-Loaders">Die Lösung: Document Loaders<a class="anchor-link" href="#Die-L%C3%B6sung:-Document-Loaders">¶</a></h2><p>LangChain bietet <strong>Document Loaders</strong> für viele Formate:</p>
+<ul>
+<li><code>TextLoader</code>: Textdateien</li>
+<li><code>PyPDFLoader</code>: PDF-Dateien</li>
+<li><code>WebBaseLoader</code>: Webseiten</li>
+<li><code>CSVLoader</code>: CSV-Dateien</li>
+<li>Und viele mehr...</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4135f7cdf8859522">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="n">TokenTextSplitter</span>
-
-<span class="c1"># Create token-based splitter</span>
-<span class="n">token_splitter</span> <span class="o">=</span> <span class="n">TokenTextSplitter</span><span class="p">(</span>
-    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>  <span class="c1"># in tokens</span>
-    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">10</span>
-<span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6c6775842ac42e1a">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ce35827a2adb266e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=9f8c6a18352e8b14"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Document:-Das-Standardformat">Document: Das Standardformat<a class="anchor-link" href="#Document:-Das-Standardformat">¶</a></h2><p>Alle Loader geben <strong>Document</strong>-Objekte zurück:</p>
+<div class="highlight"><pre><span></span><span class="n">Document</span><span class="p">(</span>
+    <span class="n">page_content</span><span class="o">=</span><span class="s2">"Der Text des Dokuments..."</span><span class="p">,</span>
+    <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"source"</span><span class="p">:</span> <span class="s2">"datei.txt"</span><span class="p">,</span> <span class="s2">"page"</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+<ul>
+<li><code>page_content</code>: Der eigentliche Text</li>
+<li><code>metadata</code>: Informationen über die Quelle</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=0a4286ef7bbe24f1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ed593ca0a905c741">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13391,68 +13246,866 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=68ab5d3d08436a43"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3979fae087cd3f3a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Praktische-Text-Operationen">Praktische Text-Operationen<a class="anchor-link" href="#Praktische-Text-Operationen">¶</a></h2><ul>
-<li>Text aus Dateien lesen</li>
-<li>Bereinigen (lowercase, Sonderzeichen)</li>
-<li>In Chunks aufteilen mit LangChain</li>
-<li>Für RAG vorbereiten</li>
-</ul>
+<h2 id="TextLoader:-Textdateien-laden">TextLoader: Textdateien laden<a class="anchor-link" href="#TextLoader:-Textdateien-laden">¶</a></h2><p>Der einfachste Loader für <code>.txt</code> Dateien:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9e09978c8215a7e5">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1e22f567c62c9db1">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_and_chunk_text</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Load text file and split into chunks"""</span>
-    <span class="c1"># Read file</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
-    <span class="c1"># Create splitter</span>
-    <span class="n">splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span>
-        <span class="n">chunk_size</span><span class="o">=</span><span class="n">chunk_size</span><span class="p">,</span>
-        <span class="n">chunk_overlap</span><span class="o">=</span><span class="n">chunk_overlap</span>
-    <span class="p">)</span>
-
-    <span class="c1"># Split</span>
-    <span class="n">chunks</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">chunks</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextLoader</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=20bc750131f4f6ce"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=21d4b8cba8e13970">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">loader</span> <span class="o">=</span> <span class="n">TextLoader</span><span class="p">(</span><span class="s2">"docs/short.txt"</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">"utf-8"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f748a17f10f583f7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=fff63f390ef069e7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=07ed6f3e0672efd9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=17db19cd434fd6c0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop-Aufgaben">Workshop-Aufgaben<a class="anchor-link" href="#Workshop-Aufgaben">¶</a></h2><ol>
-<li>Text aus Datei laden</li>
-<li>Mit verschiedenen chunk_size experimentieren</li>
-<li>Chunk-Overlap ausprobieren</li>
-<li>Tokens zählen für Kosten-Schätzung</li>
-<li>Für RAG-System vorbereiten</li>
+<h2 id="Das-Document-Objekt-untersuchen">Das Document-Objekt untersuchen<a class="anchor-link" href="#Das-Document-Objekt-untersuchen">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=af2bc5294bd1219a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c5bab58243f0a9d8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1466eadd3c00f75d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=cd6e0faed9b6738c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="WebBaseLoader:-Webseiten-laden">WebBaseLoader: Webseiten laden<a class="anchor-link" href="#WebBaseLoader:-Webseiten-laden">¶</a></h2><p>Für das Laden von Webseiten:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e047d2aef3a11021">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>beautifulsoup4
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f37fd9fbf5249e18">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebBaseLoader</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5e01802d116653e6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">"https://de.wikipedia.org/wiki/Python_(Programmiersprache)"</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=f60d7564c5501a2b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a5381031fb04c939">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2a807b92108c46ec">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e44299606f0a8d60">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=0f26e4b059ffd0fc">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=bc82724b8b81c152">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fe27a0262d550ece"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="PyPDFLoader:-PDF-Dateien-laden">PyPDFLoader: PDF-Dateien laden<a class="anchor-link" href="#PyPDFLoader:-PDF-Dateien-laden">¶</a></h2><p>Für PDF-Dokumente:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=84174bc9ef1cb08d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>pypdf
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=65ee94becffdd8a2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">PyPDFLoader</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=9cc1e44c6300a8fe"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>PDFs werden <strong>seitenweise</strong> geladen:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8fef7745193426d2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=518617a59c2155ea">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=05bfa7f9d3dbf487">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">pdf_pages</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Page </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">'page'</span><span class="p">]</span><span class="si">}</span><span class="s2">, length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">page_content</span><span class="p">)</span><span class="si">}</span><span class="s2"> characters"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c6af32694ba8d3c4"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Beachten Sie den Unterschied, wenn wir den gleichen Text aus einer Textdatei
+laden:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f8883d52971ad780">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=014929e0cd90e14e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=15c441f91ea93c37">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="n">text_pages</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Page: </span><span class="si">{</span><span class="n">page</span><span class="o">.</span><span class="n">metadata</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'page'</span><span class="p">)</span><span class="si">}</span><span class="s2">, length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">page_content</span><span class="p">)</span><span class="si">}</span><span class="s2"> characters"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">page</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">50</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0d932fd783e7ab7a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Mehrere-Dokumente-laden">Mehrere Dokumente laden<a class="anchor-link" href="#Mehrere-Dokumente-laden">¶</a></h2><p>Oft haben wir mehrere Dateien:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=721f8c55cf90b7f8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sample_texts</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"docs/python-intro.txt"</span><span class="p">,</span> <span class="s2">"docs/python-functions.txt"</span><span class="p">,</span> <span class="s2">"docs/python-classes.txt"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=916a64065cc51d3e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">all_documents</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a01239e78bf90c8b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=3b1cdbd686448289">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=7bffc86c8c32f6b9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">all_documents</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">'source'</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="se">\t</span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c0cf9b2f6686f0fe"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="DirectoryLoader:-Ganze-Ordner-laden">DirectoryLoader: Ganze Ordner laden<a class="anchor-link" href="#DirectoryLoader:-Ganze-Ordner-laden">¶</a></h2><p>Für viele Dateien auf einmal:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=975eab96ab1ab45d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">DirectoryLoader</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8ab966fd97edc24a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=48871c810e864d9f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=3937003bb7827f7f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">all_documents</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"- </span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">metadata</span><span class="p">[</span><span class="s1">'source'</span><span class="p">]</span><span class="si">}</span><span class="s2">:</span><span class="se">\t</span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">40</span><span class="p">]</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1a295abbf4840dde"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tokens:-Die-W%C3%A4hrung-der-LLMs">Tokens: Die Währung der LLMs<a class="anchor-link" href="#Tokens:-Die-W%C3%A4hrung-der-LLMs">¶</a></h2><ul>
+<li>LLMs arbeiten mit <strong>Tokens</strong>, nicht Zeichen</li>
+<li><strong>Faustregel</strong>: 1 Token ≈ 4 Zeichen (englisch), etwas weniger für Deutsch</li>
+<li>Beispiel: "Hallo Welt" ≈ 3 Tokens</li>
+<li>Ein PDF mit 200.000 Zeichen ≈ <strong>50.000 Tokens</strong></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=647c0da929a08df3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Warum-Tokens-wichtig-sind">Warum Tokens wichtig sind<a class="anchor-link" href="#Warum-Tokens-wichtig-sind">¶</a></h2><ul>
+<li><strong>Context-Limit</strong>: LLMs haben ein maximales Token-Limit (4K - 128K)</li>
+<li><strong>Kosten</strong>: API-Preise basieren auf Token-Anzahl</li>
+<li><strong>Geschwindigkeit</strong>: Mehr Tokens = längere Verarbeitung</li>
+</ul>
+<p>→ Dokumente müssen in kleinere <strong>Chunks</strong> aufgeteilt werden!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=510daa148c0814b6"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Das-n%C3%A4chste-Problem:-Zu-lange-Dokumente">Das nächste Problem: Zu lange Dokumente<a class="anchor-link" href="#Das-n%C3%A4chste-Problem:-Zu-lange-Dokumente">¶</a></h2><p>Ein typisches Problem:</p>
+<ul>
+<li>PDF-Handbuch: <strong>50.000+ Tokens</strong></li>
+<li>Webseite: <strong>10.000+ Tokens</strong></li>
+<li>LLM Context-Limit: <strong>4.096 - 128.000 Tokens</strong></li>
+</ul>
+<p><strong>Lösung</strong>: Dokumente in <strong>Chunks</strong> aufteilen!</p>
+<p>→ Das lernen wir im nächsten Kapitel (Text Processing)</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=17a25b945af67c01"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
+<li><strong>Document Loaders</strong> laden Daten aus verschiedenen Quellen</li>
+<li><strong>Document-Objekte</strong>: <code>page_content</code> + <code>metadata</code></li>
+<li><strong>TextLoader</strong>: Textdateien</li>
+<li><strong>PyPDFLoader</strong>: PDFs (seitenweise)</li>
+<li><strong>WebBaseLoader</strong>: Webseiten</li>
+<li><strong>DirectoryLoader</strong>: Ganze Ordner</li>
+<li><strong>Token-Zählung</strong> um Kosten/Limits zu überwachen</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e36938ea458d55f8"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop-Vorbereitung">Workshop-Vorbereitung<a class="anchor-link" href="#Workshop-Vorbereitung">¶</a></h2><h3 id="Gradio-Blocks,-Tabs-und-Buttons">Gradio Blocks, Tabs und Buttons<a class="anchor-link" href="#Gradio-Blocks,-Tabs-und-Buttons">¶</a></h3><p>Bevor wir den Workshop starten, lernen wir die Gradio-Konzepte für das
+Interface:</p>
+<ul>
+<li><strong>Blocks</strong>: Container für komplexe Layouts</li>
+<li><strong>Tabs</strong>: Mehrere Seiten in einem Interface</li>
+<li><strong>Buttons</strong>: Lösen Aktionen mit Callbacks aus</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=c48fe23df59d76a4"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Einfaches-Beispiel:-Text-Transformator">Einfaches Beispiel: Text-Transformator<a class="anchor-link" href="#Einfaches-Beispiel:-Text-Transformator">¶</a></h3><p>Ein Interface mit zwei Tabs für verschiedene Text-Transformationen:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ca1bad641b3ed6ce"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Neue-Gradio-Konzepte">Neue Gradio Konzepte<a class="anchor-link" href="#Neue-Gradio-Konzepte">¶</a></h3><ul>
+<li><code>gr.Blocks()</code>: Erstellt einen Container für das Layout</li>
+<li><code>with gr.Tab("Name")</code>: Erstellt einen Tab mit dem angegebenen Namen</li>
+<li><code>gr.Button("Text")</code>: Erstellt einen Button</li>
+<li><code>button.click(fn, inputs, outputs)</code>: Verbindet Button mit einer Funktion<ul>
+<li><code>fn</code>: Die Funktion, die aufgerufen wird</li>
+<li><code>inputs</code>: Die Eingabe-Komponenten</li>
+<li><code>outputs</code>: Die Ausgabe-Komponenten</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=0f70307b48985e03">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">to_uppercase</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Convert text to uppercase."""</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e5881eb1f262b8b1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">to_leetspeak</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Convert text to leetspeak."""</span>
+    <span class="n">replacements</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="s2">"4"</span><span class="p">,</span> <span class="s2">"e"</span><span class="p">:</span> <span class="s2">"3"</span><span class="p">,</span> <span class="s2">"i"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">,</span> <span class="s2">"o"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span> <span class="s2">"s"</span><span class="p">:</span> <span class="s2">"5"</span><span class="p">,</span> <span class="s2">"t"</span><span class="p">:</span> <span class="s2">"7"</span><span class="p">}</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">char</span><span class="p">,</span> <span class="n">replacement</span> <span class="ow">in</span> <span class="n">replacements</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">char</span><span class="p">,</span> <span class="n">replacement</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=5777c88c8865f5f3">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=37aa25e090a64a9c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Blocks</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Text Transformer"</span><span class="p">)</span> <span class="k">as</span> <span class="n">text_demo</span><span class="p">:</span>
+    <span class="n">gr</span><span class="o">.</span><span class="n">Markdown</span><span class="p">(</span><span class="s2">"# Text Transformer"</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Tab</span><span class="p">(</span><span class="s2">"Uppercase"</span><span class="p">):</span>
+        <span class="n">upper_input</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Enter text"</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="s2">"Hello World..."</span><span class="p">)</span>
+        <span class="n">upper_button</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">"Convert to UPPERCASE"</span><span class="p">)</span>
+        <span class="n">upper_output</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Result"</span><span class="p">)</span>
+        <span class="n">upper_button</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">to_uppercase</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="n">upper_input</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">upper_output</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">gr</span><span class="o">.</span><span class="n">Tab</span><span class="p">(</span><span class="s2">"Leetspeak"</span><span class="p">):</span>
+        <span class="n">leet_input</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Enter text"</span><span class="p">,</span> <span class="n">placeholder</span><span class="o">=</span><span class="s2">"Hello World..."</span><span class="p">)</span>
+        <span class="n">leet_button</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">"Convert to L33tsp34k"</span><span class="p">)</span>
+        <span class="n">leet_output</span> <span class="o">=</span> <span class="n">gr</span><span class="o">.</span><span class="n">Textbox</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">"Result"</span><span class="p">)</span>
+        <span class="n">leet_button</span><span class="o">.</span><span class="n">click</span><span class="p">(</span><span class="n">to_leetspeak</span><span class="p">,</span> <span class="n">inputs</span><span class="o">=</span><span class="n">leet_input</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">leet_output</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=a1df6a18da4018f2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># text_demo.launch()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7a14d96389f86711">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2cae6e1197ed57bb"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop:-Document-Inspector">Workshop: Document Inspector<a class="anchor-link" href="#Workshop:-Document-Inspector">¶</a></h2><p><strong>Ziel</strong>: Ein Tool zum Untersuchen von Dokumenten!</p>
+<p><strong>Aufgaben</strong>:</p>
+<ol>
+<li>Textdateien laden und anzeigen</li>
+<li>URLs laden und anzeigen</li>
+<li>Token-Anzahl berechnen</li>
+<li>Gradio Interface mit Datei-Upload und URL-Eingabe</li>
 </ol>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b3665b0eb0592715"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=2d720417d0d0b6e0">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=07d7c316f02d582d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Text → Zahlen</strong>: Für ML-Verarbeitung nötig</li>
-<li><strong>Tokenisierung</strong>: Text in Tokens aufteilen</li>
-<li><strong>Chunking</strong>: Lange Texte in Stücke teilen</li>
-<li><strong>LangChain Text Splitters</strong>: Intelligente Aufteilung</li>
-<li><strong>chunk_size und chunk_overlap</strong>: Wichtige Parameter</li>
+<h3 id="Teil-1:-Dokument-Analyse-Funktion">Teil 1: Dokument-Analyse Funktion<a class="anchor-link" href="#Teil-1:-Dokument-Analyse-Funktion">¶</a></h3><p>Implementieren Sie eine Funktion <code>analyze_document(doc)</code>, die ein <code>Document</code>-Objekt
+analysiert und Statistiken zurückgibt.</p>
+<p><strong>Eingabe</strong>: Ein <code>Document</code>-Objekt mit:</p>
+<ul>
+<li><code>page_content</code>: Der Textinhalt des Dokuments</li>
+<li><code>metadata</code>: Ein Dictionary mit Metadaten (z.B. <code>source</code>)</li>
 </ul>
-<p><strong>Nächster Schritt</strong>: RAG-Systeme - Dokumente mit LLMs verbinden!</p>
+<p><strong>Aufgaben</strong>:</p>
+<ol>
+<li>Schätzen Sie die <strong>Tokens</strong> (Zeichen // 4, da 1 Token ≈ 4 Zeichen)</li>
+<li>Zählen Sie die <strong>Zeichen</strong> (Länge des Textes)</li>
+<li>Zählen Sie die <strong>Zeilen</strong> (Anzahl der Zeilenumbrüche + 1)</li>
+<li>Zählen Sie die <strong>Wörter</strong> (Text mit <code>split()</code> aufteilen)</li>
+</ol>
+<p><strong>Rückgabe</strong>: Ein Dictionary mit den Schlüsseln:</p>
+<ul>
+<li><code>"content"</code>: Der Textinhalt</li>
+<li><code>"tokens"</code>: Geschätzte Anzahl der Tokens</li>
+<li><code>"characters"</code>: Anzahl der Zeichen</li>
+<li><code>"lines"</code>: Anzahl der Zeilen</li>
+<li><code>"words"</code>: Anzahl der Wörter</li>
+<li><code>"metadata"</code>: Die Metadaten des Dokuments</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=b816d5e987e1a141">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">analyze_document</span><span class="p">(</span><span class="n">doc</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Analyze a single document."""</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ccbab4fb0a58ba9b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Teil-2:-Textdatei-laden-und-analysieren">Teil 2: Textdatei laden und analysieren<a class="anchor-link" href="#Teil-2:-Textdatei-laden-und-analysieren">¶</a></h3><p>Implementieren Sie eine Funktion <code>load_and_analyze_text(file_path)</code>, die eine
+Textdatei lädt und analysiert.</p>
+<p><strong>Schritte</strong>:</p>
+<ol>
+<li>Erstellen Sie einen <code>TextLoader</code> mit dem Dateipfad und <code>encoding="utf-8"</code></li>
+<li>Laden Sie die Dokumente mit <code>.load()</code></li>
+<li>Falls Dokumente vorhanden sind, rufen Sie <code>analyze_document()</code> auf dem ersten auf</li>
+<li>Geben Sie das Ergebnis zurück</li>
+</ol>
+<p><strong>Fehlerbehandlung</strong>:</p>
+<ul>
+<li>Bei leerer Dokumentenliste: <code>{"error": "Keine Dokumente geladen"}</code> zurückgeben</li>
+<li>Bei Ausnahmen: <code>{"error": str(e)}</code> zurückgeben (mit try/except)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=e5025d4f058859fd">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_and_analyze_text</span><span class="p">(</span><span class="n">file_path</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Load text file and analyze it."""</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=3c3455c1a4a1def6"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Teil-3:-URL-laden-und-analysieren">Teil 3: URL laden und analysieren<a class="anchor-link" href="#Teil-3:-URL-laden-und-analysieren">¶</a></h3><p>Implementieren Sie eine Funktion <code>load_and_analyze_url(url)</code>, die eine Webseite
+lädt und analysiert.</p>
+<p><strong>Schritte</strong>:</p>
+<ol>
+<li>Erstellen Sie einen <code>WebBaseLoader</code> mit der URL</li>
+<li>Laden Sie die Dokumente mit <code>.load()</code></li>
+<li>Falls Dokumente vorhanden sind, rufen Sie <code>analyze_document()</code> auf dem ersten auf</li>
+<li>Geben Sie das Ergebnis zurück</li>
+</ol>
+<p><strong>Fehlerbehandlung</strong> (wie bei <code>load_and_analyze_text</code>):</p>
+<ul>
+<li>Bei leerer Dokumentenliste: <code>{"error": "Keine Dokumente geladen"}</code> zurückgeben</li>
+<li>Bei Ausnahmen: <code>{"error": str(e)}</code> zurückgeben</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=de9186ed00d762fe">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_and_analyze_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Load URL and analyze it."""</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=80fb0a1403d2c690"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Teil-4:-Testen">Teil 4: Testen<a class="anchor-link" href="#Teil-4:-Testen">¶</a></h3><p>Testen Sie die Funktionen <code>load_and_analyze_text()</code> und <code>load_and_analyze_url()</code>:</p>
+<ul>
+<li>Analysieren Sie die Datei <code>docs/python-intro.txt</code></li>
+<li>Analysieren Sie die URL <code>https://de.wikipedia.org/wiki/Python_(Programmiersprache)</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c91f404507fa245a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=afd95262372158e8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a5a39d0765b8e949">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=14f0116597c9137b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Teil-5:-Gradio-Interface">Teil 5: Gradio Interface<a class="anchor-link" href="#Teil-5:-Gradio-Interface">¶</a></h3><p>Erstellen Sie ein Gradio-Interface für den Document Inspector mit zwei Tabs.</p>
+<p><strong>Funktion <code>inspect_file(file)</code></strong>:</p>
+<ul>
+<li>Prüfen Sie, ob <code>file</code> <code>None</code> ist → Meldung "Bitte laden Sie eine Datei hoch."</li>
+<li>Rufen Sie <code>load_and_analyze_text(file.name)</code> auf</li>
+<li>Prüfen Sie, ob <code>"error"</code> im Ergebnis ist → Fehlermeldung anzeigen</li>
+<li>Formatieren Sie die Ausgabe mit Statistiken und Vorschau (erste 1000 Zeichen)</li>
+</ul>
+<p><strong>Funktion <code>inspect_url(url)</code></strong>:</p>
+<ul>
+<li>Prüfen Sie, ob die URL leer ist → Meldung "Bitte geben Sie eine URL ein."</li>
+<li>Rufen Sie <code>load_and_analyze_url(url.strip())</code> auf</li>
+<li>Prüfen Sie, ob <code>"error"</code> im Ergebnis ist → Fehlermeldung anzeigen</li>
+<li>Formatieren Sie die Ausgabe mit Statistiken und Vorschau</li>
+</ul>
+<p><strong>Gradio Blocks Interface</strong>:</p>
+<ul>
+<li>Titel: "Document Inspector"</li>
+<li>Tab 1: Datei-Upload mit <code>gr.File</code> (nur <code>.txt</code>) und "Analysieren"-Button</li>
+<li>Tab 2: URL-Eingabe mit <code>gr.Textbox</code> und "Laden und Analysieren"-Button</li>
+<li>Ausgabe jeweils als <code>gr.Markdown</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=2fbbe19242d48afb">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">inspect_file</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Inspect uploaded file."""</span>
+    <span class="k">pass</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">inspect_url</span><span class="p">(</span><span class="n">url</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Inspect URL content."""</span>
+    <span class="k">pass</span>
+
+
+<span class="c1"># TODO: Create Gradio Blocks interface with two tabs</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0e6d21bd020111fe">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9e8de0518b98342b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>

@@ -11,13 +11,10 @@
 #
 # ## Warum Text-Verarbeitung?
 #
-# - **RAG-Systeme** brauchen Texte in Dokumenten
-# - Dokumente müssen **vorbereitet** werden
-# - In **Chunks** (Stücke) aufteilen
-# - Für Vektor-Datenbanken **optimieren**
-
-# %%
-import tiktoken
+# - Wir haben RAG kennengelernt und wissen, wie man Dokumente lädt
+# - **Problem**: Dokumente sind oft zu lang für LLM-Context-Windows
+# - **Lösung**: Dokumente in kleinere **Chunks** (Stücke) aufteilen
+# - Dann nur die **relevanten** Chunks für jede Frage finden
 
 # %%
 
@@ -51,21 +48,6 @@ Sie sind inspiriert von der Funktionsweise des Gehirns.
 Large Language Models verwenden sehr große Neural Networks.
 Sie werden auf riesigen Textmengen trainiert.
 """
-
-# %%
-
-# %% [markdown]
-#
-# ## Tokenisierung für LLMs
-#
-# - LLMs verwenden **Subword-Tokenisierung**
-# - Nicht Wörter, sondern **Teile von Wörtern**
-# - Beispiel: "unhappiness" → ["un", "happiness"]
-# - **Wichtig**: Tokens zählen (Kosten!)
-
-# %%
-# Count tokens with tiktoken (OpenAI's tokenizer)
-encoding = tiktoken.encoding_for_model("gpt-3.5-turbo")
 
 # %%
 
@@ -116,9 +98,9 @@ text_splitter = RecursiveCharacterTextSplitter(
 #
 # ## Tokens vs. Zeichen
 #
-# - **Problem**: chunk_size ist in Zeichen, aber APIs zählen Tokens
-# - **Lösung**: Token-basierter Splitter
-# - Oder: Mit Zeichen schätzen (1 Token ≈ 4 Zeichen)
+# - Erinnerung: LLMs zählen in **Tokens**, nicht Zeichen
+# - **Faustregel**: 1 Token ≈ 4 Zeichen (für englischen Text)
+# - LangChain bietet auch einen **Token-basierten Splitter**
 
 # %%
 from langchain_text_splitters import TokenTextSplitter
@@ -163,20 +145,19 @@ def load_and_chunk_text(filepath, chunk_size=500, chunk_overlap=50):
 #
 # ## Workshop-Aufgaben
 #
-# 1. Text aus Datei laden
+# 1. Text aus Datei laden (mit Document Loader oder manuell)
 # 2. Mit verschiedenen chunk_size experimentieren
 # 3. Chunk-Overlap ausprobieren
-# 4. Tokens zählen für Kosten-Schätzung
-# 5. Für RAG-System vorbereiten
+# 4. Verschiedene Splitter vergleichen
 
 # %% [markdown]
 #
 # ## Zusammenfassung
 #
-# - **Text → Zahlen**: Für ML-Verarbeitung nötig
-# - **Tokenisierung**: Text in Tokens aufteilen
 # - **Chunking**: Lange Texte in Stücke teilen
-# - **LangChain Text Splitters**: Intelligente Aufteilung
-# - **chunk_size und chunk_overlap**: Wichtige Parameter
+# - **RecursiveCharacterTextSplitter**: Intelligente Aufteilung
+# - **chunk_size**: Maximale Chunk-Größe
+# - **chunk_overlap**: Überlappung für Kontext am Rand
+# - **TokenTextSplitter**: Alternative für token-basierte Aufteilung
 #
-# **Nächster Schritt**: RAG-Systeme - Dokumente mit LLMs verbinden!
+# **Nächster Schritt**: Vector Embeddings - wie finden wir relevante Chunks?
