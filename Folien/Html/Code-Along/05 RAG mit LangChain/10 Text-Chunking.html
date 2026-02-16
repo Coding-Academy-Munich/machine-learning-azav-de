@@ -13156,7 +13156,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6d9c7c9aa6598cc2">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ab38d39884dda2f1">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13166,6 +13166,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
     <span class="n">RecursiveCharacterTextSplitter</span><span class="p">,</span>
     <span class="n">TokenTextSplitter</span><span class="p">,</span>
 <span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">visualize_chunks</span><span class="w"> </span><span class="kn">import</span> <span class="n">visualize_chunks</span>
 </pre></div>
 </div>
 </div>
@@ -13206,7 +13207,18 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=dece9001722092c8">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=86102d98af994605">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ba922548b4687108">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13234,13 +13246,13 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=d5cc8d59ba650d78">
+<div class="cell border-box-sizing code_cell rendered celltag_start celltag_subslide" id="cell-id=214aab4a7d81bd06">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create a RecursiveCharacterTextSplitter</span>
-<span class="c1"># with chunk_size=200, chunk_overlap=50</span>
+<span class="c1"># with chunk_size=300, chunk_overlap=100</span>
 </pre></div>
 </div>
 </div>
@@ -13257,7 +13269,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=bdbca901bbfc91cf">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=187ffbf89b2e54a4">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13268,7 +13280,31 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=aa97dcff68613299"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=870e2225514e4ad9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">chunks</span><span class="p">[:</span><span class="mi">3</span><span class="p">],</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="se">\n</span><span class="s2">--- Chunk </span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2"> (Länge/length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span><span class="si">}</span><span class="s2">) ---"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=bf67fdb52f511783">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=be89c251adc511fb"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Chunk-Parameter-verstehen">Chunk-Parameter verstehen<a class="anchor-link" href="#Chunk-Parameter-verstehen">¶</a></h2><ul>
@@ -13282,7 +13318,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <p><strong>Typische Werte</strong>:</p>
 <ul>
 <li>chunk_size: 500–1000 für Dokumente</li>
-<li>chunk_overlap: 50–200 (10–20% von chunk_size)</li>
+<li>chunk_overlap: 50–400 (10–20% von chunk_size)</li>
 </ul>
 </div>
 </div>
@@ -13310,13 +13346,15 @@ Chunk 2:                    [==============================]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4bd1a0e4014f9755">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d54b4bf9b64c2b1d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">splitter_no_overlap</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">splitter_with_overlap</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">splitter_with_overlap</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span>
+    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">100</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13344,7 +13382,52 @@ Chunk 2:                    [==============================]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d20956bab1f1a926">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=6b5e49dba99ca691">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">visualize_chunks</span><span class="p">(</span><span class="n">chunks_no_overlap</span><span class="p">,</span> <span class="n">max_chunks</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=2d9ccc61a6060aa7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">visualize_chunks</span><span class="p">(</span><span class="n">chunks_with_overlap</span><span class="p">,</span> <span class="n">max_chunks</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=acf970d4b1b960d5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Problem:-Unvollst%C3%A4ndige-S%C3%A4tze">Problem: Unvollständige Sätze<a class="anchor-link" href="#Problem:-Unvollst%C3%A4ndige-S%C3%A4tze">¶</a></h2><ul>
+<li>Bei unserer jetzigen Chunking-Strategie enden die Chunks oft mitten im Satz</li>
+<li>Das kann zu unverständlichen oder unvollständigen Informationen führen</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=302a35f61a3d307b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Verbesserung:-Chunking-nach-S%C3%A4tzen">Verbesserung: Chunking nach Sätzen<a class="anchor-link" href="#Verbesserung:-Chunking-nach-S%C3%A4tzen">¶</a></h2><ul>
+<li>Wir können den <code>separators</code>-Parameter anpassen, um zuerst nach Sätzen zu
+splitten</li>
+<li>Dadurch erhalten wir Chunks, die eher vollständige Gedanken enthalten</li>
+<li>Allerdings müssen wir dann größere Chunks bilden, da Sätze oft länger als
+100 Zeichen sind</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=03b5e9fb3432d071">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13355,13 +13438,138 @@ Chunk 2:                    [==============================]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f16847e56e4a2c4d"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=bffc8aff658717de">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=901ca96366604278">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=84c1fbbd70bbbe65">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=2573814405fa9886"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Problem:-Manche-Splitpunkte-werden-nicht-erkannt">Problem: Manche Splitpunkte werden nicht erkannt<a class="anchor-link" href="#Problem:-Manche-Splitpunkte-werden-nicht-erkannt">¶</a></h2><ul>
+<li>Unsere Regex für Satzende (<code>(?&lt;=[.!?:])\s+</code>) erkennt nicht alle möglichen
+Satzenden.</li>
+<li>Zum Beispiel werden Anführungszeichen am Ende eines Satzes nicht
+berücksichtigt.</li>
+<li>Daher werden für Chunk 2 und Chunk 3 keine Überlappungen angezeigt, obwohl
+sie existieren.</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=46bd7e5076082931"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="L%C3%B6sung:-Regex-anpassen">Lösung: Regex anpassen<a class="anchor-link" href="#L%C3%B6sung:-Regex-anpassen">¶</a></h2><ul>
+<li>Wir können unsere Regex anpassen, um auch Anführungszeichen am Satzende zu
+berücksichtigen</li>
+<li>Dadurch werden Überlappungen korrekt erkannt</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=525cc6bc2a191e43">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sentence_rx</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"(?:(?&lt;=[.!?:])|(?&lt;=[.!?:][</span><span class="se">\"</span><span class="s2">']))\s+"</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e795e8aa7ddd94e4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e18ab78f5207eb22">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=197ec91684b963bb">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=148a99efb34a36e7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8ee49d24a6792ed4"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Tokens-vs.-Zeichen">Tokens vs. Zeichen<a class="anchor-link" href="#Tokens-vs.-Zeichen">¶</a></h2><ul>
 <li>Erinnerung: LLMs zählen in <strong>Tokens</strong>, nicht Zeichen</li>
+<li>Ein <strong>Token</strong> ist ein Wort-Teilstück, das das Modell als Einheit verarbeitet</li>
+<li>Beispiel: <code>"understanding"</code> → <code>["under", "standing"]</code> (2 Tokens)</li>
 <li><strong>Faustregel</strong>: 1 Token ≈ 4 Zeichen (für englischen Text)</li>
 <li>Für deutschen Text etwas weniger (wegen längerer Wörter)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=ff0a706dc7367d22"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<ul>
+<li>Beispiel: <code>"This sentence has 40 characters"</code> → ca. 7 Tokens</li>
+<li><strong>Warum wichtig?</strong> Context-Limits von LLMs sind in Tokens angegeben</li>
 <li>LangChain bietet auch einen <strong>Token-basierten Splitter</strong></li>
 </ul>
 </div>
@@ -13378,7 +13586,29 @@ Chunk 2:                    [==============================]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e7fb6e834ae3e023">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=37ccbb36fcfbd915">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=05fb0aecb7452458">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1981912258dad342">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13399,7 +13629,7 @@ Chunk 2:                    [==============================]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=cc04e08f934fe8d7">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0a600571a201c600">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13411,18 +13641,18 @@ Chunk 2:                    [==============================]
     <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\n +"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">" +\n"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\n{3,}"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">text</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=09f8abbcc7b4b22a">
+<div class="cell border-box-sizing code_cell rendered celltag_start celltag_subslide" id="cell-id=c745e1a065965eb5">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_and_chunk_text</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_and_chunk_text</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Load text file, clean it, and split into chunks."""</span>
     <span class="c1"># TODO: Read the file</span>
     <span class="c1"># TODO: Clean the text (use clean_text function)</span>
@@ -13434,18 +13664,63 @@ Chunk 2:                    [==============================]
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=58af4bf132285fc3"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=cd8715870cfcee18">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f3e3bfb1e6d9b3cb">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=5968883a7c6f4c91">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=94d070536c218597"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Chunk-Qualit%C3%A4t-und-RAG">Chunk-Qualität und RAG<a class="anchor-link" href="#Chunk-Qualit%C3%A4t-und-RAG">¶</a></h2><ul>
 <li><strong>Gute Chunks</strong> → Gutes Retrieval → Gute Antworten</li>
 <li><strong>Schlechte Chunks</strong> → Irrelevante Ergebnisse → Schlechte Antworten</li>
 </ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=fd9b48bd792ff689"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Beispiel für einen schlechten Chunk</strong>:</p>
 <pre><code>"Networks sind eine wichtige Methode im Machine Learning.
 Sie sind inspiriert von der Funktionsweise"
 </code></pre>
 <p>→ Abgeschnitten mitten im Satz!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=e82926f38219595d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>Beispiel für einen guten Chunk</strong>:</p>
 <pre><code>"Neural Networks sind eine wichtige Methode im Machine Learning.
 Sie sind inspiriert von der Funktionsweise des Gehirns."

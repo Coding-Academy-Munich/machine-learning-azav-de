@@ -13145,11 +13145,15 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6b52687f6464af6a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=39dc96a5b2531e9f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Workshop:-Text-Verarbeitung">Workshop: Text-Verarbeitung<a class="anchor-link" href="#Workshop:-Text-Verarbeitung">¶</a></h2><p>In diesem Workshop üben Sie die Schritte der Text-Verarbeitung:</p>
 <ol>
+<li>Regex-basierte Bereinigung mit <code>clean_text()</code></li>
+<li>Encoding-Probleme reparieren mit <code>ftfy</code></li>
+<li>Web-Text normalisieren mit <code>clean-text</code></li>
+<li>Haupttext aus HTML extrahieren mit <code>trafilatura</code></li>
 <li>Text bereinigen und aufteilen</li>
 <li>Mit Chunk-Parametern experimentieren</li>
 <li>Verschiedene Splitter vergleichen</li>
@@ -13157,32 +13161,21 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=08cf817e09e0770c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c75ecf95f95a616d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">ftfy</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">trafilatura</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">cleantext</span><span class="w"> </span><span class="kn">import</span> <span class="n">clean</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">RecursiveCharacterTextSplitter</span><span class="p">,</span>
     <span class="n">CharacterTextSplitter</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=44e8fbc3d85ed0a1"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabe-1:-Text-bereinigen-und-aufteilen">Aufgabe 1: Text bereinigen und aufteilen<a class="anchor-link" href="#Aufgabe-1:-Text-bereinigen-und-aufteilen">¶</a></h2><p>Schreiben Sie eine Funktion <code>clean_and_chunk(filepath)</code>, die:</p>
-<ol>
-<li>Eine Textdatei liest</li>
-<li>Den Text mit <code>clean_text()</code> bereinigt</li>
-<li>Den bereinigten Text in Chunks aufteilt (<code>chunk_size=500</code>, <code>chunk_overlap=50</code>)</li>
-<li>Die Chunks zurückgibt</li>
-</ol>
-<p>Testen Sie Ihre Funktion mit <code>docs/ai-intro.txt</code>.</p>
 </div>
 </div>
 </div>
@@ -13200,6 +13193,265 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
     <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6c9adfdd82fcc591"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-1:-Datei-bereinigen-mit-clean_text()">Aufgabe 1: Datei bereinigen mit <code>clean_text()</code><a class="anchor-link" href="#Aufgabe-1:-Datei-bereinigen-mit-clean_text()">¶</a></h3><ul>
+<li>Lesen Sie die Datei <code>docs/messy_report.txt</code></li>
+<li>Wenden Sie <code>clean_text()</code> auf den Inhalt an</li>
+<li>Geben Sie den Text vorher und nachher aus</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=66f9306ebf8a8900">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"docs/messy_report.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">messy_report</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== Before ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">messy_report</span><span class="p">)</span>
+
+<span class="c1"># TODO: Apply clean_text() and print the result</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=02d4126f70a20b4f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=15677659a3e97302">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=82ee71985a7d692f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-2:-Encoding-Probleme-reparieren-mit-ftfy">Aufgabe 2: Encoding-Probleme reparieren mit ftfy<a class="anchor-link" href="#Aufgabe-2:-Encoding-Probleme-reparieren-mit-ftfy">¶</a></h3><ul>
+<li>Lesen Sie die Datei <code>docs/encoding_problems.txt</code></li>
+<li>Verwenden Sie <code>ftfy.fix_text()</code> um die HTML-Entities zu reparieren</li>
+<li>Kombinieren Sie <code>ftfy.fix_text()</code> mit <code>clean_text()</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=67b8ba4d284483be">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"docs/encoding_problems.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">encoded_text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== Before ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">encoded_text</span><span class="p">)</span>
+
+<span class="c1"># TODO: Apply ftfy.fix_text() and clean_text(), print the result</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b422298beadfaac3">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5d37bd3df30a346d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=99aab8327ca0b20d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d45aa56e4de6715b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4a1b85a8da273ad7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-3:-Web-Text-normalisieren-mit-clean-text">Aufgabe 3: Web-Text normalisieren mit clean-text<a class="anchor-link" href="#Aufgabe-3:-Web-Text-normalisieren-mit-clean-text">¶</a></h3><ul>
+<li>Lesen Sie die Datei <code>docs/scraped_content.txt</code></li>
+<li>Verwenden Sie <code>clean()</code> mit <code>no_urls=True</code>, <code>no_emails=True</code>, <code>no_emoji=True</code></li>
+<li>Probieren Sie auch Platzhalter: <code>replace_with_url="REPLACED-URL"</code>,
+<code>replace_with_email="REPLACED-EMAIL"</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8c6c0ce459281ada">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"docs/scraped_content.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">scraped</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== Before ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">scraped</span><span class="p">)</span>
+
+<span class="c1"># TODO: Apply clean() with different options, print the results</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=801aa1465acedb7c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=cf32e20cc4e2dddf">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2b0576de0639be24">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c9d94507980ba38d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ebf7ca5fd22e4b8d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-4:-Haupttext-extrahieren-mit-trafilatura">Aufgabe 4: Haupttext extrahieren mit trafilatura<a class="anchor-link" href="#Aufgabe-4:-Haupttext-extrahieren-mit-trafilatura">¶</a></h3><ul>
+<li>Lesen Sie die Datei <code>docs/sample_blog_post.html</code></li>
+<li>Verwenden Sie <code>trafilatura.extract()</code> um den Haupttext zu extrahieren</li>
+<li>Geben Sie das Ergebnis aus</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=7ccf1e624afb6d68">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"docs/sample_blog_post.html"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">html_content</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">"=== Raw HTML (first 500 chars) ==="</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">html_content</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
+
+<span class="c1"># TODO: Use trafilatura.extract() to extract the main text and print it</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a1746e034cdad456">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=55e974ceae81b6e7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0005367078bd5215"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Aufgabe-5:-Text-bereinigen-und-aufteilen">Aufgabe 5: Text bereinigen und aufteilen<a class="anchor-link" href="#Aufgabe-5:-Text-bereinigen-und-aufteilen">¶</a></h3><p>Schreiben Sie eine Funktion <code>clean_and_chunk(filepath)</code>, die:</p>
+<ol>
+<li>Eine Textdatei liest</li>
+<li>Den Text mit <code>clean_text()</code> bereinigt</li>
+<li>Den bereinigten Text in Chunks aufteilt (<code>chunk_size=500</code>, <code>chunk_overlap=50</code>)</li>
+<li>Die Chunks zurückgibt</li>
+</ol>
+<p>Testen Sie Ihre Funktion mit <code>docs/ai-intro.txt</code>.</p>
 </div>
 </div>
 </div>
@@ -13252,10 +13504,10 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0435a424b2f89679"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c32806a3e0d5c2df"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabe-2:-Chunk-Parameter-experimentieren">Aufgabe 2: Chunk-Parameter experimentieren<a class="anchor-link" href="#Aufgabe-2:-Chunk-Parameter-experimentieren">¶</a></h2><p>Verwenden Sie den folgenden längeren Text.
+<h3 id="Aufgabe-6:-Chunk-Parameter-experimentieren">Aufgabe 6: Chunk-Parameter experimentieren<a class="anchor-link" href="#Aufgabe-6:-Chunk-Parameter-experimentieren">¶</a></h3><p>Verwenden Sie den folgenden längeren Text.
 Erstellen Sie einen <code>RecursiveCharacterTextSplitter</code> und testen Sie verschiedene
 Kombinationen von <code>chunk_size</code> und <code>chunk_overlap</code>:</p>
 <ul>
@@ -13321,10 +13573,10 @@ Beobachten Sie: Wie verändern sich die Chunks?</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8ac4c72efe68562a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a05dd3cd4adb984d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabe-3:-Text-Splitter-vergleichen">Aufgabe 3: Text-Splitter vergleichen<a class="anchor-link" href="#Aufgabe-3:-Text-Splitter-vergleichen">¶</a></h2><p>Vergleichen Sie <code>CharacterTextSplitter</code> und <code>RecursiveCharacterTextSplitter</code>
+<h3 id="Aufgabe-7:-Text-Splitter-vergleichen">Aufgabe 7: Text-Splitter vergleichen<a class="anchor-link" href="#Aufgabe-7:-Text-Splitter-vergleichen">¶</a></h3><p>Vergleichen Sie <code>CharacterTextSplitter</code> und <code>RecursiveCharacterTextSplitter</code>
 auf demselben Text:</p>
 <ol>
 <li>Erstellen Sie beide Splitter mit <code>chunk_size=200</code> und <code>chunk_overlap=20</code></li>

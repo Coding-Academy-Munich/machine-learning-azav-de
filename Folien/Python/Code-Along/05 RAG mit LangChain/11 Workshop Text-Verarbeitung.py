@@ -12,28 +12,24 @@
 # ## Workshop: Text-Verarbeitung
 #
 # In diesem Workshop üben Sie die Schritte der Text-Verarbeitung:
-# 1. Text bereinigen und aufteilen
-# 2. Mit Chunk-Parametern experimentieren
-# 3. Verschiedene Splitter vergleichen
+# 1. Regex-basierte Bereinigung mit `clean_text()`
+# 2. Encoding-Probleme reparieren mit `ftfy`
+# 3. Web-Text normalisieren mit `clean-text`
+# 4. Haupttext aus HTML extrahieren mit `trafilatura`
+# 5. Text bereinigen und aufteilen
+# 6. Mit Chunk-Parametern experimentieren
+# 7. Verschiedene Splitter vergleichen
 
 # %%
 import re
+import ftfy
+import trafilatura
+from cleantext import clean
 from langchain_text_splitters import (
     RecursiveCharacterTextSplitter,
     CharacterTextSplitter,
 )
 
-# %% [markdown]
-#
-# ## Aufgabe 1: Text bereinigen und aufteilen
-#
-# Schreiben Sie eine Funktion `clean_and_chunk(filepath)`, die:
-# 1. Eine Textdatei liest
-# 2. Den Text mit `clean_text()` bereinigt
-# 3. Den bereinigten Text in Chunks aufteilt (`chunk_size=500`, `chunk_overlap=50`)
-# 4. Die Chunks zurückgibt
-#
-# Testen Sie Ihre Funktion mit `docs/ai-intro.txt`.
 
 # %%
 def clean_text(text):
@@ -44,6 +40,111 @@ def clean_text(text):
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
 
+
+# %% [markdown]
+#
+# ### Aufgabe 1: Datei bereinigen mit `clean_text()`
+#
+# - Lesen Sie die Datei `docs/messy_report.txt`
+# - Wenden Sie `clean_text()` auf den Inhalt an
+# - Geben Sie den Text vorher und nachher aus
+
+# %%
+with open("docs/messy_report.txt", "r") as f:
+    messy_report = f.read()
+
+print("=== Before ===")
+print(messy_report)
+
+# TODO: Apply clean_text() and print the result
+
+# %%
+
+# %%
+
+# %% [markdown]
+#
+# ### Aufgabe 2: Encoding-Probleme reparieren mit ftfy
+#
+# - Lesen Sie die Datei `docs/encoding_problems.txt`
+# - Verwenden Sie `ftfy.fix_text()` um die HTML-Entities zu reparieren
+# - Kombinieren Sie `ftfy.fix_text()` mit `clean_text()`
+
+# %%
+with open("docs/encoding_problems.txt", "r") as f:
+    encoded_text = f.read()
+
+print("=== Before ===")
+print(encoded_text)
+
+# TODO: Apply ftfy.fix_text() and clean_text(), print the result
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+
+# %% [markdown]
+#
+# ### Aufgabe 3: Web-Text normalisieren mit clean-text
+#
+# - Lesen Sie die Datei `docs/scraped_content.txt`
+# - Verwenden Sie `clean()` mit `no_urls=True`, `no_emails=True`, `no_emoji=True`
+# - Probieren Sie auch Platzhalter: `replace_with_url="REPLACED-URL"`,
+#   `replace_with_email="REPLACED-EMAIL"`
+
+# %%
+with open("docs/scraped_content.txt", "r") as f:
+    scraped = f.read()
+
+print("=== Before ===")
+print(scraped)
+
+# TODO: Apply clean() with different options, print the results
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+
+# %% [markdown]
+#
+# ### Aufgabe 4: Haupttext extrahieren mit trafilatura
+#
+# - Lesen Sie die Datei `docs/sample_blog_post.html`
+# - Verwenden Sie `trafilatura.extract()` um den Haupttext zu extrahieren
+# - Geben Sie das Ergebnis aus
+
+# %%
+with open("docs/sample_blog_post.html", "r") as f:
+    html_content = f.read()
+
+print("=== Raw HTML (first 500 chars) ===")
+print(html_content[:500])
+
+# TODO: Use trafilatura.extract() to extract the main text and print it
+
+# %%
+
+# %%
+
+# %% [markdown]
+#
+# ### Aufgabe 5: Text bereinigen und aufteilen
+#
+# Schreiben Sie eine Funktion `clean_and_chunk(filepath)`, die:
+# 1. Eine Textdatei liest
+# 2. Den Text mit `clean_text()` bereinigt
+# 3. Den bereinigten Text in Chunks aufteilt (`chunk_size=500`, `chunk_overlap=50`)
+# 4. Die Chunks zurückgibt
+#
+# Testen Sie Ihre Funktion mit `docs/ai-intro.txt`.
 
 # %%
 def clean_and_chunk(filepath, chunk_size=500, chunk_overlap=50):
@@ -62,7 +163,7 @@ def clean_and_chunk(filepath, chunk_size=500, chunk_overlap=50):
 
 # %% [markdown]
 #
-# ## Aufgabe 2: Chunk-Parameter experimentieren
+# ### Aufgabe 6: Chunk-Parameter experimentieren
 #
 # Verwenden Sie den folgenden längeren Text.
 # Erstellen Sie einen `RecursiveCharacterTextSplitter` und testen Sie verschiedene
@@ -114,7 +215,7 @@ overlaps = [0, 20, 50]
 
 # %% [markdown]
 #
-# ## Aufgabe 3: Text-Splitter vergleichen
+# ### Aufgabe 7: Text-Splitter vergleichen
 #
 # Vergleichen Sie `CharacterTextSplitter` und `RecursiveCharacterTextSplitter`
 # auf demselben Text:

@@ -103,6 +103,14 @@ def clean_text_2(text):
 
 # %%
 
+# %% [markdown]
+#
+# ## Bereinigen von Dokumenten und LangChain Page Loader
+#
+# - Viele Dokumenten-Loader (z.B. WebBaseLoader) verwenden Beautiful Soup, um
+#   HTML-Tags zu entfernen
+# - Das Ergebnis ist oft schon bereinigt, aber manchmal bleiben Artefakte übrig
+
 
 # %%
 from langchain_community.document_loaders import WebBaseLoader
@@ -128,6 +136,16 @@ loader = WebBaseLoader("https://de.wikipedia.org/wiki/Python_(Programmiersprache
 
 # %% [markdown]
 #
+# Wir können den `page_content` von Dokumenten modifizieren, wenn wir
+# zusätzliche Nachbearbeitung vornehmen wollen:
+
+# %%
+
+# %%
+
+
+# %% [markdown]
+#
 # ## Besser: Verwenden von Bibliotheken
 #
 # Es gibt viele Bibliotheken, die Textbereinigung und -normalisierung unterstützen:
@@ -140,7 +158,7 @@ loader = WebBaseLoader("https://de.wikipedia.org/wiki/Python_(Programmiersprache
 # - **newspaper4k**: Ähnlich wie trafilatura, aber mit Fokus auf Nachrichtenartikel
 
 # %%
-# !pip install clean-text ftfy trafilatura --root-user-action=ignore
+# !pip install clean-text ftfy trafilatura unidecode --root-user-action=ignore
 
 # %%
 import requests
@@ -295,7 +313,58 @@ cleaned_with_placeholders = clean(
     replace_with_email="<EMAIL>",
 )
 
+
 # %%
+
+# %% [markdown]
+#
+# ## Bereinigungspipeline für LangChain-Dokumente
+#
+# - Wir haben verschiedene Bereinigungstechniken kennengelernt
+# - Jetzt kombinieren wir sie zu einer **wiederverwendbaren Funktion**
+# - Funktioniert mit **jedem** Document Loader (Web, PDF, etc.)
+
+# %%
+def clean_documents(docs, clean_fn=clean_text_2):
+    for doc in docs:
+        doc.page_content = clean_fn(doc.page_content)
+    return docs
+
+
+# %% [markdown]
+#
+# Verwendung mit WebBaseLoader:
+
+# %%
+loader = WebBaseLoader("https://de.wikipedia.org/wiki/Python_(Programmiersprache)")
+
+
+# %%
+
+# %%
+
+# %%
+
+# %% [markdown]
+#
+# ## Eigene Bereinigungsfunktion übergeben
+#
+# - Verschiedene Quellen brauchen verschiedene Bereinigung
+# - `clean_documents` akzeptiert eine beliebige Bereinigungsfunktion
+
+# %%
+def thorough_clean(text):
+    text = ftfy.fix_text(text)
+    text = clean(text, no_urls=True, no_emails=True, no_emoji=True, to_ascii=False, lower=False)
+    text = clean_text_2(text)
+    return text
+
+# %%
+
+# %%
+
+# %%
+
 
 # %% [markdown]
 #
@@ -305,86 +374,6 @@ cleaned_with_placeholders = clean(
 # - **trafilatura**: Haupttext aus Webseiten extrahieren
 # - **ftfy**: Kaputte Unicode-Zeichen und HTML-Entities reparieren
 # - **clean-text**: Umfassende Normalisierung (URLs, Emojis, Whitespace, ...)
+# - **Pipeline**: Bereinigungsfunktionen mit Document Loadern kombinieren
 #
 # **Nächster Schritt**: Text in Chunks aufteilen
-
-# %% [markdown]
-#
-# ## Workshop: Text bereinigen
-#
-# In diesem Workshop üben Sie verschiedene Text-Bereinigungstechniken:
-# - Eigene Regex-basierte Bereinigung mit `clean_text()`
-# - Encoding-Probleme reparieren mit `ftfy`
-# - Web-Text normalisieren mit `clean-text`
-
-# %% [markdown]
-#
-# ### Aufgabe 1: Datei bereinigen mit `clean_text()`
-#
-# - Lesen Sie die Datei `docs/messy_report.txt`
-# - Wenden Sie `clean_text()` auf den Inhalt an
-# - Geben Sie den Text vorher und nachher aus
-
-# %%
-with open("docs/messy_report.txt", "r") as f:
-    messy_report = f.read()
-
-print("=== Before ===")
-print(messy_report)
-
-# TODO: Apply clean_text() and print the result
-
-# %%
-
-# %%
-
-# %% [markdown]
-#
-# ### Aufgabe 2: Encoding-Probleme reparieren mit ftfy
-#
-# - Lesen Sie die Datei `docs/encoding_problems.txt`
-# - Verwenden Sie `ftfy.fix_text()` um die HTML-Entities zu reparieren
-# - Kombinieren Sie `ftfy.fix_text()` mit `clean_text()`
-
-# %%
-with open("docs/encoding_problems.txt", "r") as f:
-    encoded_text = f.read()
-
-print("=== Before ===")
-print(encoded_text)
-
-# TODO: Apply ftfy.fix_text() and clean_text(), print the result
-
-# %%
-
-# %%
-
-# %%
-
-# %%
-
-# %% [markdown]
-#
-# ### Aufgabe 3: Web-Text normalisieren mit clean-text
-#
-# - Lesen Sie die Datei `docs/scraped_content.txt`
-# - Verwenden Sie `clean()` mit `no_urls=True`, `no_emails=True`, `no_emoji=True`
-# - Probieren Sie auch Platzhalter: `replace_with_url="<URL>"`,
-#   `replace_with_email="<EMAIL>"`
-
-# %%
-with open("docs/scraped_content.txt", "r") as f:
-    scraped = f.read()
-
-print("=== Before ===")
-print(scraped)
-
-# TODO: Apply clean() with different options, print the results
-
-# %%
-
-# %%
-
-# %%
-
-# %%

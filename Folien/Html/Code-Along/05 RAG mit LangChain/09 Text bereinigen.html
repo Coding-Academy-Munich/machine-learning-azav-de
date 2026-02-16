@@ -13332,6 +13332,17 @@ Anführungszeichen (<code>'</code>)</li>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=3b6d03a2c035c018"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bereinigen-von-Dokumenten-und-LangChain-Page-Loader">Bereinigen von Dokumenten und LangChain Page Loader<a class="anchor-link" href="#Bereinigen-von-Dokumenten-und-LangChain-Page-Loader">¶</a></h2><ul>
+<li>Viele Dokumenten-Loader (z.B. WebBaseLoader) verwenden Beautiful Soup, um
+HTML-Tags zu entfernen</li>
+<li>Das Ergebnis ist oft schon bereinigt, aber manchmal bleiben Artefakte übrig</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8aba8d0e21b67708">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
@@ -13412,6 +13423,36 @@ Anführungszeichen (<code>'</code>)</li>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=da8ba237f3e317a3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Wir können den <code>page_content</code> von Dokumenten modifizieren, wenn wir
+zusätzliche Nachbearbeitung vornehmen wollen:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=575a342b82ecdb19">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c1ac16bede8ac7e0">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=dd1f9c82de95f9a0"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13427,12 +13468,12 @@ Anführungszeichen (<code>'</code>)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=57defe0d3d5919a4">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=708fe50ce6452305">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>clean-text<span class="w"> </span>ftfy<span class="w"> </span>trafilatura<span class="w"> </span>--root-user-action<span class="o">=</span>ignore
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>clean-text<span class="w"> </span>ftfy<span class="w"> </span>trafilatura<span class="w"> </span>unidecode<span class="w"> </span>--root-user-action<span class="o">=</span>ignore
 </pre></div>
 </div>
 </div>
@@ -13496,7 +13537,7 @@ Anführungszeichen (<code>'</code>)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=d9406431c1534687">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=0330146ff838e8bb">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13540,7 +13581,7 @@ Anführungszeichen (<code>'</code>)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=9c6745e4549c2bbc">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0c6837dc10db1c6d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13894,7 +13935,141 @@ Anführungszeichen (<code>'</code>)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5f0e7565589865b1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7226761b09267218"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bereinigungspipeline-f%C3%BCr-LangChain-Dokumente">Bereinigungspipeline für LangChain-Dokumente<a class="anchor-link" href="#Bereinigungspipeline-f%C3%BCr-LangChain-Dokumente">¶</a></h2><ul>
+<li>Wir haben verschiedene Bereinigungstechniken kennengelernt</li>
+<li>Jetzt kombinieren wir sie zu einer <strong>wiederverwendbaren Funktion</strong></li>
+<li>Funktioniert mit <strong>jedem</strong> Document Loader (Web, PDF, etc.)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2274b7ca9397916d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">clean_documents</span><span class="p">(</span><span class="n">docs</span><span class="p">,</span> <span class="n">clean_fn</span><span class="o">=</span><span class="n">clean_text_2</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">:</span>
+        <span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="o">=</span> <span class="n">clean_fn</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">docs</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=3799cb2077d64471"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Verwendung mit WebBaseLoader:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=acf46da006c2dfb9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">loader</span> <span class="o">=</span> <span class="n">WebBaseLoader</span><span class="p">(</span><span class="s2">"https://de.wikipedia.org/wiki/Python_(Programmiersprache)"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c7d8275548ef4297">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9a858d4ce15dc058">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d890bdf4be487af3">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=f862dba2cd796510"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Eigene-Bereinigungsfunktion-%C3%BCbergeben">Eigene Bereinigungsfunktion übergeben<a class="anchor-link" href="#Eigene-Bereinigungsfunktion-%C3%BCbergeben">¶</a></h2><ul>
+<li>Verschiedene Quellen brauchen verschiedene Bereinigung</li>
+<li><code>clean_documents</code> akzeptiert eine beliebige Bereinigungsfunktion</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=bab64f17db84b3c6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">thorough_clean</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">ftfy</span><span class="o">.</span><span class="n">fix_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">no_urls</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">no_emails</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">no_emoji</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">to_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">clean_text_2</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=57a4f18133a4a8fa">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=147edfa09832f3d2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=202ec7c3ff7febd2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3b8a6269c920ce86"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung:-Text-bereinigen">Zusammenfassung: Text bereinigen<a class="anchor-link" href="#Zusammenfassung:-Text-bereinigen">¶</a></h2><ul>
@@ -13902,215 +14077,9 @@ Anführungszeichen (<code>'</code>)</li>
 <li><strong>trafilatura</strong>: Haupttext aus Webseiten extrahieren</li>
 <li><strong>ftfy</strong>: Kaputte Unicode-Zeichen und HTML-Entities reparieren</li>
 <li><strong>clean-text</strong>: Umfassende Normalisierung (URLs, Emojis, Whitespace, ...)</li>
+<li><strong>Pipeline</strong>: Bereinigungsfunktionen mit Document Loadern kombinieren</li>
 </ul>
 <p><strong>Nächster Schritt</strong>: Text in Chunks aufteilen</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=267e4fdc72616298"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop:-Text-bereinigen">Workshop: Text bereinigen<a class="anchor-link" href="#Workshop:-Text-bereinigen">¶</a></h2><p>In diesem Workshop üben Sie verschiedene Text-Bereinigungstechniken:</p>
-<ul>
-<li>Eigene Regex-basierte Bereinigung mit <code>clean_text()</code></li>
-<li>Encoding-Probleme reparieren mit <code>ftfy</code></li>
-<li>Web-Text normalisieren mit <code>clean-text</code></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6c9adfdd82fcc591"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-1:-Datei-bereinigen-mit-clean_text()">Aufgabe 1: Datei bereinigen mit <code>clean_text()</code><a class="anchor-link" href="#Aufgabe-1:-Datei-bereinigen-mit-clean_text()">¶</a></h3><ul>
-<li>Lesen Sie die Datei <code>docs/messy_report.txt</code></li>
-<li>Wenden Sie <code>clean_text()</code> auf den Inhalt an</li>
-<li>Geben Sie den Text vorher und nachher aus</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=66f9306ebf8a8900">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"docs/messy_report.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">messy_report</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"=== Before ==="</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">messy_report</span><span class="p">)</span>
-
-<span class="c1"># TODO: Apply clean_text() and print the result</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=02d4126f70a20b4f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=15677659a3e97302">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=82ee71985a7d692f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-2:-Encoding-Probleme-reparieren-mit-ftfy">Aufgabe 2: Encoding-Probleme reparieren mit ftfy<a class="anchor-link" href="#Aufgabe-2:-Encoding-Probleme-reparieren-mit-ftfy">¶</a></h3><ul>
-<li>Lesen Sie die Datei <code>docs/encoding_problems.txt</code></li>
-<li>Verwenden Sie <code>ftfy.fix_text()</code> um die HTML-Entities zu reparieren</li>
-<li>Kombinieren Sie <code>ftfy.fix_text()</code> mit <code>clean_text()</code></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=67b8ba4d284483be">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"docs/encoding_problems.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">encoded_text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"=== Before ==="</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">encoded_text</span><span class="p">)</span>
-
-<span class="c1"># TODO: Apply ftfy.fix_text() and clean_text(), print the result</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=b422298beadfaac3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=5d37bd3df30a346d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=99aab8327ca0b20d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d45aa56e4de6715b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1b3953d5a7bbe52c"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Aufgabe-3:-Web-Text-normalisieren-mit-clean-text">Aufgabe 3: Web-Text normalisieren mit clean-text<a class="anchor-link" href="#Aufgabe-3:-Web-Text-normalisieren-mit-clean-text">¶</a></h3><ul>
-<li>Lesen Sie die Datei <code>docs/scraped_content.txt</code></li>
-<li>Verwenden Sie <code>clean()</code> mit <code>no_urls=True</code>, <code>no_emails=True</code>, <code>no_emoji=True</code></li>
-<li>Probieren Sie auch Platzhalter: <code>replace_with_url="&lt;URL&gt;"</code>,
-<code>replace_with_email="&lt;EMAIL&gt;"</code></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8c6c0ce459281ada">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"docs/scraped_content.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">scraped</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"=== Before ==="</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">scraped</span><span class="p">)</span>
-
-<span class="c1"># TODO: Apply clean() with different options, print the results</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=801aa1465acedb7c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=cf32e20cc4e2dddf">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=bf55c326d939478c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c9d94507980ba38d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
 </div>
 </div>
 </div>
