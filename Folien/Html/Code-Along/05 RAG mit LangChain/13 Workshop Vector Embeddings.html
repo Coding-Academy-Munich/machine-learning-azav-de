@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=071dd246e8db6dd1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=192cab45f351c6ca"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Text-Verarbeitung: Grundlagen</b>
+<b>Workshop: Vector Embeddings</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,267 +13145,198 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e1b3a1039d5bf0ba"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f038f4b23a2ac803"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-Text-Verarbeitung?">Warum Text-Verarbeitung?<a class="anchor-link" href="#Warum-Text-Verarbeitung?">¶</a></h2><ul>
-<li>Wir haben RAG kennengelernt und wissen, wie man Dokumente lädt</li>
-<li><strong>Problem</strong>: Dokumente sind oft zu lang für LLM-Context-Windows</li>
-<li><strong>Lösung</strong>: Dokumente in kleinere <strong>Chunks</strong> (Stücke) aufteilen</li>
-<li>Dann nur die <strong>relevanten</strong> Chunks für jede Frage finden</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c5199386ab340e66">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2e14ecafdaa4219c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">RecursiveCharacterTextSplitter</span><span class="p">,</span>
-    <span class="n">CharacterTextSplitter</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6bdf278583c70ec4"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Text-laden-und-aufbereiten">Text laden und aufbereiten<a class="anchor-link" href="#Text-laden-und-aufbereiten">¶</a></h2><ul>
-<li>Text aus Dateien lesen</li>
-<li>Unnötige Zeichen entfernen</li>
-<li>In handhabbare Stücke teilen</li>
-<li>LangChain macht vieles davon automatisch!</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=7d5c39ad75ed9864"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Beispiel-Text (simuliert ein Dokument)</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=de92bb566f023851">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">document</span> <span class="o">=</span> <span class="s2">"""</span>
-<span class="s2">Machine Learning ist ein Teilgebiet der künstlichen Intelligenz.</span>
-<span class="s2">Es beschäftigt sich mit dem automatischen Lernen aus Daten.</span>
-
-<span class="s2">Neural Networks sind eine wichtige Methode im Machine Learning.</span>
-<span class="s2">Sie sind inspiriert von der Funktionsweise des Gehirns.</span>
-
-<span class="s2">Large Language Models verwenden sehr große Neural Networks.</span>
-<span class="s2">Sie werden auf riesigen Textmengen trainiert.</span>
-<span class="s2">"""</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=23a47e69ee7c0a82">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c99cb242836c6b58"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Chunking:-Text-aufteilen">Chunking: Text aufteilen<a class="anchor-link" href="#Chunking:-Text-aufteilen">¶</a></h2><ul>
-<li><strong>Problem</strong>: Lange Dokumente passen nicht in LLM-Context</li>
-<li><strong>Lösung</strong>: In kleinere <strong>Chunks</strong> aufteilen</li>
-<li><strong>Wichtig</strong>: Chunks sollten<ul>
-<li>Nicht zu klein (Kontext fehlt)</li>
-<li>Nicht zu groß (Context-Limit)</li>
-<li>Sinnvoll sein (nicht mitten im Satz!)</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8b084a86b51a7999"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="LangChain-Text-Splitters">LangChain Text Splitters<a class="anchor-link" href="#LangChain-Text-Splitters">¶</a></h2><ul>
-<li><strong>CharacterTextSplitter</strong>: Teilt bei bestimmten Zeichen</li>
-<li><strong>RecursiveCharacterTextSplitter</strong>: Schlauer (Absätze → Sätze → Wörter)</li>
-<li><strong>Empfohlen</strong>: RecursiveCharacterTextSplitter</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b59895cce3d0f626">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Create text splitter</span>
-<span class="n">text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span>
-    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>        <span class="c1"># Maximum chunk size</span>
-    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>      <span class="c1"># Overlap between chunks</span>
-    <span class="n">length_function</span><span class="o">=</span><span class="nb">len</span><span class="p">,</span>   <span class="c1"># How to measure length</span>
-    <span class="n">separators</span><span class="o">=</span><span class="p">[</span><span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="s2">". "</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="s2">""</span><span class="p">]</span>  <span class="c1"># Split at these in order</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ae8c4ffb7cd1c41b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ab552cf0f9ef404b"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Chunk-Parameter-verstehen">Chunk-Parameter verstehen<a class="anchor-link" href="#Chunk-Parameter-verstehen">¶</a></h2><ul>
-<li><strong>chunk_size</strong>: Maximale Größe eines Chunks (in Zeichen)</li>
-<li><strong>chunk_overlap</strong>: Überlappung zwischen Chunks<ul>
-<li>Warum? Kontext am Rand nicht verlieren!</li>
-</ul>
-</li>
-<li><strong>separators</strong>: Wo wird geteilt? (Absatz → Satz → Wort)</li>
-</ul>
-<p><strong>Typische Werte</strong>:</p>
-<ul>
-<li>chunk_size: 500-1000 für Dokumente</li>
-<li>chunk_overlap: 50-200 (10-20% von chunk_size)</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a12dadfb7cb0c634"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Tokens-vs.-Zeichen">Tokens vs. Zeichen<a class="anchor-link" href="#Tokens-vs.-Zeichen">¶</a></h2><ul>
-<li>Erinnerung: LLMs zählen in <strong>Tokens</strong>, nicht Zeichen</li>
-<li><strong>Faustregel</strong>: 1 Token ≈ 4 Zeichen (für englischen Text)</li>
-<li>LangChain bietet auch einen <strong>Token-basierten Splitter</strong></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=cc218c3bea0f0ceb">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="n">TokenTextSplitter</span>
-
-<span class="c1"># Create token-based splitter</span>
-<span class="n">token_splitter</span> <span class="o">=</span> <span class="n">TokenTextSplitter</span><span class="p">(</span>
-    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>  <span class="c1"># in tokens</span>
-    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">10</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6c6775842ac42e1a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=68ab5d3d08436a43"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Praktische-Text-Operationen">Praktische Text-Operationen<a class="anchor-link" href="#Praktische-Text-Operationen">¶</a></h2><ul>
-<li>Text aus Dateien lesen</li>
-<li>Bereinigen (lowercase, Sonderzeichen)</li>
-<li>In Chunks aufteilen mit LangChain</li>
-<li>Für RAG vorbereiten</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9e09978c8215a7e5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_and_chunk_text</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Load text file and split into chunks"""</span>
-    <span class="c1"># Read file</span>
-    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="s1">'r'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
-
-    <span class="c1"># Create splitter</span>
-    <span class="n">splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span>
-        <span class="n">chunk_size</span><span class="o">=</span><span class="n">chunk_size</span><span class="p">,</span>
-        <span class="n">chunk_overlap</span><span class="o">=</span><span class="n">chunk_overlap</span>
-    <span class="p">)</span>
-
-    <span class="c1"># Split</span>
-    <span class="n">chunks</span> <span class="o">=</span> <span class="n">splitter</span><span class="o">.</span><span class="n">split_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">chunks</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8fcb2e74bf6f8d6f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop-Aufgaben">Workshop-Aufgaben<a class="anchor-link" href="#Workshop-Aufgaben">¶</a></h2><ol>
-<li>Text aus Datei laden (mit Document Loader oder manuell)</li>
-<li>Mit verschiedenen chunk_size experimentieren</li>
-<li>Chunk-Overlap ausprobieren</li>
-<li>Verschiedene Splitter vergleichen</li>
+<h2 id="Workshop:-Vector-Embeddings">Workshop: Vector Embeddings<a class="anchor-link" href="#Workshop:-Vector-Embeddings">¶</a></h2><p>In diesem Workshop üben Sie:</p>
+<ol>
+<li>Eigene Texte einbetten und Ähnlichkeiten berechnen</li>
+<li>Eine semantische Suchfunktion bauen</li>
+<li>Keyword-Suche und semantische Suche vergleichen</li>
 </ol>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e80acab4a7593f3a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=822edb90dabe94ff">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">cosine_similarity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8e1740eb57594f9c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"openai/text-embedding-3-small"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b500b293d6f9352f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Chunking</strong>: Lange Texte in Stücke teilen</li>
-<li><strong>RecursiveCharacterTextSplitter</strong>: Intelligente Aufteilung</li>
-<li><strong>chunk_size</strong>: Maximale Chunk-Größe</li>
-<li><strong>chunk_overlap</strong>: Überlappung für Kontext am Rand</li>
-<li><strong>TokenTextSplitter</strong>: Alternative für token-basierte Aufteilung</li>
-</ul>
-<p><strong>Nächster Schritt</strong>: Vector Embeddings - wie finden wir relevante Chunks?</p>
+<h2 id="Aufgabe-1:-Eigene-Texte-einbetten">Aufgabe 1: Eigene Texte einbetten<a class="anchor-link" href="#Aufgabe-1:-Eigene-Texte-einbetten">¶</a></h2><p>Erstellen Sie Embeddings für die folgenden Texte und berechnen Sie die
+Ähnlichkeitsmatrix. Welche Texte sind sich am ähnlichsten?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e24e2613e15b1df1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">workshop_texts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Hunde sind treue Haustiere und brauchen viel Auslauf"</span><span class="p">,</span>
+    <span class="s2">"Katzen sind unabhängige Haustiere, die gerne schlafen"</span><span class="p">,</span>
+    <span class="s2">"Python ist eine beliebte Programmiersprache für Data Science"</span><span class="p">,</span>
+    <span class="s2">"JavaScript wird hauptsächlich für Webentwicklung eingesetzt"</span><span class="p">,</span>
+    <span class="s2">"Fußball ist die beliebteste Sportart der Welt"</span><span class="p">,</span>
+    <span class="s2">"Basketball wurde 1891 in den USA erfunden"</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=ae46f37d5f099e59">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Erstellen Sie Embeddings und berechnen Sie die Ähnlichkeitsmatrix</span>
+<span class="c1"># Create embeddings and compute the similarity matrix</span>
+
+<span class="c1"># TODO: Embed all texts</span>
+<span class="c1"># TODO: Calculate cosine similarities</span>
+<span class="c1"># TODO: Print the most similar pair of texts</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7772e763656b7a78">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=99db2ea21cd456a3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aufgabe-2:-Semantische-Suchfunktion">Aufgabe 2: Semantische Suchfunktion<a class="anchor-link" href="#Aufgabe-2:-Semantische-Suchfunktion">¶</a></h2><p>Schreiben Sie eine Funktion <code>semantic_search(query, texts, embeddings_model, k=2)</code>,
+die:</p>
+<ol>
+<li>Die Anfrage embeddet</li>
+<li>Kosinus-Ähnlichkeit zu allen Texten berechnet</li>
+<li>Die Top-k ähnlichsten Texte mit ihren Scores zurückgibt</li>
+</ol>
+<p>Testen Sie Ihre Funktion mit mindestens 3 verschiedenen Anfragen.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=be974f0f21a637cc">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">semantic_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="n">embeddings_model</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Semantische Suche / Semantic search."""</span>
+    <span class="c1"># TODO: Embed the query</span>
+    <span class="c1"># TODO: Embed all texts (or reuse existing embeddings)</span>
+    <span class="c1"># TODO: Calculate cosine similarity</span>
+    <span class="c1"># TODO: Return top-k results as list of (score, text) tuples</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=869ccc4a96f7edd4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">test_queries</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Welches Tier ist ein guter Begleiter?"</span><span class="p">,</span>
+    <span class="s2">"Programmierung und Software"</span><span class="p">,</span>
+    <span class="s2">"Sport und Bewegung"</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=adbb29ce5db51fcd">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=594408514a45e8dc"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aufgabe-3:-Keyword-vs.-Semantische-Suche">Aufgabe 3: Keyword vs. Semantische Suche<a class="anchor-link" href="#Aufgabe-3:-Keyword-vs.-Semantische-Suche">¶</a></h2><p>Vergleichen Sie die Ergebnisse der Keyword-Suche und der semantischen Suche
+für dieselben Anfragen. Wo liegen die Unterschiede?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9774b741c828e34c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">keyword_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">texts</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Simple keyword search: returns texts containing the query."""</span>
+    <span class="k">return</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">texts</span> <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=813fa2dfef1ec531">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Vergleichen Sie beide Suchansätze mit den folgenden Anfragen:</span>
+<span class="c1"># Compare both search approaches with the following queries:</span>
+<span class="n">comparison_queries</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Haustiere"</span><span class="p">,</span>
+    <span class="s2">"pets"</span><span class="p">,</span>
+    <span class="s2">"Programmierung"</span><span class="p">,</span>
+    <span class="s2">"Ballsport"</span><span class="p">,</span>
+<span class="p">]</span>
+
+<span class="c1"># TODO: Für jede Anfrage: Keyword-Suche und semantische Suche ausführen</span>
+<span class="c1"># TODO: Ergebnisse vergleichen und ausgeben</span>
+<span class="c1"># TODO: For each query: Run keyword search and semantic search</span>
+<span class="c1"># TODO: Compare and print results</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>

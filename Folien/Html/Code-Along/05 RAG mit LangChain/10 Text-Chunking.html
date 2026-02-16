@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=55fc8eb175c332af"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=10f80f41333f7fdc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Workshop: RAG-Anwendung mit Gradio</b>
+<b>Text-Chunking</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,79 +13145,68 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=41c565eae5989942"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c5199386ab340e66">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6d9c7c9aa6598cc2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">RecursiveCharacterTextSplitter</span><span class="p">,</span>
+    <span class="n">TokenTextSplitter</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c99cb242836c6b58"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop-Ziel">Workshop-Ziel<a class="anchor-link" href="#Workshop-Ziel">¶</a></h2><p>Wir bauen ein vollständiges RAG-System:</p>
-<ul>
-<li>Eigene Dokumente hochladen</li>
-<li>Fragen stellen</li>
-<li>Antworten mit Quellenangabe</li>
-<li>Professionelles Gradio-Interface</li>
-<li>Konversationsverlauf</li>
+<h2 id="Chunking:-Text-aufteilen">Chunking: Text aufteilen<a class="anchor-link" href="#Chunking:-Text-aufteilen">¶</a></h2><ul>
+<li><strong>Problem</strong>: Lange Dokumente passen nicht in LLM-Context</li>
+<li><strong>Lösung</strong>: In kleinere <strong>Chunks</strong> aufteilen</li>
+<li><strong>Wichtig</strong>: Chunks sollten<ul>
+<li>Nicht zu klein (Kontext fehlt)</li>
+<li>Nicht zu groß (Context-Limit)</li>
+<li>Sinnvoll sein (nicht mitten im Satz!)</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=39dac835dbd87145">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.vectorstores</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chroma</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextLoader</span><span class="p">,</span> <span class="n">DirectoryLoader</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">HumanMessage</span><span class="p">,</span> <span class="n">AIMessage</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.prompts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnablePassthrough</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.output_parsers</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrOutputParser</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d0d4071000bb0a14"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=2447282e63795cd2"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Teil-1:-Basis-RAG-System">Teil 1: Basis-RAG-System<a class="anchor-link" href="#Teil-1:-Basis-RAG-System">¶</a></h2><p>Zuerst: Einfaches RAG ohne UI</p>
+<h2 id="Beispiel-Dokument">Beispiel-Dokument<a class="anchor-link" href="#Beispiel-Dokument">¶</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=4bb7f5f71c1ed9bb">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7e47aeabfbd10514">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Example document</span>
-<span class="n">sample_doc</span> <span class="o">=</span> <span class="s2">"""</span>
-<span class="s2"># Machine Learning Kurs - Kapitel 3: Linear Regression</span>
-
-<span class="s2">Linear Regression ist eine grundlegende Methode des überwachten Lernens.</span>
-
-<span class="s2">## Konzept</span>
-<span class="s2">- Modelliert lineare Beziehungen zwischen Features (X) und Ziel (y)</span>
-<span class="s2">- Formel: y = w*X + b</span>
-
-<span class="s2">## Training</span>
-<span class="s2">- Normalgleichung für exakte Lösung</span>
-<span class="s2">- Gradient Descent für große Datensätze</span>
-
-<span class="s2">## Evaluation</span>
-<span class="s2">- Mean Squared Error (MSE) als Loss-Funktion</span>
-<span class="s2">- R² Score für Modellqualität</span>
-<span class="s2">"""</span>
-
-<span class="c1"># TODO: Create documents and vectorstore</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">"docs/ai-intro.txt"</span><span class="p">,</span> <span class="s2">"r"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">document</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=3d570ad5285744fb">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=dece9001722092c8">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13228,47 +13217,36 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fff2edb80d47cdf7"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=506a14d65e571328"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Teil-2:-Conversational-RAG">Teil 2: Conversational RAG<a class="anchor-link" href="#Teil-2:-Conversational-RAG">¶</a></h2><p>RAG + Konversationsverlauf</p>
+<h2 id="LangChain-Text-Splitters">LangChain Text Splitters<a class="anchor-link" href="#LangChain-Text-Splitters">¶</a></h2><ul>
+<li><strong>CharacterTextSplitter</strong>: Teilt bei einem bestimmten Zeichen (z.B. <code>\n</code>)</li>
+<li><strong>RecursiveCharacterTextSplitter</strong>: Schlauer — probiert nacheinander:<ul>
+<li>Absätze (<code>\n\n</code>) → Zeilenumbrüche (<code>\n</code>) → Sätze (<code>. </code>) → Wörter (<code> </code>)</li>
+</ul>
+</li>
+<li><strong>Empfohlen</strong>: RecursiveCharacterTextSplitter<ul>
+<li>Erhält die Struktur des Textes besser</li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=5c05712006d0b36f">
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=d5cc8d59ba650d78">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create LLM and retriever</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create a RecursiveCharacterTextSplitter</span>
+<span class="c1"># with chunk_size=200, chunk_overlap=50</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=961f329f4e7d47cc">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Test the retriever and LLM</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=9b3a4842ca6bb97b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=b91922d92d845324">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=fcb0095251db4868">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13279,7 +13257,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=24ee4fc8cd9e93a3">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=bdbca901bbfc91cf">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13290,127 +13268,203 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f4229ae69ef42889"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=aa97dcff68613299"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Teil-3:-Gradio-Interface">Teil 3: Gradio Interface<a class="anchor-link" href="#Teil-3:-Gradio-Interface">¶</a></h2>
+<h2 id="Chunk-Parameter-verstehen">Chunk-Parameter verstehen<a class="anchor-link" href="#Chunk-Parameter-verstehen">¶</a></h2><ul>
+<li><strong>chunk_size</strong>: Maximale Größe eines Chunks (in Zeichen)</li>
+<li><strong>chunk_overlap</strong>: Überlappung zwischen aufeinanderfolgenden Chunks<ul>
+<li>Warum? Kontext am Rand nicht verlieren!</li>
+</ul>
+</li>
+<li><strong>separators</strong>: Wo wird geteilt? (Absatz → Zeile → Satz → Wort)</li>
+</ul>
+<p><strong>Typische Werte</strong>:</p>
+<ul>
+<li>chunk_size: 500–1000 für Dokumente</li>
+<li>chunk_overlap: 50–200 (10–20% von chunk_size)</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=e6708897eee76b56">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b378814fddbcc05c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="%C3%9Cberlappung-visualisiert">Überlappung visualisiert<a class="anchor-link" href="#%C3%9Cberlappung-visualisiert">¶</a></h2><pre><code>Chunk 1: [==============================]
+Chunk 2:                    [==============================]
+                            ^^^^^^^^^^^^
+                        Überlappungsbereich
+</code></pre>
+<ul>
+<li>Text am Ende von Chunk 1 erscheint auch am Anfang von Chunk 2</li>
+<li>Sätze an der Grenze gehen nicht verloren</li>
+<li>Besonders wichtig, wenn ein Satz genau an der Chunk-Grenze liegt</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1a2a8b3601361ed2"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="%C3%9Cberlappung-im-Code">Überlappung im Code<a class="anchor-link" href="#%C3%9Cberlappung-im-Code">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4bd1a0e4014f9755">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">rag_chatbot</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""RAG chatbot function for Gradio"""</span>
-    <span class="c1"># TODO: Implement RAG query</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">splitter_no_overlap</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">splitter_with_overlap</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c395fee5ca3bc039">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8e19910e357abcac">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d20956bab1f1a926">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f16847e56e4a2c4d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Tokens-vs.-Zeichen">Tokens vs. Zeichen<a class="anchor-link" href="#Tokens-vs.-Zeichen">¶</a></h2><ul>
+<li>Erinnerung: LLMs zählen in <strong>Tokens</strong>, nicht Zeichen</li>
+<li><strong>Faustregel</strong>: 1 Token ≈ 4 Zeichen (für englischen Text)</li>
+<li>Für deutschen Text etwas weniger (wegen längerer Wörter)</li>
+<li>LangChain bietet auch einen <strong>Token-basierten Splitter</strong></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e7290982d3ae964f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">token_splitter</span> <span class="o">=</span> <span class="n">TokenTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e7fb6e834ae3e023">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a704926d9d635d35"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Bereinigen-+-Chunken:-Alles-zusammen">Bereinigen + Chunken: Alles zusammen<a class="anchor-link" href="#Bereinigen-+-Chunken:-Alles-zusammen">¶</a></h2><ul>
+<li>In der Praxis kombinieren wir Bereinigung und Chunking</li>
+<li>Wir verwenden unsere <code>clean_text</code>-Funktion aus dem vorherigen Abschnitt</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=cc04e08f934fe8d7">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">clean_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Clean text by removing HTML tags and normalizing whitespace."""</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"&lt;[^&gt;]+&gt;"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[^\S\n]+"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\n +"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">" +\n"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\n{3,}"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=09f8abbcc7b4b22a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_and_chunk_text</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Load text file, clean it, and split into chunks."""</span>
+    <span class="c1"># TODO: Read the file</span>
+    <span class="c1"># TODO: Clean the text (use clean_text function)</span>
+    <span class="c1"># TODO: Create a RecursiveCharacterTextSplitter</span>
+    <span class="c1"># TODO: Split and return the chunks</span>
     <span class="k">pass</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=c452daaa19a6fdc8">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create Gradio interface</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7154a1638c1c78ad"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=58af4bf132285fc3"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Teil-4:-Dokument-Upload-(Erweitert)">Teil 4: Dokument-Upload (Erweitert)<a class="anchor-link" href="#Teil-4:-Dokument-Upload-(Erweitert)">¶</a></h2><p>Ermögliche Nutzern, eigene Dokumente hochzuladen</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=9b964a2fa1bd24bb">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">upload_and_query</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Upload document and answer question"""</span>
-    <span class="c1"># TODO: Load document, create vectorstore, build LCEL chain, answer question</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=68ffb6c0b998c2e1">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create Gradio interface with file upload</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4ee19c26d412fafd"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop-Aufgaben">Workshop-Aufgaben<a class="anchor-link" href="#Workshop-Aufgaben">¶</a></h2><h3 id="Basis-(Pflicht):">Basis (Pflicht):<a class="anchor-link" href="#Basis-(Pflicht):">¶</a></h3><ol>
-<li>RAG-System für vorgegebene Dokumente erstellen</li>
-<li>Retriever und LLM mit History-Handling implementieren</li>
-<li>Gradio ChatInterface hinzufügen</li>
-<li>Quellen-Anzeige einbauen</li>
-<li>Verschiedene Fragen testen</li>
-</ol>
-<h3 id="Erweitert-(Optional):">Erweitert (Optional):<a class="anchor-link" href="#Erweitert-(Optional):">¶</a></h3><ol start="6">
-<li>Dokument-Upload-Funktion</li>
-<li>Mehrere Dokumente gleichzeitig</li>
-<li>PDF-Support</li>
-<li>Retrieval-Parameter anpassen (k, search_type)</li>
-<li>Custom styling</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=860a0509f7e875d2"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projekt-Ideen">Projekt-Ideen<a class="anchor-link" href="#Projekt-Ideen">¶</a></h2><ol>
-<li><strong>Persönliche Wissensdatenbank</strong>: Ihre Notizen durchsuchbar</li>
-<li><strong>Dokumentations-Assistent</strong>: Fragen zu technischen Docs</li>
-<li><strong>Rezept-Finder</strong>: Fragen zu Kochrezepten</li>
-<li><strong>Forschungsassistent</strong>: Papers durchsuchen</li>
-<li><strong>Kurs-Assistent</strong>: Fragen zu Kursmaterialien</li>
-</ol>
-<p><strong>Wählen Sie ein Projekt für Ihr Portfolio!</strong></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=388aceaead2324a5"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><p><strong>Was wir erreicht haben</strong>:</p>
-<ul>
-<li>✅ Vollständiges RAG-System mit LangChain</li>
-<li>✅ ChromaDB für Vektor-Speicherung</li>
-<li>✅ Konversationsverlauf mit Gradio</li>
-<li>✅ Gradio-Interface mit Quellenangabe</li>
-<li>✅ Portfolio-taugliches Projekt!</li>
+<h2 id="Chunk-Qualit%C3%A4t-und-RAG">Chunk-Qualität und RAG<a class="anchor-link" href="#Chunk-Qualit%C3%A4t-und-RAG">¶</a></h2><ul>
+<li><strong>Gute Chunks</strong> → Gutes Retrieval → Gute Antworten</li>
+<li><strong>Schlechte Chunks</strong> → Irrelevante Ergebnisse → Schlechte Antworten</li>
 </ul>
-<p><strong>Nächster Schritt</strong>: LLM Orchestration - Noch komplexere Workflows!</p>
+<p><strong>Beispiel für einen schlechten Chunk</strong>:</p>
+<pre><code>"Networks sind eine wichtige Methode im Machine Learning.
+Sie sind inspiriert von der Funktionsweise"
+</code></pre>
+<p>→ Abgeschnitten mitten im Satz!</p>
+<p><strong>Beispiel für einen guten Chunk</strong>:</p>
+<pre><code>"Neural Networks sind eine wichtige Methode im Machine Learning.
+Sie sind inspiriert von der Funktionsweise des Gehirns."
+</code></pre>
+<p>→ Vollständiger Gedanke, sinnvolle Einheit</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=05b5a7053fe93e4b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Zusammenfassung:-Text-Chunking">Zusammenfassung: Text-Chunking<a class="anchor-link" href="#Zusammenfassung:-Text-Chunking">¶</a></h2><ul>
+<li><strong>Chunking</strong>: Lange Texte in sinnvolle Stücke aufteilen</li>
+<li><strong>RecursiveCharacterTextSplitter</strong>: Intelligente Aufteilung (empfohlen)</li>
+<li><strong>chunk_size</strong>: Maximale Chunk-Größe (typisch 500–1000)</li>
+<li><strong>chunk_overlap</strong>: Überlappung für Kontext am Rand (typisch 50–200)</li>
+<li><strong>Chunk-Qualität</strong> beeinflusst direkt die RAG-Ergebnisse</li>
+</ul>
+<p><strong>Nächster Schritt</strong>: Vector Embeddings — wie finden wir relevante Chunks?</p>
 </div>
 </div>
 </div>

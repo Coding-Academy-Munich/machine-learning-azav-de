@@ -92,6 +92,15 @@ from chromadb.config import Settings
 
 # %% [markdown]
 #
+# ## ChromaDB's eingebautes Embedding-Modell
+#
+# - ChromaDB nutzt standardmäßig das Modell **all-MiniLM-L6-v2**
+# - Deshalb müssen wir **kein Embedding-Modell** angeben!
+# - ChromaDB erstellt Embeddings automatisch beim Hinzufügen
+# - Bei der LangChain-Integration wählen wir unser eigenes Modell
+
+# %% [markdown]
+#
 # ## Dokumente hinzufügen
 #
 # ChromaDB macht Embeddings **automatisch**!
@@ -117,6 +126,24 @@ documents = [
 # TODO: Query collection
 
 # %%
+
+# %% [markdown]
+#
+# ## Was passiert bei irrelevanten Anfragen?
+
+# %%
+
+# %%
+
+# %% [markdown]
+#
+# ## ChromaDB liefert immer Ergebnisse!
+#
+# - Auch bei irrelevanten Fragen gibt ChromaDB Ergebnisse zurück
+# - Es wählt einfach die **ähnlichsten** Dokumente — auch wenn keines relevant ist
+# - **Hohe Distanz** = niedrige Relevanz
+# - Wir können nach Distanz filtern, um irrelevante Ergebnisse auszuschließen
+# - Das ist wichtig für robuste RAG-Systeme!
 
 # %% [markdown]
 #
@@ -173,26 +200,24 @@ texts_lc = [
 
 # %% [markdown]
 #
-# ## Workshop-Aufgaben
-#
-# 1. ChromaDB installieren und einrichten
-# 2. Collection erstellen
-# 3. Dokumente hinzufügen
-# 4. Semantische Suche testen
-# 5. Mit LangChain-Integration arbeiten
-# 6. Verschiedene Queries ausprobieren
-
-# %% [markdown]
-#
 # ## Zusammenfassung
 #
 # - **ChromaDB**: Open-Source Vektor-Datenbank
 # - **Einfach**: Pip-Install, keine Konfiguration
-# - **Funktioniert**: Windows, Linux, Mac
-# - **Automatisch**: Erstellt Embeddings selbst
+# - **Automatisch**: Erstellt Embeddings mit eingebautem Modell
 # - **LangChain-Integration**: Perfekt für RAG
-# - **Persistent**: Daten bleiben erhalten
+# - **Persistent**: Daten bleiben auf der Festplatte erhalten
+# - **Achtung**: Liefert immer Ergebnisse — auch bei irrelevanten Anfragen
 #
 # **Nächster Schritt**: RAG-System mit LangChain bauen!
 
-# %%
+# %% [markdown]
+#
+# ## Workshop-Aufgaben
+#
+# 1. Installieren und testen Sie ChromaDB auf Ihrem Computer
+# 2. Erstellen Sie eine Collection und fügen Sie mindestens 5 eigene Dokumente hinzu
+# 3. Testen Sie die semantische Suche mit verschiedenen Anfragen
+# 4. Probieren Sie eine irrelevante Anfrage aus — was passiert mit den Distanzen?
+# 5. Verwenden Sie die LangChain-Integration, um einen Vektor-Store zu erstellen
+# 6. Experimentieren Sie mit Metadata-Filtern

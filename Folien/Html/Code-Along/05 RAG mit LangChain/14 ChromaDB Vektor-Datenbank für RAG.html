@@ -13295,6 +13295,18 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=dc3396fab211b199"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="ChromaDB's-eingebautes-Embedding-Modell">ChromaDB's eingebautes Embedding-Modell<a class="anchor-link" href="#ChromaDB's-eingebautes-Embedding-Modell">¶</a></h2><ul>
+<li>ChromaDB nutzt standardmäßig das Modell <strong>all-MiniLM-L6-v2</strong></li>
+<li>Deshalb müssen wir <strong>kein Embedding-Modell</strong> angeben!</li>
+<li>ChromaDB erstellt Embeddings automatisch beim Hinzufügen</li>
+<li>Bei der LangChain-Integration wählen wir unser eigenes Modell</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7f6fb3670ab32799"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13358,6 +13370,48 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3e02b621bcf9d8b3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Was-passiert-bei-irrelevanten-Anfragen?">Was passiert bei irrelevanten Anfragen?<a class="anchor-link" href="#Was-passiert-bei-irrelevanten-Anfragen?">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7a57cadf8750fab3">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=87bf438b01965be1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=246db0f3408d2913"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="ChromaDB-liefert-immer-Ergebnisse!">ChromaDB liefert immer Ergebnisse!<a class="anchor-link" href="#ChromaDB-liefert-immer-Ergebnisse!">¶</a></h2><ul>
+<li>Auch bei irrelevanten Fragen gibt ChromaDB Ergebnisse zurück</li>
+<li>Es wählt einfach die <strong>ähnlichsten</strong> Dokumente — auch wenn keines relevant ist</li>
+<li><strong>Hohe Distanz</strong> = niedrige Relevanz</li>
+<li>Wir können nach Distanz filtern, um irrelevante Ergebnisse auszuschließen</li>
+<li>Das ist wichtig für robuste RAG-Systeme!</li>
+</ul>
 </div>
 </div>
 </div>
@@ -13429,7 +13483,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=dc49f7c33fe5eb7a">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ded566760ad3f8d5">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13495,43 +13549,32 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=587e2eef3d3cd953"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop-Aufgaben">Workshop-Aufgaben<a class="anchor-link" href="#Workshop-Aufgaben">¶</a></h2><ol>
-<li>ChromaDB installieren und einrichten</li>
-<li>Collection erstellen</li>
-<li>Dokumente hinzufügen</li>
-<li>Semantische Suche testen</li>
-<li>Mit LangChain-Integration arbeiten</li>
-<li>Verschiedene Queries ausprobieren</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0f0d4fda1a6b9b7e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b1392654dd0b984f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
 <li><strong>ChromaDB</strong>: Open-Source Vektor-Datenbank</li>
 <li><strong>Einfach</strong>: Pip-Install, keine Konfiguration</li>
-<li><strong>Funktioniert</strong>: Windows, Linux, Mac</li>
-<li><strong>Automatisch</strong>: Erstellt Embeddings selbst</li>
+<li><strong>Automatisch</strong>: Erstellt Embeddings mit eingebautem Modell</li>
 <li><strong>LangChain-Integration</strong>: Perfekt für RAG</li>
-<li><strong>Persistent</strong>: Daten bleiben erhalten</li>
+<li><strong>Persistent</strong>: Daten bleiben auf der Festplatte erhalten</li>
+<li><strong>Achtung</strong>: Liefert immer Ergebnisse — auch bei irrelevanten Anfragen</li>
 </ul>
 <p><strong>Nächster Schritt</strong>: RAG-System mit LangChain bauen!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=269c490b2502a95b"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop-Aufgaben">Workshop-Aufgaben<a class="anchor-link" href="#Workshop-Aufgaben">¶</a></h2><ol>
+<li>Installieren und testen Sie ChromaDB auf Ihrem Computer</li>
+<li>Erstellen Sie eine Collection und fügen Sie mindestens 5 eigene Dokumente hinzu</li>
+<li>Testen Sie die semantische Suche mit verschiedenen Anfragen</li>
+<li>Probieren Sie eine irrelevante Anfrage aus — was passiert mit den Distanzen?</li>
+<li>Verwenden Sie die LangChain-Integration, um einen Vektor-Store zu erstellen</li>
+<li>Experimentieren Sie mit Metadata-Filtern</li>
+</ol>
 </div>
 </div>
 </div>

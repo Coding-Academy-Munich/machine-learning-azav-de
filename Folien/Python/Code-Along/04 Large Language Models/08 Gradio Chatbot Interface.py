@@ -37,8 +37,11 @@
 # `gr.ChatInterface` erzeugt ein vollständiges Chat Interface:
 #
 # - `fn`: Die Chat-Funktion
-# - `type`: Art der History (`"messages"` für OpenAI-Format)
 # - `title` und `description`: Text für die Oberfläche
+#
+# Ältere Versionen von Gradio benötigten `type="messages"` um die History im
+# OpenAI-Format zu übergeben, neuere Versionen haben dieses Argument entfernt.
+#
 
 # %%
 import gradio as gr

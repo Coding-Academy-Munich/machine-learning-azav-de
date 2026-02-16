@@ -376,8 +376,7 @@ class TemplateChatbot:
 # 6. **Bonus**: Konversation als Text exportieren (Benötigt Gradio Blocks)
 #
 # **Hinweis**: Sie müssen, wie bei Gradio üblich, die History _nicht_ manuell
-# verwalten. Verwenden Sie `type="messages"` im ChatInterface und verwenden Sie
-# den `history` Parameter.
+# verwalten. Verwenden Sie den `history` Parameter.
 
 # %% [markdown]
 #
