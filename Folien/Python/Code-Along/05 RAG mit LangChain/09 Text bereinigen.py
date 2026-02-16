@@ -170,6 +170,9 @@ from cleantext import clean
 headers = {"User-Agent": "PythonCourse/1.0 (Educational purposes)"}
 
 # %%
+url = "https://en.wikipedia.org/wiki/Python_(programming_language)"
+
+# %%
 
 # %%
 
@@ -195,16 +198,25 @@ def wrap_text(text, width=72):
     wrapped_lines = [wrap(line, width=width) for line in lines]
     return "\n\n".join(["\n".join(line) for line in wrapped_lines])
 
-
 # %%
+
+# %% [markdown]
+#
+# ## Text-Encodings
+#
+# - Text wird in Computern als **Bytes** gespeichert
+# - Ein Byte kann nur 256 verschiedene Werte speichern, aber es gibt viel mehr
+#   Zeichen (z.B. Umlaute, Emojis)
+# - We need a way to map (multiple) bytes to characters
+#   - **UTF-8**: Moderner Standard, unterstützt alle Zeichen (Umlaute, Emojis,
+#     ...)
+#   - **Latin-1** (ISO 8859-1): Älterer Standard, nur westeuropäische Zeichen
+
 
 # %% [markdown]
 #
 # ## Wie entstehen Encoding-Fehler?
 #
-# - Text wird in Computern als **Bytes** gespeichert
-# - **UTF-8**: Moderner Standard, unterstützt alle Zeichen (Umlaute, Emojis, ...)
-# - **Latin-1** (ISO 8859-1): Älterer Standard, nur westeuropäische Zeichen
 # - **Problem**: Text wird als UTF-8 **gespeichert**, aber als Latin-1 **gelesen**
 #   - Oder umgekehrt!
 # - Ergebnis: **Mojibake** -- unlesbarer Zeichensalat
