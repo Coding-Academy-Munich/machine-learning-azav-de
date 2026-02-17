@@ -13251,20 +13251,23 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start celltag_subslide" id="cell-id=a48067ec3c30a988">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=96ea9ead1d63726a">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">clean_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">"""Clean text by removing HTML tags and normalizing whitespace."""</span>
-    <span class="c1"># TODO: Remove HTML tags</span>
-    <span class="c1"># TODO: Replace tabs with spaces</span>
-    <span class="c1"># TODO: Normalize multiple spaces to single space</span>
-    <span class="c1"># TODO: Remove spaces at the beginning and end of lines</span>
-    <span class="c1"># TODO: Reduce multiple blank lines</span>
-    <span class="c1"># TODO: Strip leading/trailing whitespace</span>
-    <span class="k">return</span> <span class="n">text</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"&lt;[^&gt;]+&gt;"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="c1"># text = text.replace("\t", " ")</span>
+    <span class="c1"># text = re.sub(r" +", " ", text)</span>
+    <span class="c1"># Better: Normalize all kinds of whitespace (tabs, multiple spaces) except</span>
+    <span class="c1"># newlines in one step:</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[^\S\n]+"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\n +"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>  <span class="c1"># Remove spaces at beginning of lines</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">" +\n"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>  <span class="c1"># Remove spaces at end of lines</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\n{3,}"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -13442,7 +13445,7 @@ zusätzliche Nachbearbeitung vornehmen wollen:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c1ac16bede8ac7e0">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8442d09035416869">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13592,7 +13595,7 @@ zusätzliche Nachbearbeitung vornehmen wollen:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1432c6e5559d1a9b">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0c6837dc10db1c6d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13992,7 +13995,7 @@ Zeichen (z.B. Umlaute, Emojis)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4c41758dd7c78898">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=a716a021b97285cc">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -14003,7 +14006,7 @@ Zeichen (z.B. Umlaute, Emojis)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=234db6d9b5f747a2">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a5f321840b69afad">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -14025,7 +14028,7 @@ Zeichen (z.B. Umlaute, Emojis)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=043cb66207a2ce6c">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2594e47c91a351fc">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -14046,22 +14049,22 @@ Zeichen (z.B. Umlaute, Emojis)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=bab64f17db84b3c6">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=031da8bcdde9f592">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">thorough_clean</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">ftfy</span><span class="o">.</span><span class="n">fix_text</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">no_urls</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">no_emails</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">no_emoji</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">to_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="n">text</span> <span class="o">=</span> <span class="n">clean_text_2</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="n">clean</span><span class="p">(</span><span class="n">text</span><span class="p">,</span> <span class="n">no_urls</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">no_emails</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">no_emoji</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">to_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lower</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">text</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1da650136bf98d44">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a8154889b20f7299">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -14083,7 +14086,7 @@ Zeichen (z.B. Umlaute, Emojis)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=e6acea563ce1079b">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=90a4f16bd0e40c3d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">

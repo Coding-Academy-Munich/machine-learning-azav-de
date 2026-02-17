@@ -71,13 +71,16 @@ dirty_text = """
 # %%
 def clean_text(text):
     """Clean text by removing HTML tags and normalizing whitespace."""
-    # TODO: Remove HTML tags
-    # TODO: Replace tabs with spaces
-    # TODO: Normalize multiple spaces to single space
-    # TODO: Remove spaces at the beginning and end of lines
-    # TODO: Reduce multiple blank lines
-    # TODO: Strip leading/trailing whitespace
-    return text
+    text = re.sub(r"<[^>]+>", "", text)
+    # text = text.replace("\t", " ")
+    # text = re.sub(r" +", " ", text)
+    # Better: Normalize all kinds of whitespace (tabs, multiple spaces) except
+    # newlines in one step:
+    text = re.sub(r"[^\S\n]+", " ", text)
+    text = re.sub(r"\n +", "\n", text)  # Remove spaces at beginning of lines
+    text = re.sub(r" +\n", "\n", text)  # Remove spaces at end of lines
+    text = re.sub(r"\n{3,}", "\n\n", text)
+    return text.strip()
 
 # %%
 
@@ -367,8 +370,8 @@ loader = WebBaseLoader("https://de.wikipedia.org/wiki/Python_(Programmiersprache
 # %%
 def thorough_clean(text):
     text = ftfy.fix_text(text)
-    text = clean(text, no_urls=True, no_emails=True, no_emoji=True, to_ascii=False, lower=False)
     text = clean_text_2(text)
+    text = clean(text, no_urls=True, no_emails=True, no_emoji=True, to_ascii=False, lower=False)
     return text
 
 # %%
