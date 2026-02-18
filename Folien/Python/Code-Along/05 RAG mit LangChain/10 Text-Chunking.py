@@ -8,6 +8,7 @@
 # <br/>
 
 # %%
+# !pip install langchain-text-splitters langchain-community trafilatura
 
 # %%
 import re
@@ -100,17 +101,25 @@ for i, chunk in enumerate(chunks[:3], 1):
 
 # %% [markdown]
 #
-# ## Überlappung im Code
+# ## Überlappung und Anzahl Chunks
 
 # %%
-splitter_no_overlap = RecursiveCharacterTextSplitter(chunk_size=200, chunk_overlap=0)
+splitter_no_overlap = RecursiveCharacterTextSplitter(
+    chunk_size=200,
+    chunk_overlap=0,  # Kein Overlap
+)
 splitter_with_overlap = RecursiveCharacterTextSplitter(
-    chunk_size=200, chunk_overlap=100
+    chunk_size=200,
+    chunk_overlap=100,  # Mit Overlap
 )
 
 # %%
+chunks_no_overlap = splitter_no_overlap.split_text(document)
+chunks_with_overlap = splitter_with_overlap.split_text(document)
 
 # %%
+print(f"Ohne Overlap / Without overlap: {len(chunks_no_overlap)} Chunks")
+print(f"Mit Overlap / With overlap:     {len(chunks_with_overlap)} Chunks")
 
 # %%
 visualize_chunks(chunks_no_overlap, max_chunks=5)
@@ -136,6 +145,12 @@ visualize_chunks(chunks_with_overlap, max_chunks=5)
 #   100 Zeichen sind
 
 # %%
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=600,
+    chunk_overlap=300,
+    separators=[r"(?<=[.!?:])\s+", ""],
+    is_separator_regex=True,
+)
 
 # %%
 
@@ -224,6 +239,7 @@ url = "https://grokipedia.com/page/Python_programming_language"
 loader = AsyncHtmlLoader([url])
 
 # %%
+docs = loader.load()
 
 # %%
 print(docs[0].page_content[:500])
@@ -237,6 +253,7 @@ print(docs[0].page_content[:500])
 #   (Navigation, Fußnoten, etc.)
 
 # %%
+text = trafilatura.extract(docs[0].page_content, include_tables=False)
 
 # %%
 print(text[:500])
@@ -263,10 +280,18 @@ print(docs[0].page_content[:500])
 # ## Schritt 3: Bereinigten Text chunken
 
 # %%
+splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=400,
+    separators=[sentence_rx, " ", ""],
+    is_separator_regex=True,
+)
 
 # %%
+chunks = splitter.split_text(docs[0].page_content)
 
 # %%
+len(chunks)
 
 # %%
 
