@@ -294,10 +294,16 @@ splitter = RecursiveCharacterTextSplitter(
 )
 
 # %%
-chunks = splitter.split_text(docs[0].page_content)
+doc_chunks = splitter.split_documents(docs)
 
 # %%
-len(chunks)
+len(doc_chunks)
+
+# %%
+doc_chunks[0]
+
+# %%
+chunks = [chunk.page_content for chunk in doc_chunks]
 
 # %%
 
@@ -344,7 +350,7 @@ len(chunks)
 # ## Mini-Workshop: Komplette Pipeline als Funktion
 #
 # Schreiben Sie eine Funktion `load_and_chunk_url(url, ...)`, die:
-# 1. Die Seite mit `AsyncHtmlLoader` lädt
+# 1. Eine oder mehrere Seiten mit `AsyncHtmlLoader` lädt
 # 2. Den Text mit `trafilatura.extract()` extrahiert
 # 3. Referenzen (`[1]`, `[11]`, ...) mit `re.sub()` entfernt
 # 4. Den Text mit `RecursiveCharacterTextSplitter` in Chunks aufteilt
@@ -353,7 +359,7 @@ len(chunks)
 # %%
 def load_and_chunk_url(url, chunk_size=600, chunk_overlap=300):
     """Fetch a web page, extract clean text, and split into chunks."""
-    # TODO: Load the page with AsyncHtmlLoader
+    # TODO: Load the page/pages with AsyncHtmlLoader
     # TODO: Extract text with trafilatura.extract()
     # TODO: Remove citations with re.sub()
     # TODO: Create a RecursiveCharacterTextSplitter with sentence_rx
@@ -364,4 +370,7 @@ def load_and_chunk_url(url, chunk_size=600, chunk_overlap=300):
 
 # %%
 
+# %%
+
+# %%
 # %%
