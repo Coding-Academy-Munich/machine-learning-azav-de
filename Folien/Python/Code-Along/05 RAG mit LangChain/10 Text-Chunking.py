@@ -11,6 +11,9 @@
 
 # %%
 import re
+
+import trafilatura
+from langchain_community.document_loaders import AsyncHtmlLoader
 from langchain_text_splitters import (
     RecursiveCharacterTextSplitter,
     TokenTextSplitter,
@@ -37,8 +40,10 @@ with open("docs/ai-intro.txt", "r") as f:
     document = f.read()
 
 # %%
+print(document[:200] + "\n...\n" + document[-200:])
 
 # %%
+print(f"Document length: {len(document)} characters")
 
 # %% [markdown]
 #
@@ -76,7 +81,7 @@ for i, chunk in enumerate(chunks[:3], 1):
 #
 # **Typische Werte**:
 # - chunk_size: 500–1000 für Dokumente
-# - chunk_overlap: 50–400 (10–20% von chunk_size)
+# - chunk_overlap: 50–400 (10–40% von chunk_size)
 
 # %% [markdown]
 #
@@ -188,7 +193,6 @@ sentence_rx = r"(?:(?<=[.!?:])|(?<=[.!?:][\"']))\s+"
 # %%
 token_splitter = TokenTextSplitter(chunk_size=50, chunk_overlap=10)
 
-
 # %%
 
 # %%
@@ -197,36 +201,75 @@ token_splitter = TokenTextSplitter(chunk_size=50, chunk_overlap=10)
 
 # %% [markdown]
 #
-# ## Bereinigen + Chunken: Alles zusammen
+# ## Bereinigen + Chunken: Echte Webseiten
 #
-# - In der Praxis kombinieren wir Bereinigung und Chunking
-# - Wir verwenden unsere `clean_text`-Funktion aus dem vorherigen Abschnitt
+# - Bisher haben wir mit einer sauberen Textdatei gearbeitet
+# - Echte Daten kommen oft aus dem Web und sind **nicht sauber**
+# - In der Praxis: Erst bereinigen, dann chunken
+# - Wir nutzen die Tools aus dem letzten Abschnitt:
+#   - `AsyncHtmlLoader` zum Laden von Webseiten (liefert rohes HTML)
+#   - `trafilatura` für eine saubere Text-Extraktion
+
+# %% [markdown]
+#
+# ## Schritt 1: Webseite laden mit AsyncHtmlLoader
+#
+# **Hinweis:** Wikipedia blockiert `AsyncHtmlLoader`, daher verwenden wir eine
+# alternative Seite mit ähnlichem Inhalt.
 
 # %%
-def clean_text(text):
-    """Clean text by removing HTML tags and normalizing whitespace."""
-    text = re.sub(r"<[^>]+>", "", text)
-    text = re.sub(r"[^\S\n]+", " ", text)
-    text = re.sub(r"\n +", "\n", text)
-    text = re.sub(r" +\n", "\n", text)
-    text = re.sub(r"\n{3,}", "\n\n", text)
-    return text.strip()
-
+url = "https://grokipedia.com/page/Python_programming_language"
 
 # %%
-def load_and_chunk_text(filepath, chunk_size=500, chunk_overlap=200):
-    """Load text file, clean it, and split into chunks."""
-    # TODO: Read the file
-    # TODO: Clean the text (use clean_text function)
-    # TODO: Create a RecursiveCharacterTextSplitter
-    # TODO: Split and return the chunks
-    pass
+loader = AsyncHtmlLoader([url])
 
 # %%
 
 # %%
+print(docs[0].page_content[:500])
+
+# %% [markdown]
+#
+# ## Schritt 2: Text extrahieren mit trafilatura
+#
+# - `AsyncHtmlLoader` liefert **rohes HTML** — nicht geeignet zum Chunken
+# - `trafilatura` extrahiert den **Haupttext** und entfernt Boilerplate
+#   (Navigation, Fußnoten, etc.)
 
 # %%
+
+# %%
+print(text[:500])
+
+# %%
+docs[0].page_content = text
+
+# %% [markdown]
+#
+# ## Problem: Referenzen in Wikipedia-Texten
+#
+# - Wikipedia/Grokipedia-Texte enthalten Referenzen wie `.[10][11]`
+# - Diese stören beim Chunking (Satzende wird nicht erkannt)
+# - **Lösung**: Referenzen vor dem Chunking entfernen
+
+# %%
+docs[0].page_content = re.sub(r"\[\d+\]", "", docs[0].page_content)
+
+# %%
+print(docs[0].page_content[:500])
+
+# %% [markdown]
+#
+# ## Schritt 3: Bereinigten Text chunken
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+
 
 # %% [markdown]
 #
@@ -264,3 +307,30 @@ def load_and_chunk_text(filepath, chunk_size=500, chunk_overlap=200):
 # - **Chunk-Qualität** beeinflusst direkt die RAG-Ergebnisse
 #
 # **Nächster Schritt**: Vector Embeddings — wie finden wir relevante Chunks?
+
+# %% [markdown]
+#
+# ## Mini-Workshop: Komplette Pipeline als Funktion
+#
+# Schreiben Sie eine Funktion `load_and_chunk_url(url, ...)`, die:
+# 1. Die Seite mit `AsyncHtmlLoader` lädt
+# 2. Den Text mit `trafilatura.extract()` extrahiert
+# 3. Referenzen (`[1]`, `[11]`, ...) mit `re.sub()` entfernt
+# 4. Den Text mit `RecursiveCharacterTextSplitter` in Chunks aufteilt
+# 5. Die Chunks zurückgibt
+
+# %%
+def load_and_chunk_url(url, chunk_size=600, chunk_overlap=300):
+    """Fetch a web page, extract clean text, and split into chunks."""
+    # TODO: Load the page with AsyncHtmlLoader
+    # TODO: Extract text with trafilatura.extract()
+    # TODO: Remove citations with re.sub()
+    # TODO: Create a RecursiveCharacterTextSplitter with sentence_rx
+    # TODO: Split and return the chunks
+    pass
+
+# %%
+
+# %%
+
+# %%

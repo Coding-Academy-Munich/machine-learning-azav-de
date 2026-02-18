@@ -13504,7 +13504,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c32806a3e0d5c2df"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fd12d798184efbbd"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h3 id="Aufgabe-6:-Chunk-Parameter-experimentieren">Aufgabe 6: Chunk-Parameter experimentieren<a class="anchor-link" href="#Aufgabe-6:-Chunk-Parameter-experimentieren">¶</a></h3><p>Verwenden Sie den folgenden längeren Text.
@@ -13512,9 +13512,9 @@ Erstellen Sie einen <code>RecursiveCharacterTextSplitter</code> und testen Sie v
 Kombinationen von <code>chunk_size</code> und <code>chunk_overlap</code>:</p>
 <ul>
 <li>chunk_size: 100, 200, 500</li>
-<li>chunk_overlap: 0, 20, 50</li>
+<li>chunk_overlap: 0, 20%, 50%</li>
 </ul>
-<p>Geben Sie für jede Kombination die Anzahl der Chunks und den ersten Chunk aus.
+<p>Geben Sie für jede Kombination die Anzahl der Chunks und die ersten beiden Chunks aus.
 Beobachten Sie: Wie verändern sich die Chunks?</p>
 </div>
 </div>
@@ -13554,7 +13554,7 @@ Beobachten Sie: Wie verändern sich die Chunks?</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=120ed4ac04f12212">
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=14e124d0f5dcfc42">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13562,7 +13562,7 @@ Beobachten Sie: Wie verändern sich die Chunks?</p>
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Experimentieren Sie mit verschiedenen Parametern:</span>
 <span class="c1"># Experiment with different parameters:</span>
 <span class="n">chunk_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
-<span class="n">overlaps</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
+<span class="n">overlap_percentages</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
 
 <span class="c1"># TODO: Erstellen Sie für jede Kombination einen Splitter</span>
 <span class="c1"># TODO: Geben Sie Anzahl Chunks und ersten Chunk aus</span>

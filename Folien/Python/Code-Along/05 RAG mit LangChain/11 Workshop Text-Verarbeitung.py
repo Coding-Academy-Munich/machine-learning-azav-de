@@ -170,9 +170,9 @@ def clean_and_chunk(filepath, chunk_size=500, chunk_overlap=50):
 # Kombinationen von `chunk_size` und `chunk_overlap`:
 #
 # - chunk_size: 100, 200, 500
-# - chunk_overlap: 0, 20, 50
+# - chunk_overlap: 0, 20%, 50%
 #
-# Geben Sie für jede Kombination die Anzahl der Chunks und den ersten Chunk aus.
+# Geben Sie für jede Kombination die Anzahl der Chunks und die ersten beiden Chunks aus.
 # Beobachten Sie: Wie verändern sich die Chunks?
 
 # %%
@@ -206,7 +206,7 @@ und Fragen beantworten.\
 # Experimentieren Sie mit verschiedenen Parametern:
 # Experiment with different parameters:
 chunk_sizes = [100, 200, 500]
-overlaps = [0, 20, 50]
+overlap_percentages = [0, 20, 50]
 
 # TODO: Erstellen Sie für jede Kombination einen Splitter
 # TODO: Geben Sie Anzahl Chunks und ersten Chunk aus

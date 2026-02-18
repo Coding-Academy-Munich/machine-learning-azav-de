@@ -1,7 +1,7 @@
 try:
     from IPython.display import display, HTML
 
-    def visualize_chunks(chunks, max_chunks=5):
+    def visualize_chunks(chunks, max_chunks=5, min_overlap=10):
         html_parts = []
         all_chunks = chunks
         chunks = chunks[:max_chunks]
@@ -21,6 +21,9 @@ try:
                         overlap_len = length
                 if overlap_len > 0:
                     is_cutoff_overlap = True
+            if overlap_len < min_overlap:
+                overlap_len = 0
+                is_cutoff_overlap = False
 
             html_parts.append(
                 f"<h4>Chunk {i+1} ({len(chunk)} chars)</h4><pre style='white-space:pre-wrap;'>"
@@ -48,7 +51,7 @@ try:
 
 except ImportError:
 
-    def visualize_chunks(chunks, max_chunks=5):
+    def visualize_chunks(chunks, max_chunks=5, min_overlap=10):
         """Print chunks with overlapping portions highlighted in color."""
         RESET = "\033[0m"
         COLORS = [
@@ -84,6 +87,9 @@ except ImportError:
                         overlap_len = length
                 if overlap_len > 0:
                     is_cutoff_overlap = True
+            if overlap_len < min_overlap:
+                overlap_len = 0
+                is_cutoff_overlap = False
 
             start = ""
             if prev_overlap_len > 0:

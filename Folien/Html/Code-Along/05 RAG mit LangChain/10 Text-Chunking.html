@@ -13145,7 +13145,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c5199386ab340e66">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c11fd25166895642">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13156,12 +13156,15 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ab38d39884dda2f1">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=43530d89eedc740d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">trafilatura</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncHtmlLoader</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">RecursiveCharacterTextSplitter</span><span class="p">,</span>
     <span class="n">TokenTextSplitter</span><span class="p">,</span>
@@ -13207,23 +13210,23 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=86102d98af994605">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=86102d98af994605">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">document</span><span class="p">[:</span><span class="mi">200</span><span class="p">]</span> <span class="o">+</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">...</span><span class="se">\n</span><span class="s2">"</span> <span class="o">+</span> <span class="n">document</span><span class="p">[</span><span class="o">-</span><span class="mi">200</span><span class="p">:])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ba922548b4687108">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ba922548b4687108">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Document length: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">document</span><span class="p">)</span><span class="si">}</span><span class="s2"> characters"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13304,7 +13307,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=be89c251adc511fb"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e4de42bd247daaa9"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Chunk-Parameter-verstehen">Chunk-Parameter verstehen<a class="anchor-link" href="#Chunk-Parameter-verstehen">¶</a></h2><ul>
@@ -13318,7 +13321,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <p><strong>Typische Werte</strong>:</p>
 <ul>
 <li>chunk_size: 500–1000 für Dokumente</li>
-<li>chunk_overlap: 50–400 (10–20% von chunk_size)</li>
+<li>chunk_overlap: 50–400 (10–40% von chunk_size)</li>
 </ul>
 </div>
 </div>
@@ -13460,7 +13463,7 @@ splitten</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=84c1fbbd70bbbe65">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=02478587a5f62caf">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13540,7 +13543,7 @@ berücksichtigen</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=148a99efb34a36e7">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=84c1fbbd70bbbe65">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13575,7 +13578,7 @@ berücksichtigen</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e7290982d3ae964f">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=e7290982d3ae964f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13608,7 +13611,7 @@ berücksichtigen</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1981912258dad342">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=1981912258dad342">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13619,52 +13622,170 @@ berücksichtigen</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a704926d9d635d35"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a6abd791e3230dc6"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Bereinigen-+-Chunken:-Alles-zusammen">Bereinigen + Chunken: Alles zusammen<a class="anchor-link" href="#Bereinigen-+-Chunken:-Alles-zusammen">¶</a></h2><ul>
-<li>In der Praxis kombinieren wir Bereinigung und Chunking</li>
-<li>Wir verwenden unsere <code>clean_text</code>-Funktion aus dem vorherigen Abschnitt</li>
+<h2 id="Bereinigen-+-Chunken:-Echte-Webseiten">Bereinigen + Chunken: Echte Webseiten<a class="anchor-link" href="#Bereinigen-+-Chunken:-Echte-Webseiten">¶</a></h2><ul>
+<li>Bisher haben wir mit einer sauberen Textdatei gearbeitet</li>
+<li>Echte Daten kommen oft aus dem Web und sind <strong>nicht sauber</strong></li>
+<li>In der Praxis: Erst bereinigen, dann chunken</li>
+<li>Wir nutzen die Tools aus dem letzten Abschnitt:<ul>
+<li><code>AsyncHtmlLoader</code> zum Laden von Webseiten (liefert rohes HTML)</li>
+<li><code>trafilatura</code> für eine saubere Text-Extraktion</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0a600571a201c600">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=0f882c8e67fd6c1f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Schritt-1:-Webseite-laden-mit-AsyncHtmlLoader">Schritt 1: Webseite laden mit AsyncHtmlLoader<a class="anchor-link" href="#Schritt-1:-Webseite-laden-mit-AsyncHtmlLoader">¶</a></h2><p><strong>Hinweis:</strong> Wikipedia blockiert <code>AsyncHtmlLoader</code>, daher verwenden wir eine
+alternative Seite mit ähnlichem Inhalt.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0ee9cae106a54feb">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">clean_text</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Clean text by removing HTML tags and normalizing whitespace."""</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"&lt;[^&gt;]+&gt;"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"[^\S\n]+"</span><span class="p">,</span> <span class="s2">" "</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\n +"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">" +\n"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-    <span class="n">text</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\n{3,}"</span><span class="p">,</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">text</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">"https://grokipedia.com/page/Python_programming_language"</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start celltag_subslide" id="cell-id=c745e1a065965eb5">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4f09e2c5493f8a84">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_and_chunk_text</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">200</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Load text file, clean it, and split into chunks."""</span>
-    <span class="c1"># TODO: Read the file</span>
-    <span class="c1"># TODO: Clean the text (use clean_text function)</span>
-    <span class="c1"># TODO: Create a RecursiveCharacterTextSplitter</span>
-    <span class="c1"># TODO: Split and return the chunks</span>
-    <span class="k">pass</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">loader</span> <span class="o">=</span> <span class="n">AsyncHtmlLoader</span><span class="p">([</span><span class="n">url</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=cd8715870cfcee18">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1eb02727ceac0507">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=896c94ed3a0d461a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=cf9375a87aacfddb"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Schritt-2:-Text-extrahieren-mit-trafilatura">Schritt 2: Text extrahieren mit trafilatura<a class="anchor-link" href="#Schritt-2:-Text-extrahieren-mit-trafilatura">¶</a></h2><ul>
+<li><code>AsyncHtmlLoader</code> liefert <strong>rohes HTML</strong> — nicht geeignet zum Chunken</li>
+<li><code>trafilatura</code> extrahiert den <strong>Haupttext</strong> und entfernt Boilerplate
+(Navigation, Fußnoten, etc.)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5016f8664d3204a0">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=517bc80fa67e5c9a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=4f3deb06224a340b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">page_content</span> <span class="o">=</span> <span class="n">text</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=20fc1b543617ae37"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Problem:-Referenzen-in-Wikipedia-Texten">Problem: Referenzen in Wikipedia-Texten<a class="anchor-link" href="#Problem:-Referenzen-in-Wikipedia-Texten">¶</a></h2><ul>
+<li>Wikipedia/Grokipedia-Texte enthalten Referenzen wie <code>.[10][11]</code></li>
+<li>Diese stören beim Chunking (Satzende wird nicht erkannt)</li>
+<li><strong>Lösung</strong>: Referenzen vor dem Chunking entfernen</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=82e6a151c9243942">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">page_content</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s2">"\[\d+\]"</span><span class="p">,</span> <span class="s2">""</span><span class="p">,</span> <span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">page_content</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c57e78c1b4b857fd">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">docs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=794eb1d71283119e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Schritt-3:-Bereinigten-Text-chunken">Schritt 3: Bereinigten Text chunken<a class="anchor-link" href="#Schritt-3:-Bereinigten-Text-chunken">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5c48c75432a74ee5">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e2e280789cbf8919">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13686,7 +13807,7 @@ berücksichtigen</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=5968883a7c6f4c91">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=d01fddf51fa9ade5">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13740,6 +13861,71 @@ Sie sind inspiriert von der Funktionsweise des Gehirns."
 <li><strong>Chunk-Qualität</strong> beeinflusst direkt die RAG-Ergebnisse</li>
 </ul>
 <p><strong>Nächster Schritt</strong>: Vector Embeddings — wie finden wir relevante Chunks?</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8603883cd964c2a5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Mini-Workshop:-Komplette-Pipeline-als-Funktion">Mini-Workshop: Komplette Pipeline als Funktion<a class="anchor-link" href="#Mini-Workshop:-Komplette-Pipeline-als-Funktion">¶</a></h2><p>Schreiben Sie eine Funktion <code>load_and_chunk_url(url, ...)</code>, die:</p>
+<ol>
+<li>Die Seite mit <code>AsyncHtmlLoader</code> lädt</li>
+<li>Den Text mit <code>trafilatura.extract()</code> extrahiert</li>
+<li>Referenzen (<code>[1]</code>, <code>[11]</code>, ...) mit <code>re.sub()</code> entfernt</li>
+<li>Den Text mit <code>RecursiveCharacterTextSplitter</code> in Chunks aufteilt</li>
+<li>Die Chunks zurückgibt</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start celltag_subslide" id="cell-id=45bac05fd669b90b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">load_and_chunk_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Fetch a web page, extract clean text, and split into chunks."""</span>
+    <span class="c1"># TODO: Load the page with AsyncHtmlLoader</span>
+    <span class="c1"># TODO: Extract text with trafilatura.extract()</span>
+    <span class="c1"># TODO: Remove citations with re.sub()</span>
+    <span class="c1"># TODO: Create a RecursiveCharacterTextSplitter with sentence_rx</span>
+    <span class="c1"># TODO: Split and return the chunks</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=68b52505dcdb141a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ce4216004e6876b8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=c8914748dba680e5">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>
