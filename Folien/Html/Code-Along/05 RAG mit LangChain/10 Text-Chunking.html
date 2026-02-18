@@ -13145,36 +13145,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=c11fd25166895642">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>langchain-text-splitters<span class="w"> </span>langchain-community<span class="w"> </span>trafilatura
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=43530d89eedc740d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
-
-<span class="kn">import</span><span class="w"> </span><span class="nn">trafilatura</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncHtmlLoader</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-    <span class="n">RecursiveCharacterTextSplitter</span><span class="p">,</span>
-    <span class="n">TokenTextSplitter</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">visualize_chunks</span><span class="w"> </span><span class="kn">import</span> <span class="n">visualize_chunks</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c99cb242836c6b58"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13188,6 +13158,58 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </ul>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=c11fd25166895642">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>langchain-text-splitters<span class="w"> </span>langchain-community<span class="w"> </span>trafilatura
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=22f1b4c0570bd983">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">dotenv</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ca943238b77ec307">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">dotenv</span><span class="o">.</span><span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e039b39a4f132a6d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">trafilatura</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncHtmlLoader</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">RecursiveCharacterTextSplitter</span><span class="p">,</span>
+    <span class="n">TokenTextSplitter</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">visualize_chunks</span><span class="w"> </span><span class="kn">import</span> <span class="n">visualize_chunks</span>
+</pre></div>
+</div>
 </div>
 </div>
 </div>
@@ -13452,7 +13474,7 @@ splitten</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=bffc8aff658717de">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=adf5e8256e65fa71">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13463,7 +13485,7 @@ splitten</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=901ca96366604278">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1d8a58d1dce93373">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13532,7 +13554,7 @@ berücksichtigen</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e18ab78f5207eb22">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5f6cb7acab14fcd4">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13543,7 +13565,7 @@ berücksichtigen</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=197ec91684b963bb">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=366eb9aa264f9e64">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13767,7 +13789,7 @@ alternative Seite mit ähnlichem Inhalt.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c57e78c1b4b857fd">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=999fc8f6f79ce03f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13823,7 +13845,7 @@ alternative Seite mit ähnlichem Inhalt.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=d01fddf51fa9ade5">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=e4a2f04e4dd58ced">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13923,7 +13945,7 @@ Sie sind inspiriert von der Funktionsweise des Gehirns."
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ce4216004e6876b8">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d47dbfa01a4c0dfe">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13934,7 +13956,7 @@ Sie sind inspiriert von der Funktionsweise des Gehirns."
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=c8914748dba680e5">
+<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=309baba4ff0c144c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">

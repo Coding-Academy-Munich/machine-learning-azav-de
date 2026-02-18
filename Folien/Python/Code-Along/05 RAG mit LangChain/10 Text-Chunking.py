@@ -7,20 +7,6 @@
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
 
-# %%
-# !pip install langchain-text-splitters langchain-community trafilatura
-
-# %%
-import re
-
-import trafilatura
-from langchain_community.document_loaders import AsyncHtmlLoader
-from langchain_text_splitters import (
-    RecursiveCharacterTextSplitter,
-    TokenTextSplitter,
-)
-from visualize_chunks import visualize_chunks
-
 # %% [markdown]
 #
 # ## Chunking: Text aufteilen
@@ -31,6 +17,26 @@ from visualize_chunks import visualize_chunks
 #   - Nicht zu klein (Kontext fehlt)
 #   - Nicht zu groß (Context-Limit)
 #   - Sinnvoll sein (nicht mitten im Satz!)
+
+# %%
+# !pip install langchain-text-splitters langchain-community trafilatura
+
+# %%
+import re
+
+import dotenv
+
+# %%
+dotenv.load_dotenv()
+
+# %%
+import trafilatura
+from langchain_community.document_loaders import AsyncHtmlLoader
+from langchain_text_splitters import (
+    RecursiveCharacterTextSplitter,
+    TokenTextSplitter,
+)
+from visualize_chunks import visualize_chunks
 
 # %% [markdown]
 #
