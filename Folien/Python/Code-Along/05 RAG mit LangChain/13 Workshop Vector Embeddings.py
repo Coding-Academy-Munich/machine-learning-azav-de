@@ -18,9 +18,13 @@
 
 # %%
 import os
+from dotenv import load_dotenv
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from langchain_openai import OpenAIEmbeddings
+
+# %%
+load_dotenv()
 
 # %%
 embeddings = OpenAIEmbeddings(

@@ -273,7 +273,7 @@ response_with_context = llm.invoke(prompt_with_context)
 # 1. **Document Loaders**: Dokumente aus verschiedenen Quellen laden
 # 2. **Text Chunking**: Dokumente in handhabbare Stücke aufteilen
 # 3. **Vector Embeddings**: Wie Text als Vektoren dargestellt wird
-# 4. **ChromaDB**: Einfache Vektor-Datenbank
+# 4. **Qdrant**: Vektor-Datenbank mit Hybrid Search
 # 5. **RAG mit LangChain**: Alles zusammenbauen
 # 6. **Workshop**: Eigenes RAG-System mit Gradio-UI
 #

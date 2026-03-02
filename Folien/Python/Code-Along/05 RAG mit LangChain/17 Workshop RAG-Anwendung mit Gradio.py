@@ -18,10 +18,14 @@
 # - Konversationsverlauf
 
 # %%
+# ! pip install qdrant-client langchain-qdrant
+
+# %%
 import os
+from dotenv import load_dotenv
 import gradio as gr
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_qdrant import QdrantVectorStore, FastEmbedSparse, RetrievalMode
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.document_loaders import TextLoader, DirectoryLoader
 from langchain_core.documents import Document
@@ -29,6 +33,9 @@ from langchain_core.messages import HumanMessage, AIMessage
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+
+# %%
+load_dotenv()
 
 # %% [markdown]
 #
@@ -67,7 +74,7 @@ Neural Networks sind inspiriert von biologischen Neuronen.
 
 # TODO: Create Document objects from sample_docs
 # TODO: Split documents into chunks using RecursiveCharacterTextSplitter
-# TODO: Create embeddings and vectorstore with Chroma
+# TODO: Create embeddings and vectorstore with Qdrant
 
 # %%
 
@@ -124,12 +131,12 @@ def upload_and_query(file, question):
 # **Was wir erreicht haben**:
 # - ✅ Vollständiges RAG-System mit LangChain
 # - ✅ Text-Chunking für bessere Retrieval-Qualität
-# - ✅ ChromaDB für Vektor-Speicherung
+# - ✅ Qdrant mit Hybrid Search für Vektor-Speicherung
 # - ✅ Konversationsverlauf mit Gradio
 # - ✅ Gradio-Interface mit Quellenangabe
 # - ✅ Portfolio-taugliches Projekt!
 #
-# **Nächster Schritt**: LLM Orchestration — Noch komplexere Workflows!
+# **Nächster Schritt**: Wie wissen wir, ob unser RAG-System gut funktioniert? Evaluierung!
 
 # %% [markdown]
 #

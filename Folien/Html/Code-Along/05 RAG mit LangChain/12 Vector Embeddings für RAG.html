@@ -13157,12 +13157,13 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ab01f22dd89f0d5c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=a8e0f26e8aacf4a6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">dotenv</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">cosine_similarity</span><span class="p">,</span> <span class="n">euclidean_distances</span>
@@ -13172,7 +13173,18 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d1392767b5c369d8"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ca943238b77ec307">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">dotenv</span><span class="o">.</span><span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ba9e1a39855c8d69"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Text-Embeddings">Text-Embeddings<a class="anchor-link" href="#Text-Embeddings">¶</a></h2><ul>
@@ -13185,7 +13197,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <li><strong>Modelle</strong>:<ul>
 <li>OpenAI: text-embedding-3-small (1536 Dimensionen)</li>
 <li>HuggingFace: verschiedene Open-Source-Modelle</li>
-<li>ChromaDB: eingebautes Modell (all-MiniLM-L6-v2)</li>
+<li>Qdrant: unterstützt verschiedene Modelle</li>
 </ul>
 </li>
 </ul>
@@ -13266,7 +13278,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f17ccf2bde0eb6ac"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8b7c08b609884b4d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Euklidische-Distanz-vs.-Kosinus-%C3%84hnlichkeit">Euklidische Distanz vs. Kosinus-Ähnlichkeit<a class="anchor-link" href="#Euklidische-Distanz-vs.-Kosinus-%C3%84hnlichkeit">¶</a></h2><div style="float:right;width:40%;">
@@ -13276,35 +13288,158 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div style="width:60%;">
 <br/>
 <ul>
-<li><b>Euklidische Distanz</b>: Wie weit sind zwei Punkte voneinander entfernt?</li>
+<li><b>Euklidische Distanz</b> (rechts): Abstand zwischen den Spitzen</li>
 <ul>
-<li>Misst den "Abstand" ($|\vec a - \vec b|$)</li>
-<li>Problematisch: Längere Texte haben andere Vektoren als kurze</li>
+<li>Misst $|\vec a - \vec b|$ (Spitze zu Spitze)</li>
+<li>Hängt von <b>Richtung und Länge</b> der Vektoren ab</li>
 </ul>
-<li><b>Kosinus-Ähnlichkeit</b>: Zeigen zwei Pfeile in die gleiche Richtung?</li>
+<li><b>Kosinus-Ähnlichkeit</b> (links): Winkel zwischen den Pfeilen</li>
 <ul>
-<li>Misst den Winkel zwischen Vektoren</li>
-<li>Unabhängig von der "Länge" des Vektors</li>
-<li>Für Text <b>besser geeignet</b>!</li>
+<li>Misst nur die <b>Richtung</b>, ignoriert die Länge</li>
+<li>$\vec a$ und $\vec b$: kleiner Winkel → hohe Ähnlichkeit</li>
 </ul>
 </ul>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4dcea369151c7768"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=51422e4ca0203d92"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-Kosinus-%C3%84hnlichkeit-f%C3%BCr-Text?">Warum Kosinus-Ähnlichkeit für Text?<a class="anchor-link" href="#Warum-Kosinus-%C3%84hnlichkeit-f%C3%BCr-Text?">¶</a></h2><ul>
-<li>Zwei Texte mit gleicher Bedeutung aber unterschiedlicher Länge:<ul>
-<li>Kurz: "ML lernt aus Daten"</li>
-<li>Lang: "Machine Learning ist ein Verfahren, das automatisch aus Daten lernt"</li>
+<h2 id="Beispiel:-2D-Vektoren">Beispiel: 2D-Vektoren<a class="anchor-link" href="#Beispiel:-2D-Vektoren">¶</a></h2><ul>
+<li>Betrachten wir drei einfache 2D-Vektoren (wie in den Bildern)</li>
+<li>$\vec a$ und $\vec b$: gleiche Richtung, aber $\vec b$ ist kürzer</li>
+<li>$\vec c$: zeigt in eine ganz andere Richtung</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=32d285c8ba35d7b0">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]])</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2e081c13f307b94a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9234a69ac8998e60">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5925507198e26a44">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=53b6a2fc836aa956">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=b161ab1d5b637634">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">vectors</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="n">a</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"b"</span><span class="p">:</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">"c"</span><span class="p">:</span> <span class="n">c</span><span class="p">[</span><span class="mi">0</span><span class="p">]}</span>
+<span class="n">colors</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="s2">"red"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="s2">"black"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">:</span> <span class="s2">"darkblue"</span><span class="p">}</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vectors</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">annotate</span><span class="p">(</span><span class="s2">""</span><span class="p">,</span> <span class="n">xy</span><span class="o">=</span><span class="n">v</span><span class="p">,</span> <span class="n">xytext</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">arrowprops</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">arrowstyle</span><span class="o">=</span><span class="s2">"-&gt;"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">))</span>
+    <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="mf">0.15</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="n">colors</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">5.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_aspect</span><span class="p">(</span><span class="s2">"equal"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"gray"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">grid</span><span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"2D-Vektoren / 2D Vectors"</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=aa4216a19a715cf0"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ergebnis:-2D-Beispiel">Ergebnis: 2D-Beispiel<a class="anchor-link" href="#Ergebnis:-2D-Beispiel">¶</a></h2><ul>
+<li>$\vec a$ und $\vec b$: <strong>gleiche Richtung</strong> (Kosinus-Ähnlichkeit = 1.0)<ul>
+<li>Aber: Euklidische Distanz = 2.5 (wegen unterschiedlicher Länge)</li>
 </ul>
 </li>
-<li><strong>Euklidische Distanz</strong>: Groß (verschiedene Vektorlängen)</li>
-<li><strong>Kosinus-Ähnlichkeit</strong>: Hoch (gleiche Richtung = gleiche Bedeutung!)</li>
+<li>$\vec a$ und $\vec c$: <strong>verschiedene Richtungen</strong> (Kosinus-Ähnlichkeit ≈ −0.45)<ul>
+<li>Euklidische Distanz = 6.7 (weit entfernt)</li>
 </ul>
-<p><strong>Wert</strong>: 0.0 (völlig unterschiedlich) bis 1.0 (identisch)</p>
+</li>
+<li>Kosinus-Ähnlichkeit ignoriert die Länge und misst nur die Richtung</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1d43f3889afcce8f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Moderne-Embedding-Modelle-normalisieren!">Moderne Embedding-Modelle normalisieren!<a class="anchor-link" href="#Moderne-Embedding-Modelle-normalisieren!">¶</a></h2><ul>
+<li>Modelle wie <code>text-embedding-3-small</code> geben <strong>normalisierte Vektoren</strong> zurück</li>
+<li>Alle Vektoren haben die <strong>gleiche Länge</strong> (Norm = 1), egal wie lang der Text ist</li>
+<li>Für normalisierte Vektoren:<ul>
+<li>Euklidische Distanz und Kosinus-Ähnlichkeit ergeben <strong>dieselbe Rangfolge</strong></li>
+<li>$d_{\text{euklid}} = \sqrt{2 \cdot (1 - \text{cos\_sim})}$</li>
+</ul>
+</li>
+<li>Der Unterschied aus dem 2D-Beispiel tritt bei Embeddings also <strong>nicht</strong> auf!</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0fff4d5052031343"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Warum-trotzdem-Kosinus-%C3%84hnlichkeit?">Warum trotzdem Kosinus-Ähnlichkeit?<a class="anchor-link" href="#Warum-trotzdem-Kosinus-%C3%84hnlichkeit?">¶</a></h2><ul>
+<li><strong>Konvention</strong>: Die meisten Tools und Datenbanken verwenden sie standardmäßig</li>
+<li><strong>Intuitive Skala</strong>: 0.0 (völlig verschieden) bis 1.0 (identisch)</li>
+<li><strong>Effizienz</strong>: Berechnung über Skalarprodukt (schnell!)</li>
+<li><strong>Robustheit</strong>: Funktioniert auch mit nicht-normalisierten Modellen</li>
+</ul>
+<p>In der Praxis: Qdrant, Pinecone etc. nutzen Kosinus-Ähnlichkeit als Standard</p>
 </div>
 </div>
 </div>
@@ -13365,12 +13500,12 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9d952adc550c71a3">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e4e0362cc03273fb">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">"Was ist neuronale Netze?"</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">"Was sind neuronale Netze?"</span>
 </pre></div>
 </div>
 </div>
@@ -13520,7 +13655,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b598bfc958142a9f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e4c3f44e67adaf7f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="F%C3%BCr-RAG-bedeutet-das:">Für RAG bedeutet das:<a class="anchor-link" href="#F%C3%BCr-RAG-bedeutet-das:">¶</a></h2><ol>
@@ -13530,18 +13665,17 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <li>Ähnlichste Chunks finden (Kosinus-Ähnlichkeit)</li>
 <li>Als Kontext an LLM geben</li>
 </ol>
-<p><strong>ChromaDB</strong> macht Schritte 2–4 automatisch!</p>
+<p><strong>Qdrant</strong> macht Schritte 2–4 automatisch!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=74248575de6570ec"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8bb4e6ffdbf9b530"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
 <li><strong>Text-Embeddings</strong>: Ganze Texte als Vektoren darstellen</li>
-<li><strong>Kosinus-Ähnlichkeit</strong>: Misst "Richtung" (Bedeutung), nicht "Länge"<ul>
-<li>Besser als euklidische Distanz für Text</li>
-<li>Wert: 0.0 (unterschiedlich) bis 1.0 (identisch)</li>
+<li><strong>Kosinus-Ähnlichkeit</strong>: Standard-Metrik für Text-Ähnlichkeit<ul>
+<li>Intuitive Skala: 0.0 (verschieden) bis 1.0 (identisch)</li>
 </ul>
 </li>
 <li><strong>Semantische Suche</strong>: Versteht Bedeutung, nicht nur exakte Wörter<ul>
@@ -13550,7 +13684,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </li>
 <li><strong>LangChain</strong>: Einfache Embedding-Erstellung mit wenigen Zeilen</li>
 </ul>
-<p><strong>Nächster Schritt</strong>: ChromaDB für effiziente Vektor-Speicherung!</p>
+<p><strong>Nächster Schritt</strong>: Qdrant für effiziente Vektor-Speicherung!</p>
 </div>
 </div>
 </div>

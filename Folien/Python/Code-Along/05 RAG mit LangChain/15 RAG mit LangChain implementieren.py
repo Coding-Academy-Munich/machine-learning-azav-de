@@ -14,19 +14,26 @@
 # - ✅ LLMs nutzen mit LangChain
 # - ✅ Text bereinigen und in Chunks aufteilen
 # - ✅ Embeddings erstellen (Kosinus-Ähnlichkeit)
-# - ✅ ChromaDB für Vektor-Speicherung
+# - ✅ Qdrant für Vektor-Speicherung + **Hybrid Search**
 #
 # **Jetzt**: Alles zusammenbauen zu einem RAG-System!
 
 # %%
+# ! pip install qdrant-client langchain-qdrant
+
+# %%
 import os
+from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_qdrant import QdrantVectorStore, FastEmbedSparse, RetrievalMode
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+
+# %%
+load_dotenv()
 
 # %% [markdown]
 #
@@ -35,7 +42,7 @@ from langchain_core.output_parsers import StrOutputParser
 # **Einmalig (Setup)**:
 # 1. Dokumente laden
 # 2. Text bereinigen und in Chunks aufteilen
-# 3. In ChromaDB speichern (mit Embeddings)
+# 3. In Qdrant speichern (mit Hybrid Search)
 #
 # **Bei jeder Anfrage**:
 # 4. Anfrage embedden
@@ -79,7 +86,6 @@ text_splitter = RecursiveCharacterTextSplitter(
     chunk_overlap=50
 )
 
-
 # %%
 
 # %% [markdown]
@@ -87,7 +93,12 @@ text_splitter = RecursiveCharacterTextSplitter(
 # ## Schritt 2: Vektor-Store erstellen
 
 # %%
-# TODO: Create embeddings and Chroma vector store from documents
+sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
+
+
+# %%
+# TODO: Create embeddings and Qdrant vector store from documents
+# Use RetrievalMode.HYBRID with sparse_embeddings for hybrid search
 
 # %%
 
@@ -244,7 +255,7 @@ question = "Was ist Overfitting?"
 #
 # ## Was passiert bei irrelevanten Fragen?
 #
-# - Erinnerung: ChromaDB liefert **immer** Ergebnisse
+# - Erinnerung: Qdrant liefert **immer** Ergebnisse
 # - Unser Prompt sagt dem LLM: "Sage es, wenn der Kontext keine Antwort hat"
 
 # %%
@@ -281,7 +292,7 @@ retriever_k3 = vectorstore.as_retriever(search_kwargs={"k": 3})
 # ## Zusammenfassung
 #
 # - **RAG mit LangChain**: Wenige Zeilen Code für ein vollständiges System
-# - **Pipeline**: Dokumente → Chunks → ChromaDB → Retriever → LLM
+# - **Pipeline**: Dokumente → Chunks → Qdrant (Hybrid Search) → Retriever → LLM
 # - **LCEL**: Verkettung mit `|` Operator
 #   - `{"context": retriever | format_docs, "input": RunnablePassthrough()}`
 # - **Prompt Engineering**: Entscheidend für gute RAG-Antworten

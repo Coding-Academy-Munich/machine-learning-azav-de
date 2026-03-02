@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7aab4dfd6abfa2ba"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e890721f01c8a58c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>ChromaDB: Vektor-Datenbank für RAG</b>
+<b>Workshop: RAG-Evaluierung</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13145,436 +13145,617 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f3f9b1c8111fe970"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=bdefb50942c42d59"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-Vektor-Datenbanken?">Warum Vektor-Datenbanken?<a class="anchor-link" href="#Warum-Vektor-Datenbanken?">¶</a></h2><ul>
-<li><strong>Problem</strong>: Viele Dokumente durchsuchen ist langsam</li>
-<li><strong>Lösung</strong>: Vektor-Datenbank</li>
-<li>Speichert Embeddings effizient</li>
-<li>Findet ähnlichste Vektoren schnell</li>
-<li><strong>Millionen</strong> von Dokumenten in Millisekunden!</li>
-</ul>
+<h2 id="Workshop-Ziel">Workshop-Ziel<a class="anchor-link" href="#Workshop-Ziel">¶</a></h2><p>In diesem Workshop werden Sie:</p>
+<ol>
+<li>Ein RAG-System aufbauen und manuell testen</li>
+<li>Mit LangSmith automatisch evaluieren</li>
+<li>Mit RAGAS standardisierte Metriken berechnen</li>
+<li>Das System verbessern und den Effekt messen</li>
+</ol>
+<p><strong>Sie arbeiten mit dem gleichen RAG-System wie im vorherigen Workshop!</strong></p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f390fdca94d53f7c"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-ChromaDB?">Warum ChromaDB?<a class="anchor-link" href="#Warum-ChromaDB?">¶</a></h2><ul>
-<li>✅ <strong>Open Source</strong> (Apache 2.0 Lizenz)</li>
-<li>✅ <strong>Einfach zu installieren</strong>: <code>pip install chromadb</code></li>
-<li>✅ <strong>Funktioniert auf Windows und Linux</strong></li>
-<li>✅ <strong>Keine Server-Konfiguration</strong> nötig</li>
-<li>✅ <strong>Perfekt für Lernen</strong> und Prototypen</li>
-<li>✅ <strong>LangChain-Integration</strong> out-of-the-box</li>
-</ul>
-<p><strong>Ideal für Einstieg!</strong></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=881fb2ab223fb2af"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Installation">Installation<a class="anchor-link" href="#Installation">¶</a></h2><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>chromadb
-</pre></div>
-<p><strong>Das war's!</strong> Keine Docker, keine Server-Konfiguration.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=003359166c64bebb">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=82984c376007d36c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>chromadb
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>ragas
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e030852c5df47c7f">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6a4d5f91f7773896">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">chromadb</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">chromadb.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">Settings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span><span class="p">,</span> <span class="n">FastEmbedSparse</span><span class="p">,</span> <span class="n">RetrievalMode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.prompts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnablePassthrough</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.output_parsers</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">AsyncOpenAI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langsmith</span><span class="w"> </span><span class="kn">import</span> <span class="n">Client</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ragas.llms</span><span class="w"> </span><span class="kn">import</span> <span class="n">llm_factory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ragas.embeddings.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">embedding_factory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">ragas.metrics.collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">Faithfulness</span><span class="p">,</span> <span class="n">AnswerRelevancy</span><span class="p">,</span> <span class="n">ContextRecall</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TypedDict</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1da894c4a3e566fb"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="ChromaDB-Modi">ChromaDB Modi<a class="anchor-link" href="#ChromaDB-Modi">¶</a></h2><ol>
-<li><strong>In-Memory</strong>: Daten nur im RAM (für Tests)</li>
-<li><strong>Persistent</strong>: Daten auf Festplatte (empfohlen)</li>
-</ol>
-<p><strong>Für RAG</strong>: Persistent nutzen!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=cde884b7c135e8a8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Client-erstellen">Client erstellen<a class="anchor-link" href="#Client-erstellen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=4bb61859757a7673">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ce35827a2adb266e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># In-memory client (for testing)</span>
-<span class="c1"># client = chromadb.Client()</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7153ee05cc1cc663">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"mistralai/ministral-14b-2512"</span><span class="p">,</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+<span class="p">)</span>
 
-<span class="c1"># Persistent client (recommended)</span>
-<span class="c1"># TODO: Create PersistentClient</span>
+<span class="n">client</span> <span class="o">=</span> <span class="n">Client</span><span class="p">()</span>
+
+<span class="n">openai_client</span> <span class="o">=</span> <span class="n">AsyncOpenAI</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">evaluator_llm</span> <span class="o">=</span> <span class="n">llm_factory</span><span class="p">(</span>
+    <span class="s2">"mistralai/ministral-14b-2512"</span><span class="p">,</span>
+    <span class="n">provider</span><span class="o">=</span><span class="s2">"openai"</span><span class="p">,</span>
+    <span class="n">client</span><span class="o">=</span><span class="n">openai_client</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">evaluator_embeddings</span> <span class="o">=</span> <span class="n">embedding_factory</span><span class="p">(</span>
+    <span class="s2">"openai"</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"openai/text-embedding-3-small"</span><span class="p">,</span>
+    <span class="n">client</span><span class="o">=</span><span class="n">openai_client</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">faithfulness</span> <span class="o">=</span> <span class="n">Faithfulness</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">evaluator_llm</span><span class="p">)</span>
+<span class="n">answer_relevancy</span> <span class="o">=</span> <span class="n">AnswerRelevancy</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">evaluator_llm</span><span class="p">,</span> <span class="n">embeddings</span><span class="o">=</span><span class="n">evaluator_embeddings</span><span class="p">)</span>
+<span class="n">context_recall</span> <span class="o">=</span> <span class="n">ContextRecall</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">evaluator_llm</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=385156558b2d6af4">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c9e6534623f1deb5">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=18a12d048230c786"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Collections:-Dokument-Sammlungen">Collections: Dokument-Sammlungen<a class="anchor-link" href="#Collections:-Dokument-Sammlungen">¶</a></h2><ul>
-<li><strong>Collection</strong>: Gruppe von Dokumenten</li>
-<li>Wie eine Tabelle in einer Datenbank</li>
-<li>Jede Collection hat:<ul>
-<li>Dokumente (Texte)</li>
-<li>Embeddings (automatisch erstellt!)</li>
-<li>Metadata (optionale Zusatzinfos)</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b8b7defb5d9fce56"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Collection-erstellen">Collection erstellen<a class="anchor-link" href="#Collection-erstellen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=ffa647edb2d9827a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create or get collection</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4ceb857a2c593663">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=dc3396fab211b199"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="ChromaDB's-eingebautes-Embedding-Modell">ChromaDB's eingebautes Embedding-Modell<a class="anchor-link" href="#ChromaDB's-eingebautes-Embedding-Modell">¶</a></h2><ul>
-<li>ChromaDB nutzt standardmäßig das Modell <strong>all-MiniLM-L6-v2</strong></li>
-<li>Deshalb müssen wir <strong>kein Embedding-Modell</strong> angeben!</li>
-<li>ChromaDB erstellt Embeddings automatisch beim Hinzufügen</li>
-<li>Bei der LangChain-Integration wählen wir unser eigenes Modell</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7f6fb3670ab32799"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Dokumente-hinzuf%C3%BCgen">Dokumente hinzufügen<a class="anchor-link" href="#Dokumente-hinzuf%C3%BCgen">¶</a></h2><p>ChromaDB macht Embeddings <strong>automatisch</strong>!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=ee830eaa84dc90cc">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Add documents</span>
-<span class="n">documents</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Neural networks can learn complex patterns"</span><span class="p">,</span>
-    <span class="s2">"Gradient descent optimizes model parameters"</span><span class="p">,</span>
-    <span class="s2">"Overfitting occurs when models memorize training data"</span><span class="p">,</span>
-    <span class="s2">"RAG combines retrieval with generation"</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sample_docs</span> <span class="o">=</span> <span class="p">[</span>
+<span class="w">    </span><span class="sd">"""# Machine Learning Kurs - Kapitel 1: Einführung</span>
+
+<span class="sd">Machine Learning ist ein Teilgebiet der Künstlichen Intelligenz.</span>
+<span class="sd">Computer lernen aus Daten, ohne explizit programmiert zu werden.</span>
+
+<span class="sd">## Arten von Machine Learning</span>
+<span class="sd">- Überwachtes Lernen: Lernen mit gelabelten Daten</span>
+<span class="sd">- Unüberwachtes Lernen: Muster in ungelabelten Daten finden</span>
+<span class="sd">- Reinforcement Learning: Lernen durch Belohnung und Bestrafung</span>
+<span class="sd">"""</span><span class="p">,</span>
+<span class="w">    </span><span class="sd">"""# Machine Learning Kurs - Kapitel 2: Linear Regression</span>
+
+<span class="sd">Linear Regression ist eine grundlegende Methode des überwachten Lernens.</span>
+
+<span class="sd">## Konzept</span>
+<span class="sd">- Modelliert lineare Beziehungen zwischen Features (X) und Ziel (y)</span>
+<span class="sd">- Formel: y = w*X + b</span>
+<span class="sd">- w sind die Gewichte, b ist der Bias</span>
+
+<span class="sd">## Training</span>
+<span class="sd">- Normalgleichung für exakte Lösung</span>
+<span class="sd">- Gradient Descent für große Datensätze</span>
+<span class="sd">- Loss-Funktion: Mean Squared Error (MSE)</span>
+<span class="sd">"""</span><span class="p">,</span>
+<span class="w">    </span><span class="sd">"""# Machine Learning Kurs - Kapitel 3: Neural Networks</span>
+
+<span class="sd">Neural Networks sind inspiriert von biologischen Neuronen.</span>
+
+<span class="sd">## Aufbau</span>
+<span class="sd">- Input Layer, Hidden Layers, Output Layer</span>
+<span class="sd">- Jedes Neuron: gewichtete Summe + Aktivierungsfunktion</span>
+<span class="sd">- Typische Aktivierungsfunktionen: ReLU, Sigmoid, Tanh</span>
+
+<span class="sd">## Training</span>
+<span class="sd">- Backpropagation berechnet Gradienten</span>
+<span class="sd">- Gradient Descent passt Gewichte an</span>
+<span class="sd">- Lernrate bestimmt Schrittgröße</span>
+<span class="sd">"""</span><span class="p">,</span>
+<span class="w">    </span><span class="sd">"""# Machine Learning Kurs - Kapitel 4: Overfitting</span>
+
+<span class="sd">Overfitting ist ein häufiges Problem beim Machine Learning.</span>
+
+<span class="sd">## Symptome</span>
+<span class="sd">- Sehr gute Performance auf Trainingsdaten</span>
+<span class="sd">- Schlechte Performance auf Testdaten (neue Daten)</span>
+
+<span class="sd">## Lösungen</span>
+<span class="sd">- Mehr Trainingsdaten sammeln</span>
+<span class="sd">- Regularisierung (L1, L2)</span>
+<span class="sd">- Cross-Validation zur Modellauswahl</span>
+<span class="sd">- Early Stopping beim Training</span>
+<span class="sd">- Dropout bei Neural Networks</span>
+<span class="sd">"""</span><span class="p">,</span>
+<span class="w">    </span><span class="sd">"""# Machine Learning Kurs - Kapitel 5: Decision Trees und Random Forests</span>
+
+<span class="sd">Decision Trees teilen Daten anhand von Entscheidungsregeln auf.</span>
+
+<span class="sd">## Decision Trees</span>
+<span class="sd">- Einfach zu interpretieren</span>
+<span class="sd">- Können overfitting (zu tiefe Bäume)</span>
+<span class="sd">- Verwenden Information Gain oder Gini Impurity</span>
+
+<span class="sd">## Random Forests</span>
+<span class="sd">- Kombination vieler Decision Trees (Ensemble-Methode)</span>
+<span class="sd">- Jeder Baum trainiert auf zufälliger Teilmenge</span>
+<span class="sd">- Oft genauer als einzelne Modelle</span>
+<span class="sd">- Feature Importance zeigt wichtigste Features</span>
+<span class="sd">"""</span><span class="p">,</span>
+<span class="w">    </span><span class="sd">"""# Machine Learning Kurs - Kapitel 6: LLMs und RAG</span>
+
+<span class="sd">Large Language Models (LLMs) sind sehr große neuronale Netze.</span>
+
+<span class="sd">## LLMs</span>
+<span class="sd">- Trainiert auf Milliarden von Wörtern</span>
+<span class="sd">- Können Texte generieren, übersetzen, zusammenfassen</span>
+<span class="sd">- Prompt Engineering ist wichtig für gute Ergebnisse</span>
+
+<span class="sd">## RAG (Retrieval Augmented Generation)</span>
+<span class="sd">- Ergänzt LLMs mit externem Wissen</span>
+<span class="sd">- Reduziert Halluzinationen</span>
+<span class="sd">- Dokumente werden in Vektoren umgewandelt</span>
+<span class="sd">- Ähnlichste Dokumente werden als Kontext bereitgestellt</span>
+<span class="sd">"""</span><span class="p">,</span>
 <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=55c6d3b405acd528">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">documents</span> <span class="o">=</span> <span class="p">[</span><span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">sample_docs</span><span class="p">]</span>
 
-<span class="c1"># TODO: Add to collection</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=887a6a4b21012636">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f13b1188dcc55e02"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Dokumente-suchen">Dokumente suchen<a class="anchor-link" href="#Dokumente-suchen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=416c8ec871931803">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Query collection</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=897a0d367c902bb7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3e02b621bcf9d8b3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-passiert-bei-irrelevanten-Anfragen?">Was passiert bei irrelevanten Anfragen?<a class="anchor-link" href="#Was-passiert-bei-irrelevanten-Anfragen?">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7a57cadf8750fab3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=87bf438b01965be1">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=246db0f3408d2913"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="ChromaDB-liefert-immer-Ergebnisse!">ChromaDB liefert immer Ergebnisse!<a class="anchor-link" href="#ChromaDB-liefert-immer-Ergebnisse!">¶</a></h2><ul>
-<li>Auch bei irrelevanten Fragen gibt ChromaDB Ergebnisse zurück</li>
-<li>Es wählt einfach die <strong>ähnlichsten</strong> Dokumente — auch wenn keines relevant ist</li>
-<li><strong>Hohe Distanz</strong> = niedrige Relevanz</li>
-<li>Wir können nach Distanz filtern, um irrelevante Ergebnisse auszuschließen</li>
-<li>Das ist wichtig für robuste RAG-Systeme!</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3d006369f86e635a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Metadata-filtern">Metadata filtern<a class="anchor-link" href="#Metadata-filtern">¶</a></h2><ul>
-<li>Zusätzliche Filter für Suche</li>
-<li>Beispiel: Nur Dokumente zu bestimmtem Thema</li>
-<li>Oder: Nur neuere Dokumente</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=64e459276e88c702">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Query with metadata filter</span>
-<span class="n">results_filtered</span> <span class="o">=</span> <span class="n">collection</span><span class="o">.</span><span class="n">query</span><span class="p">(</span>
-    <span class="n">query_texts</span><span class="o">=</span><span class="p">[</span><span class="s2">"machine learning algorithms"</span><span class="p">],</span>
-    <span class="n">n_results</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-    <span class="n">where</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">}</span>  <span class="c1"># Filter by metadata</span>
+<span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"openai/text-embedding-3-small"</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">sparse_embeddings</span> <span class="o">=</span> <span class="n">FastEmbedSparse</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">"Qdrant/bm25"</span><span class="p">)</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
+
+<span class="n">text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span><span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="n">splits</span> <span class="o">=</span> <span class="n">text_splitter</span><span class="o">.</span><span class="n">split_documents</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+
+<span class="n">vectorstore</span> <span class="o">=</span> <span class="n">QdrantVectorStore</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
+    <span class="n">documents</span><span class="o">=</span><span class="n">splits</span><span class="p">,</span>
+    <span class="n">embedding</span><span class="o">=</span><span class="n">embeddings</span><span class="p">,</span>
+    <span class="n">sparse_embedding</span><span class="o">=</span><span class="n">sparse_embeddings</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="o">=</span><span class="s2">"workshop_eval"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">":memory:"</span><span class="p">,</span>
+    <span class="n">retrieval_mode</span><span class="o">=</span><span class="n">RetrievalMode</span><span class="o">.</span><span class="n">HYBRID</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=166e6737d574c369">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=fff8871526471b55">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">retriever</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">(</span><span class="n">search_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"k"</span><span class="p">:</span> <span class="mi">2</span><span class="p">})</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">format_docs</span><span class="p">(</span><span class="n">docs</span><span class="p">):</span>
+    <span class="k">return</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">)</span>
+
+
+<span class="n">system_prompt</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="s2">"Du bist ein hilfreicher Assistent. Nutze den folgenden Kontext, um die Frage zu beantworten. "</span>
+    <span class="s2">"Wenn der Kontext keine relevanten Informationen enthält, sage: "</span>
+    <span class="s2">"'Diese Information ist nicht in meinen Dokumenten enthalten.' "</span>
+    <span class="s2">"Halte die Antwort präzise.</span><span class="se">\n\n</span><span class="s2">"</span>
+    <span class="s2">"You are a helpful assistant. Use the following context to answer the question. "</span>
+    <span class="s2">"If the context doesn't contain relevant information, say: "</span>
+    <span class="s2">"'This information is not in my documents.' "</span>
+    <span class="s2">"Keep the answer concise.</span><span class="se">\n\n</span><span class="s2">"</span>
+    <span class="s2">"Context: </span><span class="si">{context}</span><span class="s2">"</span>
+<span class="p">)</span>
+
+<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">(</span>
+    <span class="p">[(</span><span class="s2">"system"</span><span class="p">,</span> <span class="n">system_prompt</span><span class="p">),</span> <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{input}</span><span class="s2">"</span><span class="p">)]</span>
+<span class="p">)</span>
+
+<span class="n">rag_chain</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="p">{</span><span class="s2">"context"</span><span class="p">:</span> <span class="n">retriever</span> <span class="o">|</span> <span class="n">format_docs</span><span class="p">,</span> <span class="s2">"input"</span><span class="p">:</span> <span class="n">RunnablePassthrough</span><span class="p">()}</span>
+    <span class="o">|</span> <span class="n">prompt</span>
+    <span class="o">|</span> <span class="n">llm</span>
+    <span class="o">|</span> <span class="n">StrOutputParser</span><span class="p">()</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e4c511de2c06f99a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="ChromaDB-mit-LangChain">ChromaDB mit LangChain<a class="anchor-link" href="#ChromaDB-mit-LangChain">¶</a></h2><ul>
-<li>LangChain hat <strong>direkte Integration</strong> mit ChromaDB</li>
-<li>Noch einfacher zu nutzen!</li>
-<li>Perfekt für RAG-Systeme</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ac67445dddf7e6b0">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1417483141f2c81f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.vectorstores</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chroma</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"RAG-System bereit / ready: </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">splits</span><span class="p">)</span><span class="si">}</span><span class="s2"> Chunks"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=377d574ead167cf4"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Erzeugen des Vektor-Stores mit LangChain</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ded566760ad3f8d5">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=a5b53ef5c7f30529">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ed9b20b390b56935"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Dokumente zum Vektor-Store hinzufügen</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f9f9dda45945e2b9">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">texts_lc</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"LangChain simplifies LLM application development"</span><span class="p">,</span>
-    <span class="s2">"Vector stores enable semantic search"</span><span class="p">,</span>
-    <span class="s2">"Chains combine multiple processing steps"</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">test_dataset</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="s2">"Was ist Machine Learning?"</span><span class="p">,</span>
+        <span class="s2">"reference"</span><span class="p">:</span> <span class="s2">"Machine Learning ist ein Teilgebiet der KI, bei dem Computer aus Daten lernen, ohne explizit programmiert zu werden."</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="s2">"Was ist Overfitting und wie kann man es vermeiden?"</span><span class="p">,</span>
+        <span class="s2">"reference"</span><span class="p">:</span> <span class="s2">"Overfitting tritt auf, wenn ein Modell auf Trainingsdaten gut, aber auf neuen Daten schlecht funktioniert. Lösungen: mehr Daten, Regularisierung, Cross-Validation, Early Stopping, Dropout."</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="s2">"Wie funktioniert Linear Regression?"</span><span class="p">,</span>
+        <span class="s2">"reference"</span><span class="p">:</span> <span class="s2">"Linear Regression modelliert lineare Beziehungen zwischen Features und Zielvariable mit der Formel y = w*X + b. Training mit Normalgleichung oder Gradient Descent."</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="s2">"Was ist der Unterschied zwischen Decision Trees und Random Forests?"</span><span class="p">,</span>
+        <span class="s2">"reference"</span><span class="p">:</span> <span class="s2">"Decision Trees sind einzelne Bäume mit Entscheidungsregeln. Random Forests kombinieren viele Trees als Ensemble und sind oft genauer."</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="s2">"Wie hilft RAG bei LLMs?"</span><span class="p">,</span>
+        <span class="s2">"reference"</span><span class="p">:</span> <span class="s2">"RAG ergänzt LLMs mit externem Wissen, reduziert Halluzinationen und stellt relevante Dokumente als Kontext bereit."</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="s2">"Was sind die drei Arten von Machine Learning?"</span><span class="p">,</span>
+        <span class="s2">"reference"</span><span class="p">:</span> <span class="s2">"Überwachtes Lernen (gelabelte Daten), Unüberwachtes Lernen (Muster in ungelabelten Daten) und Reinforcement Learning (Belohnung/Bestrafung)."</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="s2">"Was ist Backpropagation?"</span><span class="p">,</span>
+        <span class="s2">"reference"</span><span class="p">:</span> <span class="s2">"Backpropagation ist der Algorithmus, der Gradienten in Neural Networks berechnet, um die Gewichte durch Gradient Descent anzupassen."</span><span class="p">,</span>
+    <span class="p">},</span>
+    <span class="p">{</span>
+        <span class="s2">"question"</span><span class="p">:</span> <span class="s2">"Wie funktioniert Support Vector Machine?"</span><span class="p">,</span>
+        <span class="s2">"reference"</span><span class="p">:</span> <span class="s2">"Diese Information ist nicht in den Dokumenten enthalten."</span><span class="p">,</span>
+    <span class="p">},</span>
 <span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=9f0e1f03ed2d4e24">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e69f3d2828f90c93">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=91b465be918c8dae">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b1392654dd0b984f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ff6ccaedee5ff469"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>ChromaDB</strong>: Open-Source Vektor-Datenbank</li>
-<li><strong>Einfach</strong>: Pip-Install, keine Konfiguration</li>
-<li><strong>Automatisch</strong>: Erstellt Embeddings mit eingebautem Modell</li>
-<li><strong>LangChain-Integration</strong>: Perfekt für RAG</li>
-<li><strong>Persistent</strong>: Daten bleiben auf der Festplatte erhalten</li>
-<li><strong>Achtung</strong>: Liefert immer Ergebnisse — auch bei irrelevanten Anfragen</li>
+<h2 id="Aufgabe-1:-Manuelle-Evaluierung">Aufgabe 1: Manuelle Evaluierung<a class="anchor-link" href="#Aufgabe-1:-Manuelle-Evaluierung">¶</a></h2><p>Führen Sie das RAG-System auf allen Test-Fragen aus.
+Identifizieren Sie <strong>zwei Fragen</strong>, bei denen das System schlecht abschneidet.</p>
+<p>Hinweise:</p>
+<ul>
+<li>Prüfen Sie, ob die abgerufenen Dokumente relevant sind</li>
+<li>Prüfen Sie, ob die Antwort auf den Dokumenten basiert</li>
+<li>Prüfen Sie, ob die Frage beantwortet wurde</li>
 </ul>
-<p><strong>Nächster Schritt</strong>: RAG-System mit LangChain bauen!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=269c490b2502a95b"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1686e6890143bcc3">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=a7f80ef102a10d14">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=879260096bfcd066"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop-Aufgaben">Workshop-Aufgaben<a class="anchor-link" href="#Workshop-Aufgaben">¶</a></h2><ol>
-<li>Installieren und testen Sie ChromaDB auf Ihrem Computer</li>
-<li>Erstellen Sie eine Collection und fügen Sie mindestens 5 eigene Dokumente hinzu</li>
-<li>Testen Sie die semantische Suche mit verschiedenen Anfragen</li>
-<li>Probieren Sie eine irrelevante Anfrage aus — was passiert mit den Distanzen?</li>
-<li>Verwenden Sie die LangChain-Integration, um einen Vektor-Store zu erstellen</li>
-<li>Experimentieren Sie mit Metadata-Filtern</li>
+<h2 id="Aufgabe-2:-LangSmith-Evaluierung">Aufgabe 2: LangSmith Evaluierung<a class="anchor-link" href="#Aufgabe-2:-LangSmith-Evaluierung">¶</a></h2><ol>
+<li>Erstellen Sie ein LangSmith Dataset mit den Test-Fragen</li>
+<li>Schreiben Sie einen heuristischen Evaluator (Antwortlänge)</li>
+<li>Schreiben Sie einen LLM-als-Richter Evaluator (Korrektheit)</li>
+<li>Führen Sie <code>client.evaluate()</code> aus</li>
 </ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=3c6f57f5b78349d8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=3996639b747e1246">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4db8c11e378624aa">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f12db50a12be8b24">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b657440bcf777ea4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8ab1daa450d267d2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8689fae7e07543ec">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Aufgabe 2 abgeschlossen! / Task 2 complete!"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"Schauen Sie sich die Ergebnisse in LangSmith an / Check results in LangSmith"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c6e8000ddce12a29"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aufgabe-3:-RAGAS-Evaluierung">Aufgabe 3: RAGAS Evaluierung<a class="anchor-link" href="#Aufgabe-3:-RAGAS-Evaluierung">¶</a></h2><ol>
+<li>Berechnen Sie Faithfulness, AnswerRelevancy und ContextRecall mit <code>abatch_score()</code></li>
+<li>Zeigen Sie die Durchschnittswerte an</li>
+<li>Zeigen Sie die Ergebnisse pro Frage an</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f420db8ee408c8ae">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b9be1a5c253bb0bf">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e578bb6e3f1853d1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=385d6cd008202825">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7cbf39bf06656a51">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5d2901abdf1cba48">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Aufgabe 3 abgeschlossen! / Task 3 complete!"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=80072888d25ea831"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aufgabe-4:-Verbessern-und-erneut-evaluieren">Aufgabe 4: Verbessern und erneut evaluieren<a class="anchor-link" href="#Aufgabe-4:-Verbessern-und-erneut-evaluieren">¶</a></h2><p>Wählen Sie <strong>eine</strong> Verbesserung:</p>
+<ul>
+<li>k von 2 auf 4 erhöhen (mehr Dokumente abrufen)</li>
+<li>System-Prompt verbessern (strengere Anweisungen)</li>
+<li>Chunk-Größe ändern</li>
+</ul>
+<p>Führen Sie die RAGAS-Evaluierung erneut aus und vergleichen Sie!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8a11be5539e3d6f8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=5f5dcb187703da23">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0be606e9195bf701">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Vergleich / Comparison:"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="s1">'Metrik/Metric'</span><span class="si">:</span><span class="s2">&lt;25</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'Baseline (k=2)'</span><span class="si">:</span><span class="s2">&gt;15</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="s1">'Verbessert/Improved (k=4)'</span><span class="si">:</span><span class="s2">&gt;25</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">"-"</span> <span class="o">*</span> <span class="mi">65</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">base_res</span><span class="p">,</span> <span class="n">imp_res</span> <span class="ow">in</span> <span class="p">[(</span><span class="s2">"Faithfulness"</span><span class="p">,</span> <span class="n">faith_results</span><span class="p">,</span> <span class="n">faith_improved</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Answer Relevancy"</span><span class="p">,</span> <span class="n">relevancy_results</span><span class="p">,</span> <span class="n">relevancy_improved</span><span class="p">),</span> <span class="p">(</span><span class="s2">"Context Recall"</span><span class="p">,</span> <span class="n">recall_results</span><span class="p">,</span> <span class="n">recall_improved</span><span class="p">)]:</span>
+    <span class="n">base</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">base_res</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">base_res</span><span class="p">)</span>
+    <span class="n">imp</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">value</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">imp_res</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">imp_res</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">label</span><span class="si">:</span><span class="s2">&lt;25</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">base</span><span class="si">:</span><span class="s2">&gt;15.2f</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">imp</span><span class="si">:</span><span class="s2">&gt;25.2f</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4acb5c095740b753"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aufgabe-5-(Optional):-Custom-Evaluator">Aufgabe 5 (Optional): Custom Evaluator<a class="anchor-link" href="#Aufgabe-5-(Optional):-Custom-Evaluator">¶</a></h2><p>Schreiben Sie einen Evaluator, der prüft, ob die Antwort bestimmte
+Schlüsselwörter aus dem Kontext verwendet.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c714cf1c4448071f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aufgabe-6-(Optional):-Evaluierungs-Dashboard">Aufgabe 6 (Optional): Evaluierungs-Dashboard<a class="anchor-link" href="#Aufgabe-6-(Optional):-Evaluierungs-Dashboard">¶</a></h2><p>Erstellen Sie ein einfaches Gradio-Interface, das:</p>
+<ul>
+<li>Die RAGAS-Scores anzeigt</li>
+<li>Einzelne Fragen mit ihren Scores darstellt</li>
+<li>Einen Vergleich vor/nach Verbesserung zeigt</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fcab120a3fbe96be"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><p><strong>Was Sie gelernt haben:</strong></p>
+<ul>
+<li>Manuelle Evaluierung: Gold-Standard, aber nicht skalierbar</li>
+<li>LangSmith: Datasets, Evaluatoren, Experimente vergleichen</li>
+<li>RAGAS: Standardisierte Metriken (Faithfulness, Relevancy, Recall)</li>
+<li>Verbesserungszyklus: Messen → Verbessern → Erneut messen</li>
+</ul>
+<p><strong>Wichtigste Erkenntnis:</strong></p>
+<ul>
+<li>Ohne Evaluierung ist RAG-Optimierung nur Raten</li>
+<li>Mit Evaluierung können Sie datenbasiert verbessern</li>
+</ul>
+<p><strong>Nächster Schritt</strong>: LLM Orchestration — Noch komplexere Workflows!</p>
 </div>
 </div>
 </div>

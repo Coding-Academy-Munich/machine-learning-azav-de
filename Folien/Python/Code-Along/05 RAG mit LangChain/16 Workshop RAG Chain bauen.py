@@ -17,13 +17,20 @@
 # 3. Retrieval-Parameter anpassen und vergleichen
 
 # %%
+# ! pip install qdrant-client langchain-qdrant
+
+# %%
 import os
+from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
-from langchain_community.vectorstores import Chroma
+from langchain_qdrant import QdrantVectorStore, FastEmbedSparse, RetrievalMode
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+
+# %%
+load_dotenv()
 
 # %%
 embeddings = OpenAIEmbeddings(
@@ -38,6 +45,8 @@ llm = ChatOpenAI(
     model="mistralai/ministral-14b-2512",
     temperature=0
 )
+
+sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)

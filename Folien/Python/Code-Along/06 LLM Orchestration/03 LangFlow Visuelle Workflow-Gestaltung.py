@@ -73,7 +73,7 @@
 # | **Outputs** | Ergebnisanzeige | Chat Output, Text Output |
 # | **Prompts** | Prompt Templates | Prompt Template |
 # | **Data** | Datenquellen | File Loader, URL Loader |
-# | **Vector Stores** | Vektordatenbanken | Chroma, Pinecone |
+# | **Vector Stores** | Vektordatenbanken | Qdrant, Pinecone |
 # | **Embeddings** | Embedding-Modelle | OpenAI Embeddings |
 # | **Chains** | Vorgefertigte Chains | Conversation Chain |
 
@@ -163,11 +163,11 @@
 # ## RAG-Flow: Vector Store
 #
 # <!-- Placeholder: Screenshot showing vector store setup -->
-# <img src="img/langflow_rag_vectorstore.png" alt="Chroma Vector Store mit Embeddings" />
+# <img src="img/langflow_rag_vectorstore.png" alt="Qdrant Vector Store mit Embeddings" />
 #
 # 1. **Embeddings** → **OpenAI Embeddings**
-# 2. **Vector Stores** → **Chroma** (oder Pinecone, etc.)
-# 3. Verbinden: Text Splitter → Chroma, Embeddings → Chroma
+# 2. **Vector Stores** → **Qdrant** (oder Pinecone, etc.)
+# 3. Verbinden: Text Splitter → Qdrant, Embeddings → Qdrant
 
 # %% [markdown]
 #

@@ -13145,27 +13145,39 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=df17d29963723b00"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=74ab4818b5eedef9"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Was-wir-bis-jetzt-haben">Was wir bis jetzt haben<a class="anchor-link" href="#Was-wir-bis-jetzt-haben">¶</a></h2><ul>
 <li>✅ LLMs nutzen mit LangChain</li>
 <li>✅ Text bereinigen und in Chunks aufteilen</li>
 <li>✅ Embeddings erstellen (Kosinus-Ähnlichkeit)</li>
-<li>✅ ChromaDB für Vektor-Speicherung</li>
+<li>✅ Qdrant für Vektor-Speicherung + <strong>Hybrid Search</strong></li>
 </ul>
 <p><strong>Jetzt</strong>: Alles zusammenbauen zu einem RAG-System!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1d12878e03714efa">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b58b2bbc0a1cc399">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>qdrant-client<span class="w"> </span>langchain-qdrant
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=29be9385035cd9a0">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.vectorstores</span><span class="w"> </span><span class="kn">import</span> <span class="n">Chroma</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span><span class="p">,</span> <span class="n">FastEmbedSparse</span><span class="p">,</span> <span class="n">RetrievalMode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.prompts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
@@ -13176,14 +13188,25 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3d588bdcfc9830a4"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ce35827a2adb266e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">load_dotenv</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=da868cbfa864d3bc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="RAG-Pipeline-%C3%9Cbersicht">RAG-Pipeline Übersicht<a class="anchor-link" href="#RAG-Pipeline-%C3%9Cbersicht">¶</a></h2><p><strong>Einmalig (Setup)</strong>:</p>
 <ol>
 <li>Dokumente laden</li>
 <li>Text bereinigen und in Chunks aufteilen</li>
-<li>In ChromaDB speichern (mit Embeddings)</li>
+<li>In Qdrant speichern (mit Hybrid Search)</li>
 </ol>
 <p><strong>Bei jeder Anfrage</strong>:
 4. Anfrage embedden
@@ -13277,12 +13300,24 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=ce564a72b934920a">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=dc2c730d42529df5">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create embeddings and Chroma vector store from documents</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sparse_embeddings</span> <span class="o">=</span> <span class="n">FastEmbedSparse</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">"Qdrant/bm25"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8f89d2c36a053c2e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create embeddings and Qdrant vector store from documents</span>
+<span class="c1"># Use RetrievalMode.HYBRID with sparse_embeddings for hybrid search</span>
 </pre></div>
 </div>
 </div>
@@ -13617,11 +13652,11 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=eb08cf6d223f127b"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=96cc6668327a1ee4"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Was-passiert-bei-irrelevanten-Fragen?">Was passiert bei irrelevanten Fragen?<a class="anchor-link" href="#Was-passiert-bei-irrelevanten-Fragen?">¶</a></h2><ul>
-<li>Erinnerung: ChromaDB liefert <strong>immer</strong> Ergebnisse</li>
+<li>Erinnerung: Qdrant liefert <strong>immer</strong> Ergebnisse</li>
 <li>Unser Prompt sagt dem LLM: "Sage es, wenn der Kontext keine Antwort hat"</li>
 </ul>
 </div>
@@ -13701,12 +13736,12 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=99bf51f60c38db1e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3281f63f1cbbd94d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
 <li><strong>RAG mit LangChain</strong>: Wenige Zeilen Code für ein vollständiges System</li>
-<li><strong>Pipeline</strong>: Dokumente → Chunks → ChromaDB → Retriever → LLM</li>
+<li><strong>Pipeline</strong>: Dokumente → Chunks → Qdrant (Hybrid Search) → Retriever → LLM</li>
 <li><strong>LCEL</strong>: Verkettung mit <code>|</code> Operator<ul>
 <li><code>{"context": retriever | format_docs, "input": RunnablePassthrough()}</code></li>
 </ul>

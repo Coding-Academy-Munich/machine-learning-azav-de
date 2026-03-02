@@ -19,10 +19,14 @@
 
 # %%
 import os
+import dotenv
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 from langchain_openai import OpenAIEmbeddings
+
+# %%
+dotenv.load_dotenv()
 
 # %% [markdown]
 #
@@ -35,7 +39,7 @@ from langchain_openai import OpenAIEmbeddings
 # - **Modelle**:
 #   - OpenAI: text-embedding-3-small (1536 Dimensionen)
 #   - HuggingFace: verschiedene Open-Source-Modelle
-#   - ChromaDB: eingebautes Modell (all-MiniLM-L6-v2)
+#   - Qdrant: unterstützt verschiedene Modelle
 
 # %% [markdown]
 #
@@ -81,31 +85,89 @@ texts = [
 # <div style="width:60%;">
 # <br>
 # <ul>
-#   <li><b>Euklidische Distanz</b>: Wie weit sind zwei Punkte voneinander entfernt?</li>
+#   <li><b>Euklidische Distanz</b> (rechts): Abstand zwischen den Spitzen</li>
 #   <ul>
-#     <li>Misst den "Abstand" ($|\vec a - \vec b|$)</li>
-#     <li>Problematisch: Längere Texte haben andere Vektoren als kurze</li>
+#     <li>Misst $|\vec a - \vec b|$ (Spitze zu Spitze)</li>
+#     <li>Hängt von <b>Richtung und Länge</b> der Vektoren ab</li>
 #   </ul>
-#   <li><b>Kosinus-Ähnlichkeit</b>: Zeigen zwei Pfeile in die gleiche Richtung?</li>
+#   <li><b>Kosinus-Ähnlichkeit</b> (links): Winkel zwischen den Pfeilen</li>
 #   <ul>
-#     <li>Misst den Winkel zwischen Vektoren</li>
-#     <li>Unabhängig von der "Länge" des Vektors</li>
-#     <li>Für Text <b>besser geeignet</b>!</li>
+#     <li>Misst nur die <b>Richtung</b>, ignoriert die Länge</li>
+#     <li>$\vec a$ und $\vec b$: kleiner Winkel → hohe Ähnlichkeit</li>
 #   </ul>
 # </ul>
 # </div>
 
 # %% [markdown]
 #
-# ## Warum Kosinus-Ähnlichkeit für Text?
+# ## Beispiel: 2D-Vektoren
 #
-# - Zwei Texte mit gleicher Bedeutung aber unterschiedlicher Länge:
-#   - Kurz: "ML lernt aus Daten"
-#   - Lang: "Machine Learning ist ein Verfahren, das automatisch aus Daten lernt"
-# - **Euklidische Distanz**: Groß (verschiedene Vektorlängen)
-# - **Kosinus-Ähnlichkeit**: Hoch (gleiche Richtung = gleiche Bedeutung!)
+# - Betrachten wir drei einfache 2D-Vektoren (wie in den Bildern)
+# - $\vec a$ und $\vec b$: gleiche Richtung, aber $\vec b$ ist kürzer
+# - $\vec c$: zeigt in eine ganz andere Richtung
+
+# %%
+a = np.array([[4, 3]])
+b = np.array([[2, 1.5]])
+c = np.array([[1, -3]])
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+vectors = {"a": a[0], "b": b[0], "c": c[0]}
+colors = {"a": "red", "b": "black", "c": "darkblue"}
+fig, ax = plt.subplots(figsize=(6, 5))
+for name, v in vectors.items():
+    ax.annotate("", xy=v, xytext=(0, 0),
+                arrowprops=dict(arrowstyle="->", color=colors[name], lw=2))
+    ax.text(v[0] + 0.15, v[1] + 0.15, name, fontsize=14, color=colors[name])
+ax.set_xlim(-1, 5.5)
+ax.set_ylim(-4, 4.5)
+ax.set_aspect("equal")
+ax.axhline(0, color="gray", linewidth=0.5)
+ax.axvline(0, color="gray", linewidth=0.5)
+ax.grid(True, alpha=0.3)
+ax.set_title("2D-Vektoren / 2D Vectors")
+plt.tight_layout()
+plt.show()
+
+# %% [markdown]
 #
-# **Wert**: 0.0 (völlig unterschiedlich) bis 1.0 (identisch)
+# ## Ergebnis: 2D-Beispiel
+#
+# - $\vec a$ und $\vec b$: **gleiche Richtung** (Kosinus-Ähnlichkeit = 1.0)
+#   - Aber: Euklidische Distanz = 2.5 (wegen unterschiedlicher Länge)
+# - $\vec a$ und $\vec c$: **verschiedene Richtungen** (Kosinus-Ähnlichkeit ≈ −0.45)
+#   - Euklidische Distanz = 6.7 (weit entfernt)
+# - Kosinus-Ähnlichkeit ignoriert die Länge und misst nur die Richtung
+
+# %% [markdown]
+#
+# ## Moderne Embedding-Modelle normalisieren!
+#
+# - Modelle wie `text-embedding-3-small` geben **normalisierte Vektoren** zurück
+# - Alle Vektoren haben die **gleiche Länge** (Norm = 1), egal wie lang der Text ist
+# - Für normalisierte Vektoren:
+#   - Euklidische Distanz und Kosinus-Ähnlichkeit ergeben **dieselbe Rangfolge**
+#   - $d_{\text{euklid}} = \sqrt{2 \cdot (1 - \text{cos\_sim})}$
+# - Der Unterschied aus dem 2D-Beispiel tritt bei Embeddings also **nicht** auf!
+
+# %% [markdown]
+#
+# ## Warum trotzdem Kosinus-Ähnlichkeit?
+#
+# - **Konvention**: Die meisten Tools und Datenbanken verwenden sie standardmäßig
+# - **Intuitive Skala**: 0.0 (völlig verschieden) bis 1.0 (identisch)
+# - **Effizienz**: Berechnung über Skalarprodukt (schnell!)
+# - **Robustheit**: Funktioniert auch mit nicht-normalisierten Modellen
+#
+# In der Praxis: Qdrant, Pinecone etc. nutzen Kosinus-Ähnlichkeit als Standard
 
 # %% [markdown]
 #
@@ -134,7 +196,7 @@ similarities = cosine_similarity(text_embeddings)
 # ## Semantische Suche in Aktion
 
 # %%
-query = "Was ist neuronale Netze?"
+query = "Was sind neuronale Netze?"
 
 
 # %%
@@ -195,18 +257,17 @@ def keyword_search(query, texts):
 # 4. Ähnlichste Chunks finden (Kosinus-Ähnlichkeit)
 # 5. Als Kontext an LLM geben
 #
-# **ChromaDB** macht Schritte 2–4 automatisch!
+# **Qdrant** macht Schritte 2–4 automatisch!
 
 # %% [markdown]
 #
 # ## Zusammenfassung
 #
 # - **Text-Embeddings**: Ganze Texte als Vektoren darstellen
-# - **Kosinus-Ähnlichkeit**: Misst "Richtung" (Bedeutung), nicht "Länge"
-#   - Besser als euklidische Distanz für Text
-#   - Wert: 0.0 (unterschiedlich) bis 1.0 (identisch)
+# - **Kosinus-Ähnlichkeit**: Standard-Metrik für Text-Ähnlichkeit
+#   - Intuitive Skala: 0.0 (verschieden) bis 1.0 (identisch)
 # - **Semantische Suche**: Versteht Bedeutung, nicht nur exakte Wörter
 #   - Findet Synonyme, verwandte Konzepte, andere Sprachen
 # - **LangChain**: Einfache Embedding-Erstellung mit wenigen Zeilen
 #
-# **Nächster Schritt**: ChromaDB für effiziente Vektor-Speicherung!
+# **Nächster Schritt**: Qdrant für effiziente Vektor-Speicherung!

@@ -12,7 +12,7 @@
 # ## Was Sie gelernt haben
 #
 # - ✅ LLMs und RAG mit LangChain
-# - ✅ Gradio und ChromaDB
+# - ✅ Gradio und Qdrant
 # - ✅ AI Coding Assistants
 # - ✅ pandas für Datenanalyse
 # - ✅ Traditional ML (Trees, Forests)
