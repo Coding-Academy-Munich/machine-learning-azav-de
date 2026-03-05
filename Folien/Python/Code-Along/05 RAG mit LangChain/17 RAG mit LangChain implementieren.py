@@ -280,7 +280,10 @@ question = "Was ist Overfitting?"
 # - **k**: Wie viele Dokumente abrufen? (Standard: 4)
 #   - Mehr → mehr Kontext, aber auch mehr Rauschen
 #   - Weniger → fokussierter, aber evtl. Information fehlt
-# - **search_type**: `"similarity"` (Standard) oder `"mmr"` (diverse Ergebnisse)
+# - **search_type**:
+#   - `"similarity"` (Standard): Die k ähnlichsten Dokumente
+#   - `"mmr"` (Maximal Marginal Relevance): Bevorzugt **diverse** Ergebnisse —
+#     nützlich, wenn die ähnlichsten Dokumente sich zu sehr überlappen
 
 # %%
 retriever_k3 = vectorstore.as_retriever(search_kwargs={"k": 3})

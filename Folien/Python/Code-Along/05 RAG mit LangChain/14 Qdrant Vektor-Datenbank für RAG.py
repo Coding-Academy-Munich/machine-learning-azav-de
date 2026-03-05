@@ -11,24 +11,24 @@
 #
 # ## Warum Vektor-Datenbanken?
 #
-# - **Problem**: Viele Dokumente durchsuchen ist langsam
+# - **Problem**: Semantische Suche über viele Dokumente ist aufwändig
+#   - Bei jedem Query: alle Dokumente embedden + Ähnlichkeit berechnen
 # - **Lösung**: Vektor-Datenbank
-# - Speichert Embeddings effizient
-# - Findet ähnlichste Vektoren schnell
-# - **Millionen** von Dokumenten in Millisekunden!
+#   - Speichert Embeddings einmal vor
+#   - Nutzt spezielle Indexstrukturen (z.B. HNSW) für schnelle Suche
+#   - Effizienz hängt von Konfiguration und Hardware ab, aber auch große
+#     Sammlungen können in wenigen Millisekunden durchsucht werden
 
 # %% [markdown]
 #
-# ## Warum Qdrant?
+# ## Qdrant
 #
-# - ✅ **Open Source** (Apache 2.0 Lizenz)
-# - ✅ **Einfach zu installieren**: `pip install qdrant-client langchain-qdrant`
-# - ✅ **Funktioniert auf Windows und Linux**
-# - ✅ **Keine Server-Konfiguration** nötig (lokaler Modus)
-# - ✅ **Hybrid Search**: Semantische + Keyword-Suche kombiniert
-# - ✅ **LangChain-Integration** out-of-the-box
-#
-# **Ideal für RAG-Systeme!**
+# - **Open Source** (Apache 2.0 Lizenz)
+# - Einfach zu installieren: `pip install qdrant-client langchain-qdrant`
+# - Funktioniert auf Windows und Linux
+# - Lokaler Modus ohne Server-Konfiguration
+# - Unterstützt Hybrid Search (semantische + Keyword-Suche)
+# - LangChain-Integration verfügbar
 
 # %% [markdown]
 #
@@ -38,7 +38,7 @@
 # pip install qdrant-client langchain-qdrant
 # ```
 #
-# **Das war's!** Keine Docker, keine Server-Konfiguration.
+# Keine Docker-Installation und keine Server-Konfiguration nötig.
 
 # %%
 # ! pip install qdrant-client langchain-qdrant
@@ -56,12 +56,10 @@ load_dotenv()
 #
 # ## Qdrant Modi
 #
-# 1. **In-Memory**: Daten nur im RAM (für Tests)
+# 1. **In-Memory**: Daten nur im RAM (für Tests und Experimente)
 #    - `location=":memory:"`
-# 2. **Persistent**: Daten auf Festplatte (empfohlen)
+# 2. **Persistent**: Daten auf Festplatte (für echte Anwendungen)
 #    - `path="./qdrant_db"`
-#
-# **Für RAG**: Persistent nutzen!
 #
 # Wir verwenden Qdrant über die **LangChain-Integration**
 
@@ -112,10 +110,17 @@ texts = [
 
 # %% [markdown]
 #
-# ## Suche mit Relevanz-Scores
+# ## Suche mit Ähnlichkeits-Scores
 #
-# - `similarity_search_with_score()` zeigt auch die Ähnlichkeit
-# - **Niedriger Score** = hohe Ähnlichkeit (Distanz)
+# - `similarity_search_with_score()` zeigt auch einen Score
+# - Der Score ist die **Kosinus-Ähnlichkeit**
+# - **Hoher Score** = **hohe Ähnlichkeit**
+#
+# | Score | Bedeutung |
+# |---|---|
+# | 0.90+ | Sehr ähnlich |
+# | 0.50 | Mittelmäßig ähnlich |
+# | 0.10 | Wenig ähnlich |
 
 # %%
 
@@ -135,24 +140,45 @@ texts = [
 #
 # - Auch bei irrelevanten Fragen gibt die Datenbank Ergebnisse zurück
 # - Sie wählt einfach die **ähnlichsten** Dokumente — auch wenn keines relevant ist
-# - **Hoher Score** (Distanz) = niedrige Relevanz
-# - Wir können nach Score filtern, um irrelevante Ergebnisse auszuschließen
-# - Das ist wichtig für robuste RAG-Systeme!
+# - **Niedriger Score** = niedrige Relevanz
+# - Wir können nach Ähnlichkeit filtern, um irrelevante Ergebnisse auszuschließen
+
+# %% [markdown]
+#
+# ## Ergebnisse nach Ähnlichkeit filtern
+#
+# - Einen Schwellenwert setzen: Nur Ergebnisse mit hoher Ähnlichkeit behalten
+# - Schwellenwert hängt von der Anwendung ab (typisch: 0.3–0.5)
+
+# %%
+threshold = 0.4
+
+# %%
+
+# %%
 
 # %% [markdown]
 #
 # ## Metadata verwenden
 #
-# - Dokumente können **Metadata** haben (z.B. Thema, Datum)
-# - Nützlich für zusätzliche Filterung
+# - Dokumente können **Metadata** haben (z.B. Thema, Datum, Quelle)
+# - Nützlich für zusätzliche Filterung:
+#   - Nur Dokumente eines bestimmten Themas durchsuchen
+#   - Nach Datum filtern
+#   - Quelle in der Antwort anzeigen
 
 # %%
 from langchain_core.documents import Document
 
 docs_with_meta = [
-    Document(page_content="Linear regression models linear relationships", metadata={"topic": "ML"}),
-    Document(page_content="Python is a popular programming language", metadata={"topic": "Programming"}),
-    Document(page_content="Decision trees split data into branches", metadata={"topic": "ML"}),
+    Document(page_content="Linear regression models linear relationships",
+             metadata={"topic": "ML", "difficulty": "beginner"}),
+    Document(page_content="Python is a popular programming language",
+             metadata={"topic": "Programming", "difficulty": "beginner"}),
+    Document(page_content="Decision trees split data into branches",
+             metadata={"topic": "ML", "difficulty": "beginner"}),
+    Document(page_content="Gradient boosting combines many weak learners",
+             metadata={"topic": "ML", "difficulty": "advanced"}),
 ]
 
 vectorstore_meta = QdrantVectorStore.from_documents(
@@ -161,6 +187,22 @@ vectorstore_meta = QdrantVectorStore.from_documents(
     collection_name="docs_with_meta",
     location=":memory:",
 )
+
+# %% [markdown]
+#
+# ## Suche mit Metadata
+
+# %%
+
+# %% [markdown]
+#
+# ## Metadata-Filterung
+#
+# - Mit `filter` kann die Suche auf bestimmte Metadata-Werte eingeschränkt werden
+# - Qdrant verwendet dafür eigene Filter-Objekte
+
+# %%
+from qdrant_client.models import Filter, FieldCondition, MatchValue
 
 # %%
 
@@ -197,108 +239,14 @@ vectorstore_meta = QdrantVectorStore.from_documents(
 
 # %% [markdown]
 #
-# ## Hybrid Search: Das Beste aus beiden Welten
-#
-# - **Semantische Suche**: Findet inhaltlich ähnliche Dokumente
-#   - "Hund" findet auch "Welpe" und "Vierbeiner"
-# - **Keyword-Suche (BM25)**: Findet exakte Begriffe
-#   - "BM25" findet nur Dokumente mit genau diesem Wort
-# - **Hybrid Search**: Kombiniert beides!
-#   - Semantisches Verständnis + exakte Keyword-Treffer
-
-# %% [markdown]
-#
-# ## Hybrid Search mit Qdrant
-#
-# - Qdrant unterstützt Hybrid Search **nativ**
-# - Braucht zwei Arten von Embeddings:
-#   - **Dense Embeddings**: Für semantische Suche (wie bisher)
-#   - **Sparse Embeddings**: Für Keyword-Suche (BM25)
-# - `langchain_qdrant` macht das einfach!
-
-# %%
-# ! pip install fastembed-gpu
-
-# %%
-from langchain_qdrant import FastEmbedSparse, RetrievalMode
-
-sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
-
-# %% [markdown]
-#
-# ## Hybrid-Vektor-Store erstellen
-
-# %%
-hybrid_docs = [
-    "Neural networks use backpropagation for training",
-    "The BM25 algorithm ranks documents by term frequency",
-    "Gradient descent minimizes the loss function",
-    "Hybrid search combines BM25 keyword matching with semantic similarity",
-    "Overfitting happens when a model memorizes training data",
-]
-
-# TODO: Create QdrantVectorStore with RetrievalMode.HYBRID
-
-# %%
-
-# %% [markdown]
-#
-# ## Hybrid Search vs. Semantische Suche
-#
-# Vergleichen wir die Ergebnisse für eine Keyword-lastige Anfrage:
-
-# %%
-query = "BM25"
-
-# %% [markdown]
-#
-# Nur semantische Suche:
-
-# %%
-
-# %%
-
-# %% [markdown]
-#
-# Hybrid Search (semantisch + BM25):
-
-# %%
-
-# %%
-
-# %% [markdown]
-#
-# ## Warum Hybrid Search besser ist
-#
-# - **Semantische Suche** versteht Bedeutung, kann aber exakte Begriffe verfehlen
-# - **BM25** findet exakte Begriffe, versteht aber keine Synonyme
-# - **Hybrid** kombiniert beide Stärken:
-#   - Findet exakte Fachbegriffe (z.B. "BM25", "LSTM", "MSE")
-#   - Versteht auch Umschreibungen (z.B. "neuronales Netz" ≈ "Deep Learning")
-# - In der Praxis: **Hybrid Search liefert bessere RAG-Ergebnisse**
-
-# %% [markdown]
-#
 # ## Zusammenfassung
 #
-# - **Qdrant**: Open-Source Vektor-Datenbank mit Hybrid Search
-# - **Einfach**: Pip-Install, keine Server-Konfiguration
+# - **Qdrant**: Open-Source Vektor-Datenbank
+# - Einfach installierbar, keine Server-Konfiguration nötig
 # - **LangChain-Integration**: `QdrantVectorStore` für nahtlose Nutzung
-# - **Hybrid Search**: Semantische + Keyword-Suche kombiniert
-#   - `RetrievalMode.HYBRID` mit `FastEmbedSparse`
+# - **Ähnlichkeits-Scores**: Hoch = ähnlich (Kosinus-Ähnlichkeit)
+# - **Metadata**: Dokumente können Metadaten haben und danach gefiltert werden
 # - **Persistent**: Daten bleiben auf der Festplatte erhalten
-# - **Achtung**: Liefert immer Ergebnisse — auch bei irrelevanten Anfragen
+# - **Achtung**: Liefert immer Ergebnisse — Ähnlichkeits-Filter verwenden!
 #
-# **Nächster Schritt**: RAG-System mit LangChain bauen!
-
-# %% [markdown]
-#
-# ## Workshop-Aufgaben
-#
-# 1. Installieren und testen Sie Qdrant auf Ihrem Computer
-# 2. Erstellen Sie einen Vektor-Store mit `QdrantVectorStore.from_texts()` und
-#    mindestens 5 eigenen Dokumenten
-# 3. Testen Sie die semantische Suche mit verschiedenen Anfragen
-# 4. Probieren Sie eine irrelevante Anfrage aus — was passiert mit den Scores?
-# 5. Erstellen Sie einen Hybrid-Vektor-Store mit `FastEmbedSparse`
-# 6. Vergleichen Sie semantische Suche vs. Hybrid Search für eine Keyword-Anfrage
+# **Nächster Schritt**: Hybrid Search — semantische + Keyword-Suche kombinieren!

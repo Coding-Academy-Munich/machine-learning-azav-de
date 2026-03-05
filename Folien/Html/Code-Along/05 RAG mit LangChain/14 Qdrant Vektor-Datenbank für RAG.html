@@ -13145,40 +13145,45 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f3f9b1c8111fe970"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fd4c62c59164c8b7"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Warum-Vektor-Datenbanken?">Warum Vektor-Datenbanken?<a class="anchor-link" href="#Warum-Vektor-Datenbanken?">¶</a></h2><ul>
-<li><strong>Problem</strong>: Viele Dokumente durchsuchen ist langsam</li>
-<li><strong>Lösung</strong>: Vektor-Datenbank</li>
-<li>Speichert Embeddings effizient</li>
-<li>Findet ähnlichste Vektoren schnell</li>
-<li><strong>Millionen</strong> von Dokumenten in Millisekunden!</li>
+<li><strong>Problem</strong>: Semantische Suche über viele Dokumente ist aufwändig<ul>
+<li>Bei jedem Query: alle Dokumente embedden + Ähnlichkeit berechnen</li>
+</ul>
+</li>
+<li><strong>Lösung</strong>: Vektor-Datenbank<ul>
+<li>Speichert Embeddings einmal vor</li>
+<li>Nutzt spezielle Indexstrukturen (z.B. HNSW) für schnelle Suche</li>
+<li>Effizienz hängt von Konfiguration und Hardware ab, aber auch große
+Sammlungen können in wenigen Millisekunden durchsucht werden</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c920919b07a45a68"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7a3eb5374b437cb7"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-Qdrant?">Warum Qdrant?<a class="anchor-link" href="#Warum-Qdrant?">¶</a></h2><ul>
-<li>✅ <strong>Open Source</strong> (Apache 2.0 Lizenz)</li>
-<li>✅ <strong>Einfach zu installieren</strong>: <code>pip install qdrant-client langchain-qdrant</code></li>
-<li>✅ <strong>Funktioniert auf Windows und Linux</strong></li>
-<li>✅ <strong>Keine Server-Konfiguration</strong> nötig (lokaler Modus)</li>
-<li>✅ <strong>Hybrid Search</strong>: Semantische + Keyword-Suche kombiniert</li>
-<li>✅ <strong>LangChain-Integration</strong> out-of-the-box</li>
+<h2 id="Qdrant">Qdrant<a class="anchor-link" href="#Qdrant">¶</a></h2><ul>
+<li><strong>Open Source</strong> (Apache 2.0 Lizenz)</li>
+<li>Einfach zu installieren: <code>pip install qdrant-client langchain-qdrant</code></li>
+<li>Funktioniert auf Windows und Linux</li>
+<li>Lokaler Modus ohne Server-Konfiguration</li>
+<li>Unterstützt Hybrid Search (semantische + Keyword-Suche)</li>
+<li>LangChain-Integration verfügbar</li>
 </ul>
-<p><strong>Ideal für RAG-Systeme!</strong></p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=bc0051fd59416062"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=90264e619c30ddf4"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Installation">Installation<a class="anchor-link" href="#Installation">¶</a></h2><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>qdrant-client<span class="w"> </span>langchain-qdrant
 </pre></div>
-<p><strong>Das war's!</strong> Keine Docker, keine Server-Konfiguration.</p>
+<p>Keine Docker-Installation und keine Server-Konfiguration nötig.</p>
 </div>
 </div>
 </div>
@@ -13218,20 +13223,19 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0df0d7caed7f7110"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7e2db8fce0ac8359"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Qdrant-Modi">Qdrant Modi<a class="anchor-link" href="#Qdrant-Modi">¶</a></h2><ol>
-<li><strong>In-Memory</strong>: Daten nur im RAM (für Tests)<ul>
+<li><strong>In-Memory</strong>: Daten nur im RAM (für Tests und Experimente)<ul>
 <li><code>location=":memory:"</code></li>
 </ul>
 </li>
-<li><strong>Persistent</strong>: Daten auf Festplatte (empfohlen)<ul>
+<li><strong>Persistent</strong>: Daten auf Festplatte (für echte Anwendungen)<ul>
 <li><code>path="./qdrant_db"</code></li>
 </ul>
 </li>
 </ol>
-<p><strong>Für RAG</strong>: Persistent nutzen!</p>
 <p>Wir verwenden Qdrant über die <strong>LangChain-Integration</strong></p>
 </div>
 </div>
@@ -13332,13 +13336,36 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8871bf4e0a1839e3"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d3d7b3d5fdbcb92e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Suche-mit-Relevanz-Scores">Suche mit Relevanz-Scores<a class="anchor-link" href="#Suche-mit-Relevanz-Scores">¶</a></h2><ul>
-<li><code>similarity_search_with_score()</code> zeigt auch die Ähnlichkeit</li>
-<li><strong>Niedriger Score</strong> = hohe Ähnlichkeit (Distanz)</li>
+<h2 id="Suche-mit-%C3%84hnlichkeits-Scores">Suche mit Ähnlichkeits-Scores<a class="anchor-link" href="#Suche-mit-%C3%84hnlichkeits-Scores">¶</a></h2><ul>
+<li><code>similarity_search_with_score()</code> zeigt auch einen Score</li>
+<li>Der Score ist die <strong>Kosinus-Ähnlichkeit</strong></li>
+<li><strong>Hoher Score</strong> = <strong>hohe Ähnlichkeit</strong></li>
 </ul>
+<table>
+<thead>
+<tr>
+<th>Score</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.90+</td>
+<td>Sehr ähnlich</td>
+</tr>
+<tr>
+<td>0.50</td>
+<td>Mittelmäßig ähnlich</td>
+</tr>
+<tr>
+<td>0.10</td>
+<td>Wenig ähnlich</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
@@ -13353,7 +13380,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a7ff0b6317008c7c">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=13b68ffaaa0bee26">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13382,7 +13409,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a75a34b1a016f85e">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2e55f96c88dccfa0">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13393,30 +13420,77 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6f9a081b73903b2f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=27bce925029e89f5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Vektor-Datenbanken-liefern-immer-Ergebnisse!">Vektor-Datenbanken liefern immer Ergebnisse!<a class="anchor-link" href="#Vektor-Datenbanken-liefern-immer-Ergebnisse!">¶</a></h2><ul>
 <li>Auch bei irrelevanten Fragen gibt die Datenbank Ergebnisse zurück</li>
 <li>Sie wählt einfach die <strong>ähnlichsten</strong> Dokumente — auch wenn keines relevant ist</li>
-<li><strong>Hoher Score</strong> (Distanz) = niedrige Relevanz</li>
-<li>Wir können nach Score filtern, um irrelevante Ergebnisse auszuschließen</li>
-<li>Das ist wichtig für robuste RAG-Systeme!</li>
+<li><strong>Niedriger Score</strong> = niedrige Relevanz</li>
+<li>Wir können nach Ähnlichkeit filtern, um irrelevante Ergebnisse auszuschließen</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0260ae1449a90746"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6b4b11520aa1a44a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ergebnisse-nach-%C3%84hnlichkeit-filtern">Ergebnisse nach Ähnlichkeit filtern<a class="anchor-link" href="#Ergebnisse-nach-%C3%84hnlichkeit-filtern">¶</a></h2><ul>
+<li>Einen Schwellenwert setzen: Nur Ergebnisse mit hoher Ähnlichkeit behalten</li>
+<li>Schwellenwert hängt von der Anwendung ab (typisch: 0.3–0.5)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=14468e529813194a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.4</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=06cf4bf0c3cb93f3">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9a1820e8f9fe376f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=86ce2a75015f9bac"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Metadata-verwenden">Metadata verwenden<a class="anchor-link" href="#Metadata-verwenden">¶</a></h2><ul>
-<li>Dokumente können <strong>Metadata</strong> haben (z.B. Thema, Datum)</li>
-<li>Nützlich für zusätzliche Filterung</li>
+<li>Dokumente können <strong>Metadata</strong> haben (z.B. Thema, Datum, Quelle)</li>
+<li>Nützlich für zusätzliche Filterung:<ul>
+<li>Nur Dokumente eines bestimmten Themas durchsuchen</li>
+<li>Nach Datum filtern</li>
+<li>Quelle in der Antwort anzeigen</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=abc54a61e54201f0">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ea647e5e74175815">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13424,9 +13498,14 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
 
 <span class="n">docs_with_meta</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Linear regression models linear relationships"</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">}),</span>
-    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Python is a popular programming language"</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"Programming"</span><span class="p">}),</span>
-    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Decision trees split data into branches"</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">}),</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Linear regression models linear relationships"</span><span class="p">,</span>
+             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">}),</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Python is a popular programming language"</span><span class="p">,</span>
+             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"Programming"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">}),</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Decision trees split data into branches"</span><span class="p">,</span>
+             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">}),</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Gradient boosting combines many weak learners"</span><span class="p">,</span>
+             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"advanced"</span><span class="p">}),</span>
 <span class="p">]</span>
 
 <span class="n">vectorstore_meta</span> <span class="o">=</span> <span class="n">QdrantVectorStore</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
@@ -13440,7 +13519,46 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=83f9bc7949822840">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=aba9a5f9148fb527"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Suche-mit-Metadata">Suche mit Metadata<a class="anchor-link" href="#Suche-mit-Metadata">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0e50f78cef175523">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=fb443990463a70e5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Metadata-Filterung">Metadata-Filterung<a class="anchor-link" href="#Metadata-Filterung">¶</a></h2><ul>
+<li>Mit <code>filter</code> kann die Suche auf bestimmte Metadata-Werte eingeschränkt werden</li>
+<li>Qdrant verwendet dafür eigene Filter-Objekte</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c2e2a26891cbfaaf">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qdrant_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Filter</span><span class="p">,</span> <span class="n">FieldCondition</span><span class="p">,</span> <span class="n">MatchValue</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8d12a170c7df09b5">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13507,224 +13625,19 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=58c21add3b3b4c3b"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hybrid-Search:-Das-Beste-aus-beiden-Welten">Hybrid Search: Das Beste aus beiden Welten<a class="anchor-link" href="#Hybrid-Search:-Das-Beste-aus-beiden-Welten">¶</a></h2><ul>
-<li><strong>Semantische Suche</strong>: Findet inhaltlich ähnliche Dokumente<ul>
-<li>"Hund" findet auch "Welpe" und "Vierbeiner"</li>
-</ul>
-</li>
-<li><strong>Keyword-Suche (BM25)</strong>: Findet exakte Begriffe<ul>
-<li>"BM25" findet nur Dokumente mit genau diesem Wort</li>
-</ul>
-</li>
-<li><strong>Hybrid Search</strong>: Kombiniert beides!<ul>
-<li>Semantisches Verständnis + exakte Keyword-Treffer</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1699c4a537a3095f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hybrid-Search-mit-Qdrant">Hybrid Search mit Qdrant<a class="anchor-link" href="#Hybrid-Search-mit-Qdrant">¶</a></h2><ul>
-<li>Qdrant unterstützt Hybrid Search <strong>nativ</strong></li>
-<li>Braucht zwei Arten von Embeddings:<ul>
-<li><strong>Dense Embeddings</strong>: Für semantische Suche (wie bisher)</li>
-<li><strong>Sparse Embeddings</strong>: Für Keyword-Suche (BM25)</li>
-</ul>
-</li>
-<li><code>langchain_qdrant</code> macht das einfach!</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1a73e44e3fdffdd8">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>fastembed-gpu
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1faf58e93d1fffc7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastEmbedSparse</span><span class="p">,</span> <span class="n">RetrievalMode</span>
-
-<span class="n">sparse_embeddings</span> <span class="o">=</span> <span class="n">FastEmbedSparse</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">"Qdrant/bm25"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=532505c1ea27ca8e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hybrid-Vektor-Store-erstellen">Hybrid-Vektor-Store erstellen<a class="anchor-link" href="#Hybrid-Vektor-Store-erstellen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=4dcd6f1a903d75f4">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">hybrid_docs</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Neural networks use backpropagation for training"</span><span class="p">,</span>
-    <span class="s2">"The BM25 algorithm ranks documents by term frequency"</span><span class="p">,</span>
-    <span class="s2">"Gradient descent minimizes the loss function"</span><span class="p">,</span>
-    <span class="s2">"Hybrid search combines BM25 keyword matching with semantic similarity"</span><span class="p">,</span>
-    <span class="s2">"Overfitting happens when a model memorizes training data"</span><span class="p">,</span>
-<span class="p">]</span>
-
-<span class="c1"># TODO: Create QdrantVectorStore with RetrievalMode.HYBRID</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6135365750883551">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=41cfbc4f8e113557"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hybrid-Search-vs.-Semantische-Suche">Hybrid Search vs. Semantische Suche<a class="anchor-link" href="#Hybrid-Search-vs.-Semantische-Suche">¶</a></h2><p>Vergleichen wir die Ergebnisse für eine Keyword-lastige Anfrage:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9542e9670f5ce87b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">"BM25"</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=cd41284ec853ec40"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Nur semantische Suche:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6696ff88298e3419">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=3bc54767e8adc9d8">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=a1138dbbb2195fc8"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Hybrid Search (semantisch + BM25):</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=fa22685d792f7043">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=492f27c6c3283b82">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f28fbbd5a37d5bd0"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-Hybrid-Search-besser-ist">Warum Hybrid Search besser ist<a class="anchor-link" href="#Warum-Hybrid-Search-besser-ist">¶</a></h2><ul>
-<li><strong>Semantische Suche</strong> versteht Bedeutung, kann aber exakte Begriffe verfehlen</li>
-<li><strong>BM25</strong> findet exakte Begriffe, versteht aber keine Synonyme</li>
-<li><strong>Hybrid</strong> kombiniert beide Stärken:<ul>
-<li>Findet exakte Fachbegriffe (z.B. "BM25", "LSTM", "MSE")</li>
-<li>Versteht auch Umschreibungen (z.B. "neuronales Netz" ≈ "Deep Learning")</li>
-</ul>
-</li>
-<li>In der Praxis: <strong>Hybrid Search liefert bessere RAG-Ergebnisse</strong></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=bee2f6e985e8ab7d"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=416b4cd32a91b966"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Qdrant</strong>: Open-Source Vektor-Datenbank mit Hybrid Search</li>
-<li><strong>Einfach</strong>: Pip-Install, keine Server-Konfiguration</li>
+<li><strong>Qdrant</strong>: Open-Source Vektor-Datenbank</li>
+<li>Einfach installierbar, keine Server-Konfiguration nötig</li>
 <li><strong>LangChain-Integration</strong>: <code>QdrantVectorStore</code> für nahtlose Nutzung</li>
-<li><strong>Hybrid Search</strong>: Semantische + Keyword-Suche kombiniert<ul>
-<li><code>RetrievalMode.HYBRID</code> mit <code>FastEmbedSparse</code></li>
-</ul>
-</li>
+<li><strong>Ähnlichkeits-Scores</strong>: Hoch = ähnlich (Kosinus-Ähnlichkeit)</li>
+<li><strong>Metadata</strong>: Dokumente können Metadaten haben und danach gefiltert werden</li>
 <li><strong>Persistent</strong>: Daten bleiben auf der Festplatte erhalten</li>
-<li><strong>Achtung</strong>: Liefert immer Ergebnisse — auch bei irrelevanten Anfragen</li>
+<li><strong>Achtung</strong>: Liefert immer Ergebnisse — Ähnlichkeits-Filter verwenden!</li>
 </ul>
-<p><strong>Nächster Schritt</strong>: RAG-System mit LangChain bauen!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=9f65df6b9156b664"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop-Aufgaben">Workshop-Aufgaben<a class="anchor-link" href="#Workshop-Aufgaben">¶</a></h2><ol>
-<li>Installieren und testen Sie Qdrant auf Ihrem Computer</li>
-<li>Erstellen Sie einen Vektor-Store mit <code>QdrantVectorStore.from_texts()</code> und
-mindestens 5 eigenen Dokumenten</li>
-<li>Testen Sie die semantische Suche mit verschiedenen Anfragen</li>
-<li>Probieren Sie eine irrelevante Anfrage aus — was passiert mit den Scores?</li>
-<li>Erstellen Sie einen Hybrid-Vektor-Store mit <code>FastEmbedSparse</code></li>
-<li>Vergleichen Sie semantische Suche vs. Hybrid Search für eine Keyword-Anfrage</li>
-</ol>
+<p><strong>Nächster Schritt</strong>: Hybrid Search — semantische + Keyword-Suche kombinieren!</p>
 </div>
 </div>
 </div>

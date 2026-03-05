@@ -24,6 +24,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from sklearn.metrics.pairwise import cosine_similarity, euclidean_distances
 from langchain_openai import OpenAIEmbeddings
+from vector_embeddings_plots import plot_2d_vectors, plot_similarity_matrix
 
 # %%
 dotenv.load_dotenv()
@@ -43,6 +44,17 @@ dotenv.load_dotenv()
 
 # %% [markdown]
 #
+# ## Wahl des Embedding-Modells
+#
+# - Wir verwenden **`text-embedding-3-small`** von OpenAI
+# - Gute Balance aus Qualität, Geschwindigkeit und Kosten
+# - 1536 Dimensionen — ausreichend für die meisten Anwendungen
+# - Unterstützt mehrsprachige Texte (Deutsch, Englisch, etc.)
+# - Alternativen: `text-embedding-3-large` (genauer, teurer),
+#   Open-Source-Modelle von HuggingFace (kostenlos, lokal ausführbar)
+
+# %% [markdown]
+#
 # ## Embeddings mit LangChain erstellen
 
 # %%
@@ -52,8 +64,8 @@ dotenv.load_dotenv()
 # %%
 texts = [
     "Machine Learning ist ein Teilbereich der KI",
+    "Machine Learning ist eine wichtige KI-Methode",
     "Deep Learning nutzt neuronale Netze",
-    "Python ist eine Programmiersprache",
     "Katzen sind Haustiere"
 ]
 
@@ -102,7 +114,7 @@ texts = [
 #
 # ## Beispiel: 2D-Vektoren
 #
-# - Betrachten wir drei einfache 2D-Vektoren (wie in den Bildern)
+# - Betrachten wir drei einfache 2D-Vektoren
 # - $\vec a$ und $\vec b$: gleiche Richtung, aber $\vec b$ ist kürzer
 # - $\vec c$: zeigt in eine ganz andere Richtung
 
@@ -112,6 +124,7 @@ b = np.array([[2, 1.5]])
 c = np.array([[1, -3]])
 
 # %%
+plot_2d_vectors(a, b, c)
 
 # %%
 
@@ -120,22 +133,6 @@ c = np.array([[1, -3]])
 # %%
 
 # %%
-vectors = {"a": a[0], "b": b[0], "c": c[0]}
-colors = {"a": "red", "b": "black", "c": "darkblue"}
-fig, ax = plt.subplots(figsize=(6, 5))
-for name, v in vectors.items():
-    ax.annotate("", xy=v, xytext=(0, 0),
-                arrowprops=dict(arrowstyle="->", color=colors[name], lw=2))
-    ax.text(v[0] + 0.15, v[1] + 0.15, name, fontsize=14, color=colors[name])
-ax.set_xlim(-1, 5.5)
-ax.set_ylim(-4, 4.5)
-ax.set_aspect("equal")
-ax.axhline(0, color="gray", linewidth=0.5)
-ax.axvline(0, color="gray", linewidth=0.5)
-ax.grid(True, alpha=0.3)
-ax.set_title("2D-Vektoren / 2D Vectors")
-plt.tight_layout()
-plt.show()
 
 # %% [markdown]
 #
@@ -155,7 +152,7 @@ plt.show()
 # - Alle Vektoren haben die **gleiche Länge** (Norm = 1), egal wie lang der Text ist
 # - Für normalisierte Vektoren:
 #   - Euklidische Distanz und Kosinus-Ähnlichkeit ergeben **dieselbe Rangfolge**
-#   - $d_{\text{euklid}} = \sqrt{2 \cdot (1 - \text{cos\_sim})}$
+#   - $d_{\text{euklid}} = \sqrt{2 \cdot (1 - \textit{cos_sim})}$
 # - Der Unterschied aus dem 2D-Beispiel tritt bei Embeddings also **nicht** auf!
 
 # %% [markdown]
@@ -163,7 +160,9 @@ plt.show()
 # ## Warum trotzdem Kosinus-Ähnlichkeit?
 #
 # - **Konvention**: Die meisten Tools und Datenbanken verwenden sie standardmäßig
-# - **Intuitive Skala**: 0.0 (völlig verschieden) bis 1.0 (identisch)
+# - **Skala**: Mathematisch von -1.0 (entgegengesetzt) bis 1.0 (identisch)
+#   - Für Text-Embeddings moderner Modelle: typischerweise 0.0 (unverwandt) bis 1.0
+#   - Negative Werte sind bei Text-Embeddings selten, aber mathematisch möglich
 # - **Effizienz**: Berechnung über Skalarprodukt (schnell!)
 # - **Robustheit**: Funktioniert auch mit nicht-normalisierten Modellen
 #
@@ -182,11 +181,11 @@ similarities = cosine_similarity(text_embeddings)
 #
 # ## Was sehen wir?
 #
-# - Text 1 und 2 (ML und Deep Learning): **hohe Ähnlichkeit** (~0.8)
-#   - Beide handeln von KI-Methoden
-# - Text 3 (Python) und 1–2: **mittlere Ähnlichkeit** (~0.5)
-#   - Python wird oft für ML genutzt — das "weiß" das Modell!
-# - Text 4 (Katzen): **niedrige Ähnlichkeit** zu allen (~0.2–0.3)
+# - Text 1 und 2 (ML und KI-Methode): **hohe Ähnlichkeit** (~0.8)
+#   - Fast dieselbe Aussage, nur anders formuliert
+# - Text 3 (Deep Learning) und 1–2: **mittlere Ähnlichkeit** (~0.5)
+#   - Verwandtes KI-Thema, aber anderer Fokus
+# - Text 4 (Katzen): **niedrige Ähnlichkeit** zu allen (~0.2)
 #   - Hat nichts mit Technologie zu tun
 #
 # **Das ist die Stärke der semantischen Suche!**
