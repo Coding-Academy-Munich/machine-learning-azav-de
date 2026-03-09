@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d90b2fe4712abf1c"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c1b0e45c3e757b9f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13142,6 +13142,8 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
 <br/>
+<div style="text-align:center;">Coding-Akademie München</div>
+<br/>
 </br></div>
 </div>
 </div>
@@ -13157,7 +13159,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=c2c65385a268b200">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=96a5d58bb9328e22">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13165,10 +13167,9 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">dotenv</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">cosine_similarity</span><span class="p">,</span> <span class="n">euclidean_distances</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">vector_embeddings_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_2d_vectors</span><span class="p">,</span> <span class="n">plot_similarity_matrix</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">vector_embeddings_plots</span><span class="w"> </span><span class="kn">import</span> <span class="n">plot_2d_vectors</span>
 </pre></div>
 </div>
 </div>
@@ -13185,7 +13186,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ba9e1a39855c8d69"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e7a5fee4c38f321e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Text-Embeddings">Text-Embeddings<a class="anchor-link" href="#Text-Embeddings">¶</a></h2><ul>
@@ -13198,14 +13199,14 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <li><strong>Modelle</strong>:<ul>
 <li>OpenAI: text-embedding-3-small (1536 Dimensionen)</li>
 <li>HuggingFace: verschiedene Open-Source-Modelle</li>
-<li>Qdrant: unterstützt verschiedene Modelle</li>
 </ul>
 </li>
+<li><strong>Vektor-Datenbanken</strong> (z.B. Qdrant): speichern und durchsuchen Embeddings</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=71189f86f9b366cd"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f89553b71ce4c737"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Wahl-des-Embedding-Modells">Wahl des Embedding-Modells<a class="anchor-link" href="#Wahl-des-Embedding-Modells">¶</a></h2><ul>
@@ -13215,6 +13216,8 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <li>Unterstützt mehrsprachige Texte (Deutsch, Englisch, etc.)</li>
 <li>Alternativen: <code>text-embedding-3-large</code> (genauer, teurer),
 Open-Source-Modelle von HuggingFace (kostenlos, lokal ausführbar)</li>
+<li><strong>Achtung</strong>: Maximale Eingabelänge ist 8191 Tokens — längere Texte werden
+stillschweigend abgeschnitten (daher ist gutes Chunking wichtig!)</li>
 </ul>
 </div>
 </div>
@@ -13226,13 +13229,23 @@ Open-Source-Modelle von HuggingFace (kostenlos, lokal ausführbar)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=ad49bb91dde37139">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=ca9f0245921aec57"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Erstellen eines <code>OpenAIEmbeddings</code>-Modell mit OpenRouter:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8e1740eb57594f9c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create an OpenAIEmbeddings model using OpenRouter</span>
-<span class="c1"># embeddings = OpenAIEmbeddings(...)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"openai/text-embedding-3-small"</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13254,19 +13267,86 @@ Open-Source-Modelle von HuggingFace (kostenlos, lokal ausführbar)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=6f9c9788ec22565c">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=62b4e9b1b75effab"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Erstellen von Embeddings für alle Texte:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=937a19d6dd52c85f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create embeddings for all texts</span>
-<span class="c1"># text_embeddings = ...</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">text_embeddings</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_documents</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=db952dbd3fb464f9">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=9aac4445b36ebec7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Anzahl Texte:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=feee2f4ff8166328">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=39b1fb3f7c489500"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Dimensionen pro Embedding:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=db5c8e8d27383fb2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=84759fc36164e26d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Erster Text:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0e7c7e543ec3ee56">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=83abae99bcc0c9be"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Erste 5 Werte des Embeddings:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b14ff4d9a6927ef">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13293,7 +13373,7 @@ Open-Source-Modelle von HuggingFace (kostenlos, lokal ausführbar)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8b7c08b609884b4d"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5bdd0fb0988fcae6"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Euklidische-Distanz-vs.-Kosinus-%C3%84hnlichkeit">Euklidische Distanz vs. Kosinus-Ähnlichkeit<a class="anchor-link" href="#Euklidische-Distanz-vs.-Kosinus-%C3%84hnlichkeit">¶</a></h2><div style="float:right;width:40%;">
@@ -13305,13 +13385,13 @@ Open-Source-Modelle von HuggingFace (kostenlos, lokal ausführbar)</li>
 <ul>
 <li><b>Euklidische Distanz</b> (rechts): Abstand zwischen den Spitzen</li>
 <ul>
-<li>Misst $|\vec a - \vec b|$ (Spitze zu Spitze)</li>
+<li>Misst |\(\vec a - \vec b\)| (Spitze zu Spitze)</li>
 <li>Hängt von <b>Richtung und Länge</b> der Vektoren ab</li>
 </ul>
 <li><b>Kosinus-Ähnlichkeit</b> (links): Winkel zwischen den Pfeilen</li>
 <ul>
 <li>Misst nur die <b>Richtung</b>, ignoriert die Länge</li>
-<li>$\vec a$ und $\vec b$: kleiner Winkel → hohe Ähnlichkeit</li>
+<li>\(\vec a\) und \(\vec b\): kleiner Winkel → hohe Ähnlichkeit</li>
 </ul>
 </ul>
 </div>
@@ -13411,284 +13491,6 @@ Open-Source-Modelle von HuggingFace (kostenlos, lokal ausführbar)</li>
 </li>
 <li>Kosinus-Ähnlichkeit ignoriert die Länge und misst nur die Richtung</li>
 </ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7e4f584ed575f2ea"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Moderne-Embedding-Modelle-normalisieren!">Moderne Embedding-Modelle normalisieren!<a class="anchor-link" href="#Moderne-Embedding-Modelle-normalisieren!">¶</a></h2><ul>
-<li>Modelle wie <code>text-embedding-3-small</code> geben <strong>normalisierte Vektoren</strong> zurück</li>
-<li>Alle Vektoren haben die <strong>gleiche Länge</strong> (Norm = 1), egal wie lang der Text ist</li>
-<li>Für normalisierte Vektoren:<ul>
-<li>Euklidische Distanz und Kosinus-Ähnlichkeit ergeben <strong>dieselbe Rangfolge</strong></li>
-<li>$d_{\text{euklid}} = \sqrt{2 \cdot (1 - \textit{cos_sim})}$</li>
-</ul>
-</li>
-<li>Der Unterschied aus dem 2D-Beispiel tritt bei Embeddings also <strong>nicht</strong> auf!</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ef965dc4ae29cc0f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-trotzdem-Kosinus-%C3%84hnlichkeit?">Warum trotzdem Kosinus-Ähnlichkeit?<a class="anchor-link" href="#Warum-trotzdem-Kosinus-%C3%84hnlichkeit?">¶</a></h2><ul>
-<li><strong>Konvention</strong>: Die meisten Tools und Datenbanken verwenden sie standardmäßig</li>
-<li><strong>Skala</strong>: Mathematisch von -1.0 (entgegengesetzt) bis 1.0 (identisch)<ul>
-<li>Für Text-Embeddings moderner Modelle: typischerweise 0.0 (unverwandt) bis 1.0</li>
-<li>Negative Werte sind bei Text-Embeddings selten, aber mathematisch möglich</li>
-</ul>
-</li>
-<li><strong>Effizienz</strong>: Berechnung über Skalarprodukt (schnell!)</li>
-<li><strong>Robustheit</strong>: Funktioniert auch mit nicht-normalisierten Modellen</li>
-</ul>
-<p>In der Praxis: Qdrant, Pinecone etc. nutzen Kosinus-Ähnlichkeit als Standard</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=60562e769d400d4a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="%C3%84hnlichkeitsmatrix-berechnen">Ähnlichkeitsmatrix berechnen<a class="anchor-link" href="#%C3%84hnlichkeitsmatrix-berechnen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8c666263db07ea23">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">similarities</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">text_embeddings</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=00d6cc9d696d97f8">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=943dbc4d3c57d288"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-sehen-wir?">Was sehen wir?<a class="anchor-link" href="#Was-sehen-wir?">¶</a></h2><ul>
-<li>Text 1 und 2 (ML und KI-Methode): <strong>hohe Ähnlichkeit</strong> (~0.8)<ul>
-<li>Fast dieselbe Aussage, nur anders formuliert</li>
-</ul>
-</li>
-<li>Text 3 (Deep Learning) und 1–2: <strong>mittlere Ähnlichkeit</strong> (~0.5)<ul>
-<li>Verwandtes KI-Thema, aber anderer Fokus</li>
-</ul>
-</li>
-<li>Text 4 (Katzen): <strong>niedrige Ähnlichkeit</strong> zu allen (~0.2)<ul>
-<li>Hat nichts mit Technologie zu tun</li>
-</ul>
-</li>
-</ul>
-<p><strong>Das ist die Stärke der semantischen Suche!</strong></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=c4b92cec951e7e26"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Semantische-Suche-in-Aktion">Semantische Suche in Aktion<a class="anchor-link" href="#Semantische-Suche-in-Aktion">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e4e0362cc03273fb">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">"Was sind neuronale Netze?"</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=87d1e8465f21000b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Embed the query and find the most similar texts</span>
-<span class="c1"># 1. Embed the query with embeddings.embed_query(query)</span>
-<span class="c1"># 2. Calculate cosine similarity</span>
-<span class="c1"># 3. Sort by similarity</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=cfa58a1e1bc8d478">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f02a500f71ac6e43"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-nicht-einfach-Keyword-Suche?">Warum nicht einfach Keyword-Suche?<a class="anchor-link" href="#Warum-nicht-einfach-Keyword-Suche?">¶</a></h2><ul>
-<li><strong>Keyword-Suche</strong>: Sucht nach exakten Wörtern im Text</li>
-<li><strong>Problem</strong>: Findet nur exakte Übereinstimmungen</li>
-<li>Versteht keine Synonyme, keine Übersetzungen, keine verwandten Konzepte</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9774b741c828e34c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">keyword_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">texts</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Simple keyword search: returns texts containing the query."""</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">texts</span> <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=f3a9a4fbad4d45a5"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Vergleich:-Keyword-vs.-Semantische-Suche">Vergleich: Keyword vs. Semantische Suche<a class="anchor-link" href="#Vergleich:-Keyword-vs.-Semantische-Suche">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2792824afefc3846">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=bdea1c78b4a86fa6">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=de2098c5d3bae59d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Keyword-Suche-versagt-bei-anderen-Sprachen">Keyword-Suche versagt bei anderen Sprachen<a class="anchor-link" href="#Keyword-Suche-versagt-bei-anderen-Sprachen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2c5df3fc19c44c73">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8bdbcef066a93940">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7bb191d18398adab"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Semantische-Suche-versteht-Bedeutung">Semantische Suche versteht Bedeutung<a class="anchor-link" href="#Semantische-Suche-versteht-Bedeutung">¶</a></h2><table>
-<thead>
-<tr>
-<th></th>
-<th>Keyword-Suche</th>
-<th>Semantische Suche</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Exakte Wörter</strong></td>
-<td>✅ Findet sie</td>
-<td>✅ Findet sie</td>
-</tr>
-<tr>
-<td><strong>Synonyme</strong></td>
-<td>❌ "KI" ≠ "AI"</td>
-<td>✅ Versteht Bedeutung</td>
-</tr>
-<tr>
-<td><strong>Andere Sprache</strong></td>
-<td>❌ "AI" ≠ "KI"</td>
-<td>✅ Sprachübergreifend</td>
-</tr>
-<tr>
-<td><strong>Verwandte Konzepte</strong></td>
-<td>❌ Kein Zusammenhang</td>
-<td>✅ Erkennt Verwandtschaft</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e4c3f44e67adaf7f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="F%C3%BCr-RAG-bedeutet-das:">Für RAG bedeutet das:<a class="anchor-link" href="#F%C3%BCr-RAG-bedeutet-das:">¶</a></h2><ol>
-<li>Alle Dokument-Chunks embedden</li>
-<li>In Vektor-Datenbank speichern</li>
-<li>Bei Anfrage: Anfrage embedden</li>
-<li>Ähnlichste Chunks finden (Kosinus-Ähnlichkeit)</li>
-<li>Als Kontext an LLM geben</li>
-</ol>
-<p><strong>Qdrant</strong> macht Schritte 2–4 automatisch!</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=8bb4e6ffdbf9b530"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Text-Embeddings</strong>: Ganze Texte als Vektoren darstellen</li>
-<li><strong>Kosinus-Ähnlichkeit</strong>: Standard-Metrik für Text-Ähnlichkeit<ul>
-<li>Intuitive Skala: 0.0 (verschieden) bis 1.0 (identisch)</li>
-</ul>
-</li>
-<li><strong>Semantische Suche</strong>: Versteht Bedeutung, nicht nur exakte Wörter<ul>
-<li>Findet Synonyme, verwandte Konzepte, andere Sprachen</li>
-</ul>
-</li>
-<li><strong>LangChain</strong>: Einfache Embedding-Erstellung mit wenigen Zeilen</li>
-</ul>
-<p><strong>Nächster Schritt</strong>: Qdrant für effiziente Vektor-Speicherung!</p>
 </div>
 </div>
 </div>

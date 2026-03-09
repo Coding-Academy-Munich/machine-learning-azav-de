@@ -42,7 +42,7 @@
 # - **Framework** für LLM-Anwendungen
 # - **Einheitliche Schnittstelle** für alle Anbieter
 # - Gleicher Code funktioniert mit OpenAI, Anthropic, lokalen Modellen...
-# - **Industrie-Standard** (in 60%+ der Job-Anzeigen!)
+# - **Weit verbreitet** in Industrie und Forschung
 
 # %% [markdown]
 #
@@ -68,6 +68,11 @@ load_dotenv()
 from langchain_openai import ChatOpenAI
 
 # %%
+
+# %% [markdown]
+#
+# - Voraussetzung: `OPENAI_API_KEY` als Umgebungsvariable gesetzt
+# - LangChain liest den Key automatisch aus der Umgebung
 
 # %%
 
@@ -119,6 +124,7 @@ llm = ChatOpenAI(
 # %%
 from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 
+
 # %% [markdown]
 #
 # ## Nachrichten als Liste
@@ -144,6 +150,25 @@ from langchain_core.messages import HumanMessage, AIMessage, SystemMessage
 # Aber: **Viel weniger Code!**
 
 # %%
+class LangChainChatbot:
+    """A chatbot using LangChain."""
+
+    def __init__(self, system_prompt=None):
+        self.llm = ChatOpenAI(
+            api_key=os.getenv("OPENROUTER_API_KEY"),
+            base_url="https://openrouter.ai/api/v1",
+            model=model,
+        )
+        self.messages = []
+        if system_prompt:
+            self.messages.append(SystemMessage(content=system_prompt))
+
+    def chat(self, user_message):
+        """Send a message and get a response."""
+        self.messages.append(HumanMessage(content=user_message))
+        response = self.llm.invoke(self.messages)
+        self.messages.append(response)
+        return response.content
 
 # %% [markdown]
 #
@@ -185,7 +210,6 @@ for msg in bot.messages:
 from langchain_core.language_models.base import BaseLanguageModel
 from langchain_anthropic import ChatAnthropic
 
-
 # %%
 def create_llm(provider) -> BaseLanguageModel:
     """Create LLM based on provider name."""
@@ -198,7 +222,7 @@ def create_llm(provider) -> BaseLanguageModel:
     elif provider == "openai":
         return ChatOpenAI(
             api_key=os.getenv("OPENAI_API_KEY"),
-            model="gpt-5.2",
+            model="gpt-4o-mini",
         )
     elif provider == "anthropic":
         return ChatAnthropic(
@@ -229,8 +253,6 @@ class FlexibleChatbot:
         self.messages.append(response)
         return response.content
 
-
-
 # %% [markdown]
 #
 # ## Verschiedene Provider testen
@@ -240,6 +262,10 @@ class FlexibleChatbot:
 # %%
 
 # %%
+
+# %% [markdown]
+#
+# Wenn Sie API-Keys für andere Anbieter haben, können Sie diese ebenfalls testen:
 
 # %%
 
@@ -276,7 +302,6 @@ def get_session_history(session_id) -> InMemoryChatMessageHistory:
     if session_id not in store:
         store[session_id] = InMemoryChatMessageHistory()
     return store[session_id]
-
 
 # %%
 chatbot_with_history = RunnableWithMessageHistory(llm, get_session_history)
@@ -349,7 +374,7 @@ SYSTEM_PROMPTS = {
 }
 
 # %%
-def chat_with_system_prompt(message, history):
+def chat_with_system_prompt(message, history, system_prompt_name="Helpful Assistant"):
     """Chatbot that uses the selected system prompt."""
     system_prompt = "You are a helpful assistant."
 
@@ -400,19 +425,12 @@ system_prompt_demo = gr.ChatInterface(
 # %%
 chatbot_instances = {}
 
-
 # %%
-def multi_provider_chat(message, history, provider):
-    """Chatbot that can switch providers."""
-    # TODO: Implement chatbot that uses FlexibleChatbot
-    # Hint: Store chatbot instance in chatbot_instances dict
-    pass
 
 # %% [markdown]
 #
 # ### Teil 2: Gradio Interface
 
 # %%
-# TODO: Create ChatInterface with provider dropdown
 
 # %%

@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2a236cfae12b8a2e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=cc5b14270aaf9423"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13142,6 +13142,8 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
 <br/>
+<div style="text-align:center;">Coding-Akademie München</div>
+<br/>
 </br></div>
 </div>
 </div>
@@ -13169,7 +13171,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=29be9385035cd9a0">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0a01d366adef6381">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13178,7 +13180,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span><span class="p">,</span> <span class="n">FastEmbedSparse</span><span class="p">,</span> <span class="n">RetrievalMode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.prompts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnablePassthrough</span>
@@ -13261,28 +13262,23 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=7f71dc31a3bc027a"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=58c82c80a62ff8d6"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Für längere Dokumente: Chunks erstellen</p>
+<p>Unsere Beispiel-Dokumente sind kurz genug, dass wir sie nicht aufteilen müssen.
+In einer echten Anwendung würden wir <code>RecursiveCharacterTextSplitter</code> verwenden,
+wie in der Lektion zu Text Processing gelernt.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2460eb6d3bf05883">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">text_splitter</span> <span class="o">=</span> <span class="n">RecursiveCharacterTextSplitter</span><span class="p">(</span>
-    <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
-    <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span>
-<span class="p">)</span>
-</pre></div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=4047bbc11339862d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Anzahl Dokumente:</p>
 </div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7c4b73339efe821c">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=fff63f390ef069e7">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13311,19 +13307,26 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8f89d2c36a053c2e">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=40c6842fc115438c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Erstellen Sie die Embeddings und den Qdrant Vektor-Store aus den Dokumenten.
+Verwenden Sie <code>RetrievalMode.HYBRID</code> mit <code>sparse_embeddings</code> für Hybrid Search.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8e1740eb57594f9c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create embeddings and Qdrant vector store from documents</span>
-<span class="c1"># Use RetrievalMode.HYBRID with sparse_embeddings for hybrid search</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=0e6dcd2e3ce18320">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0665aafc03c7f326">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13345,13 +13348,19 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8a024010a682b231">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=07499f19be6de9f2"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Erstellen Sie einen Retriever aus dem Vektor-Store mit <code>as_retriever()</code>.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c1f49db6d59bf043">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create retriever from vectorstore</span>
-<span class="c1"># retriever = vectorstore.as_retriever(...)</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
@@ -13375,7 +13384,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=0dd2fe51a0612c7d">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=544c500f0fdd9f3d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13409,7 +13418,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=0ef82f05853c97cf">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=fa8b3f28f5c0109c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13420,7 +13429,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=683e7411791cc082">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c8ec9eaa5ba92f90">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13455,7 +13464,14 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e6f14929eaa2c6e8">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=67a8820aa53e2f55"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Kontext-Text:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7a421be014ab0573">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13463,301 +13479,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2947d4c3a0d1c263"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Schritt-4b:-Prompt-mit-Kontext">Schritt 4b: Prompt mit Kontext<a class="anchor-link" href="#Schritt-4b:-Prompt-mit-Kontext">¶</a></h2><p>Wir erstellen einen Prompt, der den Kontext und die Frage enthält:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=992a2975c1e805a2">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">system_prompt</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="s2">"Du bist ein hilfreicher Assistent. Nutze den folgenden Kontext, um die Frage zu beantworten. "</span>
-    <span class="s2">"Wenn der Kontext keine relevanten Informationen enthält, sage: "</span>
-    <span class="s2">"'Diese Information ist nicht in meinen Dokumenten enthalten.' "</span>
-    <span class="s2">"Halte die Antwort präzise.</span><span class="se">\n\n</span><span class="s2">"</span>
-    <span class="s2">"You are a helpful assistant. Use the following context to answer the question. "</span>
-    <span class="s2">"If the context doesn't contain relevant information, say: "</span>
-    <span class="s2">"'This information is not in my documents.' "</span>
-    <span class="s2">"Keep the answer concise.</span><span class="se">\n\n</span><span class="s2">"</span>
-    <span class="s2">"Context: </span><span class="si">{context}</span><span class="s2">"</span>
-<span class="p">)</span>
-
-<span class="n">prompt</span> <span class="o">=</span> <span class="n">ChatPromptTemplate</span><span class="o">.</span><span class="n">from_messages</span><span class="p">([</span>
-    <span class="p">(</span><span class="s2">"system"</span><span class="p">,</span> <span class="n">system_prompt</span><span class="p">),</span>
-    <span class="p">(</span><span class="s2">"human"</span><span class="p">,</span> <span class="s2">"</span><span class="si">{input}</span><span class="s2">"</span><span class="p">),</span>
-<span class="p">])</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=eb4f82e261c47554">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
-    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
-    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
-    <span class="n">model</span><span class="o">=</span><span class="s2">"mistralai/ministral-14b-2512"</span><span class="p">,</span>
-    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1b0bd665d912f31e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Schritt-4c:-Die-vollst%C3%A4ndige-RAG-Chain">Schritt 4c: Die vollständige RAG Chain<a class="anchor-link" href="#Schritt-4c:-Die-vollst%C3%A4ndige-RAG-Chain">¶</a></h2><pre><code>Frage ──→ retriever | format_docs ──→ context
-      └──→ RunnablePassthrough()  ──→ input
-                                      ↓
-                                   prompt
-                                      ↓
-                                     llm
-                                      ↓
-                                StrOutputParser()
-                                      ↓
-                                   Antwort
-</code></pre>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=1432e93452b1906a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Die-Chain-Schritt-f%C3%BCr-Schritt">Die Chain Schritt für Schritt<a class="anchor-link" href="#Die-Chain-Schritt-f%C3%BCr-Schritt">¶</a></h2><ol>
-<li>Die Frage geht an <strong>zwei</strong> Stellen gleichzeitig:<ul>
-<li><code>retriever | format_docs</code> → findet relevante Dokumente → Text</li>
-<li><code>RunnablePassthrough()</code> → gibt die Frage unverändert weiter</li>
-</ul>
-</li>
-<li>Beides wird in den <strong>Prompt</strong> eingesetzt (<code>{context}</code> und <code>{input}</code>)</li>
-<li>Der Prompt geht ans <strong>LLM</strong></li>
-<li><code>StrOutputParser()</code> extrahiert den Text aus der LLM-Antwort</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=6f96711ae31c6a91">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Build the RAG chain using LCEL</span>
-<span class="c1"># rag_chain = (</span>
-<span class="c1">#     {"context": ..., "input": ...}</span>
-<span class="c1">#     | prompt</span>
-<span class="c1">#     | llm</span>
-<span class="c1">#     | StrOutputParser()</span>
-<span class="c1"># )</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=723822eece5b878e">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=06fa41ccaf154b28"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Schritt-5:-RAG-System-nutzen">Schritt 5: RAG-System nutzen<a class="anchor-link" href="#Schritt-5:-RAG-System-nutzen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=3378800f626904e5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">question</span> <span class="o">=</span> <span class="s2">"Was ist Overfitting?"</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2d3231d0fc6e0466">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=203608e04ecb5866">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=02b363b71e14482e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Quellen-anzeigen">Quellen anzeigen<a class="anchor-link" href="#Quellen-anzeigen">¶</a></h2><p>Die Quellen bekommen wir separat vom Retriever:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c39164a28ce00d47">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4895ddf117d3f14f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Weitere-Fragen-testen">Weitere Fragen testen<a class="anchor-link" href="#Weitere-Fragen-testen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4e7308fc7fcf3e71">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=96cc6668327a1ee4"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-passiert-bei-irrelevanten-Fragen?">Was passiert bei irrelevanten Fragen?<a class="anchor-link" href="#Was-passiert-bei-irrelevanten-Fragen?">¶</a></h2><ul>
-<li>Erinnerung: Qdrant liefert <strong>immer</strong> Ergebnisse</li>
-<li>Unser Prompt sagt dem LLM: "Sage es, wenn der Kontext keine Antwort hat"</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ee3053a1429b7594">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a023fc6fc98ea7e2">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=cebff102dbd51290"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Prompt-Engineering-f%C3%BCr-RAG">Prompt Engineering für RAG<a class="anchor-link" href="#Prompt-Engineering-f%C3%BCr-RAG">¶</a></h2><ul>
-<li>Der System-Prompt ist <strong>entscheidend</strong> für RAG-Qualität</li>
-<li>Wichtige Anweisungen im Prompt:<ul>
-<li>"Nutze nur den gegebenen Kontext"</li>
-<li>"Sage, wenn die Information nicht vorhanden ist"</li>
-<li>"Halte die Antwort präzise"</li>
-</ul>
-</li>
-<li>Ohne diese Anweisungen → LLM halluziniert trotz RAG!</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=54ec8713910637d9"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Retrieval-Parameter-anpassen">Retrieval-Parameter anpassen<a class="anchor-link" href="#Retrieval-Parameter-anpassen">¶</a></h2><ul>
-<li><strong>k</strong>: Wie viele Dokumente abrufen? (Standard: 4)<ul>
-<li>Mehr → mehr Kontext, aber auch mehr Rauschen</li>
-<li>Weniger → fokussierter, aber evtl. Information fehlt</li>
-</ul>
-</li>
-<li><strong>search_type</strong>:<ul>
-<li><code>"similarity"</code> (Standard): Die k ähnlichsten Dokumente</li>
-<li><code>"mmr"</code> (Maximal Marginal Relevance): Bevorzugt <strong>diverse</strong> Ergebnisse —
-nützlich, wenn die ähnlichsten Dokumente sich zu sehr überlappen</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=a12f6e1ad77cbc92">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">retriever_k3</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">as_retriever</span><span class="p">(</span><span class="n">search_kwargs</span><span class="o">=</span><span class="p">{</span><span class="s2">"k"</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=860f5e974c91a0bb">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3281f63f1cbbd94d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>RAG mit LangChain</strong>: Wenige Zeilen Code für ein vollständiges System</li>
-<li><strong>Pipeline</strong>: Dokumente → Chunks → Qdrant (Hybrid Search) → Retriever → LLM</li>
-<li><strong>LCEL</strong>: Verkettung mit <code>|</code> Operator<ul>
-<li><code>{"context": retriever | format_docs, "input": RunnablePassthrough()}</code></li>
-</ul>
-</li>
-<li><strong>Prompt Engineering</strong>: Entscheidend für gute RAG-Antworten<ul>
-<li>"Sage, wenn du es nicht weißt" verhindert Halluzinationen</li>
-</ul>
-</li>
-<li><strong>Quellen</strong>: Separat abrufbar über <code>retriever.invoke()</code></li>
-</ul>
-<p><strong>Jetzt sind Sie bereit, Ihr eigenes RAG-System zu bauen!</strong></p>
 </div>
 </div>
 </div>

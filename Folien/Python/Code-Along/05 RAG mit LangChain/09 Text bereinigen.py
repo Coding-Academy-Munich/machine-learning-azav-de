@@ -23,7 +23,7 @@ import re
 import dotenv
 
 # %%
-dotenv.load_dotenv()  # Load environment variables from .env file
+dotenv.load_dotenv()
 
 # %% [markdown]
 #
@@ -72,13 +72,9 @@ dirty_text = """
 def clean_text(text):
     """Clean text by removing HTML tags and normalizing whitespace."""
     text = re.sub(r"<[^>]+>", "", text)
-    # text = text.replace("\t", " ")
-    # text = re.sub(r" +", " ", text)
-    # Better: Normalize all kinds of whitespace (tabs, multiple spaces) except
-    # newlines in one step:
     text = re.sub(r"[^\S\n]+", " ", text)
-    text = re.sub(r"\n +", "\n", text)  # Remove spaces at beginning of lines
-    text = re.sub(r" +\n", "\n", text)  # Remove spaces at end of lines
+    text = re.sub(r"\n +", "\n", text)
+    text = re.sub(r" +\n", "\n", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
 
@@ -94,7 +90,6 @@ def clean_text(text):
 # - Ersetzen von einfachen Zeilenumbrüchen (`\n`) durch Leerzeichen
 # - Ersetzen von verschiedenen Arten von Anführungszeichen durch einfache
 #   Anführungszeichen (`'`)
-
 
 # %%
 def clean_text_2(text):
@@ -114,16 +109,19 @@ def clean_text_2(text):
 #   HTML-Tags zu entfernen
 # - Das Ergebnis ist oft schon bereinigt, aber manchmal bleiben Artefakte übrig
 
-
 # %%
 from langchain_community.document_loaders import WebBaseLoader
 
 # %%
 loader = WebBaseLoader("https://de.wikipedia.org/wiki/Python_(Programmiersprache)")
 
+
 # %%
 
 # %%
+def print_text(text, snippet_length=200, keyword="Inhaltsverzeichnis"):
+    start_idx = text.find(keyword)
+    print(text[start_idx : start_idx + snippet_length])
 
 # %% [markdown]
 #
@@ -145,7 +143,6 @@ loader = WebBaseLoader("https://de.wikipedia.org/wiki/Python_(Programmiersprache
 # %%
 
 # %%
-
 
 # %% [markdown]
 #
@@ -194,7 +191,6 @@ url = "https://en.wikipedia.org/wiki/Python_(programming_language)"
 # %%
 from textwrap import wrap
 
-
 # %%
 def wrap_text(text, width=72):
     lines = text.splitlines()
@@ -210,11 +206,10 @@ def wrap_text(text, width=72):
 # - Text wird in Computern als **Bytes** gespeichert
 # - Ein Byte kann nur 256 verschiedene Werte speichern, aber es gibt viel mehr
 #   Zeichen (z.B. Umlaute, Emojis)
-# - We need a way to map (multiple) bytes to characters
+# - Wir brauchen eine Zuordnung von (mehreren) Bytes zu Zeichen
 #   - **UTF-8**: Moderner Standard, unterstützt alle Zeichen (Umlaute, Emojis,
 #     ...)
 #   - **Latin-1** (ISO 8859-1): Älterer Standard, nur westeuropäische Zeichen
-
 
 # %% [markdown]
 #
@@ -345,7 +340,6 @@ def clean_documents(docs, clean_fn=clean_text_2):
         doc.page_content = clean_fn(doc.page_content)
     return docs
 
-
 # %% [markdown]
 #
 # Verwendung mit WebBaseLoader:
@@ -379,7 +373,6 @@ def thorough_clean(text):
 # %%
 
 # %%
-
 
 # %% [markdown]
 #

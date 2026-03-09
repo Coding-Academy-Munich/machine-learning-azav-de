@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=192cab45f351c6ca"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=647763fabff569ca"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,10 +13137,12 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Workshop: Vector Embeddings</b>
+<b>Workshop: Vektor-Embeddings</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
+<br/>
+<div style="text-align:center;">Coding-Akademie München</div>
 <br/>
 </br></div>
 </div>
@@ -13224,23 +13226,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=ae46f37d5f099e59">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Erstellen Sie Embeddings und berechnen Sie die Ähnlichkeitsmatrix</span>
-<span class="c1"># Create embeddings and compute the similarity matrix</span>
-
-<span class="c1"># TODO: Embed all texts</span>
-<span class="c1"># TODO: Calculate cosine similarities</span>
-<span class="c1"># TODO: Print the most similar pair of texts</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7772e763656b7a78">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ef1d2a2ef064c8e3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13251,32 +13237,52 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=99db2ea21cd456a3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabe-2:-Semantische-Suchfunktion">Aufgabe 2: Semantische Suchfunktion<a class="anchor-link" href="#Aufgabe-2:-Semantische-Suchfunktion">¶</a></h2><p>Schreiben Sie eine Funktion <code>semantic_search(query, texts, embeddings_model, k=2)</code>,
-die:</p>
-<ol>
-<li>Die Anfrage embeddet</li>
-<li>Kosinus-Ähnlichkeit zu allen Texten berechnet</li>
-<li>Die Top-k ähnlichsten Texte mit ihren Scores zurückgibt</li>
-</ol>
-<p>Testen Sie Ihre Funktion mit mindestens 3 verschiedenen Anfragen.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=be974f0f21a637cc">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f599b6cf62ebe583">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">semantic_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">texts</span><span class="p">,</span> <span class="n">embeddings_model</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Semantische Suche / Semantic search."""</span>
-    <span class="c1"># TODO: Embed the query</span>
-    <span class="c1"># TODO: Embed all texts (or reuse existing embeddings)</span>
-    <span class="c1"># TODO: Calculate cosine similarity</span>
-    <span class="c1"># TODO: Return top-k results as list of (score, text) tuples</span>
-    <span class="k">pass</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6bd12251d3779625"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aufgabe-2:-Semantische-Suchfunktion">Aufgabe 2: Semantische Suchfunktion<a class="anchor-link" href="#Aufgabe-2:-Semantische-Suchfunktion">¶</a></h2><ol>
+<li>Berechnen Sie die Embeddings für <code>workshop_texts</code> vorab mit <code>embed_documents()</code>
+und konvertieren Sie sie in ein NumPy-Array</li>
+<li>Schreiben Sie eine Funktion
+<code>semantic_search(query, texts, text_embeddings, embeddings_model, k=2)</code>, die:<ul>
+<li>Die Anfrage mit <code>embed_query()</code> embeddet</li>
+<li>Kosinus-Ähnlichkeit zu allen Text-Embeddings berechnet</li>
+<li>Die Top-k ähnlichsten Texte mit ihren Scores zurückgibt</li>
+</ul>
+</li>
+<li>Testen Sie Ihre Funktion mit mindestens 3 verschiedenen Anfragen</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=bb6e7810d41e8b2e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=e756b3c55f0354b6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
@@ -13297,7 +13303,7 @@ die:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=adbb29ce5db51fcd">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=fb0b09fb098f40a0">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13316,37 +13322,40 @@ für dieselben Anfragen. Wo liegen die Unterschiede?</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9774b741c828e34c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=963c50c38d5320f8">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">keyword_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">texts</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Simple keyword search: returns texts containing the query."""</span>
     <span class="k">return</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">texts</span> <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=813fa2dfef1ec531">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d5b7036db40e12d4">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Vergleichen Sie beide Suchansätze mit den folgenden Anfragen:</span>
-<span class="c1"># Compare both search approaches with the following queries:</span>
-<span class="n">comparison_queries</span> <span class="o">=</span> <span class="p">[</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">comparison_queries</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">"Haustiere"</span><span class="p">,</span>
     <span class="s2">"pets"</span><span class="p">,</span>
     <span class="s2">"Programmierung"</span><span class="p">,</span>
     <span class="s2">"Ballsport"</span><span class="p">,</span>
 <span class="p">]</span>
-
-<span class="c1"># TODO: Für jede Anfrage: Keyword-Suche und semantische Suche ausführen</span>
-<span class="c1"># TODO: Ergebnisse vergleichen und ausgeben</span>
-<span class="c1"># TODO: For each query: Run keyword search and semantic search</span>
-<span class="c1"># TODO: Compare and print results</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=164e1ce3de35225b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>

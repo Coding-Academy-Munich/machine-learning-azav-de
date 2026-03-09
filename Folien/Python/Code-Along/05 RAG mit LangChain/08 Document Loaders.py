@@ -6,6 +6,10 @@
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -93,7 +97,15 @@ loader = TextLoader("docs/short.txt", encoding="utf-8")
 
 # %%
 
+# %% [markdown]
+#
+# Die ersten 200 Zeichen des Inhalts:
+
 # %%
+
+# %% [markdown]
+#
+# Die Metadaten des Dokuments:
 
 # %%
 
@@ -119,6 +131,14 @@ url = "https://de.wikipedia.org/wiki/Python_(Programmiersprache)"
 
 # %%
 
+# %% [markdown]
+# Quelle:
+
+# %%
+
+# %% [markdown]
+# Länge (Zeichen):
+
 # %%
 
 # %%
@@ -139,8 +159,7 @@ from langchain_community.document_loaders import PyPDFLoader
 
 # %% [markdown]
 #
-# PDFs werden **seitenweise** geladen:
-
+# PDFs werden **seitenweise** geladen — jede Seite wird ein eigenes Document:
 
 # %%
 
@@ -157,6 +176,10 @@ for page in pdf_pages:
 # laden:
 
 # %%
+
+# %% [markdown]
+#
+# Der TextLoader erzeugt nur ein einziges Document für die ganze Datei:
 
 # %%
 
@@ -194,14 +217,17 @@ for doc in all_documents:
 # %%
 from langchain_community.document_loaders import DirectoryLoader
 
-# %%
+# %% [markdown]
+#
+# Mit `glob` filtern wir nach bestimmten Dateiendungen, z.B. nur `.txt` Dateien:
 
 # %%
 
 # %%
-for doc in all_documents:
+
+# %%
+for doc in documents:
     print(f"- {doc.metadata['source']}:\t{doc.page_content[:40]}...")
-
 
 # %% [markdown]
 #
@@ -284,7 +310,6 @@ def to_uppercase(text):
     """Convert text to uppercase."""
     return text.upper()
 
-
 # %%
 def to_leetspeak(text):
     """Convert text to leetspeak."""
@@ -293,7 +318,6 @@ def to_leetspeak(text):
     for char, replacement in replacements.items():
         result = result.replace(char, replacement)
     return result
-
 
 # %%
 import gradio as gr
@@ -331,7 +355,6 @@ with gr.Blocks(title="Text Transformer") as text_demo:
 # 3. Token-Anzahl berechnen
 # 4. Gradio Interface mit Datei-Upload und URL-Eingabe
 
-
 # %%
 import gradio as gr
 
@@ -361,10 +384,8 @@ import gradio as gr
 # - `"metadata"`: Die Metadaten des Dokuments
 
 # %%
-def analyze_document(doc):
-    """Analyze a single document."""
-    pass
 
+# %%
 
 # %% [markdown]
 #
@@ -384,10 +405,8 @@ def analyze_document(doc):
 # - Bei Ausnahmen: `{"error": str(e)}` zurückgeben (mit try/except)
 
 # %%
-def load_and_analyze_text(file_path):
-    """Load text file and analyze it."""
-    pass
 
+# %%
 
 # %% [markdown]
 #
@@ -407,10 +426,8 @@ def load_and_analyze_text(file_path):
 # - Bei Ausnahmen: `{"error": str(e)}` zurückgeben
 
 # %%
-def load_and_analyze_url(url):
-    """Load URL and analyze it."""
-    pass
 
+# %%
 
 # %% [markdown]
 #
@@ -420,6 +437,14 @@ def load_and_analyze_url(url):
 #
 # - Analysieren Sie die Datei `docs/python-intro.txt`
 # - Analysieren Sie die URL `https://de.wikipedia.org/wiki/Python_(Programmiersprache)`
+
+# %%
+
+# %%
+
+# %%
+
+# %%
 
 # %%
 
@@ -452,17 +477,15 @@ def load_and_analyze_url(url):
 # - Ausgabe jeweils als `gr.Markdown`
 
 # %%
-def inspect_file(file):
-    """Inspect uploaded file."""
-    pass
 
+# %%
+import re
 
-def inspect_url(url):
-    """Inspect URL content."""
-    pass
+# %%
 
+# %%
 
-# TODO: Create Gradio Blocks interface with two tabs
+# %%
 
 # %%
 

@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ce239805a3244ed5"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=9b3ddc201e00445e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,23 +13137,55 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Workshop: RAG Chain bauen</b>
+<b>Qdrant: Vektor-Datenbank für RAG</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
 <br/>
+<div style="text-align:center;">Coding-Akademie München</div>
+<br/>
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fd06164f3daa9a40"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fd4c62c59164c8b7"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop:-RAG-Chain-bauen">Workshop: RAG Chain bauen<a class="anchor-link" href="#Workshop:-RAG-Chain-bauen">¶</a></h2><p>In diesem Workshop üben Sie:</p>
-<ol>
-<li>Eigene Dokumente zum RAG-System hinzufügen</li>
-<li>Den System-Prompt für bessere Antworten optimieren</li>
-<li>Retrieval-Parameter anpassen und vergleichen</li>
-</ol>
+<h2 id="Warum-Vektor-Datenbanken?">Warum Vektor-Datenbanken?<a class="anchor-link" href="#Warum-Vektor-Datenbanken?">¶</a></h2><ul>
+<li><strong>Problem</strong>: Semantische Suche über viele Dokumente ist aufwändig<ul>
+<li>Bei jedem Query: alle Dokumente embedden + Ähnlichkeit berechnen</li>
+</ul>
+</li>
+<li><strong>Lösung</strong>: Vektor-Datenbank<ul>
+<li>Speichert Embeddings einmal vor</li>
+<li>Nutzt spezielle Indexstrukturen (z.B. HNSW) für schnelle Suche</li>
+<li>Effizienz hängt von Konfiguration und Hardware ab, aber auch große
+Sammlungen können in wenigen Millisekunden durchsucht werden</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7a3eb5374b437cb7"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Qdrant">Qdrant<a class="anchor-link" href="#Qdrant">¶</a></h2><ul>
+<li><strong>Open Source</strong> (Apache 2.0 Lizenz)</li>
+<li>Einfach zu installieren: <code>pip install qdrant-client langchain-qdrant</code></li>
+<li>Funktioniert auf Windows und Linux</li>
+<li>Lokaler Modus ohne Server-Konfiguration</li>
+<li>Unterstützt Hybrid Search (semantische + Keyword-Suche)</li>
+<li>LangChain-Integration verfügbar</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0e129b5998f8afb9"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Installation">Installation<a class="anchor-link" href="#Installation">¶</a></h2><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>qdrant-client<span class="w"> </span>langchain-qdrant
+</pre></div>
+<p>Kein Docker, keine Server-Konfiguration nötig</p>
 </div>
 </div>
 </div>
@@ -13168,19 +13200,15 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0a01d366adef6381">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ad3756c8f414838b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span><span class="p">,</span> <span class="n">FastEmbedSparse</span><span class="p">,</span> <span class="n">RetrievalMode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.prompts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnablePassthrough</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.output_parsers</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
 </pre></div>
 </div>
 </div>
@@ -13197,7 +13225,34 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=6dc729587f317703">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7e2db8fce0ac8359"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Qdrant-Modi">Qdrant Modi<a class="anchor-link" href="#Qdrant-Modi">¶</a></h2><ol>
+<li><strong>In-Memory</strong>: Daten nur im RAM (für Tests und Experimente)<ul>
+<li><code>location=":memory:"</code></li>
+</ul>
+</li>
+<li><strong>Persistent</strong>: Daten auf Festplatte (für echte Anwendungen)<ul>
+<li><code>path="./qdrant_db"</code></li>
+</ul>
+</li>
+</ol>
+<p>Wir verwenden Qdrant über die <strong>LangChain-Integration</strong></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fd59f4b96fd299be"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Embedding-Modell-erstellen">Embedding-Modell erstellen<a class="anchor-link" href="#Embedding-Modell-erstellen">¶</a></h2><ul>
+<li>Qdrant braucht ein <strong>Embedding-Modell</strong> (wir kennen das aus der letzten Lektion)</li>
+<li>Wir verwenden OpenAI Embeddings über OpenRouter</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8e1740eb57594f9c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13207,51 +13262,311 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
     <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
     <span class="n">model</span><span class="o">=</span><span class="s2">"openai/text-embedding-3-small"</span>
 <span class="p">)</span>
-
-<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span>
-    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
-    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
-    <span class="n">model</span><span class="o">=</span><span class="s2">"mistralai/ministral-14b-2512"</span><span class="p">,</span>
-    <span class="n">temperature</span><span class="o">=</span><span class="mi">0</span>
-<span class="p">)</span>
-
-<span class="n">sparse_embeddings</span> <span class="o">=</span> <span class="n">FastEmbedSparse</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">"Qdrant/bm25"</span><span class="p">)</span>
-
-<span class="k">def</span><span class="w"> </span><span class="nf">format_docs</span><span class="p">(</span><span class="n">docs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2bca0ef1979026b1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2294504855648804"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabe-1:-Eigene-Dokumente-hinzuf%C3%BCgen">Aufgabe 1: Eigene Dokumente hinzufügen<a class="anchor-link" href="#Aufgabe-1:-Eigene-Dokumente-hinzuf%C3%BCgen">¶</a></h2><p>Erstellen Sie einen Vektor-Store mit mindestens 5 Dokumenten zu einem Thema
-Ihrer Wahl (z.B. Kochen, Sport, Geschichte, Musik...).
-Testen Sie den Retriever mit 2–3 Anfragen.</p>
+<h2 id="Vektor-Store-erstellen-und-Dokumente-hinzuf%C3%BCgen">Vektor-Store erstellen und Dokumente hinzufügen<a class="anchor-link" href="#Vektor-Store-erstellen-und-Dokumente-hinzuf%C3%BCgen">¶</a></h2><ul>
+<li><code>QdrantVectorStore.from_texts()</code> erstellt den Store und fügt Texte hinzu</li>
+<li>Embeddings werden <strong>automatisch</strong> berechnet</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=42bbe032171440ca">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8f36db37456ac22e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Erstellen Sie Ihre Dokumente / Create your documents</span>
-<span class="n">my_docs</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="c1"># TODO: Mindestens 5 Dokumente zu einem Thema</span>
-    <span class="c1"># TODO: At least 5 documents on a topic</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Neural networks can learn complex patterns"</span><span class="p">,</span>
+    <span class="s2">"Gradient descent optimizes model parameters"</span><span class="p">,</span>
+    <span class="s2">"Overfitting occurs when models memorize training data"</span><span class="p">,</span>
+    <span class="s2">"RAG combines retrieval with generation"</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=8a37b2cbd2bc626c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Erstellen Sie einen <code>QdrantVectorStore</code> aus den Texten:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4a934b25bbc8f347">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=21a3180cae49ce3b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2c3dbf2e82a0041a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Dokumente-suchen">Dokumente suchen<a class="anchor-link" href="#Dokumente-suchen">¶</a></h2><ul>
+<li><code>similarity_search()</code> findet die ähnlichsten Dokumente</li>
+<li>Parameter <code>k</code> bestimmt die Anzahl der Ergebnisse</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=892ed23675e81e73"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Suchen Sie nach "What is overfitting?":</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=54673be8a11bd194">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c0a31a96e072ad91">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d3d7b3d5fdbcb92e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Suche-mit-%C3%84hnlichkeits-Scores">Suche mit Ähnlichkeits-Scores<a class="anchor-link" href="#Suche-mit-%C3%84hnlichkeits-Scores">¶</a></h2><ul>
+<li><code>similarity_search_with_score()</code> zeigt auch einen Score</li>
+<li>Der Score ist die <strong>Kosinus-Ähnlichkeit</strong></li>
+<li><strong>Hoher Score</strong> = <strong>hohe Ähnlichkeit</strong></li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Score</th>
+<th>Bedeutung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.90+</td>
+<td>Sehr ähnlich</td>
+</tr>
+<tr>
+<td>0.50</td>
+<td>Mittelmäßig ähnlich</td>
+</tr>
+<tr>
+<td>0.10</td>
+<td>Wenig ähnlich</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=7de661db3721f64b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=dae1e8903b54bd0f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Mit Ähnlichkeits-Scores:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=40f721b8002fb1d5">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3e02b621bcf9d8b3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Was-passiert-bei-irrelevanten-Anfragen?">Was passiert bei irrelevanten Anfragen?<a class="anchor-link" href="#Was-passiert-bei-irrelevanten-Anfragen?">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=06d34b22a5f01df6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=4333c3a5a979f1d4"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Query: "What is the recipe for chocolate cake?"</p>
+<p>Ergebnisse:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=de1116ca2d95f53a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=27bce925029e89f5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Vektor-Datenbanken-liefern-immer-Ergebnisse!">Vektor-Datenbanken liefern immer Ergebnisse!<a class="anchor-link" href="#Vektor-Datenbanken-liefern-immer-Ergebnisse!">¶</a></h2><ul>
+<li>Auch bei irrelevanten Fragen gibt die Datenbank Ergebnisse zurück</li>
+<li>Sie wählt einfach die <strong>ähnlichsten</strong> Dokumente — auch wenn keines relevant ist</li>
+<li><strong>Niedriger Score</strong> = niedrige Relevanz</li>
+<li>Wir können nach Ähnlichkeit filtern, um irrelevante Ergebnisse auszuschließen</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6b4b11520aa1a44a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Ergebnisse-nach-%C3%84hnlichkeit-filtern">Ergebnisse nach Ähnlichkeit filtern<a class="anchor-link" href="#Ergebnisse-nach-%C3%84hnlichkeit-filtern">¶</a></h2><ul>
+<li>Einen Schwellenwert setzen: Nur Ergebnisse mit hoher Ähnlichkeit behalten</li>
+<li>Schwellenwert hängt von der Anwendung ab (typisch: 0.3–0.5)</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=14468e529813194a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.4</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=83f01d44115cdd10">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=823cadb3e2370ffd">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=86ce2a75015f9bac"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Metadata-verwenden">Metadata verwenden<a class="anchor-link" href="#Metadata-verwenden">¶</a></h2><ul>
+<li>Dokumente können <strong>Metadata</strong> haben (z.B. Thema, Datum, Quelle)</li>
+<li>Nützlich für zusätzliche Filterung:<ul>
+<li>Nur Dokumente eines bestimmten Themas durchsuchen</li>
+<li>Nach Datum filtern</li>
+<li>Quelle in der Antwort anzeigen</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ea647e5e74175815">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
+
+<span class="n">docs_with_meta</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Linear regression models linear relationships"</span><span class="p">,</span>
+             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">}),</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Python is a popular programming language"</span><span class="p">,</span>
+             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"Programming"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">}),</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Decision trees split data into branches"</span><span class="p">,</span>
+             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">}),</span>
+    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Gradient boosting combines many weak learners"</span><span class="p">,</span>
+             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"advanced"</span><span class="p">}),</span>
 <span class="p">]</span>
 
-<span class="c1"># TODO: Create Document objects, vectorstore, and retriever</span>
-<span class="c1"># TODO: Test with queries</span>
+<span class="n">vectorstore_meta</span> <span class="o">=</span> <span class="n">QdrantVectorStore</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
+    <span class="n">documents</span><span class="o">=</span><span class="n">docs_with_meta</span><span class="p">,</span>
+    <span class="n">embedding</span><span class="o">=</span><span class="n">embeddings</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="o">=</span><span class="s2">"docs_with_meta"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">":memory:"</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1be493a21e7ec9ba">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=aba9a5f9148fb527"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Suche-mit-Metadata">Suche mit Metadata<a class="anchor-link" href="#Suche-mit-Metadata">¶</a></h2>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=46a7874753a78a3b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13262,33 +13577,45 @@ Testen Sie den Retriever mit 2–3 Anfragen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ec6d74aa2c857da1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=fb443990463a70e5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabe-2:-System-Prompt-verbessern">Aufgabe 2: System-Prompt verbessern<a class="anchor-link" href="#Aufgabe-2:-System-Prompt-verbessern">¶</a></h2><p>Erstellen Sie eine RAG Chain und verbessern Sie den System-Prompt:</p>
-<ul>
-<li>Die Antwort soll in <strong>Stichpunkten</strong> gegeben werden</li>
-<li>Das LLM soll die <strong>verwendete Quelle zitieren</strong></li>
-<li>Bei irrelevanten Fragen soll es sagen: "Dazu habe ich keine Informationen"</li>
+<h2 id="Metadata-Filterung">Metadata-Filterung<a class="anchor-link" href="#Metadata-Filterung">¶</a></h2><ul>
+<li>Mit <code>filter</code> kann die Suche auf bestimmte Metadata-Werte eingeschränkt werden</li>
+<li>Qdrant verwendet dafür eigene Filter-Objekte</li>
 </ul>
-<p>Testen Sie mit 3 Fragen (2 relevante, 1 irrelevante).</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=ee5940e16f72f8b3">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c2e2a26891cbfaaf">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create an improved system prompt</span>
-<span class="c1"># TODO: Build RAG chain</span>
-<span class="c1"># TODO: Test with 3 questions</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qdrant_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Filter</span><span class="p">,</span> <span class="n">FieldCondition</span><span class="p">,</span> <span class="n">MatchValue</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4d43cc457d36826b">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=979d3dc41979d8ac">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">ml_filter</span> <span class="o">=</span> <span class="n">Filter</span><span class="p">(</span>
+    <span class="n">must</span><span class="o">=</span><span class="p">[</span><span class="n">FieldCondition</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"metadata.topic"</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="n">MatchValue</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s2">"ML"</span><span class="p">))]</span>
+<span class="p">)</span>
+
+<span class="n">results_filtered</span> <span class="o">=</span> <span class="n">vectorstore_meta</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span>
+    <span class="s2">"machine learning techniques"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">ml_filter</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0ed85d0f4e371256">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13299,25 +13626,81 @@ Testen Sie den Retriever mit 2–3 Anfragen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=74abbd4111c509a9"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0956fb32644e1bb6"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabe-3:-Retrieval-Parameter-vergleichen">Aufgabe 3: Retrieval-Parameter vergleichen<a class="anchor-link" href="#Aufgabe-3:-Retrieval-Parameter-vergleichen">¶</a></h2><p>Testen Sie verschiedene Werte für <code>k</code> (1, 2, 3) und vergleichen Sie die
-Antwortqualität. Verwenden Sie dieselbe Frage für jeden Wert.</p>
-<p>Beobachten Sie: Wie verändert sich die Antwort mit mehr/weniger Kontext?</p>
+<h2 id="Retriever-erstellen">Retriever erstellen<a class="anchor-link" href="#Retriever-erstellen">¶</a></h2><ul>
+<li>Ein <strong>Retriever</strong> ist die Standard-Schnittstelle in LangChain</li>
+<li>Wird für RAG-Chains verwendet</li>
+<li>Einfach aus dem Vektor-Store erstellen</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=224e7a8ff99128e2">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=6e237f641f02626e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Erstellen Sie einen Retriever aus dem Vektor-Store:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8abd1587fd526542">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create retrievers with k=1, k=2, k=3</span>
-<span class="c1"># TODO: Build RAG chains for each</span>
-<span class="c1"># TODO: Compare answers for the same question</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=603722d053b4256f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1dbe863aacca0c51"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Persistenter-Speicher">Persistenter Speicher<a class="anchor-link" href="#Persistenter-Speicher">¶</a></h2><ul>
+<li>Für echte Anwendungen: Daten auf Festplatte speichern</li>
+<li>Qdrant speichert Daten lokal mit <code>path=</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=61781d17845b2c18"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<div class="highlight"><pre><span></span><span class="n">vectorstore</span> <span class="o">=</span> <span class="n">QdrantVectorStore</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
+    <span class="n">documents</span><span class="o">=</span><span class="n">documents</span><span class="p">,</span>
+    <span class="n">embedding</span><span class="o">=</span><span class="n">embeddings</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="o">=</span><span class="s2">"my_docs"</span><span class="p">,</span>
+    <span class="n">path</span><span class="o">=</span><span class="s2">"./qdrant_db"</span><span class="p">,</span>  <span class="c1"># Daten werden hier gespeichert</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=dcd75b04a6b5183c"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
+<li><strong>Qdrant</strong>: Open-Source Vektor-Datenbank, einfach installierbar ohne Server-Konfiguration</li>
+<li><strong>LangChain-Integration</strong>: <code>QdrantVectorStore</code> für nahtlose Nutzung</li>
+<li><strong>Ähnlichkeits-Scores</strong>: Hoch = ähnlich (Kosinus-Ähnlichkeit)</li>
+<li><strong>Metadata und Filterung</strong>: Dokumente können Metadaten haben und danach gefiltert werden</li>
+<li><strong>Speicher</strong>: In-Memory für Tests, persistent auf Festplatte für Produktion</li>
+<li><strong>Achtung</strong>: Liefert immer Ergebnisse — Ähnlichkeits-Filter verwenden!</li>
+</ul>
+<p><strong>Nächster Schritt</strong>: Hybrid Search — semantische + Keyword-Suche kombinieren!</p>
 </div>
 </div>
 </div>

@@ -6,6 +6,10 @@
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -38,7 +42,7 @@
 # pip install qdrant-client langchain-qdrant
 # ```
 #
-# Keine Docker-Installation und keine Server-Konfiguration nötig.
+# Kein Docker, keine Server-Konfiguration nötig
 
 # %%
 # ! pip install qdrant-client langchain-qdrant
@@ -92,7 +96,11 @@ texts = [
     "RAG combines retrieval with generation",
 ]
 
-# TODO: Create QdrantVectorStore from texts
+# %% [markdown]
+#
+# Erstellen Sie einen `QdrantVectorStore` aus den Texten:
+
+# %%
 
 # %%
 
@@ -103,8 +111,11 @@ texts = [
 # - `similarity_search()` findet die ähnlichsten Dokumente
 # - Parameter `k` bestimmt die Anzahl der Ergebnisse
 
+# %% [markdown]
+#
+# Suchen Sie nach "What is overfitting?":
+
 # %%
-# TODO: Search for "What is overfitting?"
 
 # %%
 
@@ -124,6 +135,9 @@ texts = [
 
 # %%
 
+# %% [markdown]
+# Mit Ähnlichkeits-Scores:
+
 # %%
 
 # %% [markdown]
@@ -131,6 +145,11 @@ texts = [
 # ## Was passiert bei irrelevanten Anfragen?
 
 # %%
+
+# %% [markdown]
+# Query: "What is the recipe for chocolate cake?"
+#
+# Ergebnisse:
 
 # %%
 
@@ -205,6 +224,15 @@ vectorstore_meta = QdrantVectorStore.from_documents(
 from qdrant_client.models import Filter, FieldCondition, MatchValue
 
 # %%
+ml_filter = Filter(
+    must=[FieldCondition(key="metadata.topic", match=MatchValue(value="ML"))]
+)
+
+results_filtered = vectorstore_meta.similarity_search(
+    "machine learning techniques", k=4, filter=ml_filter
+)
+
+# %%
 
 # %% [markdown]
 #
@@ -214,8 +242,11 @@ from qdrant_client.models import Filter, FieldCondition, MatchValue
 # - Wird für RAG-Chains verwendet
 # - Einfach aus dem Vektor-Store erstellen
 
+# %% [markdown]
+#
+# Erstellen Sie einen Retriever aus dem Vektor-Store:
+
 # %%
-# TODO: Create retriever from vectorstore
 
 # %%
 
@@ -241,12 +272,11 @@ from qdrant_client.models import Filter, FieldCondition, MatchValue
 #
 # ## Zusammenfassung
 #
-# - **Qdrant**: Open-Source Vektor-Datenbank
-# - Einfach installierbar, keine Server-Konfiguration nötig
+# - **Qdrant**: Open-Source Vektor-Datenbank, einfach installierbar ohne Server-Konfiguration
 # - **LangChain-Integration**: `QdrantVectorStore` für nahtlose Nutzung
 # - **Ähnlichkeits-Scores**: Hoch = ähnlich (Kosinus-Ähnlichkeit)
-# - **Metadata**: Dokumente können Metadaten haben und danach gefiltert werden
-# - **Persistent**: Daten bleiben auf der Festplatte erhalten
+# - **Metadata und Filterung**: Dokumente können Metadaten haben und danach gefiltert werden
+# - **Speicher**: In-Memory für Tests, persistent auf Festplatte für Produktion
 # - **Achtung**: Liefert immer Ergebnisse — Ähnlichkeits-Filter verwenden!
 #
 # **Nächster Schritt**: Hybrid Search — semantische + Keyword-Suche kombinieren!

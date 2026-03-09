@@ -6,6 +6,10 @@
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -54,8 +58,7 @@ embeddings = OpenAIEmbeddings(
 # - **Exakte Übereinstimmung nötig**: Wenn der Nutzer genau dieses Wort meint,
 #   nicht etwas Ähnliches
 #
-# Das Embedding-Modell bildet seltene Begriffe manchmal auf verwandte aber
-# **falsche** Konzepte ab
+# → Embedding-Modell bildet seltene Begriffe manchmal auf **falsche** Konzepte ab
 
 # %% [markdown]
 #
@@ -89,10 +92,22 @@ semantic_store = QdrantVectorStore.from_texts(
 # ## Test 1: Semantische Suche funktioniert gut
 
 # %%
+results = semantic_store.similarity_search("How do neural networks learn?", k=2)
+
+# %% [markdown]
+# Abfrage: "How do neural networks learn?"
+
+# %%
 
 # %% [markdown]
 #
 # ## Test 2: Semantische Suche versagt bei Fachbegriffen
+
+# %%
+results_mse = semantic_store.similarity_search("RMSE", k=2)
+
+# %% [markdown]
+# Abfrage: "RMSE"
 
 # %%
 
@@ -133,6 +148,10 @@ semantic_store = QdrantVectorStore.from_texts(
 # 3. Dokument C          3. Dokument D        3. Dokument B (semantisch)
 #                                              4. Dokument D (keyword)
 # ```
+#
+# Dokument C steht in beiden Listen (#3 semantisch, #1 keyword). Dokumente in
+# beiden Listen bekommen einen kombinierten Bonus, und der #1-Keyword-Rang gibt
+# Dokument C den besten Gesamtscore.
 
 # %% [markdown]
 #
@@ -145,7 +164,7 @@ semantic_store = QdrantVectorStore.from_texts(
 # - `FastEmbedSparse` erzeugt die Sparse Embeddings
 
 # %%
-# ! pip install fastembed-gpu
+# ! pip install fastembed
 
 # %%
 sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
@@ -154,9 +173,12 @@ sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 #
 # ## Hybrid-Vektor-Store erstellen
 
+# %% [markdown]
+#
+# Erstellen Sie einen `QdrantVectorStore` mit `RetrievalMode.HYBRID`
+# unter Verwendung von `embeddings` und `sparse_embeddings`:
+
 # %%
-# TODO: Create QdrantVectorStore with RetrievalMode.HYBRID
-# using both embeddings and sparse_embeddings
 
 # %%
 
@@ -196,9 +218,7 @@ query = "RMSE"
 # - **Hybrid Search**: Empfohlen für jedes Produktivsystem, besonders wenn
 #   Dokumente Fachbegriffe, Identifikatoren oder domänenspezifische
 #   Abkürzungen enthalten
-# - Hybrid Search hat einen geringen zusätzlichen Rechenaufwand
-#   (Sparse-Embedding-Berechnung), aber die Verbesserung der Abrufqualität
-#   ist erheblich
+# - Geringer Mehraufwand, deutliche Qualitätsverbesserung
 
 # %% [markdown]
 #

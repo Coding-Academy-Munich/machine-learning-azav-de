@@ -6,6 +6,10 @@
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -197,6 +201,13 @@ awkward_chain = (
 from langchain_core.runnables import RunnableParallel
 
 # %%
+analysis_chain = RunnableParallel(
+    sentiment=sentiment_chain,
+    keywords=keywords_chain,
+    summary=summary_chain,
+    topics=topics_chain,
+    tone=tone_chain,
+)
 
 # %%
 
@@ -342,7 +353,6 @@ rest_of_chain = RunnablePassthrough()
 
 # %%
 
-
 # %% [markdown]
 #
 # ### Alternative: Lambda
@@ -357,13 +367,14 @@ summarize_template = ChatPromptTemplate.from_messages(
     ]
 )
 
-# %%
+# %% [markdown]
+#
 # Beide Varianten funktionieren - wählen Sie, was klarer ist:
 
-# Idiomatisches LangChain
+# %%
 chain1 = {"text": RunnablePassthrough()} | summarize_template | llm
 
-# Expliziter mit Lambda
+# %%
 chain2 = (lambda x: {"text": x}) | summarize_template | llm
 
 # %% [markdown]
@@ -402,6 +413,8 @@ french_template = ...
 spanish_template = ...
 italian_template = ...
 
+# %%
+
 # %% [markdown]
 #
 # ### Aufgabe 2: Einzelne Chains erstellen
@@ -413,6 +426,8 @@ french_chain = ...
 spanish_chain = ...
 italian_chain = ...
 
+# %%
+
 # %% [markdown]
 #
 # ### Aufgabe 3: Parallele Chain erstellen
@@ -421,6 +436,8 @@ italian_chain = ...
 
 # %%
 multi_translator = ...
+
+# %%
 
 # %% [markdown]
 #
@@ -447,14 +464,20 @@ test_sentence = "Künstliche Intelligenz verändert die Art, wie wir arbeiten un
 # %%
 import gradio as gr
 
+# %% [markdown]
+# Implementieren Sie die Funktion `translate_to_all`:
+
 # %%
 def translate_to_all(text):
     """Übersetzt Text in alle Sprachen."""
-    # TODO: Implementieren Sie die Funktion
     pass
 
 # %%
+
+# %%
 translator_demo = ... # gr.Interface(...)
+
+# %%
 
 # %%
 

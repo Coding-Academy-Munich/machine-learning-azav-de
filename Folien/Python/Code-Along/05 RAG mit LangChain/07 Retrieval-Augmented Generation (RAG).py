@@ -77,8 +77,7 @@ llm = ChatOpenAI(
 #
 # ## Beispiel: Mit vs. Ohne Kontext
 #
-# Nehmen wir an, wir haben ein Dokument mit folgendem Inhalt als Kontext
-# geladen:
+# Beispiel-Dokument als Kontext:
 
 # %%
 context = """\
@@ -163,11 +162,12 @@ response_with_context = llm.invoke(prompt_with_context)
 # <br>
 # <ul>
 #   <li>Embeddings: Repräsentation von Text als Vektoren</li>
-#   <li>Ähnlichkeit von Vektoren mathematisch definierbar</li>
+#   <li>Ähnlichkeit von Vektoren mathematisch definierbar
 #   <ul>
 #     <li>Beispiel: $|\vec a - \vec b|$ (Euklidische Distanz)</li>
 #     <li>Oft besser: Kosinus-Ähnlichkeit<br>(Winkel zwischen Vektoren)</li>
 #   </ul>
+#   </li>
 #   <li>Idee: "ähnliche" Texte → "ähnliche" Vektoren</li>
 #   <li>Semantische Suche: Finde ähnliche Vektoren</li>
 # </ul>
@@ -250,19 +250,24 @@ response_with_context = llm.invoke(prompt_with_context)
 
 # %% [markdown]
 #
-# ## Wie LangChain RAG vereinfacht
+# ## Herausforderungen ohne Framework
 #
-# **Ohne Framework**:
-# - Dokumente laden und chunken
-# - Embeddings manuell erstellen
-# - Vektor-Datenbank einrichten
-# - Retrieval-Logik programmieren
-# - LLM-Integration schreiben
-# - ~200-300 Zeilen Code
+# - Dokumente laden und in Stücke aufteilen (Chunking)
+# - Embeddings manuell erstellen und verwalten
+# - Vektor-Datenbank einrichten und konfigurieren
+# - Retrieval-Logik selbst programmieren
+# - LLM-Integration von Hand schreiben
 #
-# **Mit LangChain**:
-# - Komponenten zusammenstecken
-# - ~30-50 Zeilen Code
+# **Ergebnis**: ~200-300 Zeilen komplexer Code
+
+# %% [markdown]
+#
+# ## Wie LangChain hilft
+#
+# - Fertige Bausteine für jeden RAG-Schritt
+# - Komponenten einfach zusammenstecken
+# - Viele Datenquellen und Vektor-Datenbanken unterstützt
+# - Ergebnis: ~30-50 Zeilen Code
 #
 # **Darum nutzen wir LangChain von Anfang an!**
 
@@ -270,12 +275,11 @@ response_with_context = llm.invoke(prompt_with_context)
 #
 # ## Was wir lernen werden
 #
-# 1. **Document Loaders**: Dokumente aus verschiedenen Quellen laden
-# 2. **Text Chunking**: Dokumente in handhabbare Stücke aufteilen
-# 3. **Vector Embeddings**: Wie Text als Vektoren dargestellt wird
-# 4. **Qdrant**: Vektor-Datenbank mit Hybrid Search
-# 5. **RAG mit LangChain**: Alles zusammenbauen
-# 6. **Workshop**: Eigenes RAG-System mit Gradio-UI
+# 1. **Dokumente laden und aufteilen**: Document Loaders und Text Chunking
+# 2. **Vector Embeddings**: Wie Text als Vektoren dargestellt wird
+# 3. **Vektor-Datenbank (Qdrant)**: Speichern und Suchen mit Hybrid Search
+# 4. **RAG mit LangChain**: Alles zusammenbauen
+# 5. **Workshop**: Eigenes RAG-System mit Gradio-UI
 #
 # **Ziel**: Ein funktionierendes Q&A-System über Ihre eigenen Dokumente!
 
@@ -291,4 +295,43 @@ response_with_context = llm.invoke(prompt_with_context)
 #
 # **Nächster Schritt**: Dokumente laden mit Document Loaders!
 
-# %%
+# %% [markdown]
+#
+# ## Workshop: RAG vs. Fine-Tuning
+#
+# Entscheiden Sie für jedes Szenario, ob **RAG** oder **Fine-Tuning** besser
+# geeignet ist, und begründen Sie Ihre Wahl kurz.
+
+# %% [markdown]
+#
+# **Szenario 1:** Ein Krankenhaus möchte einen Chatbot erstellen, der Ärzten
+# Informationen aus den neuesten medizinischen Leitlinien gibt. Die Leitlinien
+# werden regelmäßig aktualisiert.
+
+# %% [markdown]
+# *Antwort:* 
+
+# %% [markdown]
+#
+# **Szenario 2:** Ein Unternehmen möchte, dass ein LLM alle E-Mails in einem
+# bestimmten formellen Stil schreibt, der zur Markenidentität passt.
+
+# %% [markdown]
+# *Antwort:* 
+
+# %% [markdown]
+#
+# **Szenario 3:** Eine Anwaltskanzlei möchte einen Assistenten, der Fragen zu
+# den Verträgen und internen Dokumenten der Kanzlei beantworten kann.
+
+# %% [markdown]
+# *Antwort:* 
+
+# %% [markdown]
+#
+# **Szenario 4:** Ein Medizintechnik-Unternehmen möchte, dass ein LLM
+# Befundberichte in einem spezifischen medizinischen Fachformat ausgibt, das
+# dem klinikinternen Standard entspricht.
+
+# %% [markdown]
+# *Antwort:* 

@@ -35,7 +35,7 @@ llm = ChatOpenAI(
 # Wir haben einen langen Text, den wir folgendermaßen verarbeiten wollen:
 #
 # - Zusammenfassen des Textes
-# - Übersetzen der Zusammenfassung ins Englische
+# - Übersetzen der Zusammenfassung in eine andere Sprache
 #
 # Für jeden Schritt erstellen wir eine eigene Chain.
 
@@ -43,7 +43,7 @@ llm = ChatOpenAI(
 sample_text = """\
 Python ist eine vielseitige, interpretierte Programmiersprache, die 1991 von
 Guido van Rossum entwickelt wurde. Sie zeichnet sich durch ihre klare, lesbare
-Syntax aus und unterstützt mehrere Programmiierparadigmen wie objektorientierte,
+Syntax aus und unterstützt mehrere Programmierparadigmen wie objektorientierte,
 imperative und funktionale Programmierung. Python wird heute in vielen Bereichen
 eingesetzt, darunter Webentwicklung, Datenanalyse, künstliche Intelligenz,
 wissenschaftliches Rechnen und Automatisierung. Die große Standardbibliothek und
@@ -83,7 +83,6 @@ summarize_template = ChatPromptTemplate.from_messages(
 
 # %%
 
-
 # %%
 
 # %%
@@ -94,7 +93,7 @@ summarize_template = ChatPromptTemplate.from_messages(
 #
 # ## Text übersetzen
 #
-# Wir erstellen eine zweite Chain für die Übersetzung eines Textes ins Englische.
+# Wir erstellen eine zweite Chain für die Übersetzung eines Textes in die jeweils andere Sprache.
 
 # %%
 simple_translate_template = ChatPromptTemplate.from_messages(
@@ -109,7 +108,6 @@ simple_translate_template = ChatPromptTemplate.from_messages(
 # %%
 
 # %%
-
 
 # %% [markdown]
 #
@@ -209,7 +207,6 @@ def process_greeting(func):
 # %%
 
 # %%
-
 
 # %% [markdown]
 #
@@ -319,7 +316,7 @@ from langchain_core.runnables import RunnablePassthrough
 #
 # Erstellen Sie Chains mit **festem Verhalten**:
 # - Zusammenfassen eines Textes
-# - Einen Text ins Englische übersetzen
+# - Einen Text in eine andere Sprache übersetzen
 # - Einen Text in einen lockeren Stil umwandeln
 
 # %% [markdown]
@@ -342,12 +339,14 @@ simple_summary_template = ChatPromptTemplate.from_messages(
 # %%
 simple_summary_chain = ...
 
+# %%
+
 # %% [markdown]
 #
 # #### Chain um einen Text zu übersetzen
 #
-# Erstellen Sie eine Chain, die einen Text ins Englische übersetzt. Folgen Sie
-# dem gleichen Muster wie zuvor.
+# Erstellen Sie eine Chain, die einen Text in die jeweils andere Sprache
+# übersetzt. Folgen Sie dem gleichen Muster wie zuvor.
 
 # %%
 simple_translate_template = ChatPromptTemplate.from_messages(
@@ -360,6 +359,7 @@ simple_translate_template = ChatPromptTemplate.from_messages(
 # %%
 simple_translate_chain = ...
 
+# %%
 # %% [markdown]
 #
 # #### Chain um einen Text in einen lockeren Stil umzuwandeln
@@ -378,6 +378,8 @@ simple_style_template = ChatPromptTemplate.from_messages(
 # %%
 simple_style_chain = ...
 
+# %%
+
 # %% [markdown]
 #
 # ### Verketten der Chains
@@ -387,6 +389,8 @@ simple_style_chain = ...
 
 # %%
 simple_pipeline = ...
+
+# %%
 
 # %%
 test_text = """\
@@ -448,21 +452,32 @@ priorisieren.
 summary_template = ...
 
 # %%
+
+# %%
 summary_chain = ...
 
+# %%
 
 # %%
 translation_template = ...
 
 # %%
+
+# %%
 translation_chain = ...
+
+# %%
 
 # %%
 style_template = ...
 
 # %%
+
+# %%
 style_chain = ...
 
+
+# %%
 
 # %% [markdown]
 #
@@ -479,13 +494,9 @@ style_chain = ...
 # %%
 def transform_content(text, target_language, style):
     """Transform content through the pipeline."""
-    # TODO: Implement:
-    # 1. Summarize the text
-    # 2. Translate to target_language
-    # 3. Apply style
-    # Return dict with 'summary', 'translation', 'final'
     pass
 
+# %%
 
 # %% [markdown]
 #
@@ -499,35 +510,35 @@ def transform_content(text, target_language, style):
 
 # %%
 
+# %% [markdown]
+# ### Summary
+
 # %%
-print("=== Summary ===")
+
+# %% [markdown]
+# ### Translation
+
+# %%
+
+# %% [markdown]
+# ### Styled
 
 # %%
 
 # %%
-print("=== Translation ===")
+
+# %% [markdown]
+# ### Summary
 
 # %%
 
-# %%
-print("=== Styled ===")
+# %% [markdown]
+# ### Translation
 
 # %%
 
-# %%
-
-# %%
-print("=== Summary ===")
-
-# %%
-
-# %%
-print("=== Translation ===")
-
-# %%
-
-# %%
-print("=== Styled ===")
+# %% [markdown]
+# ### Styled
 
 # %%
 

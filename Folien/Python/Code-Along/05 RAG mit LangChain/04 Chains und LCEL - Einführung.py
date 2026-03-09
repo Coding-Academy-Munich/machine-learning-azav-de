@@ -23,7 +23,7 @@
 # translation = llm.invoke("Übersetze: " + summary.content)
 # ```
 #
-# Das funktioniert, aber es ist **umständlich**.
+# → Funktioniert, aber **umständlich**
 
 # %% [markdown]
 #
@@ -67,6 +67,9 @@ llm = ChatOpenAI(
 )
 
 # %%
+template = ChatPromptTemplate.from_messages(
+    [("system", "Du bist ein hilfreicher Assistent."), ("human", "{input}")]
+)
 
 # %%
 
@@ -108,7 +111,6 @@ from langchain_core.output_parsers import StrOutputParser
 # %%
 
 # %%
-
 
 # %%
 
@@ -160,13 +162,19 @@ explanation_chain = explanation_template | llm | output_parser
 # %%
 explanation_chain.invoke({"input": "Python"})
 
-
 # %%
 import gradio as gr
 
 # %%
 
 # %%
+
+# %% [markdown]
+#
+# Starten Sie die Demo:
+#
+# - Für Vorlesungen: `explanation_demo.launch(server_name="0.0.0.0")`
+# - Ansonsten: `explanation_demo.launch()`
 
 # %%
 
@@ -221,6 +229,8 @@ import gradio as gr
 # %%
 haiku_template = ...
 
+# %%
+
 # %% [markdown]
 #
 # ### Aufgabe 2: Chain erstellen
@@ -230,6 +240,8 @@ haiku_template = ...
 
 # %%
 haiku_chain = ...
+
+# %%
 
 # %% [markdown]
 #
@@ -261,11 +273,11 @@ import gradio as gr
 # %%
 def generate_haiku(topic):
     """Generiert ein Haiku zum gegebenen Thema."""
-    # TODO: Implementieren Sie die Funktion
     pass
 
 # %%
 
+# %%
 
 # %%
 

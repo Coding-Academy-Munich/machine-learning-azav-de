@@ -102,6 +102,10 @@ template = ChatPromptTemplate.from_messages(
 
 # %%
 
+# %%
+
+# %%
+
 # %% [markdown]
 #
 # ## Aber Moment... was wurde wirklich gesendet?
@@ -142,14 +146,21 @@ template = ChatPromptTemplate.from_messages(
 # **Wichtig:** Diese Variablen müssen gesetzt sein, **bevor** LangChain
 # importiert wird!
 
+# %% [markdown]
+# LangSmith Tracing:
+
 # %%
-print(f"LangSmith Tracing: {os.getenv('LANGSMITH_TRACING')}")
-print(f"LangSmith Project: {os.getenv('LANGSMITH_PROJECT')!r}")
+
+# %% [markdown]
+# LangSmith Project:
+
+# %%
+
+# %%
 if os.getenv("LANGSMITH_API_KEY"):
     print("LangSmith API Key: configured")
 else:
     print("Warning: LANGSMITH_API_KEY not set!")
-
 
 # %% [markdown]
 #
@@ -162,6 +173,10 @@ else:
 # starten und noch einmal ausführen.)
 #
 # Schauen wir uns noch einen Aufruf an:
+
+# %%
+
+# %%
 
 # %%
 
@@ -263,12 +278,12 @@ messages = chat_template.invoke(
     }
 )
 
-# %%
 
 # %%
 
 # %%
 
+# %%
 
 # %% [markdown]
 #
@@ -284,7 +299,6 @@ def create_openrouter_llm():
         model=model,
     )
 
-
 # %%
 EXPERT_PROMPT = """Du bist ein {topic}-Experte. Dein Stil ist: {style}"""
 
@@ -293,7 +307,7 @@ EXPERT_PROMPT = """Du bist ein {topic}-Experte. Dein Stil ist: {style}"""
 class TemplateChatbot:
     """A chatbot using prompt templates."""
 
-    def __init__(self, topic, style="freundlich und hilfsbereit"):
+    def __init__(self, topic, style="friendly and helpful"):
         self.llm = create_openrouter_llm()
         self.topic = topic
         self.style = style
@@ -324,7 +338,6 @@ class TemplateChatbot:
         self.history.append(response)
 
         return response.content
-
 
 # %% [markdown]
 #
@@ -393,19 +406,17 @@ TEACHING_STYLES = {
     "Einfach": "Du erklärst alles so einfach wie möglich.",
 }
 
+# %%
 
 # %%
-def create_tutor_response(message, history, topic, style):
-    """Tutor chatbot with configurable topic and style."""
-    # TODO: Create template and generate response
-    pass
+
+# %%
+
+# %%
 
 # %% [markdown]
 #
 # ### Teil 2: Gradio Interface
-
-# %%
-# TODO: Create ChatInterface with topic and style inputs
 
 # %%
 
@@ -423,6 +434,10 @@ def create_tutor_response(message, history, topic, style):
 #    - Wie wurde `{topic}` ersetzt?
 #    - Welcher Lehrstil wurde verwendet?
 #    - Wie viele Token wurden verbraucht?
+
+# %%
+
+# %%
 
 # %%
 

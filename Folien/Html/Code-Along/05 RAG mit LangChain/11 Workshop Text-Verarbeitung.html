@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3b6f4b7a76b39c88"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2c07ea7e2eac6695"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13142,10 +13142,12 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
 <br/>
+<div style="text-align:center;">Coding-Akademie München</div>
+<br/>
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=39dc96a5b2531e9f"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=89b64c7529f23388"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Workshop:-Text-Verarbeitung">Workshop: Text-Verarbeitung<a class="anchor-link" href="#Workshop:-Text-Verarbeitung">¶</a></h2><p>In diesem Workshop üben Sie die Schritte der Text-Verarbeitung:</p>
@@ -13154,9 +13156,8 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <li>Encoding-Probleme reparieren mit <code>ftfy</code></li>
 <li>Web-Text normalisieren mit <code>clean-text</code></li>
 <li>Haupttext aus HTML extrahieren mit <code>trafilatura</code></li>
-<li>Text bereinigen und aufteilen</li>
-<li>Mit Chunk-Parametern experimentieren</li>
-<li>Verschiedene Splitter vergleichen</li>
+<li>Bereinigung und Chunking kombinieren</li>
+<li>Chunk-Parameter und Splitter vergleichen</li>
 </ol>
 </div>
 </div>
@@ -13207,7 +13208,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=66f9306ebf8a8900">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5232095e17b4564b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13217,8 +13218,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"=== Before ==="</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">messy_report</span><span class="p">)</span>
-
-<span class="c1"># TODO: Apply clean_text() and print the result</span>
 </pre></div>
 </div>
 </div>
@@ -13257,7 +13256,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=67b8ba4d284483be">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=dedae3bfb2c1c8c5">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13267,8 +13266,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"=== Before ==="</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">encoded_text</span><span class="p">)</span>
-
-<span class="c1"># TODO: Apply ftfy.fix_text() and clean_text(), print the result</span>
 </pre></div>
 </div>
 </div>
@@ -13330,7 +13327,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=8c6c0ce459281ada">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=440f8a42312f2ca4">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13340,8 +13337,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"=== Before ==="</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">scraped</span><span class="p">)</span>
-
-<span class="c1"># TODO: Apply clean() with different options, print the results</span>
 </pre></div>
 </div>
 </div>
@@ -13402,7 +13397,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=7ccf1e624afb6d68">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c6f44d296af24e2e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13412,8 +13407,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">"=== Raw HTML (first 500 chars) ==="</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">html_content</span><span class="p">[:</span><span class="mi">500</span><span class="p">])</span>
-
-<span class="c1"># TODO: Use trafilatura.extract() to extract the main text and print it</span>
 </pre></div>
 </div>
 </div>
@@ -13455,17 +13448,12 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=de400c2603c3677b">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=429de531aee18e46">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">clean_and_chunk</span><span class="p">(</span><span class="n">filepath</span><span class="p">,</span> <span class="n">chunk_size</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">chunk_overlap</span><span class="o">=</span><span class="mi">50</span><span class="p">):</span>
-    <span class="c1"># TODO: Read the file</span>
-    <span class="c1"># TODO: Clean the text with clean_text()</span>
-    <span class="c1"># TODO: Create a RecursiveCharacterTextSplitter</span>
-    <span class="c1"># TODO: Split and return the chunks</span>
-    <span class="k">pass</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
@@ -13482,12 +13470,19 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=187ffbf89b2e54a4">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=f17ad47de94b3a53"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Anzahl Chunks:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f3e3bfb1e6d9b3cb">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13554,20 +13549,46 @@ Beobachten Sie: Wie verändern sich die Chunks?</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=14e124d0f5dcfc42">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1f86bb0c99f929bd">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Experimentieren Sie mit verschiedenen Parametern:</span>
-<span class="c1"># Experiment with different parameters:</span>
-<span class="n">chunk_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">chunk_sizes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">500</span><span class="p">]</span>
 <span class="n">overlap_percentages</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">20</span><span class="p">,</span> <span class="mi">50</span><span class="p">]</span>
-
-<span class="c1"># TODO: Erstellen Sie für jede Kombination einen Splitter</span>
-<span class="c1"># TODO: Geben Sie Anzahl Chunks und ersten Chunk aus</span>
-<span class="c1"># TODO: Create a splitter for each combination</span>
-<span class="c1"># TODO: Print number of chunks and first chunk</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0c9990adee8edf30">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=3587288dd5c52f3d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=478780ed2c154373">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
@@ -13587,17 +13608,12 @@ auf demselben Text:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=1389fe45c87c46bd">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0f4e37c1ee7919b3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Erstellen Sie beide Splitter</span>
-<span class="c1"># TODO: Splitten Sie den Text</span>
-<span class="c1"># TODO: Vergleichen Sie die Ergebnisse</span>
-<span class="c1"># TODO: Create both splitters</span>
-<span class="c1"># TODO: Split the text</span>
-<span class="c1"># TODO: Compare the results</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>

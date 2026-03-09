@@ -6,6 +6,10 @@
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -60,14 +64,10 @@ def format_docs(docs):
 # Testen Sie den Retriever mit 2–3 Anfragen.
 
 # %%
-# Erstellen Sie Ihre Dokumente / Create your documents
-my_docs = [
-    # TODO: Mindestens 5 Dokumente zu einem Thema
-    # TODO: At least 5 documents on a topic
-]
 
-# TODO: Create Document objects, vectorstore, and retriever
-# TODO: Test with queries
+# %%
+
+# %%
 
 # %%
 
@@ -83,9 +83,15 @@ my_docs = [
 # Testen Sie mit 3 Fragen (2 relevante, 1 irrelevante).
 
 # %%
-# TODO: Create an improved system prompt
-# TODO: Build RAG chain
-# TODO: Test with 3 questions
+
+# %%
+
+# %%
+test_questions = [
+    "Wie macht man Risotto?",
+    "Was ist Tiramisu?",
+    "Wie repariere ich mein Fahrrad?",
+]
 
 # %%
 
@@ -99,6 +105,6 @@ my_docs = [
 # Beobachten Sie: Wie verändert sich die Antwort mit mehr/weniger Kontext?
 
 # %%
-# TODO: Create retrievers with k=1, k=2, k=3
-# TODO: Build RAG chains for each
-# TODO: Compare answers for the same question
+question = "Welche italienischen Gerichte gibt es?"
+
+# %%

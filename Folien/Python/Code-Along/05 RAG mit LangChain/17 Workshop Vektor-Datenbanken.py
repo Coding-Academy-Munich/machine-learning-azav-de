@@ -6,6 +6,10 @@
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -13,9 +17,8 @@
 #
 # In diesem Workshop üben Sie:
 # 1. Einen Vektor-Store mit eigenen Dokumenten erstellen
-# 2. Semantische Suche testen und Distanz-Scores interpretieren
-# 3. Irrelevante Anfragen erkennen und filtern
-# 4. Einen Hybrid-Vektor-Store erstellen und vergleichen
+# 2. Distanz-Scores interpretieren und irrelevante Anfragen filtern
+# 3. Einen Hybrid-Vektor-Store erstellen und vergleichen
 
 # %%
 import os
@@ -42,15 +45,6 @@ embeddings = OpenAIEmbeddings(
 # Testen Sie die semantische Suche mit 2-3 verschiedenen Anfragen.
 
 # %%
-my_texts = [
-    # TODO: Add at least 5 texts about a topic
-]
-
-# TODO: Create a QdrantVectorStore from your texts
-# my_store = QdrantVectorStore.from_texts(...)
-
-# TODO: Test semantic search with 2-3 queries
-# results = my_store.similarity_search(...)
 
 # %%
 
@@ -63,10 +57,9 @@ my_texts = [
 # Distanz-Schwellenwert.
 
 # %%
-# TODO: Search with a relevant query using similarity_search_with_score()
-# TODO: Search with an irrelevant query (e.g., about cooking or programming)
-# TODO: Compare the scores
-# TODO: Implement a threshold filter to discard irrelevant results
+
+# %%
+threshold = 0.5
 
 # %%
 
@@ -81,10 +74,9 @@ my_texts = [
 # %%
 sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 
-# TODO: Create a hybrid vector store using RetrievalMode.HYBRID
-# my_hybrid_store = QdrantVectorStore.from_texts(...)
+# %%
 
-# TODO: Compare semantic search vs. hybrid search for a specific term
-# e.g., "K2" or "Kilimandscharo"
+# %%
+query = "K2"
 
 # %%

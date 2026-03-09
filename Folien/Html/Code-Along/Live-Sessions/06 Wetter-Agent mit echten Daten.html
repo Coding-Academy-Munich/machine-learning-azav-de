@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=68102a1f7d15fdc1"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e489166d48f17d2e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,76 +13137,58 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Qdrant: Vektor-Datenbank für RAG</b>
+<b>Wetter-Agent mit echten Daten</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
 <br/>
+<div style="text-align:center;">Coding-Akademie München</div>
+<br/>
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fd4c62c59164c8b7"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=07d076d475e26adc"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-Vektor-Datenbanken?">Warum Vektor-Datenbanken?<a class="anchor-link" href="#Warum-Vektor-Datenbanken?">¶</a></h2><ul>
-<li><strong>Problem</strong>: Semantische Suche über viele Dokumente ist aufwändig<ul>
-<li>Bei jedem Query: alle Dokumente embedden + Ähnlichkeit berechnen</li>
-</ul>
-</li>
-<li><strong>Lösung</strong>: Vektor-Datenbank<ul>
-<li>Speichert Embeddings einmal vor</li>
-<li>Nutzt spezielle Indexstrukturen (z.B. HNSW) für schnelle Suche</li>
-<li>Effizienz hängt von Konfiguration und Hardware ab, aber auch große
-Sammlungen können in wenigen Millisekunden durchsucht werden</li>
-</ul>
-</li>
+<h2 id="Von-Fake-Daten-zu-echten-APIs">Von Fake-Daten zu echten APIs<a class="anchor-link" href="#Von-Fake-Daten-zu-echten-APIs">¶</a></h2><ul>
+<li>Im letzten Notebook: zufällige Wetterdaten</li>
+<li>Jetzt: echte Wetterdaten aus dem Internet</li>
+<li><strong>Open-Meteo</strong>: Kostenlose Wetter-API (kein API-Key nötig)</li>
+<li><strong>Nominatim</strong>: Kostenlose Geocoding-API (kein API-Key nötig)</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7a3eb5374b437cb7"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Qdrant">Qdrant<a class="anchor-link" href="#Qdrant">¶</a></h2><ul>
-<li><strong>Open Source</strong> (Apache 2.0 Lizenz)</li>
-<li>Einfach zu installieren: <code>pip install qdrant-client langchain-qdrant</code></li>
-<li>Funktioniert auf Windows und Linux</li>
-<li>Lokaler Modus ohne Server-Konfiguration</li>
-<li>Unterstützt Hybrid Search (semantische + Keyword-Suche)</li>
-<li>LangChain-Integration verfügbar</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=90264e619c30ddf4"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Installation">Installation<a class="anchor-link" href="#Installation">¶</a></h2><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>qdrant-client<span class="w"> </span>langchain-qdrant
-</pre></div>
-<p>Keine Docker-Installation und keine Server-Konfiguration nötig.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b58b2bbc0a1cc399">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=fae806d9f0821ebe">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>qdrant-client<span class="w"> </span>langchain-qdrant
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="w"> </span>langgraph<span class="w"> </span>langchain-openai<span class="w"> </span>python-dotenv<span class="w"> </span>requests<span class="w"> </span>--root-user-action<span class="w"> </span>ignore
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ad3756c8f414838b">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=65b85f05d825b54e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">textwrap</span><span class="w"> </span><span class="kn">import</span> <span class="n">wrap</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.agents.structured_output</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolStrategy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.chat_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_chat_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolRuntime</span><span class="p">,</span> <span class="n">tool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">HumanMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnableConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.checkpoint.memory</span><span class="w"> </span><span class="kn">import</span> <span class="n">InMemorySaver</span>
 </pre></div>
 </div>
 </div>
@@ -13223,421 +13205,358 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7e2db8fce0ac8359"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Qdrant-Modi">Qdrant Modi<a class="anchor-link" href="#Qdrant-Modi">¶</a></h2><ol>
-<li><strong>In-Memory</strong>: Daten nur im RAM (für Tests und Experimente)<ul>
-<li><code>location=":memory:"</code></li>
-</ul>
-</li>
-<li><strong>Persistent</strong>: Daten auf Festplatte (für echte Anwendungen)<ul>
-<li><code>path="./qdrant_db"</code></li>
-</ul>
-</li>
-</ol>
-<p>Wir verwenden Qdrant über die <strong>LangChain-Integration</strong></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fd59f4b96fd299be"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Embedding-Modell-erstellen">Embedding-Modell erstellen<a class="anchor-link" href="#Embedding-Modell-erstellen">¶</a></h2><ul>
-<li>Qdrant braucht ein <strong>Embedding-Modell</strong> (wir kennen das aus der letzten Lektion)</li>
-<li>Wir verwenden OpenAI Embeddings über OpenRouter</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8e1740eb57594f9c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=30e34e220e929ad6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span>
-    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
-    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
-    <span class="n">model</span><span class="o">=</span><span class="s2">"openai/text-embedding-3-small"</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">OPENROUTER_BASE_URL</span> <span class="o">=</span> <span class="s2">"https://openrouter.ai/api/v1"</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4da02d5ae5eef514"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Nominatim-Konfiguration">Nominatim-Konfiguration<a class="anchor-link" href="#Nominatim-Konfiguration">¶</a></h2><ul>
+<li>Öffentliche API: Rate-Limit von 1 Anfrage/Sekunde</li>
+<li>Lokale Docker-Instanz: Kein Rate-Limit</li>
+<li>Konfigurierbar über Umgebungsvariable <code>NOMINATIM_URL</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=a0bbc8e8f11c578c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">NOMINATIM_BASE_URL</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span>
+    <span class="s2">"NOMINATIM_URL"</span><span class="p">,</span> <span class="s2">"https://nominatim.openstreetmap.org"</span>
+<span class="p">)</span>
+<span class="n">NOMINATIM_RATE_LIMIT</span> <span class="o">=</span> <span class="n">NOMINATIM_BASE_URL</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span>
+    <span class="s2">"https://nominatim.openstreetmap.org"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2294504855648804"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=298ef5b3e1f90902"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Vektor-Store-erstellen-und-Dokumente-hinzuf%C3%BCgen">Vektor-Store erstellen und Dokumente hinzufügen<a class="anchor-link" href="#Vektor-Store-erstellen-und-Dokumente-hinzuf%C3%BCgen">¶</a></h2><ul>
-<li><code>QdrantVectorStore.from_texts()</code> erstellt den Store und fügt Texte hinzu</li>
-<li>Embeddings werden <strong>automatisch</strong> berechnet</li>
+<h2 id="Geocoding-mit-Nominatim">Geocoding mit Nominatim<a class="anchor-link" href="#Geocoding-mit-Nominatim">¶</a></h2><ul>
+<li>Übersetzt Städtenamen in Breitengrad/Längengrad</li>
+<li>Benötigt einen <code>User-Agent</code>-Header</li>
+<li>Ergebnis: <code>(lat, lon)</code> Tupel</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=f729f0840af50603">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b784bbfad71e46d6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Neural networks can learn complex patterns"</span><span class="p">,</span>
-    <span class="s2">"Gradient descent optimizes model parameters"</span><span class="p">,</span>
-    <span class="s2">"Overfitting occurs when models memorize training data"</span><span class="p">,</span>
-    <span class="s2">"RAG combines retrieval with generation"</span><span class="p">,</span>
-<span class="p">]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">geocode_location</span><span class="p">(</span><span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">"""Convert a location name to (latitude, longitude)."""</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">NOMINATIM_BASE_URL</span><span class="si">}</span><span class="s2">/search"</span><span class="p">,</span>
+        <span class="n">params</span><span class="o">=</span><span class="p">{</span><span class="s2">"q"</span><span class="p">:</span> <span class="n">location</span><span class="p">,</span> <span class="s2">"format"</span><span class="p">:</span> <span class="s2">"json"</span><span class="p">,</span> <span class="s2">"limit"</span><span class="p">:</span> <span class="mi">1</span><span class="p">},</span>
+        <span class="n">headers</span><span class="o">=</span><span class="p">{</span><span class="s2">"User-Agent"</span><span class="p">:</span> <span class="s2">"tourist-info-agent/1.0"</span><span class="p">},</span>
+    <span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">raise_for_status</span><span class="p">()</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">data</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Location not found: </span><span class="si">{</span><span class="n">location</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">NOMINATIM_RATE_LIMIT</span><span class="p">:</span>
+        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"lat"</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">"lon"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=446d55829ad4d478"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Geocoding-testen">Geocoding testen<a class="anchor-link" href="#Geocoding-testen">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=27469d43ffb6949d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=57123f738b085fcf"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Open-Meteo:-Kostenlose-Wetter-API">Open-Meteo: Kostenlose Wetter-API<a class="anchor-link" href="#Open-Meteo:-Kostenlose-Wetter-API">¶</a></h2><ul>
+<li>Nimmt Breitengrad/Längengrad als Parameter</li>
+<li>Liefert aktuelle Wetterdaten (Temperatur, Wind, etc.)</li>
+<li>Kein API-Key erforderlich</li>
+<li>WMO-Wettercodes für Beschreibungen</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1ecee451c95794a1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">WMO_WEATHER_CODES</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="mi">0</span><span class="p">:</span> <span class="s2">"clear sky"</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">"mainly clear"</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s2">"partly cloudy"</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="s2">"overcast"</span><span class="p">,</span> <span class="mi">45</span><span class="p">:</span> <span class="s2">"foggy"</span><span class="p">,</span> <span class="mi">48</span><span class="p">:</span> <span class="s2">"depositing rime fog"</span><span class="p">,</span>
+    <span class="mi">51</span><span class="p">:</span> <span class="s2">"light drizzle"</span><span class="p">,</span> <span class="mi">53</span><span class="p">:</span> <span class="s2">"moderate drizzle"</span><span class="p">,</span> <span class="mi">55</span><span class="p">:</span> <span class="s2">"dense drizzle"</span><span class="p">,</span>
+    <span class="mi">61</span><span class="p">:</span> <span class="s2">"slight rain"</span><span class="p">,</span> <span class="mi">63</span><span class="p">:</span> <span class="s2">"moderate rain"</span><span class="p">,</span> <span class="mi">65</span><span class="p">:</span> <span class="s2">"heavy rain"</span><span class="p">,</span>
+    <span class="mi">71</span><span class="p">:</span> <span class="s2">"slight snow"</span><span class="p">,</span> <span class="mi">73</span><span class="p">:</span> <span class="s2">"moderate snow"</span><span class="p">,</span> <span class="mi">75</span><span class="p">:</span> <span class="s2">"heavy snow"</span><span class="p">,</span>
+    <span class="mi">80</span><span class="p">:</span> <span class="s2">"slight rain showers"</span><span class="p">,</span> <span class="mi">81</span><span class="p">:</span> <span class="s2">"moderate rain showers"</span><span class="p">,</span>
+    <span class="mi">82</span><span class="p">:</span> <span class="s2">"violent rain showers"</span><span class="p">,</span> <span class="mi">95</span><span class="p">:</span> <span class="s2">"thunderstorm"</span><span class="p">,</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=97cb862dd54ab23c">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_weather</span><span class="p">(</span><span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Get the current weather for a given location."""</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=10831056f2e822f3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Wetter-Tool-testen">Wetter-Tool testen<a class="anchor-link" href="#Wetter-Tool-testen">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f9c0cd54f8e12a6f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=bdf7cd288ff899a6"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Kontext-und-Agent-aufbauen">Kontext und Agent aufbauen<a class="anchor-link" href="#Kontext-und-Agent-aufbauen">¶</a></h2><ul>
+<li>Gleiche Architektur wie im einfachen Agenten</li>
+<li><code>WeatherContext</code> für Benutzer-Standort</li>
+<li>Jetzt mit echten Wetterdaten!</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c2a22fb1b2d04572">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">WeatherContext</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Custom runtime context schema."""</span>
+    <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">location</span><span class="p">:</span> <span class="nb">str</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e549cfbb320271aa">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_user_location</span><span class="p">(</span><span class="n">runtime</span><span class="p">:</span> <span class="n">ToolRuntime</span><span class="p">[</span><span class="n">WeatherContext</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Get the user's current location."""</span>
+    <span class="k">return</span> <span class="n">runtime</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">location</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=82f884fefd50a5fd">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">SYSTEM_PROMPT</span> <span class="o">=</span> <span class="s2">"""You are an expert weather forecaster, who speaks in puns.</span>
 
-<span class="c1"># TODO: Create QdrantVectorStore from texts</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=0e6dcd2e3ce18320">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2c3dbf2e82a0041a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Dokumente-suchen">Dokumente suchen<a class="anchor-link" href="#Dokumente-suchen">¶</a></h2><ul>
-<li><code>similarity_search()</code> findet die ähnlichsten Dokumente</li>
-<li>Parameter <code>k</code> bestimmt die Anzahl der Ergebnisse</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=c9739149b5bd4e69">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Search for "What is overfitting?"</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e74be8a9339a3de5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d3d7b3d5fdbcb92e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Suche-mit-%C3%84hnlichkeits-Scores">Suche mit Ähnlichkeits-Scores<a class="anchor-link" href="#Suche-mit-%C3%84hnlichkeits-Scores">¶</a></h2><ul>
-<li><code>similarity_search_with_score()</code> zeigt auch einen Score</li>
-<li>Der Score ist die <strong>Kosinus-Ähnlichkeit</strong></li>
-<li><strong>Hoher Score</strong> = <strong>hohe Ähnlichkeit</strong></li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>Score</th>
-<th>Bedeutung</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>0.90+</td>
-<td>Sehr ähnlich</td>
-</tr>
-<tr>
-<td>0.50</td>
-<td>Mittelmäßig ähnlich</td>
-</tr>
-<tr>
-<td>0.10</td>
-<td>Wenig ähnlich</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7de661db3721f64b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=13b68ffaaa0bee26">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3e02b621bcf9d8b3"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-passiert-bei-irrelevanten-Anfragen?">Was passiert bei irrelevanten Anfragen?<a class="anchor-link" href="#Was-passiert-bei-irrelevanten-Anfragen?">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=06d34b22a5f01df6">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2e55f96c88dccfa0">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=27bce925029e89f5"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Vektor-Datenbanken-liefern-immer-Ergebnisse!">Vektor-Datenbanken liefern immer Ergebnisse!<a class="anchor-link" href="#Vektor-Datenbanken-liefern-immer-Ergebnisse!">¶</a></h2><ul>
-<li>Auch bei irrelevanten Fragen gibt die Datenbank Ergebnisse zurück</li>
-<li>Sie wählt einfach die <strong>ähnlichsten</strong> Dokumente — auch wenn keines relevant ist</li>
-<li><strong>Niedriger Score</strong> = niedrige Relevanz</li>
-<li>Wir können nach Ähnlichkeit filtern, um irrelevante Ergebnisse auszuschließen</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6b4b11520aa1a44a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Ergebnisse-nach-%C3%84hnlichkeit-filtern">Ergebnisse nach Ähnlichkeit filtern<a class="anchor-link" href="#Ergebnisse-nach-%C3%84hnlichkeit-filtern">¶</a></h2><ul>
-<li>Einen Schwellenwert setzen: Nur Ergebnisse mit hoher Ähnlichkeit behalten</li>
-<li>Schwellenwert hängt von der Anwendung ab (typisch: 0.3–0.5)</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=14468e529813194a">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.4</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=06cf4bf0c3cb93f3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=9a1820e8f9fe376f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=86ce2a75015f9bac"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Metadata-verwenden">Metadata verwenden<a class="anchor-link" href="#Metadata-verwenden">¶</a></h2><ul>
-<li>Dokumente können <strong>Metadata</strong> haben (z.B. Thema, Datum, Quelle)</li>
-<li>Nützlich für zusätzliche Filterung:<ul>
-<li>Nur Dokumente eines bestimmten Themas durchsuchen</li>
-<li>Nach Datum filtern</li>
-<li>Quelle in der Antwort anzeigen</li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ea647e5e74175815">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
+<span class="s2">You have access to two tools:</span>
 
-<span class="n">docs_with_meta</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Linear regression models linear relationships"</span><span class="p">,</span>
-             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">}),</span>
-    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Python is a popular programming language"</span><span class="p">,</span>
-             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"Programming"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">}),</span>
-    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Decision trees split data into branches"</span><span class="p">,</span>
-             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">}),</span>
-    <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Gradient boosting combines many weak learners"</span><span class="p">,</span>
-             <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"advanced"</span><span class="p">}),</span>
-<span class="p">]</span>
+<span class="s2">- get_weather: use this to get the weather for a specific location</span>
+<span class="s2">- get_user_location: use this to get the user's location</span>
 
-<span class="n">vectorstore_meta</span> <span class="o">=</span> <span class="n">QdrantVectorStore</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
-    <span class="n">documents</span><span class="o">=</span><span class="n">docs_with_meta</span><span class="p">,</span>
-    <span class="n">embedding</span><span class="o">=</span><span class="n">embeddings</span><span class="p">,</span>
-    <span class="n">collection_name</span><span class="o">=</span><span class="s2">"docs_with_meta"</span><span class="p">,</span>
-    <span class="n">location</span><span class="o">=</span><span class="s2">":memory:"</span><span class="p">,</span>
+<span class="s2">If a user asks you for the weather, make sure you know the location. If you can</span>
+<span class="s2">tell from the question that they mean wherever they are, use the</span>
+<span class="s2">get_user_location tool to find their location.</span>
+<span class="s2">"""</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c79014c47366152a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResponseFormat</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Response schema for the agent."""</span>
+    <span class="n">punny_response</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">weather_conditions</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2b460b42dc7dcae2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">init_chat_model</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"openai/gpt-4.1-nano"</span><span class="p">,</span>
+    <span class="n">model_provider</span><span class="o">=</span><span class="s2">"openai"</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">OPENROUTER_BASE_URL</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">],</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=aba9a5f9148fb527"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Suche-mit-Metadata">Suche mit Metadata<a class="anchor-link" href="#Suche-mit-Metadata">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=0e50f78cef175523">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1a24fd47cf27c094">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">checkpointer</span> <span class="o">=</span> <span class="n">InMemorySaver</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=fb443990463a70e5"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Metadata-Filterung">Metadata-Filterung<a class="anchor-link" href="#Metadata-Filterung">¶</a></h2><ul>
-<li>Mit <code>filter</code> kann die Suche auf bestimmte Metadata-Werte eingeschränkt werden</li>
-<li>Qdrant verwendet dafür eigene Filter-Objekte</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c2e2a26891cbfaaf">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f40f454a9a2a18ac">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">qdrant_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">Filter</span><span class="p">,</span> <span class="n">FieldCondition</span><span class="p">,</span> <span class="n">MatchValue</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8d12a170c7df09b5">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0956fb32644e1bb6"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Retriever-erstellen">Retriever erstellen<a class="anchor-link" href="#Retriever-erstellen">¶</a></h2><ul>
-<li>Ein <strong>Retriever</strong> ist die Standard-Schnittstelle in LangChain</li>
-<li>Wird für RAG-Chains verwendet</li>
-<li>Einfach aus dem Vektor-Store erstellen</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=c8ac4b61d3064217">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create retriever from vectorstore</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1c200e042753fdca">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1dbe863aacca0c51"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Persistenter-Speicher">Persistenter Speicher<a class="anchor-link" href="#Persistenter-Speicher">¶</a></h2><ul>
-<li>Für echte Anwendungen: Daten auf Festplatte speichern</li>
-<li>Qdrant speichert Daten lokal mit <code>path=</code></li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=61781d17845b2c18"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<div class="highlight"><pre><span></span><span class="n">vectorstore</span> <span class="o">=</span> <span class="n">QdrantVectorStore</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
-    <span class="n">documents</span><span class="o">=</span><span class="n">documents</span><span class="p">,</span>
-    <span class="n">embedding</span><span class="o">=</span><span class="n">embeddings</span><span class="p">,</span>
-    <span class="n">collection_name</span><span class="o">=</span><span class="s2">"my_docs"</span><span class="p">,</span>
-    <span class="n">path</span><span class="o">=</span><span class="s2">"./qdrant_db"</span><span class="p">,</span>  <span class="c1"># Daten werden hier gespeichert</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">agent</span> <span class="o">=</span> <span class="n">create_agent</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">system_prompt</span><span class="o">=</span><span class="n">SYSTEM_PROMPT</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">get_weather</span><span class="p">,</span> <span class="n">get_user_location</span><span class="p">],</span>
+    <span class="n">context_schema</span><span class="o">=</span><span class="n">WeatherContext</span><span class="p">,</span>
+    <span class="n">response_format</span><span class="o">=</span><span class="n">ToolStrategy</span><span class="p">(</span><span class="n">ResponseFormat</span><span class="p">),</span>
+    <span class="n">checkpointer</span><span class="o">=</span><span class="n">checkpointer</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=416b4cd32a91b966"><div class="prompt input_prompt">
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=72c4d10e9f16e6ad"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Qdrant</strong>: Open-Source Vektor-Datenbank</li>
-<li>Einfach installierbar, keine Server-Konfiguration nötig</li>
-<li><strong>LangChain-Integration</strong>: <code>QdrantVectorStore</code> für nahtlose Nutzung</li>
-<li><strong>Ähnlichkeits-Scores</strong>: Hoch = ähnlich (Kosinus-Ähnlichkeit)</li>
-<li><strong>Metadata</strong>: Dokumente können Metadaten haben und danach gefiltert werden</li>
-<li><strong>Persistent</strong>: Daten bleiben auf der Festplatte erhalten</li>
-<li><strong>Achtung</strong>: Liefert immer Ergebnisse — Ähnlichkeits-Filter verwenden!</li>
+<h2 id="Den-Agenten-testen">Den Agenten testen<a class="anchor-link" href="#Den-Agenten-testen">¶</a></h2><ul>
+<li>Echte Wetterdaten für eine echte Stadt</li>
+<li>Der Agent ruft automatisch die richtigen Tools auf</li>
 </ul>
-<p><strong>Nächster Schritt</strong>: Hybrid Search — semantische + Keyword-Suche kombinieren!</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e2810a085428ab7e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="p">:</span> <span class="n">RunnableConfig</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"configurable"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"thread_id"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">}}</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">WeatherContext</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="s2">"Vienna"</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="s2">"user_123"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=493eae5ae1ecdc51">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span>
+    <span class="nb">input</span><span class="o">=</span><span class="n">HumanMessage</span><span class="p">(</span><span class="n">content</span><span class="o">=</span><span class="s2">"What is the weather outside?"</span><span class="p">),</span>
+    <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=309c37456d6a9842">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c9fff303b7b3c415">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=445e4a037300a23d"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Nachrichtenverlauf-inspizieren">Nachrichtenverlauf inspizieren<a class="anchor-link" href="#Nachrichtenverlauf-inspizieren">¶</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2e3c09893a71daf6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>

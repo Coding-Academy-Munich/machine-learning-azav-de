@@ -6,6 +6,10 @@
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -38,7 +42,6 @@
 def normal_function():
     return "Erster Wert"
     return "Zweiter Wert"  # Wird nie erreicht!
-
 
 # %%
 
@@ -78,8 +81,22 @@ def generator_function():
 #
 # ## Ein etwas komplizierterer Generator
 
-
 # %%
+def return_chunks(text, min_chunk_size=5):
+    """Yield chunks of text of given size."""
+    yield f"Returning Chunks of size >= {min_chunk_size} for text of length {len(text)}"
+    yield f"The original text is: {text[:24]}..."
+    yield "=" * 52
+    words = text.split()
+    current_chunk = ""
+    for word in words:
+        current_chunk += word + " "
+        if len(current_chunk) >= min_chunk_size:
+            yield current_chunk.strip()
+            current_chunk = ""
+    if current_chunk:
+        yield current_chunk.strip()
+    yield "=" * 52
 
 # %%
 text = """\
@@ -97,7 +114,6 @@ strings, and even other lists. Here are a few examples:
 """
 
 # %%
-
 
 # %% [markdown]
 #
@@ -165,7 +181,6 @@ llm = ChatOpenAI(
 # %%
 import gradio as gr
 
-
 # %%
 def create_llm():
     return ChatOpenAI(
@@ -173,7 +188,6 @@ def create_llm():
         base_url="https://openrouter.ai/api/v1",
         model="mistralai/ministral-14b-2512",
     )
-
 
 # %% [markdown]
 #
@@ -213,7 +227,6 @@ class SimpleChatbot:
         response = self.llm.invoke(messages)
         return response.content
 
-
 # %% [markdown]
 #
 # ## Nicht-Streaming Chatbot mit Gradio
@@ -225,6 +238,9 @@ simple_bot = SimpleChatbot("Du bist ein hilfreicher Assistent.")
 
 
 # %%
+def simple_chat(message, history):
+    """Non-streaming chat function."""
+    return simple_bot.chat(message, history)
 
 # %%
 
@@ -240,6 +256,8 @@ simple_bot = SimpleChatbot("Du bist ein hilfreicher Assistent.")
 
 # %%
 class SimpleChatbot:
+    """A simple chatbot using OpenRouter."""
+
     def __init__(self, system_prompt=None):
         self.llm = create_llm()
         self.system_prompt = system_prompt
@@ -251,7 +269,6 @@ class SimpleChatbot:
         response = self.llm.invoke(messages)
         return response.content
 
-
 # %% [markdown]
 #
 # ## Streaming Chatbot mit Gradio
@@ -261,7 +278,12 @@ class SimpleChatbot:
 # %%
 streaming_bot = SimpleChatbot("Du bist ein hilfreicher Assistent.")
 
+
 # %%
+def streaming_chat(message, history):
+    """Streaming chat function."""
+    for chunk in streaming_bot.stream(message, history):
+        yield chunk
 
 # %%
 
@@ -287,23 +309,17 @@ SYSTEM_PROMPTS = {
     "Pirate": "You are a pirate. Answer all questions like a pirate would.",
 }
 
-
 # %%
 from langchain_anthropic import ChatAnthropic
 
+# %%
+chatbot_instances = {}
 
 # %%
 
 # %%
-def extended_streaming_chat(message, history, provider, system_prompt_name):
-    """Streaming chatbot with provider and system prompt selection."""
-    # TODO: Implementieren Sie den Streaming-Chatbot
-    # Hint: Erstellen Sie für jede Kombination aus Provider und System-Prompt
-    #       eine eigene Chatbot-Instanz
-    pass
 
 # %%
-# TODO: Erstellen Sie das ChatInterface mit beiden Dropdowns
 
 # %%
 

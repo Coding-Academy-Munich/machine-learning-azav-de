@@ -6,6 +6,10 @@
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -49,8 +53,11 @@ with open("docs/ai-intro.txt", "r") as f:
 # %%
 print(document[:200] + "\n...\n" + document[-200:])
 
+# %% [markdown]
+# Dokumentlänge (Zeichen):
+
 # %%
-print(f"Document length: {len(document)} characters")
+len(document)
 
 # %% [markdown]
 #
@@ -63,16 +70,17 @@ print(f"Document length: {len(document)} characters")
 #   - Erhält die Struktur des Textes besser
 
 # %%
-# TODO: Create a RecursiveCharacterTextSplitter
-# with chunk_size=300, chunk_overlap=100
 
 # %%
+
+# %% [markdown]
+# Anzahl Chunks:
 
 # %%
 
 # %%
 for i, chunk in enumerate(chunks[:3], 1):
-    print(f"\n--- Chunk {i} (Länge/length: {len(chunk)}) ---")
+    print(f"\n--- Chunk {i} (Länge: {len(chunk)}) ---")
     print(chunk)
 
 # %%
@@ -112,20 +120,28 @@ for i, chunk in enumerate(chunks[:3], 1):
 # %%
 splitter_no_overlap = RecursiveCharacterTextSplitter(
     chunk_size=200,
-    chunk_overlap=0,  # Kein Overlap
+    chunk_overlap=0,
 )
 splitter_with_overlap = RecursiveCharacterTextSplitter(
     chunk_size=200,
-    chunk_overlap=100,  # Mit Overlap
+    chunk_overlap=100,
 )
 
 # %%
 chunks_no_overlap = splitter_no_overlap.split_text(document)
 chunks_with_overlap = splitter_with_overlap.split_text(document)
 
+# %% [markdown]
+# Ohne Overlap:
+
 # %%
-print(f"Ohne Overlap / Without overlap: {len(chunks_no_overlap)} Chunks")
-print(f"Mit Overlap / With overlap:     {len(chunks_with_overlap)} Chunks")
+len(chunks_no_overlap)
+
+# %% [markdown]
+# Mit Overlap:
+
+# %%
+len(chunks_with_overlap)
 
 # %%
 visualize_chunks(chunks_no_overlap, max_chunks=5)
@@ -160,6 +176,9 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 # %%
 
+# %% [markdown]
+# Anzahl Chunks:
+
 # %%
 
 # %%
@@ -183,13 +202,15 @@ text_splitter = RecursiveCharacterTextSplitter(
 #   berücksichtigen
 # - Dadurch werden Überlappungen korrekt erkannt
 
-
 # %%
 sentence_rx = r"(?:(?<=[.!?:])|(?<=[.!?:][\"']))\s+"
 
 # %%
 
 # %%
+
+# %% [markdown]
+# Anzahl Chunks:
 
 # %%
 
@@ -307,7 +328,6 @@ chunks = [chunk.page_content for chunk in doc_chunks]
 
 # %%
 
-
 # %% [markdown]
 #
 # ## Chunk-Qualität und RAG
@@ -357,14 +377,6 @@ chunks = [chunk.page_content for chunk in doc_chunks]
 # 5. Die Chunks zurückgibt
 
 # %%
-def load_and_chunk_url(url, chunk_size=600, chunk_overlap=300):
-    """Fetch a web page, extract clean text, and split into chunks."""
-    # TODO: Load the page/pages with AsyncHtmlLoader
-    # TODO: Extract text with trafilatura.extract()
-    # TODO: Remove citations with re.sub()
-    # TODO: Create a RecursiveCharacterTextSplitter with sentence_rx
-    # TODO: Split and return the chunks
-    pass
 
 # %%
 
@@ -373,4 +385,11 @@ def load_and_chunk_url(url, chunk_size=600, chunk_overlap=300):
 # %%
 
 # %%
+
+# %%
+
+# %%
+
+# %%
+
 # %%

@@ -1,32 +1,21 @@
 # %% [markdown]
 #
 # <div style="text-align:center; font-size:200%;">
-#  <b>RAG mit LangChain implementieren</b>
+#  <b>RAG Chain mit LangChain</b>
 # </div>
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
 
-# %% [markdown]
-#
-# ## Was wir bis jetzt haben
-#
-# - ✅ LLMs nutzen mit LangChain
-# - ✅ Text bereinigen und in Chunks aufteilen
-# - ✅ Embeddings erstellen (Kosinus-Ähnlichkeit)
-# - ✅ Qdrant für Vektor-Speicherung + **Hybrid Search**
-#
-# **Jetzt**: Alles zusammenbauen zu einem RAG-System!
-
-# %%
-# ! pip install qdrant-client langchain-qdrant
 
 # %%
 import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_qdrant import QdrantVectorStore, FastEmbedSparse, RetrievalMode
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
@@ -35,24 +24,15 @@ from langchain_core.output_parsers import StrOutputParser
 # %%
 load_dotenv()
 
-# %% [markdown]
-#
-# ## RAG-Pipeline Übersicht
-#
-# **Einmalig (Setup)**:
-# 1. Dokumente laden
-# 2. Text bereinigen und in Chunks aufteilen
-# 3. In Qdrant speichern (mit Hybrid Search)
-#
-# **Bei jeder Anfrage**:
-# 4. Anfrage embedden
-# 5. Ähnlichste Chunks finden (Retrieval)
-# 6. Als Kontext an LLM geben (Augmentation)
-# 7. Antwort generieren (Generation)
+# %%
+embeddings = OpenAIEmbeddings(
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    base_url="https://openrouter.ai/api/v1",
+    model="openai/text-embedding-3-small"
+)
 
-# %% [markdown]
-#
-# ## Schritt 1: Dokumente laden und chunken
+# %%
+sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 
 # %%
 docs_content = [
@@ -76,84 +56,22 @@ docs_content = [
 # %%
 documents = [Document(page_content=doc) for doc in docs_content]
 
-# %% [markdown]
-#
-# Für längere Dokumente: Chunks erstellen
-
 # %%
-text_splitter = RecursiveCharacterTextSplitter(
-    chunk_size=500,
-    chunk_overlap=50
+vectorstore = QdrantVectorStore.from_documents(
+    documents=documents,
+    embedding=embeddings,
+    sparse_embedding=sparse_embeddings,
+    collection_name="ml_docs_chain",
+    location=":memory:",
+    retrieval_mode=RetrievalMode.HYBRID,
 )
 
 # %%
-
-# %% [markdown]
-#
-# ## Schritt 2: Vektor-Store erstellen
-
-# %%
-sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
-
-
-# %%
-# TODO: Create embeddings and Qdrant vector store from documents
-# Use RetrievalMode.HYBRID with sparse_embeddings for hybrid search
-
-# %%
-
-# %% [markdown]
-#
-# ## Schritt 3: Retriever erstellen
-#
-# - Der **Retriever** durchsucht den Vektor-Store
-# - Gibt die `k` ähnlichsten Dokumente zurück
-# - Wird aus dem Vektor-Store erstellt
-
-# %%
-# TODO: Create retriever from vectorstore
-# retriever = vectorstore.as_retriever(...)
-
-# %% [markdown]
-#
-# ## Retriever testen
-
-# %%
-
-# %%
-
-# %% [markdown]
-#
-# ## Schritt 4: RAG Chain — Warum format_docs?
-#
-# - Der Retriever gibt **Document-Objekte** zurück
-# - Das LLM braucht aber **normalen Text**
-# - `format_docs` verbindet alle Dokumente zu einem Text
+retriever = vectorstore.as_retriever(search_kwargs={"k": 2})
 
 # %%
 def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
-
-# %%
-
-# %%
-
-# %% [markdown]
-#
-# ## Schritt 4a: Retrieval + Formatierung
-#
-# Mit LCEL (LangChain Expression Language) können wir Schritte verketten:
-#
-# ```
-# retriever | format_docs
-# ```
-#
-# - `|` bedeutet: "Output von links wird Input von rechts"
-# - Frage → Retriever → Dokumente → format_docs → Text
-
-# %%
-
-# %%
 
 # %% [markdown]
 #
@@ -163,15 +81,12 @@ def format_docs(docs):
 
 # %%
 system_prompt = (
-    "Du bist ein hilfreicher Assistent. Nutze den folgenden Kontext, um die Frage zu beantworten. "
+    "Du bist ein hilfreicher Assistent. Nutze den folgenden Kontext, "
+    "um die Frage zu beantworten. "
     "Wenn der Kontext keine relevanten Informationen enthält, sage: "
     "'Diese Information ist nicht in meinen Dokumenten enthalten.' "
     "Halte die Antwort präzise.\n\n"
-    "You are a helpful assistant. Use the following context to answer the question. "
-    "If the context doesn't contain relevant information, say: "
-    "'This information is not in my documents.' "
-    "Keep the answer concise.\n\n"
-    "Context: {context}"
+    "Kontext: {context}"
 )
 
 prompt = ChatPromptTemplate.from_messages([
@@ -215,14 +130,12 @@ llm = ChatOpenAI(
 # 3. Der Prompt geht ans **LLM**
 # 4. `StrOutputParser()` extrahiert den Text aus der LLM-Antwort
 
+# %% [markdown]
+#
+# Bauen Sie die RAG Chain mit LCEL. Verwenden Sie ein Dictionary mit `"context"` und
+# `"input"` als Schlüssel, dann verketten Sie mit `prompt`, `llm` und `StrOutputParser()`.
+
 # %%
-# TODO: Build the RAG chain using LCEL
-# rag_chain = (
-#     {"context": ..., "input": ...}
-#     | prompt
-#     | llm
-#     | StrOutputParser()
-# )
 
 # %%
 
@@ -234,6 +147,14 @@ llm = ChatOpenAI(
 question = "Was ist Overfitting?"
 
 # %%
+
+# %% [markdown]
+# Frage:
+
+# %%
+
+# %% [markdown]
+# Antwort:
 
 # %%
 
@@ -260,6 +181,14 @@ question = "Was ist Overfitting?"
 
 # %%
 
+# %% [markdown]
+# Frage:
+
+# %%
+
+# %% [markdown]
+# Antwort:
+
 # %%
 
 # %% [markdown]
@@ -275,11 +204,16 @@ question = "Was ist Overfitting?"
 
 # %% [markdown]
 #
-# ## Retrieval-Parameter anpassen
+# ## Retrieval-Parameter: `k`
 #
 # - **k**: Wie viele Dokumente abrufen? (Standard: 4)
 #   - Mehr → mehr Kontext, aber auch mehr Rauschen
 #   - Weniger → fokussierter, aber evtl. Information fehlt
+
+# %% [markdown]
+#
+# ## Retrieval-Parameter: `search_type`
+#
 # - **search_type**:
 #   - `"similarity"` (Standard): Die k ähnlichsten Dokumente
 #   - `"mmr"` (Maximal Marginal Relevance): Bevorzugt **diverse** Ergebnisse —
@@ -295,11 +229,10 @@ retriever_k3 = vectorstore.as_retriever(search_kwargs={"k": 3})
 # ## Zusammenfassung
 #
 # - **RAG mit LangChain**: Wenige Zeilen Code für ein vollständiges System
-# - **Pipeline**: Dokumente → Chunks → Qdrant (Hybrid Search) → Retriever → LLM
-# - **LCEL**: Verkettung mit `|` Operator
-#   - `{"context": retriever | format_docs, "input": RunnablePassthrough()}`
-# - **Prompt Engineering**: Entscheidend für gute RAG-Antworten
-#   - "Sage, wenn du es nicht weißt" verhindert Halluzinationen
-# - **Quellen**: Separat abrufbar über `retriever.invoke()`
+# - **Pipeline**: Dokumente -> Chunks -> Qdrant (Hybrid Search) -> Retriever -> LLM
+# - **LCEL**: Verkettung mit `|` Operator, z.B.
+#   `{"context": retriever | format_docs, "input": RunnablePassthrough()}`
+# - **Prompt Engineering**: "Sage, wenn du es nicht weißt" verhindert Halluzinationen
+# - **Retrieval-Parameter**: `k` und `search_type` steuern Kontext-Qualität
 #
 # **Jetzt sind Sie bereit, Ihr eigenes RAG-System zu bauen!**

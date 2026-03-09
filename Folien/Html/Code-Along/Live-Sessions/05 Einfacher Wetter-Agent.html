@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=55fc8eb175c332af"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a9913dcf06eee557"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,55 +13137,70 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Workshop: RAG-Anwendung mit Gradio</b>
+<b>Einfacher Wetter-Agent</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
 <br/>
+<div style="text-align:center;">Coding-Akademie München</div>
+<br/>
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e4b7fd795563b357"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=3f2b98e614f5a7a5"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop-Ziel">Workshop-Ziel<a class="anchor-link" href="#Workshop-Ziel">¶</a></h2><p>Wir bauen ein vollständiges RAG-System:</p>
-<ul>
-<li>Eigene Dokumente laden und chunken</li>
-<li>Fragen stellen und Antworten mit Quellenangabe erhalten</li>
-<li>Professionelles Gradio-Interface</li>
-<li>Konversationsverlauf</li>
+<h2 id="Was-ist-ein-Agent?">Was ist ein Agent?<a class="anchor-link" href="#Was-ist-ein-Agent?">¶</a></h2><ul>
+<li><strong>LLM + Tools + Entscheidungslogik</strong></li>
+<li>Das LLM entscheidet, welche Tools es aufruft</li>
+<li>Tools liefern Daten aus der realen Welt</li>
+<li>Der Agent kombiniert die Ergebnisse zu einer Antwort</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b58b2bbc0a1cc399">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e32a0b936ac04a4f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Unser-Plan">Unser Plan<a class="anchor-link" href="#Unser-Plan">¶</a></h2><ul>
+<li>Einen Wetter-Agenten bauen</li>
+<li><code>@tool</code> Decorator für Tool-Definitionen</li>
+<li><code>ToolRuntime</code> für Kontext-Informationen</li>
+<li><code>create_agent</code> für die Agent-Erstellung</li>
+<li><code>ToolStrategy</code> für strukturierte Ausgaben</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b573f2a25035d959">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>qdrant-client<span class="w"> </span>langchain-qdrant
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>langchain<span class="w"> </span>langgraph<span class="w"> </span>langchain-openai<span class="w"> </span>python-dotenv<span class="w"> </span>--root-user-action<span class="w"> </span>ignore
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=bd2d9a64686f1c09">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=66c38e51a1f5f47f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dataclasses</span><span class="w"> </span><span class="kn">import</span> <span class="n">dataclass</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">textwrap</span><span class="w"> </span><span class="kn">import</span> <span class="n">wrap</span>
+
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">gradio</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">gr</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span><span class="p">,</span> <span class="n">FastEmbedSparse</span><span class="p">,</span> <span class="n">RetrievalMode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_text_splitters</span><span class="w"> </span><span class="kn">import</span> <span class="n">RecursiveCharacterTextSplitter</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_community.document_loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">TextLoader</span><span class="p">,</span> <span class="n">DirectoryLoader</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">HumanMessage</span><span class="p">,</span> <span class="n">AIMessage</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.prompts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnablePassthrough</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.output_parsers</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.agents</span><span class="w"> </span><span class="kn">import</span> <span class="n">create_agent</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.agents.structured_output</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolStrategy</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.chat_models</span><span class="w"> </span><span class="kn">import</span> <span class="n">init_chat_model</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain.tools</span><span class="w"> </span><span class="kn">import</span> <span class="n">ToolRuntime</span><span class="p">,</span> <span class="n">tool</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.messages</span><span class="w"> </span><span class="kn">import</span> <span class="n">HumanMessage</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables.config</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnableConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langgraph.checkpoint.memory</span><span class="w"> </span><span class="kn">import</span> <span class="n">InMemorySaver</span>
 </pre></div>
 </div>
 </div>
@@ -13202,238 +13217,305 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d0d4071000bb0a14"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=30e34e220e929ad6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">OPENROUTER_BASE_URL</span> <span class="o">=</span> <span class="s2">"https://openrouter.ai/api/v1"</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=048fb68bac5cda5a"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Teil-1:-Basis-RAG-System">Teil 1: Basis-RAG-System<a class="anchor-link" href="#Teil-1:-Basis-RAG-System">¶</a></h2><p>Zuerst: Einfaches RAG ohne UI</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=2e7986bbe0f48060">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Example documents</span>
-<span class="n">sample_docs</span> <span class="o">=</span> <span class="p">[</span>
-<span class="w">    </span><span class="sd">"""# Machine Learning Kurs - Kapitel 3: Linear Regression</span>
-
-<span class="sd">Linear Regression ist eine grundlegende Methode des überwachten Lernens.</span>
-
-<span class="sd">## Konzept</span>
-<span class="sd">- Modelliert lineare Beziehungen zwischen Features (X) und Ziel (y)</span>
-<span class="sd">- Formel: y = w*X + b</span>
-
-<span class="sd">## Training</span>
-<span class="sd">- Normalgleichung für exakte Lösung</span>
-<span class="sd">- Gradient Descent für große Datensätze</span>
-<span class="sd">"""</span><span class="p">,</span>
-<span class="w">    </span><span class="sd">"""# Machine Learning Kurs - Kapitel 4: Neural Networks</span>
-
-<span class="sd">Neural Networks sind inspiriert von biologischen Neuronen.</span>
-
-<span class="sd">## Aufbau</span>
-<span class="sd">- Input Layer, Hidden Layers, Output Layer</span>
-<span class="sd">- Jedes Neuron: gewichtete Summe + Aktivierungsfunktion</span>
-
-<span class="sd">## Training</span>
-<span class="sd">- Backpropagation berechnet Gradienten</span>
-<span class="sd">- Gradient Descent passt Gewichte an</span>
-<span class="sd">"""</span><span class="p">,</span>
-<span class="p">]</span>
-
-<span class="c1"># TODO: Create Document objects from sample_docs</span>
-<span class="c1"># TODO: Split documents into chunks using RecursiveCharacterTextSplitter</span>
-<span class="c1"># TODO: Create embeddings and vectorstore with Qdrant</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=91ef1930a28bdb11">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fff2edb80d47cdf7"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Teil-2:-Conversational-RAG">Teil 2: Conversational RAG<a class="anchor-link" href="#Teil-2:-Conversational-RAG">¶</a></h2><p>RAG + Konversationsverlauf</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=e36179000bc88419">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create LLM (using OpenRouter) and retriever</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=ab30ad1306c813ef">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Test the retriever and LLM with a question</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=9b3a4842ca6bb97b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=fa0075b5817e3354">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=24ee4fc8cd9e93a3">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f4229ae69ef42889"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Teil-3:-Gradio-Interface">Teil 3: Gradio Interface<a class="anchor-link" href="#Teil-3:-Gradio-Interface">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=b600aa78c753f946">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">rag_chatbot</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">history</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""RAG chatbot function for Gradio"""</span>
-    <span class="c1"># TODO: Implement RAG query with retriever, context, and history</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=ccf06cc277e34536">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create Gradio ChatInterface</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7154a1638c1c78ad"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Teil-4:-Dokument-Upload-(Erweitert)">Teil 4: Dokument-Upload (Erweitert)<a class="anchor-link" href="#Teil-4:-Dokument-Upload-(Erweitert)">¶</a></h2><p>Ermögliche Nutzern, eigene Dokumente hochzuladen</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=94338d86f9a25e7f">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">upload_and_query</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">question</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">"""Upload document and answer question"""</span>
-    <span class="c1"># TODO: Read file, split into chunks, create vectorstore, build RAG chain, answer</span>
-    <span class="k">pass</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_start" id="cell-id=68ffb6c0b998c2e1">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># TODO: Create Gradio interface with file upload</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7faec1b135e21967"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><p><strong>Was wir erreicht haben</strong>:</p>
-<ul>
-<li>✅ Vollständiges RAG-System mit LangChain</li>
-<li>✅ Text-Chunking für bessere Retrieval-Qualität</li>
-<li>✅ Qdrant mit Hybrid Search für Vektor-Speicherung</li>
-<li>✅ Konversationsverlauf mit Gradio</li>
-<li>✅ Gradio-Interface mit Quellenangabe</li>
-<li>✅ Portfolio-taugliches Projekt!</li>
+<h2 id="Das-LLM-konfigurieren">Das LLM konfigurieren<a class="anchor-link" href="#Das-LLM-konfigurieren">¶</a></h2><ul>
+<li><code>init_chat_model</code> erstellt ein Chat-Modell</li>
+<li>Wir verwenden OpenRouter als Provider</li>
+<li>Modell: <code>openai/gpt-4.1-nano</code> (günstig, gutes Tool-Calling)</li>
 </ul>
-<p><strong>Nächster Schritt</strong>: Wie wissen wir, ob unser RAG-System gut funktioniert? Evaluierung!</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4c7a93e1ba15ba24"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2b460b42dc7dcae2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">init_chat_model</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"openai/gpt-4.1-nano"</span><span class="p">,</span>
+    <span class="n">model_provider</span><span class="o">=</span><span class="s2">"openai"</span><span class="p">,</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="n">OPENROUTER_BASE_URL</span><span class="p">,</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">],</span>
+    <span class="n">temperature</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+    <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">max_tokens</span><span class="o">=</span><span class="mi">2048</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2adce95a6c3f255d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop-Aufgaben">Workshop-Aufgaben<a class="anchor-link" href="#Workshop-Aufgaben">¶</a></h2><h3 id="Basis-(Pflicht):">Basis (Pflicht):<a class="anchor-link" href="#Basis-(Pflicht):">¶</a></h3><ol>
-<li>Erstellen Sie ein RAG-System für die vorgegebenen Dokumente</li>
-<li>Implementieren Sie einen Retriever mit Konversationsverlauf</li>
-<li>Fügen Sie ein Gradio ChatInterface hinzu</li>
-<li>Bauen Sie eine Quellen-Anzeige in die Antworten ein</li>
-<li>Testen Sie das System mit verschiedenen Fragen</li>
-</ol>
-<h3 id="Erweitert-(Optional):">Erweitert (Optional):<a class="anchor-link" href="#Erweitert-(Optional):">¶</a></h3><ol start="6">
-<li>Implementieren Sie die Dokument-Upload-Funktion</li>
-<li>Ermöglichen Sie das Laden mehrerer Dokumente gleichzeitig</li>
-<li>Fügen Sie PDF-Support hinzu (mit PyPDFLoader)</li>
-<li>Experimentieren Sie mit Retrieval-Parametern (k, search_type)</li>
-<li>Gestalten Sie das Interface mit Custom Styling</li>
-</ol>
+<h2 id="Tools-definieren">Tools definieren<a class="anchor-link" href="#Tools-definieren">¶</a></h2><ul>
+<li><code>@tool</code> macht eine Python-Funktion zum Agent-Tool</li>
+<li>Docstring wird als Tool-Beschreibung verwendet</li>
+<li>Das LLM entscheidet anhand der Beschreibung, wann es das Tool nutzt</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=260a6e0e3f378ad3"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=f8779bb6e6e49ca3">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">WEATHER_CHOICES</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"it's 19 degrees and sunny"</span><span class="p">,</span>
+    <span class="s2">"it's 10 degrees and raining"</span><span class="p">,</span>
+    <span class="s2">"it's 25 degrees with scattered clouds"</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=25fd5aa08297318d">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_weather_for_location</span><span class="p">(</span><span class="n">location</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Get the weather for a specific location."""</span>
+    <span class="k">return</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">WEATHER_CHOICES</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=4bb3adfd44d8e59f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Projekt-Ideen">Projekt-Ideen<a class="anchor-link" href="#Projekt-Ideen">¶</a></h2><ol>
-<li><strong>Persönliche Wissensdatenbank</strong>: Ihre Notizen durchsuchbar machen</li>
-<li><strong>Dokumentations-Assistent</strong>: Fragen zu technischen Dokumentationen beantworten</li>
-<li><strong>Rezept-Finder</strong>: Fragen zu Kochrezepten stellen</li>
-<li><strong>Forschungsassistent</strong>: Papers und Artikel durchsuchen</li>
-<li><strong>Kurs-Assistent</strong>: Fragen zu Kursmaterialien beantworten</li>
-</ol>
-<p><strong>Wählen Sie ein Projekt für Ihr Portfolio!</strong></p>
+<h2 id="Kontext-mit-ToolRuntime">Kontext mit <code>ToolRuntime</code><a class="anchor-link" href="#Kontext-mit-ToolRuntime">¶</a></h2><ul>
+<li><code>ToolRuntime</code> gibt Tools Zugriff auf Laufzeit-Kontext</li>
+<li>Kontext enthält Informationen über den Benutzer</li>
+<li>Definiert über ein eigenes <code>dataclass</code></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c2a22fb1b2d04572">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">WeatherContext</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Custom runtime context schema."""</span>
+    <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">location</span><span class="p">:</span> <span class="nb">str</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e549cfbb320271aa">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nd">@tool</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_user_location</span><span class="p">(</span><span class="n">runtime</span><span class="p">:</span> <span class="n">ToolRuntime</span><span class="p">[</span><span class="n">WeatherContext</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Get the user's current location."""</span>
+    <span class="k">return</span> <span class="n">runtime</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">location</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=96124047faa0e45f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="System-Prompt-und-Antwort-Format">System-Prompt und Antwort-Format<a class="anchor-link" href="#System-Prompt-und-Antwort-Format">¶</a></h2><ul>
+<li>System-Prompt definiert die Persönlichkeit des Agenten</li>
+<li><code>ResponseFormat</code> definiert die Struktur der Antwort</li>
+<li><code>ToolStrategy</code> stellt sicher, dass die Antwort dem Format entspricht</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=9d2052efcfa4b7d4">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">SYSTEM_PROMPT</span> <span class="o">=</span> <span class="s2">"""You are an expert weather forecaster, who speaks in puns.</span>
+
+<span class="s2">You have access to two tools:</span>
+
+<span class="s2">- get_weather_for_location: use this to get the weather for a specific location</span>
+<span class="s2">- get_user_location: use this to get the user's current location</span>
+
+<span class="s2">If a user asks you about the weather, you should first get their location using</span>
+<span class="s2">get_user_location, and then get the weather for that location using</span>
+<span class="s2">get_weather_for_location. You should then respond with a pun about the weather.</span>
+<span class="s2">"""</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c79014c47366152a">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="nd">@dataclass</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">ResponseFormat</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Response schema for the agent."""</span>
+    <span class="n">punny_response</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">weather_conditions</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fb2049c21ed6b83e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Den-Agenten-erstellen">Den Agenten erstellen<a class="anchor-link" href="#Den-Agenten-erstellen">¶</a></h2><ul>
+<li><code>create_agent</code> kombiniert Modell, Tools und Konfiguration</li>
+<li><code>InMemorySaver</code> ermöglicht Konversationsgedächtnis</li>
+<li>Der Agent entscheidet selbstständig, welche Tools er aufruft</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1a24fd47cf27c094">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">checkpointer</span> <span class="o">=</span> <span class="n">InMemorySaver</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=49279e416fa67c7b">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">agent</span> <span class="o">=</span> <span class="n">create_agent</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model</span><span class="p">,</span>
+    <span class="n">system_prompt</span><span class="o">=</span><span class="n">SYSTEM_PROMPT</span><span class="p">,</span>
+    <span class="n">tools</span><span class="o">=</span><span class="p">[</span><span class="n">get_weather_for_location</span><span class="p">,</span> <span class="n">get_user_location</span><span class="p">],</span>
+    <span class="n">context_schema</span><span class="o">=</span><span class="n">WeatherContext</span><span class="p">,</span>
+    <span class="n">response_format</span><span class="o">=</span><span class="n">ToolStrategy</span><span class="p">(</span><span class="n">ResponseFormat</span><span class="p">),</span>
+    <span class="n">checkpointer</span><span class="o">=</span><span class="n">checkpointer</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=13c30f02924cf5e3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Den-Agenten-aufrufen">Den Agenten aufrufen<a class="anchor-link" href="#Den-Agenten-aufrufen">¶</a></h2><ul>
+<li><code>config</code> identifiziert die Konversation (Thread-ID)</li>
+<li><code>context</code> liefert Laufzeit-Informationen (Standort, User-ID)</li>
+<li><code>HumanMessage</code> enthält die Benutzer-Nachricht</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8e0d3b2fdbe28c41">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">config</span><span class="p">:</span> <span class="n">RunnableConfig</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"configurable"</span><span class="p">:</span> <span class="p">{</span><span class="s2">"thread_id"</span><span class="p">:</span> <span class="s2">"1"</span><span class="p">}}</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">WeatherContext</span><span class="p">(</span><span class="n">location</span><span class="o">=</span><span class="s2">"New York"</span><span class="p">,</span> <span class="n">user_id</span><span class="o">=</span><span class="s2">"user_123"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=acf6848617af5acc">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">weather_input</span> <span class="o">=</span> <span class="n">HumanMessage</span><span class="p">(</span>
+    <span class="n">content</span><span class="o">=</span><span class="s2">"Hello! Can you tell me what the weather is like today?"</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=523411b49063a373">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">agent</span><span class="o">.</span><span class="n">invoke</span><span class="p">(</span>
+    <span class="nb">input</span><span class="o">=</span><span class="n">weather_input</span><span class="p">,</span>
+    <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">,</span>
+    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=594ebaacab884414"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Die-Antwort-auswerten">Die Antwort auswerten<a class="anchor-link" href="#Die-Antwort-auswerten">¶</a></h2><ul>
+<li><code>structured_response</code> enthält die strukturierte Antwort</li>
+<li><code>messages</code> enthält den gesamten Nachrichtenverlauf inkl. Tool-Aufrufe</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=309c37456d6a9842">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c9fff303b7b3c415">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=2e3c09893a71daf6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>

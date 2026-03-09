@@ -6,6 +6,10 @@
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -16,9 +20,8 @@
 # 2. Encoding-Probleme reparieren mit `ftfy`
 # 3. Web-Text normalisieren mit `clean-text`
 # 4. Haupttext aus HTML extrahieren mit `trafilatura`
-# 5. Text bereinigen und aufteilen
-# 6. Mit Chunk-Parametern experimentieren
-# 7. Verschiedene Splitter vergleichen
+# 5. Bereinigung und Chunking kombinieren
+# 6. Chunk-Parameter und Splitter vergleichen
 
 # %%
 import re
@@ -30,7 +33,6 @@ from langchain_text_splitters import (
     CharacterTextSplitter,
 )
 
-
 # %%
 def clean_text(text):
     text = re.sub(r"<[^>]+>", "", text)
@@ -39,7 +41,6 @@ def clean_text(text):
     text = re.sub(r" +\n", "\n", text)
     text = re.sub(r"\n{3,}", "\n\n", text)
     return text.strip()
-
 
 # %% [markdown]
 #
@@ -55,8 +56,6 @@ with open("docs/messy_report.txt", "r") as f:
 
 print("=== Before ===")
 print(messy_report)
-
-# TODO: Apply clean_text() and print the result
 
 # %%
 
@@ -76,8 +75,6 @@ with open("docs/encoding_problems.txt", "r") as f:
 
 print("=== Before ===")
 print(encoded_text)
-
-# TODO: Apply ftfy.fix_text() and clean_text(), print the result
 
 # %%
 
@@ -103,8 +100,6 @@ with open("docs/scraped_content.txt", "r") as f:
 print("=== Before ===")
 print(scraped)
 
-# TODO: Apply clean() with different options, print the results
-
 # %%
 
 # %%
@@ -128,8 +123,6 @@ with open("docs/sample_blog_post.html", "r") as f:
 print("=== Raw HTML (first 500 chars) ===")
 print(html_content[:500])
 
-# TODO: Use trafilatura.extract() to extract the main text and print it
-
 # %%
 
 # %%
@@ -147,17 +140,14 @@ print(html_content[:500])
 # Testen Sie Ihre Funktion mit `docs/ai-intro.txt`.
 
 # %%
-def clean_and_chunk(filepath, chunk_size=500, chunk_overlap=50):
-    # TODO: Read the file
-    # TODO: Clean the text with clean_text()
-    # TODO: Create a RecursiveCharacterTextSplitter
-    # TODO: Split and return the chunks
-    pass
-
 
 # %%
 
+# %% [markdown]
+# Anzahl Chunks:
+
 # %%
+len(chunks)
 
 # %%
 
@@ -203,15 +193,14 @@ und Fragen beantworten.\
 """
 
 # %%
-# Experimentieren Sie mit verschiedenen Parametern:
-# Experiment with different parameters:
 chunk_sizes = [100, 200, 500]
 overlap_percentages = [0, 20, 50]
 
-# TODO: Erstellen Sie für jede Kombination einen Splitter
-# TODO: Geben Sie Anzahl Chunks und ersten Chunk aus
-# TODO: Create a splitter for each combination
-# TODO: Print number of chunks and first chunk
+# %%
+
+# %%
+
+# %%
 
 # %% [markdown]
 #
@@ -227,12 +216,6 @@ overlap_percentages = [0, 20, 50]
 # **Tipp**: `CharacterTextSplitter` braucht den Parameter `separator="\n"`.
 
 # %%
-# TODO: Erstellen Sie beide Splitter
-# TODO: Splitten Sie den Text
-# TODO: Vergleichen Sie die Ergebnisse
-# TODO: Create both splitters
-# TODO: Split the text
-# TODO: Compare the results
 
 # %%
 

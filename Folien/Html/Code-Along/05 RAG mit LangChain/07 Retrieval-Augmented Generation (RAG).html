@@ -13265,11 +13265,10 @@ Antwort basierend auf echten Daten
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=0a4d43834f7accb0"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a00cd5e021a82caa"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Beispiel:-Mit-vs.-Ohne-Kontext">Beispiel: Mit vs. Ohne Kontext<a class="anchor-link" href="#Beispiel:-Mit-vs.-Ohne-Kontext">¶</a></h2><p>Nehmen wir an, wir haben ein Dokument mit folgendem Inhalt als Kontext
-geladen:</p>
+<h2 id="Beispiel:-Mit-vs.-Ohne-Kontext">Beispiel: Mit vs. Ohne Kontext<a class="anchor-link" href="#Beispiel:-Mit-vs.-Ohne-Kontext">¶</a></h2><p>Beispiel-Dokument als Kontext:</p>
 </div>
 </div>
 </div>
@@ -13389,7 +13388,7 @@ Naheliegende Ansätze:<ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=946957eea78ec29b"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=ab3bbb7c99c6277b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Vektor-Suche">Vektor-Suche<a class="anchor-link" href="#Vektor-Suche">¶</a></h2><div style="float:right;width:40%;">
@@ -13400,11 +13399,12 @@ Naheliegende Ansätze:<ul>
 <br/>
 <ul>
 <li>Embeddings: Repräsentation von Text als Vektoren</li>
-<li>Ähnlichkeit von Vektoren mathematisch definierbar</li>
-<ul>
+<li>Ähnlichkeit von Vektoren mathematisch definierbar
+  <ul>
 <li>Beispiel: $|\vec a - \vec b|$ (Euklidische Distanz)</li>
 <li>Oft besser: Kosinus-Ähnlichkeit<br/>(Winkel zwischen Vektoren)</li>
 </ul>
+</li>
 <li>Idee: "ähnliche" Texte → "ähnliche" Vektoren</li>
 <li>Semantische Suche: Finde ähnliche Vektoren</li>
 </ul>
@@ -13531,35 +13531,40 @@ Naheliegende Ansätze:<ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=928399fbda23241c"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5a94a3be7b0f81c6"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Wie-LangChain-RAG-vereinfacht">Wie LangChain RAG vereinfacht<a class="anchor-link" href="#Wie-LangChain-RAG-vereinfacht">¶</a></h2><p><strong>Ohne Framework</strong>:</p>
-<ul>
-<li>Dokumente laden und chunken</li>
-<li>Embeddings manuell erstellen</li>
-<li>Vektor-Datenbank einrichten</li>
-<li>Retrieval-Logik programmieren</li>
-<li>LLM-Integration schreiben</li>
-<li>~200-300 Zeilen Code</li>
+<h2 id="Herausforderungen-ohne-Framework">Herausforderungen ohne Framework<a class="anchor-link" href="#Herausforderungen-ohne-Framework">¶</a></h2><ul>
+<li>Dokumente laden und in Stücke aufteilen (Chunking)</li>
+<li>Embeddings manuell erstellen und verwalten</li>
+<li>Vektor-Datenbank einrichten und konfigurieren</li>
+<li>Retrieval-Logik selbst programmieren</li>
+<li>LLM-Integration von Hand schreiben</li>
 </ul>
-<p><strong>Mit LangChain</strong>:</p>
-<ul>
-<li>Komponenten zusammenstecken</li>
-<li>~30-50 Zeilen Code</li>
+<p><strong>Ergebnis</strong>: ~200-300 Zeilen komplexer Code</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=65003190446c584a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Wie-LangChain-hilft">Wie LangChain hilft<a class="anchor-link" href="#Wie-LangChain-hilft">¶</a></h2><ul>
+<li>Fertige Bausteine für jeden RAG-Schritt</li>
+<li>Komponenten einfach zusammenstecken</li>
+<li>Viele Datenquellen und Vektor-Datenbanken unterstützt</li>
+<li>Ergebnis: ~30-50 Zeilen Code</li>
 </ul>
 <p><strong>Darum nutzen wir LangChain von Anfang an!</strong></p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7ef696764870c3f0"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2fd108a945194947"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Was-wir-lernen-werden">Was wir lernen werden<a class="anchor-link" href="#Was-wir-lernen-werden">¶</a></h2><ol>
-<li><strong>Document Loaders</strong>: Dokumente aus verschiedenen Quellen laden</li>
-<li><strong>Text Chunking</strong>: Dokumente in handhabbare Stücke aufteilen</li>
+<li><strong>Dokumente laden und aufteilen</strong>: Document Loaders und Text Chunking</li>
 <li><strong>Vector Embeddings</strong>: Wie Text als Vektoren dargestellt wird</li>
-<li><strong>Qdrant</strong>: Vektor-Datenbank mit Hybrid Search</li>
+<li><strong>Vektor-Datenbank (Qdrant)</strong>: Speichern und Suchen mit Hybrid Search</li>
 <li><strong>RAG mit LangChain</strong>: Alles zusammenbauen</li>
 <li><strong>Workshop</strong>: Eigenes RAG-System mit Gradio-UI</li>
 </ol>
@@ -13581,14 +13586,73 @@ Naheliegende Ansätze:<ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=6b4e03423667dbb7">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=18d183b7d7dd4398"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Workshop:-RAG-vs.-Fine-Tuning">Workshop: RAG vs. Fine-Tuning<a class="anchor-link" href="#Workshop:-RAG-vs.-Fine-Tuning">¶</a></h2><p>Entscheiden Sie für jedes Szenario, ob <strong>RAG</strong> oder <strong>Fine-Tuning</strong> besser
+geeignet ist, und begründen Sie Ihre Wahl kurz.</p>
 </div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=a25d72e806da9ed2"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Szenario 1:</strong> Ein Krankenhaus möchte einen Chatbot erstellen, der Ärzten
+Informationen aus den neuesten medizinischen Leitlinien gibt. Die Leitlinien
+werden regelmäßig aktualisiert.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_answer" id="cell-id=556e2e949db4c85f"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Antwort:</em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=d25bc96c7c242503"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Szenario 2:</strong> Ein Unternehmen möchte, dass ein LLM alle E-Mails in einem
+bestimmten formellen Stil schreibt, der zur Markenidentität passt.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_answer" id="cell-id=a1573024630776a3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Antwort:</em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=cd904a3aa95ffa2e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Szenario 3:</strong> Eine Anwaltskanzlei möchte einen Assistenten, der Fragen zu
+den Verträgen und internen Dokumenten der Kanzlei beantworten kann.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_answer" id="cell-id=c61f36ab666f40f2"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Antwort:</em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=4e1d4023c48cda8e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><strong>Szenario 4:</strong> Ein Medizintechnik-Unternehmen möchte, dass ein LLM
+Befundberichte in einem spezifischen medizinischen Fachformat ausgibt, das
+dem klinikinternen Standard entspricht.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_answer" id="cell-id=3ae1efa109d52cd6"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><em>Antwort:</em></p>
 </div>
 </div>
 </div>

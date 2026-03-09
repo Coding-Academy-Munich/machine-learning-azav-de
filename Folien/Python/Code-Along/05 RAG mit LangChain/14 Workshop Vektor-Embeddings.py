@@ -1,11 +1,15 @@
 # %% [markdown]
 #
 # <div style="text-align:center; font-size:200%;">
-#  <b>Workshop: Vector Embeddings</b>
+#  <b>Workshop: Vektor-Embeddings</b>
 # </div>
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -50,14 +54,7 @@ workshop_texts = [
     "Basketball wurde 1891 in den USA erfunden",
 ]
 
-
 # %%
-# Erstellen Sie Embeddings und berechnen Sie die Ähnlichkeitsmatrix
-# Create embeddings and compute the similarity matrix
-
-# TODO: Embed all texts
-# TODO: Calculate cosine similarities
-# TODO: Print the most similar pair of texts
 
 # %%
 
@@ -65,22 +62,18 @@ workshop_texts = [
 #
 # ## Aufgabe 2: Semantische Suchfunktion
 #
-# Schreiben Sie eine Funktion `semantic_search(query, texts, embeddings_model, k=2)`,
-# die:
-# 1. Die Anfrage embeddet
-# 2. Kosinus-Ähnlichkeit zu allen Texten berechnet
-# 3. Die Top-k ähnlichsten Texte mit ihren Scores zurückgibt
-#
-# Testen Sie Ihre Funktion mit mindestens 3 verschiedenen Anfragen.
+# 1. Berechnen Sie die Embeddings für `workshop_texts` vorab mit `embed_documents()`
+#    und konvertieren Sie sie in ein NumPy-Array
+# 2. Schreiben Sie eine Funktion
+#    `semantic_search(query, texts, text_embeddings, embeddings_model, k=2)`, die:
+#    - Die Anfrage mit `embed_query()` embeddet
+#    - Kosinus-Ähnlichkeit zu allen Text-Embeddings berechnet
+#    - Die Top-k ähnlichsten Texte mit ihren Scores zurückgibt
+# 3. Testen Sie Ihre Funktion mit mindestens 3 verschiedenen Anfragen
 
 # %%
-def semantic_search(query, texts, embeddings_model, k=2):
-    """Semantische Suche / Semantic search."""
-    # TODO: Embed the query
-    # TODO: Embed all texts (or reuse existing embeddings)
-    # TODO: Calculate cosine similarity
-    # TODO: Return top-k results as list of (score, text) tuples
-    pass
+
+# %%
 
 # %%
 test_queries = [
@@ -101,12 +94,9 @@ test_queries = [
 
 # %%
 def keyword_search(query, texts):
-    """Simple keyword search: returns texts containing the query."""
     return [t for t in texts if query.lower() in t.lower()]
 
 # %%
-# Vergleichen Sie beide Suchansätze mit den folgenden Anfragen:
-# Compare both search approaches with the following queries:
 comparison_queries = [
     "Haustiere",
     "pets",
@@ -114,7 +104,4 @@ comparison_queries = [
     "Ballsport",
 ]
 
-# TODO: Für jede Anfrage: Keyword-Suche und semantische Suche ausführen
-# TODO: Ergebnisse vergleichen und ausgeben
-# TODO: For each query: Run keyword search and semantic search
-# TODO: Compare and print results
+# %%
