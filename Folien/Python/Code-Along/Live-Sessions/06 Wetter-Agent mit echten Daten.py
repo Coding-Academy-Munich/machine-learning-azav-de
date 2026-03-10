@@ -27,7 +27,8 @@
 import os
 import time
 from dataclasses import dataclass
-from textwrap import wrap
+import re
+from textwrap import fill
 
 import requests
 from dotenv import load_dotenv
@@ -41,6 +42,20 @@ from langgraph.checkpoint.memory import InMemorySaver
 
 # %%
 load_dotenv()
+
+
+# %%
+def format_llm_output(text, width=72):
+    """Wrap long lines while preserving existing line breaks and list structure."""
+    result = []
+    for line in text.split("\n"):
+        if not line.strip():
+            result.append("")
+        else:
+            m = re.match(r"^(\s*(?:[-*]|\d+\.)\s+)", line)
+            indent = " " * len(m.group(1)) if m else ""
+            result.append(fill(line, width=width, subsequent_indent=indent))
+    return "\n".join(result)
 
 # %%
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
@@ -76,6 +91,7 @@ def geocode_location(location: str) -> tuple[float, float]:
         f"{NOMINATIM_BASE_URL}/search",
         params={"q": location, "format": "json", "limit": 1},
         headers={"User-Agent": "tourist-info-agent/1.0"},
+        timeout=10,
     )
     response.raise_for_status()
     data = response.json()
@@ -196,12 +212,12 @@ agent = create_agent(
 # - Der Agent ruft automatisch die richtigen Tools auf
 
 # %%
-config: RunnableConfig = {"configurable": {"thread_id": "1"}}
+config: RunnableConfig = {"configurable": {"thread_id": "1"}, "recursion_limit": 10}
 context = WeatherContext(location="Vienna", user_id="user_123")
 
 # %%
 response = agent.invoke(
-    input=HumanMessage(content="What is the weather outside?"),
+    input={"messages": [HumanMessage(content="What is the weather outside?")]},
     context=context,
     config=config,
 )

@@ -23,19 +23,19 @@ from vector_embeddings_plots import plot_similarity_matrix
 dotenv.load_dotenv()
 
 # %%
-embeddings = OpenAIEmbeddings(
-    api_key=os.getenv("OPENROUTER_API_KEY"),
-    base_url="https://openrouter.ai/api/v1",
-    model="openai/text-embedding-3-small"
-)
-
-# %%
 texts = [
     "Machine Learning ist ein Teilbereich der KI",
     "Machine Learning ist eine wichtige KI-Methode",
     "Deep Learning nutzt neuronale Netze",
     "Katzen sind Haustiere"
 ]
+
+# %%
+embeddings = OpenAIEmbeddings(
+    api_key=os.getenv("OPENROUTER_API_KEY"),
+    base_url="https://openrouter.ai/api/v1",
+    model="openai/text-embedding-3-small"
+)
 
 # %%
 text_embeddings = embeddings.embed_documents(texts)
@@ -128,6 +128,15 @@ def keyword_search(query, texts):
 # ## Vergleich: Keyword vs. Semantische Suche
 
 # %%
+query1 = "neuronale Netze"
+print(f"Suche: '{query1}'")
+print(f"\nKeyword-Ergebnisse:")
+kw_results = keyword_search(query1, texts)
+if kw_results:
+    for r in kw_results:
+        print(f"  - {r}")
+else:
+    print("  (keine Treffer)")
 
 # %%
 q_emb = np.array(embeddings.embed_query(query1)).reshape(1, -1)
@@ -135,6 +144,9 @@ sims = cosine_similarity(q_emb, text_emb_array)[0]
 top_indices = np.argsort(sims)[::-1][:2]
 
 # %%
+print(f"\nSemantische Ergebnisse:")
+for idx in top_indices:
+    print(f"  [{sims[idx]:.3f}] {texts[idx]}")
 
 # %% [markdown]
 #
@@ -148,6 +160,9 @@ sims2 = cosine_similarity(q_emb2, text_emb_array)[0]
 top_indices2 = np.argsort(sims2)[::-1][:2]
 
 # %%
+print(f"\nSemantische Ergebnisse:")
+for idx in top_indices2:
+    print(f"  [{sims2[idx]:.3f}] {texts[idx]}")
 
 # %% [markdown]
 #

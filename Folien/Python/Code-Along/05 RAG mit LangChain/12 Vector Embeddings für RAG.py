@@ -36,7 +36,7 @@ dotenv.load_dotenv()
 #
 # ## Text-Embeddings
 #
-# - Nicht nur Wörter, sondern **ganze Texte** einbetten
+# - Nicht nur Wörter, sondern **längere Texte** einbetten
 # - Sätze, Absätze, Dokumente → Vektoren
 # - **Dimension**: Meist 384, 768, oder 1536
 #   - Mehr Dimensionen = mehr Nuancen, aber auch teurer

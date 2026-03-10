@@ -37,7 +37,8 @@
 import os
 import random
 from dataclasses import dataclass
-from textwrap import wrap
+import re
+from textwrap import fill
 
 from dotenv import load_dotenv
 from langchain.agents import create_agent
@@ -50,6 +51,20 @@ from langgraph.checkpoint.memory import InMemorySaver
 
 # %%
 load_dotenv()
+
+
+# %%
+def format_llm_output(text, width=72):
+    """Wrap long lines while preserving existing line breaks and list structure."""
+    result = []
+    for line in text.split("\n"):
+        if not line.strip():
+            result.append("")
+        else:
+            m = re.match(r"^(\s*(?:[-*]|\d+\.)\s+)", line)
+            indent = " " * len(m.group(1)) if m else ""
+            result.append(fill(line, width=width, subsequent_indent=indent))
+    return "\n".join(result)
 
 # %%
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
@@ -173,7 +188,7 @@ agent = create_agent(
 # - `HumanMessage` enthält die Benutzer-Nachricht
 
 # %%
-config: RunnableConfig = {"configurable": {"thread_id": "1"}}
+config: RunnableConfig = {"configurable": {"thread_id": "1"}, "recursion_limit": 10}
 context = WeatherContext(location="New York", user_id="user_123")
 
 # %%
@@ -183,7 +198,7 @@ weather_input = HumanMessage(
 
 # %%
 response = agent.invoke(
-    input=weather_input,
+    input={"messages": [weather_input]},
     context=context,
     config=config,
 )
