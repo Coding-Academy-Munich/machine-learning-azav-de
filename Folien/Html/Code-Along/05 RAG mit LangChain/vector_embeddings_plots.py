@@ -4,9 +4,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_2d_vectors(a, b, c):
-    vectors = {"a": a[0], "b": b[0], "c": c[0]}
-    colors = {"a": "red", "b": "black", "c": "darkblue"}
+def plot_2d_vectors(a, b, c, d):
+    vectors = {"a": a[0], "b": b[0], "c": c[0], "d": d[0]}
+    colors = {"a": "red", "b": "black", "c": "darkblue", "d": "green"}
     fig, ax = plt.subplots(figsize=(6, 5))
     for name, v in vectors.items():
         ax.annotate("", xy=v, xytext=(0, 0),
@@ -25,7 +25,7 @@ def plot_2d_vectors(a, b, c):
 
 def plot_similarity_matrix(similarities, texts):
     plt.figure(figsize=(8, 7))
-    plt.imshow(similarities, cmap='coolwarm', aspect='auto')
+    plt.imshow(similarities, cmap='viridis', aspect='auto')
     plt.colorbar(label='Ähnlichkeit / Similarity')
     plt.xticks(range(len(texts)), [f"Text {i+1}" for i in range(len(texts))])
     plt.yticks(range(len(texts)), [f"Text {i+1}" for i in range(len(texts))])

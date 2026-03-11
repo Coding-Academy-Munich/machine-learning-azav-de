@@ -6,6 +6,10 @@
 # <br/>
 # <div style="text-align:center;">Dr. Matthias Hölzl</div>
 # <br/>
+#
+# <div style="text-align:center;">Coding-Akademie München</div>
+# <br/>
+
 
 # %% [markdown]
 #
@@ -154,24 +158,15 @@ response_with_context = llm.invoke(prompt_with_context)
 #
 # ## Vektor-Suche
 #
-# <div style="float:right;width:40%;">
-#   <img src="img/cosine-distance.png" style="float:right;width:50%"/>
-#   <img src="img/vector-difference.png" style="float:left;width:50%"/>
-# </div>
-# <div style="width:60%;">
-# <br>
-# <ul>
-#   <li>Embeddings: Repräsentation von Text als Vektoren</li>
-#   <li>Ähnlichkeit von Vektoren mathematisch definierbar
-#   <ul>
-#     <li>Beispiel: $|\vec a - \vec b|$ (Euklidische Distanz)</li>
-#     <li>Oft besser: Kosinus-Ähnlichkeit<br>(Winkel zwischen Vektoren)</li>
-#   </ul>
-#   </li>
-#   <li>Idee: "ähnliche" Texte → "ähnliche" Vektoren</li>
-#   <li>Semantische Suche: Finde ähnliche Vektoren</li>
-# </ul>
-# </div>
+# <img src="img/cosine-distance.png" style="float:right;width:20%"/>
+# <img src="img/vector-difference.png" style="float:right;width:20%"/>
+#
+# - Embeddings: Repräsentation von Text als Vektoren
+# - Ähnlichkeit von Vektoren mathematisch definierbar
+#   - Beispiel: $|\vec a - \vec b|$ (Euklidische Distanz)
+#   - Oft besser: Kosinus-Ähnlichkeit (Winkel zwischen Vektoren)
+# - Idee: "ähnliche" Texte → "ähnliche" Vektoren
+# - Semantische Suche: Finde ähnliche Vektoren
 
 # %% [markdown]
 #

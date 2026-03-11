@@ -25,9 +25,10 @@ dotenv.load_dotenv()
 # %%
 texts = [
     "Machine Learning ist ein Teilbereich der KI",
-    "Machine Learning ist eine wichtige KI-Methode",
+    "ML ist eine wichtige KI-Methode",
     "Deep Learning nutzt neuronale Netze",
-    "Katzen sind Haustiere"
+    "Katzen sind Haustiere",
+    "Machine Learning is a subset of AI",
 ]
 
 # %%
@@ -39,31 +40,6 @@ embeddings = OpenAIEmbeddings(
 
 # %%
 text_embeddings = embeddings.embed_documents(texts)
-
-# %% [markdown]
-#
-# ## Moderne Embedding-Modelle normalisieren!
-#
-# - Modelle wie `text-embedding-3-small` geben **normalisierte Vektoren** zurück
-# - Alle Vektoren haben die **gleiche Länge** (Norm = 1), egal wie lang der Text ist
-# - Für normalisierte Vektoren ergeben beide Metriken immer
-#   **dieselbe Rangfolge** der ähnlichsten Texte
-# - Der Unterschied aus dem 2D-Beispiel tritt bei Embeddings also **nicht** auf!
-#
-# *Für Neugierige: Es gilt $d_{\text{euklid}} = \sqrt{2 \cdot (1 - \textit{cos\_sim})}$*
-
-# %% [markdown]
-#
-# ## Warum trotzdem Kosinus-Ähnlichkeit?
-#
-# - **Konvention**: Die meisten Tools und Datenbanken verwenden sie standardmäßig
-# - **Skala**: Mathematisch von -1.0 (entgegengesetzt) bis 1.0 (identisch)
-#   - Für Text-Embeddings moderner Modelle: typischerweise 0.0 (unverwandt) bis 1.0
-#   - Negative Werte sind bei Text-Embeddings selten, aber mathematisch möglich
-# - **Effizienz**: Berechnung über Skalarprodukt (schnell!)
-# - **Robustheit**: Funktioniert auch mit nicht-normalisierten Modellen
-#
-# In der Praxis: Qdrant, Pinecone etc. nutzen Kosinus-Ähnlichkeit als Standard
 
 # %% [markdown]
 #
@@ -95,12 +71,12 @@ plot_similarity_matrix(similarities, texts)
 # %%
 query = "Was sind neuronale Netze?"
 
-
 # %% [markdown]
 #
-# Betten Sie die Anfrage ein und finden Sie die ähnlichsten Texte:
-# 1. Anfrage einbetten mit `embeddings.embed_query(query)`
-# 2. Kosinus-Ähnlichkeit berechnen
+# Wir gehen folgendermaßen vor:
+# 1. Berechnen des Embeddings der Anfrage mit `embeddings.embed_query(query)`
+# 2. Berechnen der Kosinus-Ähnlichkeit zwischen Anfrage-Embedding und
+#    Text-Embeddings
 # 3. Nach Ähnlichkeit sortieren
 
 # %%
@@ -111,13 +87,41 @@ query = "Was sind neuronale Netze?"
 
 # %%
 
+# %%
+
+# %%
+
+# %%
+my_values = [3, 1, 4, 2]
+my_numbers = ["three", "one", "four", "two"]
+
+# %%
+my_sorted_indices = np.argsort(my_values)[::-1]
+
+
+# %%
+
+# %%
+
+# %%
+
+# %%
+def print_by_similarity(similarities, texts):
+    sorted_indices = np.argsort(similarities)[::-1]
+    print("Texte sortiert nach Ähnlichkeit:")
+    for i in sorted_indices:
+        print(f"  [{similarities[i]:.3f}] {texts[i]}")
+
+# %%
+
 # %% [markdown]
 #
 # ## Warum nicht einfach Keyword-Suche?
 #
 # - **Keyword-Suche**: Sucht nach exakten Wörtern im Text
-# - **Problem**: Findet nur exakte Übereinstimmungen
-# - Versteht keine Synonyme, keine Übersetzungen, keine verwandten Konzepte
+# - **Problem**:
+#   - Findet nur exakte Übereinstimmungen
+#   - Versteht keine Synonyme, keine Übersetzungen, keine verwandten Konzepte
 
 # %%
 def keyword_search(query, texts):
@@ -139,8 +143,8 @@ else:
     print("  (keine Treffer)")
 
 # %%
-q_emb = np.array(embeddings.embed_query(query1)).reshape(1, -1)
-sims = cosine_similarity(q_emb, text_emb_array)[0]
+q_emb = [embeddings.embed_query(query1)]
+sims = cosine_similarity(q_emb, text_embeddings)[0]
 top_indices = np.argsort(sims)[::-1][:2]
 
 # %%
@@ -155,8 +159,8 @@ for idx in top_indices:
 # %%
 
 # %%
-q_emb2 = np.array(embeddings.embed_query(query2)).reshape(1, -1)
-sims2 = cosine_similarity(q_emb2, text_emb_array)[0]
+q_emb2 = [embeddings.embed_query(query2)]
+sims2 = cosine_similarity(q_emb2, text_embeddings)[0]
 top_indices2 = np.argsort(sims2)[::-1][:2]
 
 # %%
@@ -174,6 +178,16 @@ for idx in top_indices2:
 # | **Synonyme** | ❌ "KI" ≠ "AI" | ✅ Versteht Bedeutung |
 # | **Andere Sprache** | ❌ "AI" ≠ "KI" | ✅ Sprachübergreifend |
 # | **Verwandte Konzepte** | ❌ Kein Zusammenhang | ✅ Erkennt Verwandtschaft |
+
+# %% [markdown]
+#
+# ## Für RAG bedeutet das:
+#
+# 1. Alle Dokument-Chunks embedden
+# 2. ???
+# 3. Bei Anfrage: Anfrage embedden
+# 4. Ähnlichste Chunks finden (Kosinus-Ähnlichkeit)
+# 5. Als Kontext an LLM geben
 
 # %% [markdown]
 #

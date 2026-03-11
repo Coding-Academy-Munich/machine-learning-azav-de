@@ -16,10 +16,10 @@
 # ## Warum Vektor-Datenbanken?
 #
 # - **Problem**: Semantische Suche über viele Dokumente ist aufwändig
-#   - Bei jedem Query: alle Dokumente embedden + Ähnlichkeit berechnen
+#   - Bei jedem Query: Ähnlichkeit für alle Dokumente berechnen
 # - **Lösung**: Vektor-Datenbank
-#   - Speichert Embeddings einmal vor
-#   - Nutzt spezielle Indexstrukturen (z.B. HNSW) für schnelle Suche
+#   - Speichert Embeddings aller Dokumente
+#   - Nutzt spezielle Indexstrukturen für schnelle Suche
 #   - Effizienz hängt von Konfiguration und Hardware ab, aber auch große
 #     Sammlungen können in wenigen Millisekunden durchsucht werden
 
@@ -29,7 +29,7 @@
 #
 # - **Open Source** (Apache 2.0 Lizenz)
 # - Einfach zu installieren: `pip install qdrant-client langchain-qdrant`
-# - Funktioniert auf Windows und Linux
+# - Funktioniert auf Windows und Linux (Linux wird für Produktion empfohlen)
 # - Lokaler Modus ohne Server-Konfiguration
 # - Unterstützt Hybrid Search (semantische + Keyword-Suche)
 # - LangChain-Integration verfügbar
@@ -71,22 +71,16 @@ load_dotenv()
 #
 # ## Embedding-Modell erstellen
 #
-# - Qdrant braucht ein **Embedding-Modell** (wir kennen das aus der letzten Lektion)
+# - Qdrant braucht ein **Embedding-Modell** (wir kennen das aus der letzten
+#   Lektion)
 # - Wir verwenden OpenAI Embeddings über OpenRouter
 
 # %%
-embeddings = OpenAIEmbeddings(
+embeddings_model = OpenAIEmbeddings(
     api_key=os.getenv("OPENROUTER_API_KEY"),
     base_url="https://openrouter.ai/api/v1",
     model="openai/text-embedding-3-small"
 )
-
-# %% [markdown]
-#
-# ## Vektor-Store erstellen und Dokumente hinzufügen
-#
-# - `QdrantVectorStore.from_texts()` erstellt den Store und fügt Texte hinzu
-# - Embeddings werden **automatisch** berechnet
 
 # %%
 texts = [
@@ -98,9 +92,14 @@ texts = [
 
 # %% [markdown]
 #
-# Erstellen Sie einen `QdrantVectorStore` aus den Texten:
+# ## Vektor-Store erstellen und Dokumente hinzufügen
+#
+# - `QdrantVectorStore.from_texts()` erstellt den Store und fügt Texte hinzu
+# - Embeddings werden **automatisch** berechnet
 
-# %%
+# %% [markdown]
+#
+# Erstellen eines `QdrantVectorStore` aus den Texten:
 
 # %%
 
@@ -113,7 +112,7 @@ texts = [
 
 # %% [markdown]
 #
-# Suchen Sie nach "What is overfitting?":
+# Suche nach "What is overfitting?":
 
 # %%
 
@@ -123,9 +122,9 @@ texts = [
 #
 # ## Suche mit Ähnlichkeits-Scores
 #
-# - `similarity_search_with_score()` zeigt auch einen Score
+# - `similarity_search_with_score()` gibt auch einen Score zurück
 # - Der Score ist die **Kosinus-Ähnlichkeit**
-# - **Hoher Score** = **hohe Ähnlichkeit**
+#   - **Hoher Score** = **hohe Ähnlichkeit**
 #
 # | Score | Bedeutung |
 # |---|---|
@@ -133,10 +132,10 @@ texts = [
 # | 0.50 | Mittelmäßig ähnlich |
 # | 0.10 | Wenig ähnlich |
 
-# %%
-
 # %% [markdown]
-# Mit Ähnlichkeits-Scores:
+# Abfrage mit Ähnlichkeits-Scores:
+
+# %%
 
 # %%
 
@@ -145,11 +144,6 @@ texts = [
 # ## Was passiert bei irrelevanten Anfragen?
 
 # %%
-
-# %% [markdown]
-# Query: "What is the recipe for chocolate cake?"
-#
-# Ergebnisse:
 
 # %%
 
@@ -173,14 +167,26 @@ texts = [
 threshold = 0.4
 
 # %%
+print("Relevante Anfrage:")
+results_relevant = vectorstore.similarity_search_with_score("What is overfitting?", k=2)
+for doc, score in results_relevant:
+    status = "behalten" if score >= threshold else "FILTERN"
+    print(f"  [{score:.3f}] ({status}) {doc.page_content}")
 
 # %%
+print("\nIrrelevante Anfrage:")
+results_irrelevant = vectorstore.similarity_search_with_score(
+    "What is the recipe for chocolate cake?", k=2
+)
+for doc, score in results_irrelevant:
+    status = "behalten" if score >= threshold else "FILTERN"
+    print(f"  [{score:.3f}] ({status}) {doc.page_content}")
 
 # %% [markdown]
 #
-# ## Metadata verwenden
+# ## Metadaten verwenden
 #
-# - Dokumente können **Metadata** haben (z.B. Thema, Datum, Quelle)
+# - Dokumente können **Metadaten** haben (z.B. Thema, Datum, Quelle)
 # - Nützlich für zusätzliche Filterung:
 #   - Nur Dokumente eines bestimmten Themas durchsuchen
 #   - Nach Datum filtern
@@ -189,6 +195,7 @@ threshold = 0.4
 # %%
 from langchain_core.documents import Document
 
+# %%
 docs_with_meta = [
     Document(page_content="Linear regression models linear relationships",
              metadata={"topic": "ML", "difficulty": "beginner"}),
@@ -200,9 +207,10 @@ docs_with_meta = [
              metadata={"topic": "ML", "difficulty": "advanced"}),
 ]
 
+# %%
 vectorstore_meta = QdrantVectorStore.from_documents(
     documents=docs_with_meta,
-    embedding=embeddings,
+    embedding=embeddings_model,
     collection_name="docs_with_meta",
     location=":memory:",
 )
@@ -210,6 +218,8 @@ vectorstore_meta = QdrantVectorStore.from_documents(
 # %% [markdown]
 #
 # ## Suche mit Metadata
+
+# %%
 
 # %%
 
@@ -224,13 +234,8 @@ vectorstore_meta = QdrantVectorStore.from_documents(
 from qdrant_client.models import Filter, FieldCondition, MatchValue
 
 # %%
-ml_filter = Filter(
-    must=[FieldCondition(key="metadata.topic", match=MatchValue(value="ML"))]
-)
 
-results_filtered = vectorstore_meta.similarity_search(
-    "machine learning techniques", k=4, filter=ml_filter
-)
+# %%
 
 # %%
 
@@ -242,11 +247,13 @@ results_filtered = vectorstore_meta.similarity_search(
 # - Wird für RAG-Chains verwendet
 # - Einfach aus dem Vektor-Store erstellen
 
-# %% [markdown]
-#
-# Erstellen Sie einen Retriever aus dem Vektor-Store:
+# %%
 
 # %%
+
+# %% [markdown]
+#
+# Gefundene Dokumente:
 
 # %%
 

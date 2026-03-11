@@ -46,7 +46,7 @@ embeddings = OpenAIEmbeddings(
 
 # %%
 workshop_texts = [
-    "Hunde sind treue Haustiere und brauchen viel Auslauf",
+    "Hunde sind treue Gefährten und brauchen viel Auslauf",
     "Katzen sind unabhängige Haustiere, die gerne schlafen",
     "Python ist eine beliebte Programmiersprache für Data Science",
     "JavaScript wird hauptsächlich für Webentwicklung eingesetzt",
@@ -62,14 +62,15 @@ workshop_texts = [
 #
 # ## Aufgabe 2: Semantische Suchfunktion
 #
-# 1. Berechnen Sie die Embeddings für `workshop_texts` vorab mit `embed_documents()`
-#    und konvertieren Sie sie in ein NumPy-Array
-# 2. Schreiben Sie eine Funktion
-#    `semantic_search(query, texts, text_embeddings, embeddings_model, k=2)`, die:
+# 1. Schreiben Sie eine Funktion `semantic_search(query, texts, text_embeddings,
+#    embeddings_model, k=2)`, die:
 #    - Die Anfrage mit `embed_query()` embeddet
 #    - Kosinus-Ähnlichkeit zu allen Text-Embeddings berechnet
 #    - Die Top-k ähnlichsten Texte mit ihren Scores zurückgibt
-# 3. Testen Sie Ihre Funktion mit mindestens 3 verschiedenen Anfragen
+# 2. Testen Sie Ihre Funktion mit mindestens 3 verschiedenen Anfragen
+#
+# **Hinweis:** Sie können dabei die bereits berechneten Embeddings aus Aufgabe 1
+# verwenden, um API-Aufrufe zu sparen!
 
 # %%
 

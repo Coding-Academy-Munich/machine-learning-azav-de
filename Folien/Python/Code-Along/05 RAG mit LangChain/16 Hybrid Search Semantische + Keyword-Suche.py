@@ -15,8 +15,9 @@
 #
 # ## Rückblick: Semantische Suche
 #
-# - In der letzten Lektion haben wir Qdrant für **semantische Suche** genutzt
-# - Semantische Suche versteht **Bedeutung**: Synonyme, verwandte Konzepte, andere Sprachen
+# - Qdrant für **semantische Suche**
+# - Semantische Suche versteht **Bedeutung**: Synonyme, verwandte Konzepte,
+#   andere Sprachen
 # - Aber: Hat semantische Suche auch **Schwächen**?
 
 # %%
@@ -37,6 +38,18 @@ embeddings = OpenAIEmbeddings(
 
 # %% [markdown]
 #
+# ## Wann versagt semantische Suche?
+#
+# - **Spezifische Fachbegriffe**: Seltene Abkürzungen oder Akronyme, die das
+#   Embedding-Modell nicht gut gelernt hat
+# - **Identifikatoren**: Fehlercodes, Modellnamen, Versionsnummern, Produktnummern
+# - **Exakte Übereinstimmung nötig**: Wenn der Nutzer genau dieses Wort meint,
+#   nicht etwas Ähnliches
+#
+# → Embedding-Modell bildet seltene Begriffe manchmal auf **falsche** Konzepte ab
+
+# %% [markdown]
+#
 # ## Stärken und Schwächen der Suchverfahren
 #
 # | | Semantische Suche | Keyword-Suche (BM25) |
@@ -47,18 +60,6 @@ embeddings = OpenAIEmbeddings(
 # | **Fachbegriffe** | "MSE" → evtl. falsche Treffer | "MSE" → exakte Treffer |
 # | **Fehlercodes** | "CUDA_ERROR" → ungenau | "CUDA_ERROR" → exakt |
 # | **Modellnamen** | "ministral-14b" → ungenau | "ministral-14b" → exakt |
-
-# %% [markdown]
-#
-# ## Wann versagt semantische Suche?
-#
-# - **Spezifische Fachbegriffe**: Seltene Abkürzungen oder Akronyme, die das
-#   Embedding-Modell nicht gut gelernt hat
-# - **Identifikatoren**: Fehlercodes, Modellnamen, Versionsnummern, Produktnummern
-# - **Exakte Übereinstimmung nötig**: Wenn der Nutzer genau dieses Wort meint,
-#   nicht etwas Ähnliches
-#
-# → Embedding-Modell bildet seltene Begriffe manchmal auf **falsche** Konzepte ab
 
 # %% [markdown]
 #
@@ -93,9 +94,6 @@ semantic_store = QdrantVectorStore.from_texts(
 
 # %%
 results = semantic_store.similarity_search("How do neural networks learn?", k=2)
-
-# %% [markdown]
-# Abfrage: "How do neural networks learn?"
 
 # %%
 
@@ -148,10 +146,6 @@ results_mse = semantic_store.similarity_search("RMSE", k=2)
 # 3. Dokument C          3. Dokument D        3. Dokument B (semantisch)
 #                                              4. Dokument D (keyword)
 # ```
-#
-# Dokument C steht in beiden Listen (#3 semantisch, #1 keyword). Dokumente in
-# beiden Listen bekommen einen kombinierten Bonus, und der #1-Keyword-Rang gibt
-# Dokument C den besten Gesamtscore.
 
 # %% [markdown]
 #
@@ -180,8 +174,6 @@ sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 
 # %%
 
-# %%
-
 # %% [markdown]
 #
 # ## Vergleich: Semantische Suche vs. Hybrid Search
@@ -194,6 +186,8 @@ query = "RMSE"
 # %% [markdown]
 #
 # Semantische Suche:
+
+# %%
 
 # %%
 

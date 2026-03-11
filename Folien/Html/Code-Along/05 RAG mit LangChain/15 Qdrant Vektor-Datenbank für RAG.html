@@ -13147,17 +13147,17 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fd4c62c59164c8b7"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e7353cb377f92d9d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Warum-Vektor-Datenbanken?">Warum Vektor-Datenbanken?<a class="anchor-link" href="#Warum-Vektor-Datenbanken?">¶</a></h2><ul>
 <li><strong>Problem</strong>: Semantische Suche über viele Dokumente ist aufwändig<ul>
-<li>Bei jedem Query: alle Dokumente embedden + Ähnlichkeit berechnen</li>
+<li>Bei jedem Query: Ähnlichkeit für alle Dokumente berechnen</li>
 </ul>
 </li>
 <li><strong>Lösung</strong>: Vektor-Datenbank<ul>
-<li>Speichert Embeddings einmal vor</li>
-<li>Nutzt spezielle Indexstrukturen (z.B. HNSW) für schnelle Suche</li>
+<li>Speichert Embeddings aller Dokumente</li>
+<li>Nutzt spezielle Indexstrukturen für schnelle Suche</li>
 <li>Effizienz hängt von Konfiguration und Hardware ab, aber auch große
 Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </ul>
@@ -13166,13 +13166,13 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7a3eb5374b437cb7"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=64f979c84471aa87"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Qdrant">Qdrant<a class="anchor-link" href="#Qdrant">¶</a></h2><ul>
 <li><strong>Open Source</strong> (Apache 2.0 Lizenz)</li>
 <li>Einfach zu installieren: <code>pip install qdrant-client langchain-qdrant</code></li>
-<li>Funktioniert auf Windows und Linux</li>
+<li>Funktioniert auf Windows und Linux (Linux wird für Produktion empfohlen)</li>
 <li>Lokaler Modus ohne Server-Konfiguration</li>
 <li>Unterstützt Hybrid Search (semantische + Keyword-Suche)</li>
 <li>LangChain-Integration verfügbar</li>
@@ -13242,38 +13242,29 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=fd59f4b96fd299be"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=585ed7a396e4933f"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Embedding-Modell-erstellen">Embedding-Modell erstellen<a class="anchor-link" href="#Embedding-Modell-erstellen">¶</a></h2><ul>
-<li>Qdrant braucht ein <strong>Embedding-Modell</strong> (wir kennen das aus der letzten Lektion)</li>
+<li>Qdrant braucht ein <strong>Embedding-Modell</strong> (wir kennen das aus der letzten
+Lektion)</li>
 <li>Wir verwenden OpenAI Embeddings über OpenRouter</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8e1740eb57594f9c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e27990d1bb4d6ea7">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">embeddings_model</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span>
     <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
     <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
     <span class="n">model</span><span class="o">=</span><span class="s2">"openai/text-embedding-3-small"</span>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2294504855648804"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Vektor-Store-erstellen-und-Dokumente-hinzuf%C3%BCgen">Vektor-Store erstellen und Dokumente hinzufügen<a class="anchor-link" href="#Vektor-Store-erstellen-und-Dokumente-hinzuf%C3%BCgen">¶</a></h2><ul>
-<li><code>QdrantVectorStore.from_texts()</code> erstellt den Store und fügt Texte hinzu</li>
-<li>Embeddings werden <strong>automatisch</strong> berechnet</li>
-</ul>
 </div>
 </div>
 </div>
@@ -13293,25 +13284,24 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=8a37b2cbd2bc626c"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2294504855648804"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Erstellen Sie einen <code>QdrantVectorStore</code> aus den Texten:</p>
+<h2 id="Vektor-Store-erstellen-und-Dokumente-hinzuf%C3%BCgen">Vektor-Store erstellen und Dokumente hinzufügen<a class="anchor-link" href="#Vektor-Store-erstellen-und-Dokumente-hinzuf%C3%BCgen">¶</a></h2><ul>
+<li><code>QdrantVectorStore.from_texts()</code> erstellt den Store und fügt Texte hinzu</li>
+<li>Embeddings werden <strong>automatisch</strong> berechnet</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4a934b25bbc8f347">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=120b17ba3817e7c3"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Erstellen eines <code>QdrantVectorStore</code> aus den Texten:</p>
 </div>
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=21a3180cae49ce3b">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=f6ab185521297463">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13332,10 +13322,10 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=892ed23675e81e73"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=d84649bc4ee5c09b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Suchen Sie nach "What is overfitting?":</p>
+<p>Suche nach "What is overfitting?":</p>
 </div>
 </div>
 </div>
@@ -13361,13 +13351,15 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d3d7b3d5fdbcb92e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=78a34b3e49a44b66"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Suche-mit-%C3%84hnlichkeits-Scores">Suche mit Ähnlichkeits-Scores<a class="anchor-link" href="#Suche-mit-%C3%84hnlichkeits-Scores">¶</a></h2><ul>
-<li><code>similarity_search_with_score()</code> zeigt auch einen Score</li>
-<li>Der Score ist die <strong>Kosinus-Ähnlichkeit</strong></li>
+<li><code>similarity_search_with_score()</code> gibt auch einen Score zurück</li>
+<li>Der Score ist die <strong>Kosinus-Ähnlichkeit</strong><ul>
 <li><strong>Hoher Score</strong> = <strong>hohe Ähnlichkeit</strong></li>
+</ul>
+</li>
 </ul>
 <table>
 <thead>
@@ -13394,6 +13386,13 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=104e664bb29ee9fa"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Abfrage mit Ähnlichkeits-Scores:</p>
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=7de661db3721f64b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
@@ -13402,13 +13401,6 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 <div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=dae1e8903b54bd0f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Mit Ähnlichkeits-Scores:</p>
 </div>
 </div>
 </div>
@@ -13430,7 +13422,7 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=06d34b22a5f01df6">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=69fefa3e1fd613aa">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13441,15 +13433,7 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=4333c3a5a979f1d4"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Query: "What is the recipe for chocolate cake?"</p>
-<p>Ergebnisse:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=de1116ca2d95f53a">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=48a37a8f3f236ca9">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13493,33 +13477,43 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=83f01d44115cdd10">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=83f01d44115cdd10">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"Relevante Anfrage:"</span><span class="p">)</span>
+<span class="n">results_relevant</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">similarity_search_with_score</span><span class="p">(</span><span class="s2">"What is overfitting?"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">doc</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">results_relevant</span><span class="p">:</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">"behalten"</span> <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="n">threshold</span> <span class="k">else</span> <span class="s2">"FILTERN"</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  [</span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">] (</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">) </span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=823cadb3e2370ffd">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=823cadb3e2370ffd">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Irrelevante Anfrage:"</span><span class="p">)</span>
+<span class="n">results_irrelevant</span> <span class="o">=</span> <span class="n">vectorstore</span><span class="o">.</span><span class="n">similarity_search_with_score</span><span class="p">(</span>
+    <span class="s2">"What is the recipe for chocolate cake?"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+<span class="k">for</span> <span class="n">doc</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">results_irrelevant</span><span class="p">:</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="s2">"behalten"</span> <span class="k">if</span> <span class="n">score</span> <span class="o">&gt;=</span> <span class="n">threshold</span> <span class="k">else</span> <span class="s2">"FILTERN"</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  [</span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">] (</span><span class="si">{</span><span class="n">status</span><span class="si">}</span><span class="s2">) </span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=86ce2a75015f9bac"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6bbb6d5eca4c24db"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Metadata-verwenden">Metadata verwenden<a class="anchor-link" href="#Metadata-verwenden">¶</a></h2><ul>
-<li>Dokumente können <strong>Metadata</strong> haben (z.B. Thema, Datum, Quelle)</li>
+<h2 id="Metadaten-verwenden">Metadaten verwenden<a class="anchor-link" href="#Metadaten-verwenden">¶</a></h2><ul>
+<li>Dokumente können <strong>Metadaten</strong> haben (z.B. Thema, Datum, Quelle)</li>
 <li>Nützlich für zusätzliche Filterung:<ul>
 <li>Nur Dokumente eines bestimmten Themas durchsuchen</li>
 <li>Nach Datum filtern</li>
@@ -13530,14 +13524,23 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=ea647e5e74175815">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0a4286ef7bbe24f1">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
-
-<span class="n">docs_with_meta</span> <span class="o">=</span> <span class="p">[</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c8a66b9fa298f6ab">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">docs_with_meta</span> <span class="o">=</span> <span class="p">[</span>
     <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Linear regression models linear relationships"</span><span class="p">,</span>
              <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"beginner"</span><span class="p">}),</span>
     <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Python is a popular programming language"</span><span class="p">,</span>
@@ -13547,10 +13550,19 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
     <span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="s2">"Gradient boosting combines many weak learners"</span><span class="p">,</span>
              <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s2">"topic"</span><span class="p">:</span> <span class="s2">"ML"</span><span class="p">,</span> <span class="s2">"difficulty"</span><span class="p">:</span> <span class="s2">"advanced"</span><span class="p">}),</span>
 <span class="p">]</span>
-
-<span class="n">vectorstore_meta</span> <span class="o">=</span> <span class="n">QdrantVectorStore</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=33eea13b678f7152">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">vectorstore_meta</span> <span class="o">=</span> <span class="n">QdrantVectorStore</span><span class="o">.</span><span class="n">from_documents</span><span class="p">(</span>
     <span class="n">documents</span><span class="o">=</span><span class="n">docs_with_meta</span><span class="p">,</span>
-    <span class="n">embedding</span><span class="o">=</span><span class="n">embeddings</span><span class="p">,</span>
+    <span class="n">embedding</span><span class="o">=</span><span class="n">embeddings_model</span><span class="p">,</span>
     <span class="n">collection_name</span><span class="o">=</span><span class="s2">"docs_with_meta"</span><span class="p">,</span>
     <span class="n">location</span><span class="o">=</span><span class="s2">":memory:"</span><span class="p">,</span>
 <span class="p">)</span>
@@ -13566,7 +13578,18 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=46a7874753a78a3b">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=cf5b88f9a156dd90">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=ec854ffd5be5129d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13598,24 +13621,29 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=979d3dc41979d8ac">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=880065cab7ad1b20">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">ml_filter</span> <span class="o">=</span> <span class="n">Filter</span><span class="p">(</span>
-    <span class="n">must</span><span class="o">=</span><span class="p">[</span><span class="n">FieldCondition</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="s2">"metadata.topic"</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="n">MatchValue</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s2">"ML"</span><span class="p">))]</span>
-<span class="p">)</span>
-
-<span class="n">results_filtered</span> <span class="o">=</span> <span class="n">vectorstore_meta</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span>
-    <span class="s2">"machine learning techniques"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="nb">filter</span><span class="o">=</span><span class="n">ml_filter</span>
-<span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=0ed85d0f4e371256">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=1dfb1f9175bf84a0">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=b652fc5c0f82e223">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13637,13 +13665,6 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=6e237f641f02626e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Erstellen Sie einen Retriever aus dem Vektor-Store:</p>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=8abd1587fd526542">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
@@ -13655,7 +13676,25 @@ Sammlungen können in wenigen Millisekunden durchsucht werden</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=603722d053b4256f">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=87d97ae34e49a9b9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=03d1b5ddebd46646"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Gefundene Dokumente:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=59e67bcabb4eba58">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">

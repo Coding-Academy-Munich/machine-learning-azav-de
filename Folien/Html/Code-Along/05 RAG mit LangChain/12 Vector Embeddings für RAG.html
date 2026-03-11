@@ -13285,14 +13285,32 @@ stillschweigend abgeschnitten (daher ist gutes Chunking wichtig!)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=9aac4445b36ebec7"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=694826ddb85a2344"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Anzahl Texte:</p>
+<p>Typ der Embeddings:</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=feee2f4ff8166328">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=27bc6d46c5cc09ee">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=ce8afc4f4f4394f5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Anzahl Texte und Embeddings:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4bf182a481fd3301">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13321,24 +13339,6 @@ stillschweigend abgeschnitten (daher ist gutes Chunking wichtig!)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=84759fc36164e26d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Erster Text:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=0e7c7e543ec3ee56">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered" id="cell-id=83abae99bcc0c9be"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13357,7 +13357,7 @@ stillschweigend abgeschnitten (daher ist gutes Chunking wichtig!)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=24af38084a0c0c69"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=85497e7f3dcfe005"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Semantische-%C3%84hnlichkeit">Semantische Ähnlichkeit<a class="anchor-link" href="#Semantische-%C3%84hnlichkeit">¶</a></h2><ul>
@@ -13369,65 +13369,95 @@ stillschweigend abgeschnitten (daher ist gutes Chunking wichtig!)</li>
 <li><strong>Kosinus-Ähnlichkeit</strong>: Winkel zwischen zwei Vektoren</li>
 </ul>
 </li>
+<li><strong>Achtung</strong>: Skalen sind invers — Distanz: 0 = identisch; Ähnlichkeit: 1.0
+= identisch</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5bdd0fb0988fcae6"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a4a33403f9da0077"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Euklidische-Distanz-vs.-Kosinus-%C3%84hnlichkeit">Euklidische Distanz vs. Kosinus-Ähnlichkeit<a class="anchor-link" href="#Euklidische-Distanz-vs.-Kosinus-%C3%84hnlichkeit">¶</a></h2><div style="float:right;width:40%;">
-<img alt="No description has been provided for this image" src="img/cosine-distance.png" style="float:right;width:50%"/>
-<img alt="No description has been provided for this image" src="img/vector-difference.png" style="float:left;width:50%"/>
-</div>
-<div style="width:60%;">
-<br/>
+<h2 id="Euklidische-Distanz-vs.-Kosinus-%C3%84hnlichkeit">Euklidische Distanz vs. Kosinus-Ähnlichkeit<a class="anchor-link" href="#Euklidische-Distanz-vs.-Kosinus-%C3%84hnlichkeit">¶</a></h2><p><img alt="No description has been provided for this image" src="img/cosine-distance.png" style="float:right;width:20%"/>
+<img alt="No description has been provided for this image" src="img/vector-difference.png" style="float:right;width:20%"/></p>
 <ul>
-<li><b>Euklidische Distanz</b> (rechts): Abstand zwischen den Spitzen</li>
-<ul>
-<li>Misst |\(\vec a - \vec b\)| (Spitze zu Spitze)</li>
-<li>Hängt von <b>Richtung und Länge</b> der Vektoren ab</li>
+<li><strong>Euklidische Distanz</strong> (links): Abstand zwischen den Spitzen<ul>
+<li>Misst $\|\vec a - \vec b\|$ (Spitze zu Spitze)</li>
+<li>Hängt von <strong>Richtung und Länge</strong> der Vektoren ab</li>
 </ul>
-<li><b>Kosinus-Ähnlichkeit</b> (links): Winkel zwischen den Pfeilen</li>
-<ul>
-<li>Misst nur die <b>Richtung</b>, ignoriert die Länge</li>
-<li>\(\vec a\) und \(\vec b\): kleiner Winkel → hohe Ähnlichkeit</li>
+</li>
+<li><strong>Kosinus-Ähnlichkeit</strong> (rechts): Winkel zwischen den Pfeilen<ul>
+<li>Misst nur die <strong>Richtung</strong>, ignoriert die Länge</li>
+<li>$\vec a$ und $\vec b$: kleiner Winkel → hohe Ähnlichkeit</li>
 </ul>
+</li>
 </ul>
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=872d69cb526fa1db"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Distanz-vs.-%C3%84hnlichkeit">Distanz vs. Ähnlichkeit<a class="anchor-link" href="#Distanz-vs.-%C3%84hnlichkeit">¶</a></h3><p>Distanz und Ähnlichkeit sind verwandt, aber nicht dasselbe:</p>
+<ul>
+<li>Euklidische Distanz:<ul>
+<li>0 = identisch</li>
+<li>höhere Werte = weniger ähnlich</li>
+</ul>
+</li>
+<li>Kosinus-Ähnlichkeit:<ul>
+<li>1.0 = identisch</li>
+<li>Werte nahe 0 = unverwandt</li>
+<li>Negative Werte = entgegengesetzt (bei Text-Embeddings selten)</li>
+</ul>
+</li>
+</ul>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=cbc5445070adfe0a"><div class="prompt input_prompt">
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=649f71cd2520995b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Beispiel:-2D-Vektoren">Beispiel: 2D-Vektoren<a class="anchor-link" href="#Beispiel:-2D-Vektoren">¶</a></h2><ul>
-<li>Betrachten wir drei einfache 2D-Vektoren</li>
+<li>Betrachten wir vier einfache 2D-Vektoren</li>
 <li>$\vec a$ und $\vec b$: gleiche Richtung, aber $\vec b$ ist kürzer</li>
 <li>$\vec c$: zeigt in eine ganz andere Richtung</li>
+<li>$\vec d$: zeigt in eine ähnliche Richtung wie $\vec c$</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=32d285c8ba35d7b0">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e249a81cc41a1aa6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">]])</span>
 <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">2</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">]])</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]])</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.5</span><span class="p">,</span> <span class="o">-</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">3</span><span class="p">]])</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=ca154c784b5c323b">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=3114dc96fe1eba4c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_2d_vectors</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_2d_vectors</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=52e942cf9b04d0b2">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
 </pre></div>
 </div>
 </div>
@@ -13445,6 +13475,39 @@ stillschweigend abgeschnitten (daher ist gutes Chunking wichtig!)</li>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered" id="cell-id=9234a69ac8998e60">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=65d3febe7af5a31f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=268c9b0b06df01d8">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">plot_2d_vectors</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=09b92284fdad5076">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13477,7 +13540,18 @@ stillschweigend abgeschnitten (daher ist gutes Chunking wichtig!)</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=aa4216a19a715cf0"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=73369a02f1fc3dac">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=25d6878cd2d1c575"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Ergebnis:-2D-Beispiel">Ergebnis: 2D-Beispiel<a class="anchor-link" href="#Ergebnis:-2D-Beispiel">¶</a></h2><ul>
@@ -13485,11 +13559,52 @@ stillschweigend abgeschnitten (daher ist gutes Chunking wichtig!)</li>
 <li>Aber: Euklidische Distanz = 2.5 (wegen unterschiedlicher Länge)</li>
 </ul>
 </li>
-<li>$\vec a$ und $\vec c$: <strong>verschiedene Richtungen</strong> (Kosinus-Ähnlichkeit ≈ −0.45)<ul>
+<li>$\vec a$ und $\vec c$: <strong>90-Grad-Winkel</strong> (Kosinus-Ähnlichkeit = 0.0)<ul>
+<li>Euklidische Distanz = 5.6 (mittelgroßer Abstand)</li>
+</ul>
+</li>
+<li>$\vec a$ und $\vec d$: <strong>verschiedene Richtungen</strong> (Kosinus-Ähnlichkeit ≈
+−0.3)<ul>
 <li>Euklidische Distanz = 6.7 (weit entfernt)</li>
 </ul>
 </li>
 <li>Kosinus-Ähnlichkeit ignoriert die Länge und misst nur die Richtung</li>
+<li>Denken Sie daran:<ul>
+<li><strong>kleine</strong> Distanz = ähnlich</li>
+<li><strong>hohe</strong> Ähnlichkeit = ähnlich</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e57eb8d0e54d8294"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Moderne-Embedding-Modelle-normalisieren!">Moderne Embedding-Modelle normalisieren!<a class="anchor-link" href="#Moderne-Embedding-Modelle-normalisieren!">¶</a></h2><ul>
+<li>Modelle wie <code>text-embedding-3-small</code> geben <strong>normalisierte Vektoren</strong> zurück</li>
+<li>Alle Vektoren haben die <strong>gleiche Länge</strong> (Norm = 1), egal wie lang der Text
+ist oder worüber er spricht</li>
+<li>Für normalisierte Vektoren ergeben Euklidische Distanz und
+Kosinus-Ähnlichkeit immer <strong>dieselbe Rangfolge</strong> der ähnlichsten Texte</li>
+</ul>
+<p><em>Für Neugierige: Es gilt $d_{\text{euklid}} = \sqrt{2 \cdot (1 -
+\textit{cos\_sim})}$</em></p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6fe6bd6a8840f70e"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Warum-trotzdem-Kosinus-%C3%84hnlichkeit?">Warum trotzdem Kosinus-Ähnlichkeit?<a class="anchor-link" href="#Warum-trotzdem-Kosinus-%C3%84hnlichkeit?">¶</a></h2><ul>
+<li><strong>Konvention</strong>: Die meisten Tools und Datenbanken verwenden sie standardmäßig</li>
+<li><strong>Skala</strong>: Mathematisch von -1.0 (entgegengesetzt) bis 1.0 (identisch)<ul>
+<li>Für Text-Embeddings moderner Modelle: typischerweise 0.0 (unverwandt) bis 1.0</li>
+<li>Negative Werte sind bei Text-Embeddings selten, aber mathematisch möglich</li>
+</ul>
+</li>
+<li><strong>Effizienz</strong>: Berechnung über Skalarprodukt (schnell!)</li>
+<li><strong>Robustheit</strong>: Funktioniert auch mit nicht-normalisierten Modellen</li>
 </ul>
 </div>
 </div>

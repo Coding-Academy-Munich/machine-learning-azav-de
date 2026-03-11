@@ -21,7 +21,7 @@
 # 3. Retrieval-Parameter anpassen und vergleichen
 
 # %%
-# ! pip install qdrant-client langchain-qdrant
+# !pip install qdrant-client langchain-qdrant
 
 # %%
 import os
@@ -70,6 +70,15 @@ def format_docs(docs):
 # %%
 
 # %%
+assert len(my_docs) >= 5
+
+# %%
+docs_found = my_retriever.invoke("test")
+
+# %%
+assert len(docs_found) == 2
+
+# %%
 
 # %% [markdown]
 #
@@ -85,6 +94,13 @@ def format_docs(docs):
 # %%
 
 # %%
+
+# %%
+test_answer = my_rag_chain.invoke("test")
+
+# %%
+assert isinstance(test_answer, str)
+assert len(test_answer) > 0
 
 # %%
 test_questions = [

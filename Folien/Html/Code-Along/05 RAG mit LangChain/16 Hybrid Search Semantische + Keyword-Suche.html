@@ -13147,12 +13147,13 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=cd0bd46053d46d88"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=df2ded208893c4bb"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="R%C3%BCckblick:-Semantische-Suche">Rückblick: Semantische Suche<a class="anchor-link" href="#R%C3%BCckblick:-Semantische-Suche">¶</a></h2><ul>
-<li>In der letzten Lektion haben wir Qdrant für <strong>semantische Suche</strong> genutzt</li>
-<li>Semantische Suche versteht <strong>Bedeutung</strong>: Synonyme, verwandte Konzepte, andere Sprachen</li>
+<li>Qdrant für <strong>semantische Suche</strong></li>
+<li>Semantische Suche versteht <strong>Bedeutung</strong>: Synonyme, verwandte Konzepte,
+andere Sprachen</li>
 <li>Aber: Hat semantische Suche auch <strong>Schwächen</strong>?</li>
 </ul>
 </div>
@@ -13195,6 +13196,20 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <span class="p">)</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=477988ec05287b87"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Wann-versagt-semantische-Suche?">Wann versagt semantische Suche?<a class="anchor-link" href="#Wann-versagt-semantische-Suche?">¶</a></h2><ul>
+<li><strong>Spezifische Fachbegriffe</strong>: Seltene Abkürzungen oder Akronyme, die das
+Embedding-Modell nicht gut gelernt hat</li>
+<li><strong>Identifikatoren</strong>: Fehlercodes, Modellnamen, Versionsnummern, Produktnummern</li>
+<li><strong>Exakte Übereinstimmung nötig</strong>: Wenn der Nutzer genau dieses Wort meint,
+nicht etwas Ähnliches</li>
+</ul>
+<p>→ Embedding-Modell bildet seltene Begriffe manchmal auf <strong>falsche</strong> Konzepte ab</p>
 </div>
 </div>
 </div>
@@ -13242,20 +13257,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=477988ec05287b87"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Wann-versagt-semantische-Suche?">Wann versagt semantische Suche?<a class="anchor-link" href="#Wann-versagt-semantische-Suche?">¶</a></h2><ul>
-<li><strong>Spezifische Fachbegriffe</strong>: Seltene Abkürzungen oder Akronyme, die das
-Embedding-Modell nicht gut gelernt hat</li>
-<li><strong>Identifikatoren</strong>: Fehlercodes, Modellnamen, Versionsnummern, Produktnummern</li>
-<li><strong>Exakte Übereinstimmung nötig</strong>: Wenn der Nutzer genau dieses Wort meint,
-nicht etwas Ähnliches</li>
-</ul>
-<p>→ Embedding-Modell bildet seltene Begriffe manchmal auf <strong>falsche</strong> Konzepte ab</p>
 </div>
 </div>
 </div>
@@ -13320,13 +13321,6 @@ nicht etwas Ähnliches</li>
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">semantic_store</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span><span class="s2">"How do neural networks learn?"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=dbda82a04a9e7adf"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Abfrage: "How do neural networks learn?"</p>
 </div>
 </div>
 </div>
@@ -13405,7 +13399,7 @@ an erster Stelle zurückgegeben</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=bd9cac440a7f7826"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a3edbe15fe53dcbe"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Wie-werden-die-Ergebnisse-kombiniert?">Wie werden die Ergebnisse kombiniert?<a class="anchor-link" href="#Wie-werden-die-Ergebnisse-kombiniert?">¶</a></h2><ul>
@@ -13424,9 +13418,6 @@ bekommen einen hohen kombinierten Score</li>
 3. Dokument C          3. Dokument D        3. Dokument B (semantisch)
                                              4. Dokument D (keyword)
 </code></pre>
-<p>Dokument C steht in beiden Listen (#3 semantisch, #1 keyword). Dokumente in
-beiden Listen bekommen einen kombinierten Bonus, und der #1-Keyword-Rang gibt
-Dokument C den besten Gesamtscore.</p>
 </div>
 </div>
 </div>
@@ -13493,17 +13484,6 @@ unter Verwendung von <code>embeddings</code> und <code>sparse_embeddings</code>:
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=57c86bcac31ba080">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d49ff54797f69f1d"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -13529,7 +13509,18 @@ unter Verwendung von <code>embeddings</code> und <code>sparse_embeddings</code>:
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7f271301cb1c1526">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4192de684119fc3e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=0642b8b10c8fab42">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">

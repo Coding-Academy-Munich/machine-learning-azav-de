@@ -13174,16 +13174,17 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=abba9ef025225dda">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=d54a493f483e3030">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">texts</span> <span class="o">=</span> <span class="p">[</span>
     <span class="s2">"Machine Learning ist ein Teilbereich der KI"</span><span class="p">,</span>
-    <span class="s2">"Machine Learning ist eine wichtige KI-Methode"</span><span class="p">,</span>
+    <span class="s2">"ML ist eine wichtige KI-Methode"</span><span class="p">,</span>
     <span class="s2">"Deep Learning nutzt neuronale Netze"</span><span class="p">,</span>
-    <span class="s2">"Katzen sind Haustiere"</span>
+    <span class="s2">"Katzen sind Haustiere"</span><span class="p">,</span>
+    <span class="s2">"Machine Learning is a subset of AI"</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
@@ -13213,37 +13214,6 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">text_embeddings</span> <span class="o">=</span> <span class="n">embeddings</span><span class="o">.</span><span class="n">embed_documents</span><span class="p">(</span><span class="n">texts</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1079053b593cb46a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Moderne-Embedding-Modelle-normalisieren!">Moderne Embedding-Modelle normalisieren!<a class="anchor-link" href="#Moderne-Embedding-Modelle-normalisieren!">¶</a></h2><ul>
-<li>Modelle wie <code>text-embedding-3-small</code> geben <strong>normalisierte Vektoren</strong> zurück</li>
-<li>Alle Vektoren haben die <strong>gleiche Länge</strong> (Norm = 1), egal wie lang der Text ist</li>
-<li>Für normalisierte Vektoren ergeben beide Metriken immer
-<strong>dieselbe Rangfolge</strong> der ähnlichsten Texte</li>
-<li>Der Unterschied aus dem 2D-Beispiel tritt bei Embeddings also <strong>nicht</strong> auf!</li>
-</ul>
-<p><em>Für Neugierige: Es gilt $d_{\text{euklid}} = \sqrt{2 \cdot (1 - \textit{cos\_sim})}$</em></p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ef965dc4ae29cc0f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Warum-trotzdem-Kosinus-%C3%84hnlichkeit?">Warum trotzdem Kosinus-Ähnlichkeit?<a class="anchor-link" href="#Warum-trotzdem-Kosinus-%C3%84hnlichkeit?">¶</a></h2><ul>
-<li><strong>Konvention</strong>: Die meisten Tools und Datenbanken verwenden sie standardmäßig</li>
-<li><strong>Skala</strong>: Mathematisch von -1.0 (entgegengesetzt) bis 1.0 (identisch)<ul>
-<li>Für Text-Embeddings moderner Modelle: typischerweise 0.0 (unverwandt) bis 1.0</li>
-<li>Negative Werte sind bei Text-Embeddings selten, aber mathematisch möglich</li>
-</ul>
-</li>
-<li><strong>Effizienz</strong>: Berechnung über Skalarprodukt (schnell!)</li>
-<li><strong>Robustheit</strong>: Funktioniert auch mit nicht-normalisierten Modellen</li>
-</ul>
-<p>In der Praxis: Qdrant, Pinecone etc. nutzen Kosinus-Ähnlichkeit als Standard</p>
 </div>
 </div>
 </div>
@@ -13315,19 +13285,20 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=a59f2c5e842e5a4e"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered" id="cell-id=e7996a8074a0d5c4"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Betten Sie die Anfrage ein und finden Sie die ähnlichsten Texte:</p>
+<p>Wir gehen folgendermaßen vor:</p>
 <ol>
-<li>Anfrage einbetten mit <code>embeddings.embed_query(query)</code></li>
-<li>Kosinus-Ähnlichkeit berechnen</li>
+<li>Berechnen des Embeddings der Anfrage mit <code>embeddings.embed_query(query)</code></li>
+<li>Berechnen der Kosinus-Ähnlichkeit zwischen Anfrage-Embedding und
+Text-Embeddings</li>
 <li>Nach Ähnlichkeit sortieren</li>
 </ol>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=ee43083666fb5cf6">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=126572b7073c7173">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13338,7 +13309,40 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=89cbdcab682910fa">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c8fff5fe6fe5c8e9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=361afbc992dccaec">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=8a1fac120a079294">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=6dd9b108b7ec5d47">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13360,7 +13364,30 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_subslide" id="cell-id=738873e5afda6afd">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2e8941d7928addc6">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">my_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="n">my_numbers</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"three"</span><span class="p">,</span> <span class="s2">"one"</span><span class="p">,</span> <span class="s2">"four"</span><span class="p">,</span> <span class="s2">"two"</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=3653f1dd7a2d5e48">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">my_sorted_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">my_values</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=d2019e0c6ebd1319">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13371,13 +13398,64 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f02a500f71ac6e43"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=4763a0d5ae1a7229">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=254eb1e1c7caea53">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=a00b9e3855c6c26e">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">print_by_similarity</span><span class="p">(</span><span class="n">similarities</span><span class="p">,</span> <span class="n">texts</span><span class="p">):</span>
+    <span class="n">sorted_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">similarities</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"Texte sortiert nach Ähnlichkeit:"</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">sorted_indices</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"  [</span><span class="si">{</span><span class="n">similarities</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">texts</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=28ba6993af226990">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d1f223f0f30ddf83"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Warum-nicht-einfach-Keyword-Suche?">Warum nicht einfach Keyword-Suche?<a class="anchor-link" href="#Warum-nicht-einfach-Keyword-Suche?">¶</a></h2><ul>
 <li><strong>Keyword-Suche</strong>: Sucht nach exakten Wörtern im Text</li>
-<li><strong>Problem</strong>: Findet nur exakte Übereinstimmungen</li>
+<li><strong>Problem</strong>:<ul>
+<li>Findet nur exakte Übereinstimmungen</li>
 <li>Versteht keine Synonyme, keine Übersetzungen, keine verwandten Konzepte</li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -13420,13 +13498,13 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=c34ae714a129c0b2">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=454288b35077a53e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">q_emb</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">embeddings</span><span class="o">.</span><span class="n">embed_query</span><span class="p">(</span><span class="n">query1</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">sims</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">q_emb</span><span class="p">,</span> <span class="n">text_emb_array</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">q_emb</span> <span class="o">=</span> <span class="p">[</span><span class="n">embeddings</span><span class="o">.</span><span class="n">embed_query</span><span class="p">(</span><span class="n">query1</span><span class="p">)]</span>
+<span class="n">sims</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">q_emb</span><span class="p">,</span> <span class="n">text_embeddings</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">top_indices</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">sims</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -13464,13 +13542,13 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=3c73913a1be389f0">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8f4f627d264c208d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">q_emb2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">embeddings</span><span class="o">.</span><span class="n">embed_query</span><span class="p">(</span><span class="n">query2</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">sims2</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">q_emb2</span><span class="p">,</span> <span class="n">text_emb_array</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">q_emb2</span> <span class="o">=</span> <span class="p">[</span><span class="n">embeddings</span><span class="o">.</span><span class="n">embed_query</span><span class="p">(</span><span class="n">query2</span><span class="p">)]</span>
+<span class="n">sims2</span> <span class="o">=</span> <span class="n">cosine_similarity</span><span class="p">(</span><span class="n">q_emb2</span><span class="p">,</span> <span class="n">text_embeddings</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">top_indices2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">sims2</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">][:</span><span class="mi">2</span><span class="p">]</span>
 </pre></div>
 </div>
@@ -13524,6 +13602,19 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=81aed5b714f6161a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="F%C3%BCr-RAG-bedeutet-das:">Für RAG bedeutet das:<a class="anchor-link" href="#F%C3%BCr-RAG-bedeutet-das:">¶</a></h2><ol>
+<li>Alle Dokument-Chunks embedden</li>
+<li>???</li>
+<li>Bei Anfrage: Anfrage embedden</li>
+<li>Ähnlichste Chunks finden (Kosinus-Ähnlichkeit)</li>
+<li>Als Kontext an LLM geben</li>
+</ol>
 </div>
 </div>
 </div>

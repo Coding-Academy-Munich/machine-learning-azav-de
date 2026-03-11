@@ -23,7 +23,7 @@
 # **Jetzt**: Alles zusammenbauen zu einem RAG-System!
 
 # %%
-# ! pip install qdrant-client langchain-qdrant
+# !pip install qdrant-client langchain-qdrant
 
 # %%
 import os
@@ -142,6 +142,14 @@ def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
 # %%
+
+# %% [markdown]
+# Vor `format_docs`:
+
+# %%
+
+# %% [markdown]
+# Nach `format_docs`:
 
 # %%
 

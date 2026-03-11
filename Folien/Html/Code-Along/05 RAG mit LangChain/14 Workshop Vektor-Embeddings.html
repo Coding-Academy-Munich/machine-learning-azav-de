@@ -13208,13 +13208,13 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=e24e2613e15b1df1">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c8b6ff637706268d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">workshop_texts</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Hunde sind treue Haustiere und brauchen viel Auslauf"</span><span class="p">,</span>
+    <span class="s2">"Hunde sind treue Gefährten und brauchen viel Auslauf"</span><span class="p">,</span>
     <span class="s2">"Katzen sind unabhängige Haustiere, die gerne schlafen"</span><span class="p">,</span>
     <span class="s2">"Python ist eine beliebte Programmiersprache für Data Science"</span><span class="p">,</span>
     <span class="s2">"JavaScript wird hauptsächlich für Webentwicklung eingesetzt"</span><span class="p">,</span>
@@ -13248,14 +13248,11 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=6bd12251d3779625"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=531d4003ddd58332"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Aufgabe-2:-Semantische-Suchfunktion">Aufgabe 2: Semantische Suchfunktion<a class="anchor-link" href="#Aufgabe-2:-Semantische-Suchfunktion">¶</a></h2><ol>
-<li>Berechnen Sie die Embeddings für <code>workshop_texts</code> vorab mit <code>embed_documents()</code>
-und konvertieren Sie sie in ein NumPy-Array</li>
-<li>Schreiben Sie eine Funktion
-<code>semantic_search(query, texts, text_embeddings, embeddings_model, k=2)</code>, die:<ul>
+<li>Schreiben Sie eine Funktion <code>semantic_search(query, texts, text_embeddings, embeddings_model, k=2)</code>, die:<ul>
 <li>Die Anfrage mit <code>embed_query()</code> embeddet</li>
 <li>Kosinus-Ähnlichkeit zu allen Text-Embeddings berechnet</li>
 <li>Die Top-k ähnlichsten Texte mit ihren Scores zurückgibt</li>
@@ -13263,6 +13260,8 @@ und konvertieren Sie sie in ein NumPy-Array</li>
 </li>
 <li>Testen Sie Ihre Funktion mit mindestens 3 verschiedenen Anfragen</li>
 </ol>
+<p><strong>Hinweis:</strong> Sie können dabei die bereits berechneten Embeddings aus Aufgabe 1
+verwenden, um API-Aufrufe zu sparen!</p>
 </div>
 </div>
 </div>
