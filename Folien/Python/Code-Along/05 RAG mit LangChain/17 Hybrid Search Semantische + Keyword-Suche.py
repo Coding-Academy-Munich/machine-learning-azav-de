@@ -16,9 +16,9 @@
 # ## Rückblick: Semantische Suche
 #
 # - Qdrant für **semantische Suche**
-# - Semantische Suche versteht **Bedeutung**: Synonyme, verwandte Konzepte,
+# - Semantische Suche versteht Bedeutung: Synonyme, verwandte Konzepte,
 #   andere Sprachen
-# - Aber: Hat semantische Suche auch **Schwächen**?
+# - Aber: Hat semantische Suche auch Schwächen?
 
 # %%
 import os
@@ -30,10 +30,10 @@ from langchain_openai import OpenAIEmbeddings
 load_dotenv()
 
 # %%
-embeddings = OpenAIEmbeddings(
+embedding_model = OpenAIEmbeddings(
     api_key=os.getenv("OPENROUTER_API_KEY"),
     base_url="https://openrouter.ai/api/v1",
-    model="openai/text-embedding-3-small"
+    model="openai/text-embedding-3-small",
 )
 
 # %% [markdown]
@@ -42,11 +42,72 @@ embeddings = OpenAIEmbeddings(
 #
 # - **Spezifische Fachbegriffe**: Seltene Abkürzungen oder Akronyme, die das
 #   Embedding-Modell nicht gut gelernt hat
-# - **Identifikatoren**: Fehlercodes, Modellnamen, Versionsnummern, Produktnummern
+# - **Identifikatoren**:
+#   - Fehlercodes (`CUDA_ERROR_OUT_OF_MEMORY`)
+#   - Modellnamen (`ministral-14b`)
+#   - Versions-, Produkt- oder Buildnummern (`v1.2.3`, `build-4567`)
 # - **Exakte Übereinstimmung nötig**: Wenn der Nutzer genau dieses Wort meint,
 #   nicht etwas Ähnliches
 #
 # → Embedding-Modell bildet seltene Begriffe manchmal auf **falsche** Konzepte ab
+
+# %% [markdown]
+#
+# ## Demonstration: Semantische Suche versagt
+#
+# - Wir erstellen Dokumente über Git und Commits
+# - Eines enthält einen spezifischen Commit-Hash (`a3f7bc2`)
+# - Wir testen, ob semantische Suche das richtige Dokument findet
+
+# %%
+docs = [
+    "The bug introduced in commit a3f7bc2 caused the tokenizer to silently drop special tokens during batch encoding.",
+    "Git tracks changes through a directed acyclic graph of commits, where each commit stores a snapshot of the repository state along with metadata.",
+    "Continuous integration runs automated tests on every commit to catch regressions before they reach the main branch.",
+    "Debugging machine learning pipelines often requires bisecting commits to find where model performance regressed.",
+    "Cherry-picking individual commits allows developers to selectively apply bug fixes from one branch to another without merging all changes.",
+    "The git blame command shows which commit last modified each line of a file, helping developers understand the history behind code changes.",
+    "Squashing multiple commits into one creates a cleaner history by combining related changes into a single commit before merging.",
+]
+
+# %%
+semantic_store = QdrantVectorStore.from_texts(
+    texts=docs,
+    embedding=embedding_model,
+    collection_name="semantic_demo",
+    location=":memory:",
+)
+
+# %% [markdown]
+#
+# ## Test 1: Semantische Suche funktioniert gut
+
+# %%
+results = semantic_store.similarity_search(
+    "How do I undo changes in git?", k=2
+)
+
+# %%
+
+# %% [markdown]
+#
+# ## Test 2: Semantische Suche versagt bei Commit-Hashes
+
+# %%
+results_hash = semantic_store.similarity_search("commit a3f7bc2", k=2)
+
+# %% [markdown]
+# Abfrage: "commit a3f7bc2"
+
+# %%
+
+# %% [markdown]
+#
+# - Die semantische Suche findet nicht das richtige Dokument
+# - "commit" wird verstanden, aber "a3f7bc2" ist für das Embedding-Modell
+#   eine bedeutungslose Zeichenkette
+# - Das Dokument mit dem exakten Hash wird nicht an erster Stelle
+#   zurückgegeben
 
 # %% [markdown]
 #
@@ -60,61 +121,6 @@ embeddings = OpenAIEmbeddings(
 # | **Fachbegriffe** | "MSE" → evtl. falsche Treffer | "MSE" → exakte Treffer |
 # | **Fehlercodes** | "CUDA_ERROR" → ungenau | "CUDA_ERROR" → exakt |
 # | **Modellnamen** | "ministral-14b" → ungenau | "ministral-14b" → exakt |
-
-# %% [markdown]
-#
-# ## Demonstration: Semantische Suche versagt
-#
-# - Wir erstellen Dokumente über ML-Konzepte
-# - Einige enthalten spezifische Fachbegriffe (MSE, RMSE, MAE)
-# - Wir testen, ob semantische Suche die richtigen Dokumente findet
-
-# %%
-ml_docs = [
-    "Linear regression fits a straight line through data points using the normal equation.",
-    "The MSE (Mean Squared Error) measures the average of squared prediction errors. RMSE is the square root of MSE.",
-    "Neural networks learn by adjusting weights through backpropagation and gradient descent.",
-    "Cross-validation splits data into training and test sets to evaluate model performance.",
-    "The MAE (Mean Absolute Error) measures average absolute prediction errors. Unlike MSE, it is less sensitive to outliers.",
-    "Regularization techniques like L1 and L2 prevent overfitting by adding penalty terms.",
-    "Decision trees split data based on feature values to make predictions.",
-]
-
-# %%
-semantic_store = QdrantVectorStore.from_texts(
-    texts=ml_docs,
-    embedding=embeddings,
-    collection_name="semantic_demo",
-    location=":memory:",
-)
-
-# %% [markdown]
-#
-# ## Test 1: Semantische Suche funktioniert gut
-
-# %%
-results = semantic_store.similarity_search("How do neural networks learn?", k=2)
-
-# %%
-
-# %% [markdown]
-#
-# ## Test 2: Semantische Suche versagt bei Fachbegriffen
-
-# %%
-results_mse = semantic_store.similarity_search("RMSE", k=2)
-
-# %% [markdown]
-# Abfrage: "RMSE"
-
-# %%
-
-# %% [markdown]
-#
-# - Die semantische Suche findet möglicherweise nicht das richtige Dokument
-# - "RMSE" wird als allgemeines Konzept abgebildet, nicht als exakter Begriff
-# - Das Dokument, das RMSE buchstäblich enthält, wird möglicherweise nicht
-#   an erster Stelle zurückgegeben
 
 # %% [markdown]
 #
@@ -161,7 +167,7 @@ results_mse = semantic_store.similarity_search("RMSE", k=2)
 # ! pip install fastembed
 
 # %%
-sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
+sparse_embedding = FastEmbedSparse(model_name="Qdrant/bm25")
 
 # %% [markdown]
 #
@@ -170,7 +176,7 @@ sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 # %% [markdown]
 #
 # Erstellen Sie einen `QdrantVectorStore` mit `RetrievalMode.HYBRID`
-# unter Verwendung von `embeddings` und `sparse_embeddings`:
+# unter Verwendung von `embedding_model` und `sparse_embedding`:
 
 # %%
 
@@ -181,7 +187,7 @@ sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 # Testen wir mit der Anfrage, bei der semantische Suche Probleme hatte:
 
 # %%
-query = "RMSE"
+query = "commit a3f7bc2"
 
 # %% [markdown]
 #
