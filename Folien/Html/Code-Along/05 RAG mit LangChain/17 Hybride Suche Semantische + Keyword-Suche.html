@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=2e56d3db0dcc4f88"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=73d0fe03cbe68574"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Hybrid Search: Semantische + Keyword-Suche</b>
+<b>Hybride Suche: Semantische + Keyword-Suche</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13159,14 +13159,14 @@ andere Sprachen</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=7d68feb72fc21ce3">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=ad3756c8f414838b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span><span class="p">,</span> <span class="n">FastEmbedSparse</span><span class="p">,</span> <span class="n">RetrievalMode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
 </pre></div>
 </div>
@@ -13271,25 +13271,26 @@ nicht etwas Ähnliches</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=acac70e28a828546">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=23f081ec32715fa3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">semantic_store</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span>
-    <span class="s2">"How do I undo changes in git?"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">semantic_store</span><span class="o">.</span><span class="n">similarity_search_with_relevance_scores</span><span class="p">(</span>
+    <span class="s2">"Can I integrate individual changes from other versions of the software?"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a4f27cbe678142d5">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=1ee8c548bbedab0e">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">doc</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="si">}</span><span class="s2">"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -13302,100 +13303,34 @@ nicht etwas Ähnliches</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=aad0a7ffcfc0dbf6">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7f71de0d4022ec3b">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">results_hash</span> <span class="o">=</span> <span class="n">semantic_store</span><span class="o">.</span><span class="n">similarity_search</span><span class="p">(</span><span class="s2">"commit a3f7bc2"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">results_hash</span> <span class="o">=</span> <span class="n">semantic_store</span><span class="o">.</span><span class="n">similarity_search_with_relevance_scores</span><span class="p">(</span><span class="s2">"commit a3f7bc2"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=e091e39b9823b41d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Abfrage: "commit a3f7bc2"</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1d69d77ec3e8283f">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2b25ce95b1a816f5">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">doc</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">results_hash</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">80</span><span class="p">]</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=26917187f4942641"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=22e41a18bfc106b8"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<ul>
-<li>Die semantische Suche findet nicht das richtige Dokument</li>
-<li>"commit" wird verstanden, aber "a3f7bc2" ist für das Embedding-Modell
-eine bedeutungslose Zeichenkette</li>
-<li>Das Dokument mit dem exakten Hash wird nicht an erster Stelle
-zurückgegeben</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1215f1c6d7c9707a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="St%C3%A4rken-und-Schw%C3%A4chen-der-Suchverfahren">Stärken und Schwächen der Suchverfahren<a class="anchor-link" href="#St%C3%A4rken-und-Schw%C3%A4chen-der-Suchverfahren">¶</a></h2><table>
-<thead>
-<tr>
-<th></th>
-<th>Semantische Suche</th>
-<th>Keyword-Suche (BM25)</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Synonyme</strong></td>
-<td>"KI" findet "AI"</td>
-<td>Nur exakter Begriff</td>
-</tr>
-<tr>
-<td><strong>Paraphrasen</strong></td>
-<td>"Modell lernt" ≈ "Training"</td>
-<td>Kein Zusammenhang</td>
-</tr>
-<tr>
-<td><strong>Andere Sprache</strong></td>
-<td>"dog" findet "Hund"</td>
-<td>Kein Zusammenhang</td>
-</tr>
-<tr>
-<td><strong>Fachbegriffe</strong></td>
-<td>"MSE" → evtl. falsche Treffer</td>
-<td>"MSE" → exakte Treffer</td>
-</tr>
-<tr>
-<td><strong>Fehlercodes</strong></td>
-<td>"CUDA_ERROR" → ungenau</td>
-<td>"CUDA_ERROR" → exakt</td>
-</tr>
-<tr>
-<td><strong>Modellnamen</strong></td>
-<td>"ministral-14b" → ungenau</td>
-<td>"ministral-14b" → exakt</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=75e6befa9659a473"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Die-L%C3%B6sung:-Hybrid-Search">Die Lösung: Hybrid Search<a class="anchor-link" href="#Die-L%C3%B6sung:-Hybrid-Search">¶</a></h2><ul>
-<li><strong>Hybrid Search</strong> kombiniert semantische Suche mit Keyword-Suche (BM25)</li>
+<h2 id="Die-L%C3%B6sung:-Hybride-Suche">Die Lösung: Hybride Suche<a class="anchor-link" href="#Die-L%C3%B6sung:-Hybride-Suche">¶</a></h2><ul>
+<li><strong>Hybride Suche</strong> kombiniert semantische Suche mit Keyword-Suche (z.B. BM25)</li>
 <li>Zwei unabhängige Suchverfahren laufen <strong>parallel</strong>:<ul>
 <li><strong>Dense Embeddings</strong> (semantisch): Versteht Bedeutung</li>
 <li><strong>Sparse Embeddings</strong> (BM25): Findet exakte Wörter</li>
@@ -13407,212 +13342,109 @@ zurückgegeben</li>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a3edbe15fe53dcbe"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=564bd045f0df923c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Wie-werden-die-Ergebnisse-kombiniert?">Wie werden die Ergebnisse kombiniert?<a class="anchor-link" href="#Wie-werden-die-Ergebnisse-kombiniert?">¶</a></h2><ul>
 <li>Qdrant verwendet <strong>Reciprocal Rank Fusion (RRF)</strong></li>
 <li>Prinzip:<ul>
 <li>Jedes Suchverfahren liefert eine Rangliste</li>
-<li>Dokumente, die in <strong>einer oder beiden</strong> Listen weit oben stehen,
-bekommen einen hohen kombinierten Score</li>
+<li>Dokumente, die in <strong>einer oder beiden</strong> Listen weit oben stehen, bekommen
+einen hohen kombinierten Score</li>
 <li>Ein Dokument muss nicht in beiden Listen erscheinen</li>
+<li>Aber Dokumente, die in beiden Listen auftauchen, bekommen einen Bonus</li>
 </ul>
 </li>
 </ul>
-<pre><code>Semantische Liste:     Keyword-Liste:       Kombinierte Liste:
-1. Dokument A          1. Dokument C        1. Dokument C (beide)
-2. Dokument B          2. Dokument A        2. Dokument A (beide)
-3. Dokument C          3. Dokument D        3. Dokument B (semantisch)
-                                             4. Dokument D (keyword)
-</code></pre>
+<table>
+<thead>
+<tr>
+<th>Semantische Liste</th>
+<th>Keyword-Liste</th>
+<th>Kombinierte Liste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Dokument A</td>
+<td>1. Dokument C</td>
+<td>1. Dokument A (beide)</td>
+</tr>
+<tr>
+<td>2. Dokument B</td>
+<td>2. Dokument A</td>
+<td>2. Dokument C (beide)</td>
+</tr>
+<tr>
+<td>3. Dokument C</td>
+<td>3. Dokument D</td>
+<td>3. Dokument B (semantisch)</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td>4. Dokument D (keyword)</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a0261478be1353a8"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=8018832ad8f74e01"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hybrid-Search-mit-Qdrant">Hybrid Search mit Qdrant<a class="anchor-link" href="#Hybrid-Search-mit-Qdrant">¶</a></h2><ul>
-<li>Qdrant unterstützt Hybrid Search nativ</li>
-<li>Braucht zwei Arten von Embeddings:<ul>
-<li><strong>Dense Embeddings</strong>: Für semantische Suche (wie bisher)</li>
-<li><strong>Sparse Embeddings</strong>: Für Keyword-Suche (BM25)</li>
+<h2 id="Reciprocal-Rank-Fusion-im-Detail">Reciprocal Rank Fusion im Detail<a class="anchor-link" href="#Reciprocal-Rank-Fusion-im-Detail">¶</a></h2><ul>
+<li>Die Formel für die Berechnung des kombinierten Scores eines Dokuments ist:</li>
 </ul>
-</li>
-<li><code>FastEmbedSparse</code> erzeugt die Sparse Embeddings</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8d6bb2b8c8b11785">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>fastembed
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=16210bb52908256b">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">sparse_embedding</span> <span class="o">=</span> <span class="n">FastEmbedSparse</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">"Qdrant/bm25"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=532505c1ea27ca8e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hybrid-Vektor-Store-erstellen">Hybrid-Vektor-Store erstellen<a class="anchor-link" href="#Hybrid-Vektor-Store-erstellen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=2fc57cfce1ac75b7"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Erstellen Sie einen <code>QdrantVectorStore</code> mit <code>RetrievalMode.HYBRID</code>
-unter Verwendung von <code>embedding_model</code> und <code>sparse_embedding</code>:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c41e80dbe97c2f2d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=d49ff54797f69f1d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Vergleich:-Semantische-Suche-vs.-Hybrid-Search">Vergleich: Semantische Suche vs. Hybrid Search<a class="anchor-link" href="#Vergleich:-Semantische-Suche-vs.-Hybrid-Search">¶</a></h2><p>Testen wir mit der Anfrage, bei der semantische Suche Probleme hatte:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=3148cff3f94cb86d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">"commit a3f7bc2"</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b8e09470fa0839d5"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Semantische Suche:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=4192de684119fc3e">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=b3734305df6163f9">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=9d7c54ebcf43c161"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Hybrid Search:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=f97b7b04bc085c03">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6904b5499b2e4521"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Semantische Anfrage funktioniert weiterhin:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8b3a5a3d21334dfb">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a2d71bef91f7a96e"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Wann-welches-Suchverfahren-verwenden?">Wann welches Suchverfahren verwenden?<a class="anchor-link" href="#Wann-welches-Suchverfahren-verwenden?">¶</a></h2><ul>
-<li><strong>Rein semantisch</strong>: Akzeptabel für schnelle Prototypen oder wenn der
-Dokumentenkorpus klein und homogen ist</li>
-<li><strong>Hybrid Search</strong>: Empfohlen für jedes Produktivsystem, besonders wenn
-Dokumente Fachbegriffe, Identifikatoren oder domänenspezifische
-Abkürzungen enthalten</li>
-<li>Geringer Mehraufwand, deutliche Qualitätsverbesserung</li>
+<p>$$\text{RRF}(d) = \sum_{s \in S} \frac{1}{k + r_s(d)}$$</p>
+<ul>
+<li>$S$ ist die Menge der Suchverfahren (z.B. semantisch und keyword)</li>
+<li>$r_s(d)$ ist die Platzierung von Dokument $d$ in der Rangliste von
+Suchverfahren $s$</li>
+<li>$k$ ist eine Konstante (typischerweise 60)</li>
 </ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=aa7cdaa04d91d83a"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Hybrid-Search-in-der-Praxis">Hybrid Search in der Praxis<a class="anchor-link" href="#Hybrid-Search-in-der-Praxis">¶</a></h2><ul>
-<li>Hybrid Search ist in Produktiv-RAG-Systemen <strong>Standard-Praxis</strong></li>
-<li>Die meisten RAG-Fehler in der Praxis entstehen durch
-schlechtes Retrieval — die falsche Information wird abgerufen</li>
-<li>Hybrid Search reduziert diese Fehler deutlich</li>
-<li>Daher verwenden wir ab jetzt immer <code>RetrievalMode.HYBRID</code></li>
-</ul>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=35c4353dc7886375">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">reciprocal_rank_fusion</span><span class="p">(</span><span class="o">*</span><span class="n">lists</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">60</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="n">scores</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">ranked_list</span> <span class="ow">in</span> <span class="n">lists</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">rank</span><span class="p">,</span> <span class="n">doc</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">ranked_list</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+            <span class="n">scores</span><span class="p">[</span><span class="n">doc</span><span class="p">]</span> <span class="o">=</span> <span class="n">scores</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="p">(</span><span class="n">k</span> <span class="o">+</span> <span class="n">rank</span><span class="p">)</span>
+    <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">scores</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">scores</span><span class="o">.</span><span class="fm">__getitem__</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=a81a3f2d3f890c15"><div class="prompt input_prompt">
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=19533941405467ca">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">reciprocal_rank_fusion</span><span class="p">([</span><span class="s2">"A"</span><span class="p">,</span> <span class="s2">"B"</span><span class="p">,</span> <span class="s2">"C"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"C"</span><span class="p">,</span> <span class="s2">"A"</span><span class="p">,</span> <span class="s2">"D"</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=641547d0f91f5099"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
-<li><strong>Semantische Suche</strong> versteht Bedeutung, kann aber exakte Fachbegriffe verfehlen</li>
-<li><strong>Keyword-Suche (BM25)</strong> findet exakte Begriffe, versteht aber keine Bedeutung</li>
-<li><strong>Hybrid Search</strong> kombiniert beide Verfahren über Reciprocal Rank Fusion</li>
-<li>Qdrant unterstützt Hybrid Search nativ mit <code>FastEmbedSparse</code> und <code>RetrievalMode.HYBRID</code></li>
-<li>Hybrid Search ist Standard-Praxis für Produktiv-RAG-Systeme</li>
+<li><strong>Semantische Suche</strong> versteht Bedeutung, kann aber exakte Fachbegriffe
+verfehlen</li>
+<li><strong>Keyword-Suche (BM25)</strong> findet exakte Begriffe, versteht aber keine
+Bedeutung</li>
+<li><strong>Reciprocal Rank Fusion (RRF)</strong> kombiniert die Ranglisten beider Verfahren</li>
+<li>Hybride Suche nutzt die Stärken beider Ansätze und gleicht die Schwächen aus</li>
 </ul>
-<p><strong>Nächster Schritt</strong>: RAG-System mit LangChain bauen!</p>
+<p><strong>Nächster Schritt</strong>: Hybride Suche mit Qdrant implementieren!</p>
 </div>
 </div>
 </div>

@@ -1,0 +1,201 @@
+# Healthy Eating and Nutrition
+
+## Macronutrients
+
+The three macronutrients -- proteins, carbohydrates, and fats -- provide the
+energy and building blocks that the human body needs to function. Understanding
+their roles helps make informed dietary choices without falling prey to the
+oversimplified claims that dominate popular nutrition discourse.
+
+Proteins are composed of amino acids, often called the building blocks of life.
+The body uses twenty different amino acids to construct and repair tissues,
+produce enzymes and hormones, and support immune function. Nine of these are
+classified as essential amino acids because the body cannot synthesize them and
+must obtain them from food. Animal sources like meat, fish, eggs, and dairy
+provide complete proteins containing all essential amino acids in adequate
+proportions. Plant-based proteins from legumes, grains, nuts, and seeds are
+typically incomplete individually but can be combined throughout the day to meet
+all amino acid requirements. The notion that plant proteins must be combined
+within a single meal has been debunked; the body maintains an amino acid pool
+that draws from all foods consumed over the course of a day.
+
+Carbohydrates serve as the body's primary energy source, particularly for the
+brain, which relies almost exclusively on glucose under normal conditions.
+Simple carbohydrates, found in refined sugars, white bread, and sweetened
+beverages, are digested rapidly and cause sharp spikes in blood sugar followed
+by energy crashes. Complex carbohydrates, found in whole grains, vegetables,
+and legumes, are broken down more slowly due to their fiber content, providing
+sustained energy and promoting feelings of fullness. Dietary fiber, a type of
+carbohydrate that humans cannot digest, plays essential roles in digestive
+health, cholesterol regulation, and blood sugar management. Most adults should
+aim for 25 to 30 grams of fiber daily, though many Western diets fall
+significantly short of this target.
+
+Fats have been unfairly vilified in popular nutrition but are essential for
+hormone production, vitamin absorption, cell membrane integrity, and brain
+health. The critical distinction lies between types of fat rather than fat
+itself. Unsaturated fats, found in olive oil, avocados, nuts, and fatty fish,
+support cardiovascular health and reduce inflammation. Omega-3 fatty acids,
+particularly abundant in salmon, mackerel, sardines, and walnuts, have
+demonstrated benefits for heart health, brain function, and inflammatory
+conditions. Saturated fats, found primarily in animal products and tropical
+oils like coconut oil, should be consumed in moderation. Trans fats, created
+through industrial hydrogenation of vegetable oils, have been conclusively
+linked to increased cardiovascular risk and have been largely banned from food
+production in many countries.
+
+## Building a Balanced Plate
+
+Modern nutrition guidelines have moved away from rigid food pyramids toward more
+flexible, visually intuitive models for meal composition. The plate method
+offers a simple framework: fill half the plate with vegetables and fruits, one
+quarter with whole grains or starchy foods, and one quarter with protein-rich
+foods. This approach naturally limits calorie-dense items while ensuring
+adequate intake of vitamins, minerals, and fiber.
+
+Variety and color serve as practical guides to nutritional diversity. Different
+colored vegetables and fruits contain different phytochemicals and antioxidants:
+red tomatoes and peppers provide lycopene, orange carrots and sweet potatoes
+offer beta-carotene, dark leafy greens supply folate and vitamin K, and purple
+berries and eggplant contain anthocyanins. Eating a wide range of colors
+throughout the week helps ensure comprehensive micronutrient intake without
+requiring detailed nutritional tracking.
+
+Portion awareness, rather than strict calorie counting, offers a sustainable
+approach to managing food intake. Using hands as portion guides provides a
+convenient and personalized reference: a palm-sized portion of protein, a
+fist-sized serving of vegetables, a cupped hand of carbohydrates, and a
+thumb-sized amount of fats at each meal. This approach scales naturally with
+body size and avoids the obsessive measurement that can make healthy eating feel
+burdensome.
+
+Hydration deserves attention as a foundational element of nutrition that is
+frequently overlooked. Water supports every metabolic process in the body, from
+nutrient transport to temperature regulation. Thirst is an unreliable indicator
+of hydration status, as the sensation often lags behind actual fluid needs.
+General guidelines suggest approximately 2 liters of total fluid intake daily,
+though individual needs vary with activity level, climate, and body size. Water
+remains the ideal choice, though herbal teas and foods with high water content
+(cucumbers, watermelon, soups) contribute meaningfully to daily fluid intake.
+
+## Cooking Methods and Nutrition
+
+How food is prepared can significantly affect its nutritional value. Different
+cooking methods preserve or destroy nutrients to varying degrees, and
+understanding these effects enables healthier meal preparation without
+sacrificing flavor.
+
+Steaming is widely considered the cooking method that best preserves nutrients.
+Because food does not come into direct contact with water, water-soluble
+vitamins like vitamin C and B vitamins are retained rather than leaching into
+cooking liquid. Steaming also requires no added fat, making it one of the
+lowest-calorie preparation methods. Vegetables steamed until just tender
+maintain their color, texture, and nutritional content far better than those
+boiled until soft.
+
+Boiling, while convenient, causes the greatest nutrient loss among common
+cooking methods. Water-soluble vitamins dissolve into the cooking water, and
+prolonged boiling can destroy heat-sensitive compounds. However, boiling
+remains appropriate for foods that benefit from extended cooking, such as dried
+legumes and tough root vegetables. Using minimal water and keeping cooking times
+short reduces nutrient loss. Saving cooking liquid for soups or sauces recaptures
+some of the dissolved nutrients.
+
+Roasting and baking use dry heat to create flavorful browning through the
+Maillard reaction while requiring minimal added fat. These methods work
+particularly well for root vegetables, whose natural sugars caramelize and
+intensify in the oven's heat. Some nutrients, like the lycopene in tomatoes,
+actually become more bioavailable through cooking, as heat breaks down cell
+walls and releases compounds that are otherwise locked within plant tissue.
+
+Stir-frying combines high heat with brief cooking times and small amounts of
+oil, making it an efficient method that preserves both nutrients and texture.
+The key is maintaining high heat and keeping food moving constantly, ensuring
+rapid cooking that preserves the crispness of vegetables while adding the
+complex flavors of browning.
+
+Deep-frying, while producing appealing textures, significantly increases the
+calorie content of food as the item absorbs oil during cooking. If deep-frying
+is used, maintaining proper oil temperature (typically 175 to 190 degrees
+Celsius) minimizes oil absorption, as food submerged in sufficiently hot oil
+forms a crust that limits penetration.
+
+## Common Diet Myths
+
+Nutrition science is frequently misrepresented in popular media, leading to
+widespread misconceptions that can undermine healthy eating habits.
+
+The belief that dietary fat makes you fat is perhaps the most persistent
+nutrition myth. This misconception drove the low-fat food movement of the 1980s
+and 1990s, during which manufacturers replaced fat with sugar and refined
+carbohydrates to maintain palatability. The result was products that were lower
+in fat but often higher in calories and less satiating, contributing to rising
+obesity rates. Weight gain is fundamentally about energy balance -- consuming
+more calories than the body expends -- regardless of whether those calories
+come from fat, carbohydrates, or protein. Fat is actually the most satiating
+macronutrient per calorie, meaning moderate fat consumption can help control
+appetite and reduce overall food intake.
+
+The claim that carbohydrates are inherently unhealthy conflates refined
+carbohydrates with the entire macronutrient category. While refined sugars and
+processed grain products do contribute to metabolic problems when consumed in
+excess, complex carbohydrates from whole grains, legumes, fruits, and vegetables
+are associated with reduced risk of heart disease, diabetes, and certain
+cancers. Eliminating carbohydrates entirely, as some extreme diets advocate,
+removes important sources of fiber, B vitamins, and sustained energy.
+
+Detox diets and cleanses claim to remove accumulated toxins from the body
+through extreme dietary restriction, juice fasting, or specific supplement
+regimens. However, the human body already possesses sophisticated
+detoxification systems: the liver metabolizes and neutralizes harmful substances,
+the kidneys filter waste from the blood, and the digestive system expels
+unneeded materials. No credible scientific evidence supports the claim that
+commercial detox products enhance these natural processes. The weight loss
+observed during detox diets primarily reflects water loss and reduced caloric
+intake rather than toxin elimination.
+
+The superfood label, applied to items from acai berries to quinoa to kale,
+implies that certain foods possess extraordinary health-promoting properties
+that set them apart from ordinary ingredients. While these foods are certainly
+nutritious, the superfood concept obscures a more important truth: overall
+dietary pattern matters far more than any individual ingredient. No single food
+can compensate for an otherwise poor diet, and an excessive focus on trendy
+superfoods can distract from the fundamental principles of eating a varied,
+balanced diet centered on whole, minimally processed foods.
+
+## Meal Planning
+
+Effective meal planning transforms healthy eating from an aspiration into a
+practical daily reality. By investing a small amount of time in planning, the
+decisions and temptations that derail healthy eating throughout the week are
+largely eliminated before they arise.
+
+Batch cooking -- preparing larger quantities of staple ingredients on a
+designated day (typically a weekend day) -- provides the foundation for quick
+assembly of healthy meals throughout the week. Cooking a large pot of grains
+(rice, quinoa, or farro), roasting a tray of mixed vegetables, and preparing
+a versatile protein (grilled chicken, baked tofu, or simmered lentils) creates
+building blocks that can be combined in different ways for varied meals.
+
+A balanced weekly menu should include variety across protein sources, grains,
+and vegetable preparations. Planning to eat fish at least twice per week
+provides omega-3 fatty acids. Incorporating meatless meals two or three times
+per week increases plant-based protein and fiber intake while reducing
+environmental impact. Rotating through different vegetables and cooking methods
+prevents monotony and ensures broad micronutrient coverage.
+
+Healthy snacking bridges the energy gaps between meals without undermining
+overall dietary quality. Effective snacks combine protein or fat with complex
+carbohydrates for sustained energy: apple slices with almond butter, hummus
+with raw vegetables, or Greek yogurt with berries. Preparing snacks in advance
+and keeping them easily accessible reduces the likelihood of reaching for
+convenience foods when hunger strikes.
+
+Reading nutrition labels is an essential skill for making informed food choices.
+The most revealing information often appears in the ingredients list rather than
+the nutrient panel. Ingredients are listed in descending order by weight, so if
+sugar (in any of its many forms -- sucrose, high fructose corn syrup, dextrose,
+maltose) appears among the first three ingredients, the product is likely higher
+in added sugar than its marketing suggests. Serving sizes listed on labels are
+sometimes unrealistically small, making nutrient amounts appear lower than what
+a person would actually consume.

@@ -21,6 +21,9 @@
 # 3. Einen Hybrid-Vektor-Store erstellen und vergleichen
 
 # %%
+# !pip install --root-user-action=ignore --quiet qdrant-client langchain-qdrant
+
+# %%
 import os
 from dotenv import load_dotenv
 from langchain_qdrant import QdrantVectorStore, FastEmbedSparse, RetrievalMode
@@ -65,10 +68,10 @@ threshold = 0.5
 
 # %% [markdown]
 #
-# ## Aufgabe 3: Hybrid Search
+# ## Aufgabe 3: Hybride Suche
 #
 # Erstellen Sie einen Hybrid-Vektor-Store mit denselben Dokumenten.
-# Vergleichen Sie die Ergebnisse der semantischen Suche mit der Hybrid Search
+# Vergleichen Sie die Ergebnisse der semantischen Suche mit der hybriden Suche
 # für eine Anfrage, die einen spezifischen Begriff enthält.
 
 # %%

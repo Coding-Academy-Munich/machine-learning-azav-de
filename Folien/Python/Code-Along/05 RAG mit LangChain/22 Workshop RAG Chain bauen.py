@@ -16,19 +16,20 @@
 # ## Workshop: RAG Chain bauen
 #
 # In diesem Workshop üben Sie:
-# 1. Eigene Dokumente zum RAG-System hinzufügen
-# 2. Den System-Prompt für bessere Antworten optimieren
+# 1. Dokumente aus Dateien laden, chunken und einen Vektor-Store aufbauen
+# 2. Eine RAG Chain mit optimiertem System-Prompt erstellen
 # 3. Retrieval-Parameter anpassen und vergleichen
 
 # %%
-# !pip install qdrant-client langchain-qdrant
+# !pip install --root-user-action=ignore --quiet qdrant-client langchain-qdrant
 
 # %%
 import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_qdrant import QdrantVectorStore, FastEmbedSparse, RetrievalMode
-from langchain_core.documents import Document
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
@@ -57,11 +58,12 @@ def format_docs(docs):
 
 # %% [markdown]
 #
-# ## Aufgabe 1: Eigene Dokumente hinzufügen
+# ## Aufgabe 1: Dokumente laden und RAG-System aufbauen
 #
-# Erstellen Sie einen Vektor-Store mit mindestens 5 Dokumenten zu einem Thema
-# Ihrer Wahl (z.B. Kochen, Sport, Geschichte, Musik...).
-# Testen Sie den Retriever mit 2–3 Anfragen.
+# Laden Sie alle `.txt`-Dateien aus `docs_workshop/` mit `DirectoryLoader`.
+# Teilen Sie die Dokumente mit `RecursiveCharacterTextSplitter` in Chunks auf
+# (`chunk_size=1000`, `chunk_overlap=200`).
+# Erstellen Sie einen Vektor-Store und testen Sie den Retriever mit 2-3 Anfragen.
 
 # %%
 
@@ -70,12 +72,17 @@ def format_docs(docs):
 # %%
 
 # %%
-assert len(my_docs) >= 5
+
+# %%
+
+# %%
+assert len(raw_documents) == 3
+
+# %%
+assert len(documents) > 10
 
 # %%
 docs_found = my_retriever.invoke("test")
-
-# %%
 assert len(docs_found) == 2
 
 # %%
@@ -84,10 +91,10 @@ assert len(docs_found) == 2
 #
 # ## Aufgabe 2: System-Prompt verbessern
 #
-# Erstellen Sie eine RAG Chain und verbessern Sie den System-Prompt:
+# Erstellen Sie eine RAG Chain mit einem verbesserten System-Prompt:
 # - Die Antwort soll in **Stichpunkten** gegeben werden
 # - Das LLM soll die **verwendete Quelle zitieren**
-# - Bei irrelevanten Fragen soll es sagen: "Dazu habe ich keine Informationen"
+# - Bei irrelevanten Fragen soll es sagen: "Ich habe dazu keine Informationen"
 #
 # Testen Sie mit 3 Fragen (2 relevante, 1 irrelevante).
 
@@ -104,9 +111,9 @@ assert len(test_answer) > 0
 
 # %%
 test_questions = [
-    "Wie macht man Risotto?",
-    "Was ist Tiramisu?",
-    "Wie repariere ich mein Fahrrad?",
+    "How do you make risotto?",
+    "What is tiramisu?",
+    "How do neural networks work?",
 ]
 
 # %%
@@ -121,6 +128,6 @@ test_questions = [
 # Beobachten Sie: Wie verändert sich die Antwort mit mehr/weniger Kontext?
 
 # %%
-question = "Welche italienischen Gerichte gibt es?"
+question = "What Italian dishes are there?"
 
 # %%

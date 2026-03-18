@@ -18,19 +18,20 @@
 # - ✅ LLMs nutzen mit LangChain
 # - ✅ Text bereinigen und in Chunks aufteilen
 # - ✅ Embeddings erstellen (Kosinus-Ähnlichkeit)
-# - ✅ Qdrant für Vektor-Speicherung + **Hybrid Search**
+# - ✅ Qdrant für Vektor-Speicherung + **Hybride Suche**
 #
 # **Jetzt**: Alles zusammenbauen zu einem RAG-System!
 
 # %%
-# !pip install qdrant-client langchain-qdrant
+# !pip install --root-user-action=ignore --quiet qdrant-client langchain-qdrant
 
 # %%
 import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_qdrant import QdrantVectorStore, FastEmbedSparse, RetrievalMode
-from langchain_core.documents import Document
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
@@ -40,55 +41,53 @@ load_dotenv()
 
 # %% [markdown]
 #
-# ## RAG-Pipeline Übersicht
+# ## RAG-Pipeline: Setup (einmalig)
 #
-# **Einmalig (Setup)**:
 # 1. Dokumente laden
 # 2. Text bereinigen und in Chunks aufteilen
-# 3. In Qdrant speichern (mit Hybrid Search)
+# 3. In Qdrant speichern (mit hybrider Suche)
+
+# %% [markdown]
 #
-# **Bei jeder Anfrage**:
+# ## RAG-Pipeline: Anfrage (bei jeder Frage)
+#
 # 4. Anfrage embedden
-# 5. Ähnlichste Chunks finden (Retrieval)
-# 6. Als Kontext an LLM geben (Augmentation)
-# 7. Antwort generieren (Generation)
+# 5. Ähnlichste Chunks finden (**Retrieval**)
+# 6. Als Kontext an LLM geben (**Augmentation**)
+# 7. Antwort generieren (**Generation**)
 
 # %% [markdown]
 #
 # ## Schritt 1: Dokumente laden und chunken
 
 # %%
-docs_content = [
-    """Linear Regression ist eine Methode des überwachten Lernens.
-    Sie modelliert lineare Beziehungen zwischen Features und Zielvariable.
-    Die Normalgleichung kann verwendet werden, um optimale Parameter zu finden.""",
-
-    """Neural Networks bestehen aus Schichten von Neuronen.
-    Jedes Neuron berechnet eine gewichtete Summe und wendet eine Aktivierungsfunktion an.
-    Training erfolgt durch Backpropagation und Gradient Descent.""",
-
-    """Overfitting tritt auf, wenn ein Modell die Trainingsdaten auswendig lernt.
-    Regularisierung und Cross-Validation helfen, Overfitting zu vermeiden.
-    Ein gutes Modell generalisiert auf neue, ungesehene Daten.""",
-
-    """Large Language Models sind sehr große neuronale Netze.
-    Sie werden auf Milliarden von Wörtern trainiert.
-    RAG hilft LLMs, präziser mit spezifischem Wissen zu antworten."""
-]
+loader = DirectoryLoader(
+    "docs/", glob="*.txt", loader_cls=TextLoader,
+    loader_kwargs={"encoding": "utf-8"},
+)
 
 # %%
-documents = [Document(page_content=doc) for doc in docs_content]
-
-# %% [markdown]
-#
-# Unsere Beispiel-Dokumente sind kurz genug, dass wir sie nicht aufteilen müssen.
-# In einer echten Anwendung würden wir `RecursiveCharacterTextSplitter` verwenden,
-# wie in der Lektion zu Text Processing gelernt.
-
-# %% [markdown]
-# Anzahl Dokumente:
+raw_documents = loader.load()
 
 # %%
+for doc in raw_documents:
+    source = doc.metadata.get("source", "unknown")
+    print(f"{source}: {len(doc.page_content)} characters")
+
+# %%
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
+)
+
+# %%
+documents = text_splitter.split_documents(raw_documents)
+
+# %% [markdown]
+# Anzahl Chunks:
+
+# %%
+len(documents)
 
 # %% [markdown]
 #
@@ -97,11 +96,10 @@ documents = [Document(page_content=doc) for doc in docs_content]
 # %%
 sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 
-
 # %% [markdown]
 #
 # Erstellen Sie die Embeddings und den Qdrant Vektor-Store aus den Dokumenten.
-# Verwenden Sie `RetrievalMode.HYBRID` mit `sparse_embeddings` für Hybrid Search.
+# Verwenden Sie `RetrievalMode.HYBRID` mit `sparse_embeddings` für hybride Suche.
 
 # %%
 
@@ -126,8 +124,14 @@ sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 # ## Retriever testen
 
 # %%
+docs_found = retriever.invoke("What is overfitting?")
+
+# %% [markdown]
+# Gefundene Chunks:
 
 # %%
+for i, doc in enumerate(docs_found, 1):
+    print(f"\n{i}. {doc.page_content[:150]}...")
 
 # %% [markdown]
 #
@@ -142,6 +146,7 @@ def format_docs(docs):
     return "\n\n".join(doc.page_content for doc in docs)
 
 # %%
+example_docs = retriever.invoke("What is overfitting?")
 
 # %% [markdown]
 # Vor `format_docs`:
@@ -167,6 +172,8 @@ def format_docs(docs):
 # - Frage → Retriever → Dokumente → format_docs → Text
 
 # %%
+retrieval_chain = retriever | format_docs
+context_text = retrieval_chain.invoke("What is overfitting?")
 
 # %% [markdown]
 # Kontext-Text:

@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=647763fabff569ca"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=58bc8d15764a657c"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>Workshop: Vektor-Embeddings</b>
+<b>Hybride Suche mit Qdrant</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13147,30 +13147,26 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=f038f4b23a2ac803"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Workshop:-Vector-Embeddings">Workshop: Vector Embeddings<a class="anchor-link" href="#Workshop:-Vector-Embeddings">¶</a></h2><p>In diesem Workshop üben Sie:</p>
-<ol>
-<li>Eigene Texte einbetten und Ähnlichkeiten berechnen</li>
-<li>Eine semantische Suchfunktion bauen</li>
-<li>Keyword-Suche und semantische Suche vergleichen</li>
-</ol>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=bac9cfa34ddef9ab">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--root-user-action<span class="o">=</span>ignore<span class="w"> </span>--quiet<span class="w"> </span>fastembed
+</pre></div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c5c14d40c65c490a">
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=7d68feb72fc21ce3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics.pairwise</span><span class="w"> </span><span class="kn">import</span> <span class="n">cosine_similarity</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span><span class="p">,</span> <span class="n">FastEmbedSparse</span><span class="p">,</span> <span class="n">RetrievalMode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">bm25s</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">Stemmer</span>
 </pre></div>
 </div>
 </div>
@@ -13187,212 +13183,291 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8e1740eb57594f9c">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=fafa20775e555fdd">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">embedding_model</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span>
     <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
     <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
-    <span class="n">model</span><span class="o">=</span><span class="s2">"openai/text-embedding-3-small"</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"openai/text-embedding-3-small"</span><span class="p">,</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7ad35fa777ac0ce8">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=99f6af016e748c44">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">bm25_stemmer</span> <span class="o">=</span> <span class="n">Stemmer</span><span class="o">.</span><span class="n">Stemmer</span><span class="p">(</span><span class="s2">"german"</span><span class="p">)</span>
-<span class="n">bm25_stopwords</span> <span class="o">=</span> <span class="s2">"de"</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b500b293d6f9352f"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabe-1:-Eigene-Texte-einbetten">Aufgabe 1: Eigene Texte einbetten<a class="anchor-link" href="#Aufgabe-1:-Eigene-Texte-einbetten">¶</a></h2><p>Erstellen Sie Embeddings für die folgenden Texte und berechnen Sie die
-Ähnlichkeitsmatrix. Welche Texte sind sich am ähnlichsten?</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=c8b6ff637706268d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">workshop_texts</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Hunde sind treue Gefährten und brauchen viel Auslauf"</span><span class="p">,</span>
-    <span class="s2">"Katzen sind unabhängige Haustiere, die gerne schlafen"</span><span class="p">,</span>
-    <span class="s2">"Python ist eine beliebte Programmiersprache für Data Science"</span><span class="p">,</span>
-    <span class="s2">"JavaScript wird hauptsächlich für Webentwicklung eingesetzt"</span><span class="p">,</span>
-    <span class="s2">"Fußball ist die beliebteste Sportart der Welt"</span><span class="p">,</span>
-    <span class="s2">"Basketball wurde 1891 in den USA erfunden"</span><span class="p">,</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">docs</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"The bug introduced in commit a3f7bc2 caused the tokenizer to silently drop special tokens during batch encoding."</span><span class="p">,</span>
+    <span class="s2">"Git tracks changes through a directed acyclic graph of commits, where each commit stores a snapshot of the repository state along with metadata."</span><span class="p">,</span>
+    <span class="s2">"Continuous integration runs automated tests on every commit to catch regressions before they reach the main branch."</span><span class="p">,</span>
+    <span class="s2">"Debugging machine learning pipelines often requires bisecting commits to find where model performance regressed."</span><span class="p">,</span>
+    <span class="s2">"Cherry-picking individual commits allows developers to selectively apply bug fixes from one branch to another without merging all changes."</span><span class="p">,</span>
+    <span class="s2">"The git blame command shows which commit last modified each line of a file, helping developers understand the history behind code changes."</span><span class="p">,</span>
+    <span class="s2">"Squashing multiple commits into one creates a cleaner history by combining related changes into a single commit before merging."</span><span class="p">,</span>
 <span class="p">]</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=bfeeea78ddd23095">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2c6481688107acf6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">semantic_store</span> <span class="o">=</span> <span class="n">QdrantVectorStore</span><span class="o">.</span><span class="n">from_texts</span><span class="p">(</span>
+    <span class="n">texts</span><span class="o">=</span><span class="n">docs</span><span class="p">,</span>
+    <span class="n">embedding</span><span class="o">=</span><span class="n">embedding_model</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="o">=</span><span class="s2">"semantic_demo"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">":memory:"</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=d8a0ae59a00ebf1e">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=f599b6cf62ebe583">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=531d4003ddd58332"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=609e793dcc458e47"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabe-2:-Semantische-Suchfunktion">Aufgabe 2: Semantische Suchfunktion<a class="anchor-link" href="#Aufgabe-2:-Semantische-Suchfunktion">¶</a></h2><ol>
-<li>Schreiben Sie eine Funktion <code>semantic_search(query, texts, text_embeddings, embeddings_model, k=2)</code>, die:<ul>
-<li>Die Anfrage mit <code>embed_query()</code> embeddet</li>
-<li>Kosinus-Ähnlichkeit zu allen Text-Embeddings berechnet</li>
-<li>Die Top-k ähnlichsten Texte mit ihren Scores zurückgibt</li>
+<h2 id="Hybride-Suche-mit-Qdrant">Hybride Suche mit Qdrant<a class="anchor-link" href="#Hybride-Suche-mit-Qdrant">¶</a></h2><ul>
+<li>Qdrant unterstützt hybride Suche nativ</li>
+<li>Braucht zwei Arten von Embeddings:<ul>
+<li><strong>Dense Embeddings</strong>: Für semantische Suche (wie bisher)</li>
+<li><strong>Sparse Embeddings</strong>: Für Keyword-Suche (BM25)</li>
 </ul>
 </li>
-<li>Testen Sie Ihre Funktion mit mindestens 3 verschiedenen Anfragen</li>
-</ol>
-<p><strong>Hinweis:</strong> Sie können dabei die bereits berechneten Embeddings aus Aufgabe 1
-verwenden, um API-Aufrufe zu sparen!</p>
+<li><code>FastEmbedSparse</code> erzeugt die Sparse Embeddings</li>
+</ul>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=bb6e7810d41e8b2e">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=5c45b35f10a310b9">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">sparse_embedding_model</span> <span class="o">=</span> <span class="n">FastEmbedSparse</span><span class="p">(</span><span class="n">model_name</span><span class="o">=</span><span class="s2">"Qdrant/bm25"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=e756b3c55f0354b6">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=869ccc4a96f7edd4">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">test_queries</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Welches Tier ist ein guter Begleiter?"</span><span class="p">,</span>
-    <span class="s2">"Programmierung und Software"</span><span class="p">,</span>
-    <span class="s2">"Sport und Bewegung"</span><span class="p">,</span>
-<span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=fb0b09fb098f40a0">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=594408514a45e8dc"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=532505c1ea27ca8e"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Aufgabe-3:-Keyword-vs.-Semantische-Suche">Aufgabe 3: Keyword vs. Semantische Suche<a class="anchor-link" href="#Aufgabe-3:-Keyword-vs.-Semantische-Suche">¶</a></h2><p>Vergleichen Sie die Ergebnisse der Keyword-Suche und der semantischen Suche
-für dieselben Anfragen. Wo liegen die Unterschiede?</p>
+<h2 id="Hybrid-Vektor-Store-erstellen">Hybrid-Vektor-Store erstellen<a class="anchor-link" href="#Hybrid-Vektor-Store-erstellen">¶</a></h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=963c50c38d5320f8">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=10b17031e3e653b7">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">keyword_search</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">texts</span><span class="p">):</span>
-    <span class="k">return</span> <span class="p">[</span><span class="n">t</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">texts</span> <span class="k">if</span> <span class="n">query</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="ow">in</span> <span class="n">t</span><span class="o">.</span><span class="n">lower</span><span class="p">()]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">hybrid_store</span> <span class="o">=</span> <span class="n">QdrantVectorStore</span><span class="o">.</span><span class="n">from_texts</span><span class="p">(</span>
+    <span class="n">texts</span><span class="o">=</span><span class="n">docs</span><span class="p">,</span>
+    <span class="n">embedding</span><span class="o">=</span><span class="n">embedding_model</span><span class="p">,</span>
+    <span class="n">sparse_embedding</span><span class="o">=</span><span class="n">sparse_embedding_model</span><span class="p">,</span>
+    <span class="n">collection_name</span><span class="o">=</span><span class="s2">"hybrid_demo"</span><span class="p">,</span>
+    <span class="n">location</span><span class="o">=</span><span class="s2">":memory:"</span><span class="p">,</span>
+    <span class="n">retrieval_mode</span><span class="o">=</span><span class="n">RetrievalMode</span><span class="o">.</span><span class="n">HYBRID</span><span class="p">,</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c692cdf909d79f9f">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=73543ef086125e48"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Vergleich:-Semantische-Suche-vs.-Hybride-Suche">Vergleich: Semantische Suche vs. Hybride Suche<a class="anchor-link" href="#Vergleich:-Semantische-Suche-vs.-Hybride-Suche">¶</a></h2><p>Testen wir mit der Anfrage, bei der semantische Suche Probleme hatte:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=3148cff3f94cb86d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">"commit a3f7bc2"</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d5b7036db40e12d4">
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=b8e09470fa0839d5"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Semantische Suche:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=cd1bcd927e556e76">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">comparison_queries</span> <span class="o">=</span> <span class="p">[</span>
-    <span class="s2">"Haustiere"</span><span class="p">,</span>
-    <span class="s2">"pets"</span><span class="p">,</span>
-    <span class="s2">"Programmierung"</span><span class="p">,</span>
-    <span class="s2">"Ballsport"</span><span class="p">,</span>
-<span class="p">]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">results_semantic</span> <span class="o">=</span> <span class="n">semantic_store</span><span class="o">.</span><span class="n">similarity_search_with_relevance_scores</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=5ccaf7d09d11b974">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=2f3b15de4dbeea43">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">doc</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">results_semantic</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">80</span><span class="p">]</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=87fc3e3b6b3c4441"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Hybride Suche:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=272b52642cf152c1">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">results_hybrid</span> <span class="o">=</span> <span class="n">hybrid_store</span><span class="o">.</span><span class="n">similarity_search_with_relevance_scores</span><span class="p">(</span><span class="n">query</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=010fd62e816fac73">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">doc</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">results_hybrid</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">80</span><span class="p">]</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=6904b5499b2e4521"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Semantische Anfrage funktioniert weiterhin:</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=d3619873be2219c9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">results_semantic_query</span> <span class="o">=</span> <span class="n">hybrid_store</span><span class="o">.</span><span class="n">similarity_search_with_relevance_scores</span><span class="p">(</span>
+    <span class="s2">"Can I integrate individual changes from other versions of the software?"</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">2</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=64dfd9d327e3cee9">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">doc</span><span class="p">,</span> <span class="n">score</span> <span class="ow">in</span> <span class="n">results_semantic_query</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">"[</span><span class="si">{</span><span class="n">score</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">] </span><span class="si">{</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span><span class="p">[:</span><span class="mi">80</span><span class="p">]</span><span class="si">}</span><span class="s2">..."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=1215f1c6d7c9707a"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="St%C3%A4rken-und-Schw%C3%A4chen-der-Suchverfahren">Stärken und Schwächen der Suchverfahren<a class="anchor-link" href="#St%C3%A4rken-und-Schw%C3%A4chen-der-Suchverfahren">¶</a></h2><table>
+<thead>
+<tr>
+<th></th>
+<th>Semantische Suche</th>
+<th>Keyword-Suche (BM25)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Synonyme</strong></td>
+<td>"KI" findet "AI"</td>
+<td>Nur exakter Begriff</td>
+</tr>
+<tr>
+<td><strong>Paraphrasen</strong></td>
+<td>"Modell lernt" ≈ "Training"</td>
+<td>Kein Zusammenhang</td>
+</tr>
+<tr>
+<td><strong>Andere Sprache</strong></td>
+<td>"dog" findet "Hund"</td>
+<td>Kein Zusammenhang</td>
+</tr>
+<tr>
+<td><strong>Fachbegriffe</strong></td>
+<td>"MSE" → evtl. falsche Treffer</td>
+<td>"MSE" → exakte Treffer</td>
+</tr>
+<tr>
+<td><strong>Fehlercodes</strong></td>
+<td>"CUDA_ERROR" → ungenau</td>
+<td>"CUDA_ERROR" → exakt</td>
+</tr>
+<tr>
+<td><strong>Modellnamen</strong></td>
+<td>"ministral-14b" → ungenau</td>
+<td>"ministral-14b" → exakt</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=beae7258021f1b46"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Hybride-Suche-in-der-Praxis">Hybride Suche in der Praxis<a class="anchor-link" href="#Hybride-Suche-in-der-Praxis">¶</a></h2><ul>
+<li>Hybride Suche ist in Produktiv-RAG-Systemen Standard-Praxis</li>
+<li>Viele RAG-Fehler in der Praxis entstehen durch schlechtes Retrieval</li>
+<li>Hybride Suche reduziert diese Fehler deutlich</li>
+<li><strong>Aber:</strong> Andere Verbesserungen und Tuning sind oft notwendig</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=7f07c91538e95bd8"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Zusammenfassung">Zusammenfassung<a class="anchor-link" href="#Zusammenfassung">¶</a></h2><ul>
+<li><strong>Semantische Suche</strong> versteht Bedeutung, kann aber exakte Fachbegriffe
+verfehlen</li>
+<li><strong>Keyword-Suche (BM25)</strong> findet exakte Begriffe, versteht aber keine
+Bedeutung</li>
+<li><strong>Hybride Suche</strong> kombiniert beide Verfahren (z. B. über Reciprocal Rank
+Fusion)</li>
+<li>Qdrant unterstützt hybride Suche nativ mit <code>FastEmbedSparse</code> und
+<code>RetrievalMode.HYBRID</code></li>
+<li>Hybride Suche ist Standard-Praxis für Produktiv-RAG-Systeme</li>
+</ul>
+<p><strong>Nächster Schritt</strong>: RAG-System mit LangChain bauen!</p>
 </div>
 </div>
 </div>

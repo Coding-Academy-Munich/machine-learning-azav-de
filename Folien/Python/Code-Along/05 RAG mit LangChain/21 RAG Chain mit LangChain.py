@@ -16,7 +16,8 @@ import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_qdrant import QdrantVectorStore, FastEmbedSparse, RetrievalMode
-from langchain_core.documents import Document
+from langchain_community.document_loaders import DirectoryLoader, TextLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
@@ -35,26 +36,22 @@ embeddings = OpenAIEmbeddings(
 sparse_embeddings = FastEmbedSparse(model_name="Qdrant/bm25")
 
 # %%
-docs_content = [
-    """Linear Regression ist eine Methode des überwachten Lernens.
-    Sie modelliert lineare Beziehungen zwischen Features und Zielvariable.
-    Die Normalgleichung kann verwendet werden, um optimale Parameter zu finden.""",
-
-    """Neural Networks bestehen aus Schichten von Neuronen.
-    Jedes Neuron berechnet eine gewichtete Summe und wendet eine Aktivierungsfunktion an.
-    Training erfolgt durch Backpropagation und Gradient Descent.""",
-
-    """Overfitting tritt auf, wenn ein Modell die Trainingsdaten auswendig lernt.
-    Regularisierung und Cross-Validation helfen, Overfitting zu vermeiden.
-    Ein gutes Modell generalisiert auf neue, ungesehene Daten.""",
-
-    """Large Language Models sind sehr große neuronale Netze.
-    Sie werden auf Milliarden von Wörtern trainiert.
-    RAG hilft LLMs, präziser mit spezifischem Wissen zu antworten."""
-]
+loader = DirectoryLoader(
+    "docs/", glob="*.txt", loader_cls=TextLoader,
+    loader_kwargs={"encoding": "utf-8"},
+)
 
 # %%
-documents = [Document(page_content=doc) for doc in docs_content]
+raw_documents = loader.load()
+
+# %%
+text_splitter = RecursiveCharacterTextSplitter(
+    chunk_size=1000,
+    chunk_overlap=200,
+)
+
+# %%
+documents = text_splitter.split_documents(raw_documents)
 
 # %%
 vectorstore = QdrantVectorStore.from_documents(
@@ -89,6 +86,7 @@ system_prompt = (
     "Kontext: {context}"
 )
 
+# %%
 prompt = ChatPromptTemplate.from_messages([
     ("system", system_prompt),
     ("human", "{input}"),
@@ -144,9 +142,10 @@ llm = ChatOpenAI(
 # ## Schritt 5: RAG-System nutzen
 
 # %%
-question = "Was ist Overfitting?"
+question = "What is overfitting?"
 
 # %%
+answer = rag_chain.invoke(question)
 
 # %% [markdown]
 # Frage:
@@ -165,12 +164,31 @@ question = "Was ist Overfitting?"
 # Die Quellen bekommen wir separat vom Retriever:
 
 # %%
+sources = retriever.invoke(question)
+
+# %% [markdown]
+# Verwendete Quellen:
+
+# %%
+for i, doc in enumerate(sources, 1):
+    print(f"{i}. {doc.page_content[:100]}...")
 
 # %% [markdown]
 #
 # ## Weitere Fragen testen
 
 # %%
+questions = [
+    "How do neural networks work?",
+    "What is RAG?",
+    "Explain gradient descent",
+]
+
+# %%
+for q in questions:
+    answer = rag_chain.invoke(q)
+    print(f"\nQ: {q}")
+    print(f"A: {answer[:200]}...")
 
 # %% [markdown]
 #
@@ -180,6 +198,8 @@ question = "Was ist Overfitting?"
 # - Unser Prompt sagt dem LLM: "Sage es, wenn der Kontext keine Antwort hat"
 
 # %%
+irrelevant = "What is the best recipe for chocolate cake?"
+answer_irrelevant = rag_chain.invoke(irrelevant)
 
 # %% [markdown]
 # Frage:
@@ -223,13 +243,21 @@ question = "Was ist Overfitting?"
 retriever_k3 = vectorstore.as_retriever(search_kwargs={"k": 3})
 
 # %%
+docs_k3 = retriever_k3.invoke("Machine learning methods")
+
+# %% [markdown]
+# Mit k=3 gefundene Chunks:
+
+# %%
+for i, doc in enumerate(docs_k3, 1):
+    print(f"  {i}. {doc.page_content[:100]}...")
 
 # %% [markdown]
 #
 # ## Zusammenfassung
 #
 # - **RAG mit LangChain**: Wenige Zeilen Code für ein vollständiges System
-# - **Pipeline**: Dokumente -> Chunks -> Qdrant (Hybrid Search) -> Retriever -> LLM
+# - **Pipeline**: Dokumente -> Chunks -> Qdrant (Hybride Suche) -> Retriever -> LLM
 # - **LCEL**: Verkettung mit `|` Operator, z.B.
 #   `{"context": retriever | format_docs, "input": RunnablePassthrough()}`
 # - **Prompt Engineering**: "Sage, wenn du es nicht weißt" verhindert Halluzinationen

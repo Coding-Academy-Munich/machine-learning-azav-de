@@ -26,6 +26,8 @@ from dotenv import load_dotenv
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 from langchain_openai import OpenAIEmbeddings
+import bm25s
+import Stemmer
 
 # %%
 load_dotenv()
@@ -36,6 +38,10 @@ embeddings = OpenAIEmbeddings(
     base_url="https://openrouter.ai/api/v1",
     model="openai/text-embedding-3-small"
 )
+
+# %%
+bm25_stemmer = Stemmer.Stemmer("german")
+bm25_stopwords = "de"
 
 # %% [markdown]
 #
@@ -53,6 +59,8 @@ workshop_texts = [
     "Fußball ist die beliebteste Sportart der Welt",
     "Basketball wurde 1891 in den USA erfunden",
 ]
+
+# %%
 
 # %%
 
@@ -96,6 +104,8 @@ test_queries = [
 # %%
 def keyword_search(query, texts):
     return [t for t in texts if query.lower() in t.lower()]
+
+# %%
 
 # %%
 comparison_queries = [

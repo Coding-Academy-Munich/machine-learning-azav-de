@@ -13087,7 +13087,7 @@ div#notebook {
 <main>
 <div class="border-box-sizing" id="notebook" tabindex="-1">
 <div class="container" id="notebook-container">
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=cc5b14270aaf9423"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=60334d4b88111fce"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><img alt="Python Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRw
@@ -13137,7 +13137,7 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 " style="display:block;margin:auto;width:10%"/>
 <br/></p>
 <div style="text-align:center; font-size:200%;">
-<b>RAG mit LangChain implementieren</b>
+<b>Workshop: Vektor-Datenbanken</b>
 </div>
 <br>
 <div style="text-align:center;">Dr. Matthias Hölzl</div>
@@ -13147,43 +13147,38 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </br></div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=74ab4818b5eedef9"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=e9c931b3c2c47936"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Was-wir-bis-jetzt-haben">Was wir bis jetzt haben<a class="anchor-link" href="#Was-wir-bis-jetzt-haben">¶</a></h2><ul>
-<li>✅ LLMs nutzen mit LangChain</li>
-<li>✅ Text bereinigen und in Chunks aufteilen</li>
-<li>✅ Embeddings erstellen (Kosinus-Ähnlichkeit)</li>
-<li>✅ Qdrant für Vektor-Speicherung + <strong>Hybrid Search</strong></li>
-</ul>
-<p><strong>Jetzt</strong>: Alles zusammenbauen zu einem RAG-System!</p>
+<h2 id="Workshop:-Vektor-Datenbanken">Workshop: Vektor-Datenbanken<a class="anchor-link" href="#Workshop:-Vektor-Datenbanken">¶</a></h2><p>In diesem Workshop üben Sie:</p>
+<ol>
+<li>Einen Vektor-Store mit eigenen Dokumenten erstellen</li>
+<li>Distanz-Scores interpretieren und irrelevante Anfragen filtern</li>
+<li>Einen Hybrid-Vektor-Store erstellen und vergleichen</li>
+</ol>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7366c7bea0d9fb2a">
+<div class="cell border-box-sizing code_cell rendered celltag_keep celltag_subslide" id="cell-id=e6739d4d6efa2c6d">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>qdrant-client<span class="w"> </span>langchain-qdrant
+<div class="highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip<span class="w"> </span>install<span class="w"> </span>--root-user-action<span class="o">=</span>ignore<span class="w"> </span>--quiet<span class="w"> </span>qdrant-client<span class="w"> </span>langchain-qdrant
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=0a01d366adef6381">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=7d68feb72fc21ce3">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">dotenv</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_dotenv</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatOpenAI</span><span class="p">,</span> <span class="n">OpenAIEmbeddings</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">langchain_qdrant</span><span class="w"> </span><span class="kn">import</span> <span class="n">QdrantVectorStore</span><span class="p">,</span> <span class="n">FastEmbedSparse</span><span class="p">,</span> <span class="n">RetrievalMode</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.documents</span><span class="w"> </span><span class="kn">import</span> <span class="n">Document</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.prompts</span><span class="w"> </span><span class="kn">import</span> <span class="n">ChatPromptTemplate</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.runnables</span><span class="w"> </span><span class="kn">import</span> <span class="n">RunnablePassthrough</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_core.output_parsers</span><span class="w"> </span><span class="kn">import</span> <span class="n">StrOutputParser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">langchain_openai</span><span class="w"> </span><span class="kn">import</span> <span class="n">OpenAIEmbeddings</span>
 </pre></div>
 </div>
 </div>
@@ -13200,85 +13195,31 @@ ZS1kYXNoYXJyYXk6bm9uZTtzdHJva2Utb3BhY2l0eToxIi8+PC9zdmc+
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=da868cbfa864d3bc"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="RAG-Pipeline-%C3%9Cbersicht">RAG-Pipeline Übersicht<a class="anchor-link" href="#RAG-Pipeline-%C3%9Cbersicht">¶</a></h2><p><strong>Einmalig (Setup)</strong>:</p>
-<ol>
-<li>Dokumente laden</li>
-<li>Text bereinigen und in Chunks aufteilen</li>
-<li>In Qdrant speichern (mit Hybrid Search)</li>
-</ol>
-<p><strong>Bei jeder Anfrage</strong>:
-4. Anfrage embedden
-5. Ähnlichste Chunks finden (Retrieval)
-6. Als Kontext an LLM geben (Augmentation)
-7. Antwort generieren (Generation)</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=99376cbe29becedd"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Schritt-1:-Dokumente-laden-und-chunken">Schritt 1: Dokumente laden und chunken<a class="anchor-link" href="#Schritt-1:-Dokumente-laden-und-chunken">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=139546046e6ec804">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=8e1740eb57594f9c">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">docs_content</span> <span class="o">=</span> <span class="p">[</span>
-<span class="w">    </span><span class="sd">"""Linear Regression ist eine Methode des überwachten Lernens.</span>
-<span class="sd">    Sie modelliert lineare Beziehungen zwischen Features und Zielvariable.</span>
-<span class="sd">    Die Normalgleichung kann verwendet werden, um optimale Parameter zu finden."""</span><span class="p">,</span>
-
-<span class="w">    </span><span class="sd">"""Neural Networks bestehen aus Schichten von Neuronen.</span>
-<span class="sd">    Jedes Neuron berechnet eine gewichtete Summe und wendet eine Aktivierungsfunktion an.</span>
-<span class="sd">    Training erfolgt durch Backpropagation und Gradient Descent."""</span><span class="p">,</span>
-
-<span class="w">    </span><span class="sd">"""Overfitting tritt auf, wenn ein Modell die Trainingsdaten auswendig lernt.</span>
-<span class="sd">    Regularisierung und Cross-Validation helfen, Overfitting zu vermeiden.</span>
-<span class="sd">    Ein gutes Modell generalisiert auf neue, ungesehene Daten."""</span><span class="p">,</span>
-
-<span class="w">    </span><span class="sd">"""Large Language Models sind sehr große neuronale Netze.</span>
-<span class="sd">    Sie werden auf Milliarden von Wörtern trainiert.</span>
-<span class="sd">    RAG hilft LLMs, präziser mit spezifischem Wissen zu antworten."""</span>
-<span class="p">]</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">embeddings</span> <span class="o">=</span> <span class="n">OpenAIEmbeddings</span><span class="p">(</span>
+    <span class="n">api_key</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"OPENROUTER_API_KEY"</span><span class="p">),</span>
+    <span class="n">base_url</span><span class="o">=</span><span class="s2">"https://openrouter.ai/api/v1"</span><span class="p">,</span>
+    <span class="n">model</span><span class="o">=</span><span class="s2">"openai/text-embedding-3-small"</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=325502390a5f4926">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">documents</span> <span class="o">=</span> <span class="p">[</span><span class="n">Document</span><span class="p">(</span><span class="n">page_content</span><span class="o">=</span><span class="n">doc</span><span class="p">)</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs_content</span><span class="p">]</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=58c82c80a62ff8d6"><div class="prompt input_prompt">
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=663e0bf1bb90b22b"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Unsere Beispiel-Dokumente sind kurz genug, dass wir sie nicht aufteilen müssen.
-In einer echten Anwendung würden wir <code>RecursiveCharacterTextSplitter</code> verwenden,
-wie in der Lektion zu Text Processing gelernt.</p>
+<h2 id="Aufgabe-1:-Eigene-Dokumente">Aufgabe 1: Eigene Dokumente<a class="anchor-link" href="#Aufgabe-1:-Eigene-Dokumente">¶</a></h2><p>Erstellen Sie einen Vektor-Store mit mindestens 5 Dokumenten zu einem Thema
+Ihrer Wahl (z.B. Kochen, Sport, Geschichte, Musik...).
+Testen Sie die semantische Suche mit 2-3 verschiedenen Anfragen.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=4047bbc11339862d"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Anzahl Dokumente:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=fff63f390ef069e7">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=c88a8851c9b236e9">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13289,10 +13230,65 @@ wie in der Lektion zu Text Processing gelernt.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=04de3af11e057677"><div class="prompt input_prompt">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=46d51ac101afaf18">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=b6529f59c5281b66"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Schritt-2:-Vektor-Store-erstellen">Schritt 2: Vektor-Store erstellen<a class="anchor-link" href="#Schritt-2:-Vektor-Store-erstellen">¶</a></h2>
+<h2 id="Aufgabe-2:-Distanz-Scores-und-Filterung">Aufgabe 2: Distanz-Scores und Filterung<a class="anchor-link" href="#Aufgabe-2:-Distanz-Scores-und-Filterung">¶</a></h2><p>Testen Sie eine irrelevante Anfrage und vergleichen Sie die Distanz-Scores
+mit einer relevanten Anfrage. Implementieren Sie eine Filterung nach
+Distanz-Schwellenwert.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=9e444beafe708992">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=87dd2a04d159eb0f">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">threshold</span> <span class="o">=</span> <span class="mf">0.5</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=68091614c8e53699">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class="highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=85a1c42d9f853302"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Aufgabe-3:-Hybride-Suche">Aufgabe 3: Hybride Suche<a class="anchor-link" href="#Aufgabe-3:-Hybride-Suche">¶</a></h2><p>Erstellen Sie einen Hybrid-Vektor-Store mit denselben Dokumenten.
+Vergleichen Sie die Ergebnisse der semantischen Suche mit der hybriden Suche
+für eine Anfrage, die einen spezifischen Begriff enthält.</p>
 </div>
 </div>
 </div>
@@ -13307,15 +13303,7 @@ wie in der Lektion zu Text Processing gelernt.</p>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=40c6842fc115438c"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Erstellen Sie die Embeddings und den Qdrant Vektor-Store aus den Dokumenten.
-Verwenden Sie <code>RetrievalMode.HYBRID</code> mit <code>sparse_embeddings</code> für Hybrid Search.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=8e1740eb57594f9c">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=031d44fb281b25f6">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
@@ -13326,177 +13314,18 @@ Verwenden Sie <code>RetrievalMode.HYBRID</code> mit <code>sparse_embeddings</cod
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=0665aafc03c7f326">
+<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=59a8a25224ef096f">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">query</span> <span class="o">=</span> <span class="s2">"K2"</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=5d2576d7b0560ad6"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Schritt-3:-Retriever-erstellen">Schritt 3: Retriever erstellen<a class="anchor-link" href="#Schritt-3:-Retriever-erstellen">¶</a></h2><ul>
-<li>Der <strong>Retriever</strong> durchsucht den Vektor-Store</li>
-<li>Gibt die <code>k</code> ähnlichsten Dokumente zurück</li>
-<li>Wird aus dem Vektor-Store erstellt</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=07499f19be6de9f2"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Erstellen Sie einen Retriever aus dem Vektor-Store mit <code>as_retriever()</code>.</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=c1f49db6d59bf043">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_subslide" id="cell-id=75f16cd86260e5d6"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Retriever-testen">Retriever testen<a class="anchor-link" href="#Retriever-testen">¶</a></h2>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=1f53866edb8e704c">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=544c500f0fdd9f3d">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=ca972982bc0bcbc2"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Schritt-4:-RAG-Chain-%E2%80%94-Warum-format_docs?">Schritt 4: RAG Chain — Warum format_docs?<a class="anchor-link" href="#Schritt-4:-RAG-Chain-%E2%80%94-Warum-format_docs?">¶</a></h2><ul>
-<li>Der Retriever gibt <strong>Document-Objekte</strong> zurück</li>
-<li>Das LLM braucht aber <strong>normalen Text</strong></li>
-<li><code>format_docs</code> verbindet alle Dokumente zu einem Text</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered celltag_keep" id="cell-id=b6d1eca762be3056">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">format_docs</span><span class="p">(</span><span class="n">docs</span><span class="p">):</span>
-    <span class="k">return</span> <span class="s2">"</span><span class="se">\n\n</span><span class="s2">"</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">doc</span><span class="o">.</span><span class="n">page_content</span> <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">docs</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=a3bac833021b10ac">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=9c181dabcbfc01bf"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Vor <code>format_docs</code>:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=fa9e2d0fe583b2e8">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=8906f316d075f330"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Nach <code>format_docs</code>:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2fc565bfdfd87ba8">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered celltag_slide" id="cell-id=386da27b15038de7"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Schritt-4a:-Retrieval-+-Formatierung">Schritt 4a: Retrieval + Formatierung<a class="anchor-link" href="#Schritt-4a:-Retrieval-+-Formatierung">¶</a></h2><p>Mit LCEL (LangChain Expression Language) können wir Schritte verketten:</p>
-<pre><code>retriever | format_docs
-</code></pre>
-<ul>
-<li><code>|</code> bedeutet: "Output von links wird Input von rechts"</li>
-<li>Frage → Retriever → Dokumente → format_docs → Text</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=2929c48914294c54">
-<div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered" id="cell-id=67a8820aa53e2f55"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Kontext-Text:</p>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered" id="cell-id=7a421be014ab0573">
+<div class="cell border-box-sizing code_cell rendered" id="cell-id=57dd77d240347ae0">
 <div class="input">
 <div class="prompt input_prompt">In [ ]:</div>
 <div class="inner_cell">
