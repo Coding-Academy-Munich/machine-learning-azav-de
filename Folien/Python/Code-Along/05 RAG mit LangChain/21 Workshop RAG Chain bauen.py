@@ -21,7 +21,7 @@
 # 3. Retrieval-Parameter anpassen und vergleichen
 
 # %%
-# !pip install --root-user-action=ignore --quiet qdrant-client langchain-qdrant
+# !pip install --root-user-action=ignore --quiet qdrant-client langchain-qdrant langfuse
 
 # %%
 import os
@@ -36,6 +36,13 @@ from langchain_core.output_parsers import StrOutputParser
 
 # %%
 load_dotenv()
+
+# %%
+from langfuse import get_client
+from langfuse.langchain import CallbackHandler
+
+langfuse = get_client()
+langfuse_handler = CallbackHandler()
 
 # %%
 embeddings = OpenAIEmbeddings(
